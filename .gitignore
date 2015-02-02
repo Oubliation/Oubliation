@@ -1,9 +1,11 @@
 *.class
 
+#whitespace libraries
+!gwt-servlet.jar
+
 # Package Files #
 *.jar
 *.war
-!gwt-servlet.jar
 
 # gwt caches and compiled units #
 war/gwt_bree/
