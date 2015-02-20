@@ -16,7 +16,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-
 public class Oubliation implements EntryPoint {
 
 	private double[] perspectiveTransform(double xDist, double yDist, double depth) {
