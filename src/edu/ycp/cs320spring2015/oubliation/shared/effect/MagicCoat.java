@@ -1,4 +1,4 @@
-package com.cs320spring2015.oubliation.shared.effect;
+package edu.ycp.cs320spring2015.oubliation.shared.effect;
 
 public class MagicCoat implements UsableItem, Equipment {
 	final Item transformTo = this;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cs320spring2015.oubliation.client;
+package edu.ycp.cs320spring2015.oubliation.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
