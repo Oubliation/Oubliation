@@ -1,20 +1,14 @@
 package edu.ycp.cs320spring2015.oubliation.shared.effect;
 
-public class MagicCoat implements UsableItem, Equipment {
+public class MagicCoat implements UsableItem<Item>, Equipment {
 	final Item transformTo = this;
 
 	@Override
-	public Item apply(Object... args) {
+	public void apply(Item args) {
 		// TODO Auto-generated method stub
-		int count = applyToItem(args);
-		if (count > 0) {
-			return new MagicCoat();
-		} else {
-			return null;
-		}
 	}
 	
-	private int applyToItem(Object target) {
+	private int applyToItem(Object arg) {
 		return Item.price;
 	}
 }
