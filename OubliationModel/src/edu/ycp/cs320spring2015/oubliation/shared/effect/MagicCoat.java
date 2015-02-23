@@ -8,7 +8,11 @@ public class MagicCoat implements UsableItem<Item>, Equipment {
 		// TODO Auto-generated method stub
 	}
 	
-	private int applyToItem(Object arg) {
-		return Item.price;
+	private int applyToItem(Item arg) {
+		return arg.getPrice();
+	}
+	
+	public int getPrice() {
+		return 20;
 	}
 }
