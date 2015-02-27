@@ -11,13 +11,13 @@ public class SpellSchool implements Category {
 		return spells[spellLevel].subList(0, expLevel);
 	}
 	
-	public List<Integer> getAllSpells(int expLevel) {
+	public Integer[] getAllSpells(int expLevel) {
 		LinkedList<Integer> spellList = new LinkedList<Integer>();
 		for (ArrayList<Integer> spellLv : spells) {
 			List<Integer> spellSublist = spellLv.subList(0, expLevel);
 			spellList.addAll(spellSublist);
 		}
-		return spellList;
+		return spellList.toArray(new Integer[spellList.size()]);
 	}
 	
 }

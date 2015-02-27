@@ -1,5 +1,9 @@
 package edu.ycp.cs320spring2015.oubliation.shared.effect;
 
-public interface Item {
-	public int getPrice();
+public class Item {
+	private int price;
+	
+	public int getPrice() {
+		return price;
+	}
 }
