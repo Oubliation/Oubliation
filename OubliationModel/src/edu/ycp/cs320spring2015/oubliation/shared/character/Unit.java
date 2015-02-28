@@ -3,13 +3,13 @@ package edu.ycp.cs320spring2015.oubliation.shared.character;
 import java.util.ArrayList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.effect.*;
+import edu.ycp.cs320spring2015.shared.category.Entity;
 
-public abstract class Unit {
+public abstract class Unit implements Entity {
 	//TODO: background, class, species
 	
 	private int hp;
 	
-	protected Effect[] abilities;
 	protected Helmet helmet;
 	protected Suit suit;
 	protected Shield shield;

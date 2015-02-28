@@ -51,7 +51,7 @@ public class Profile {
 		assert haveUnit;
 	}
 
-	public void addItem(Item item) {
+	public void createItem(Item item) {
 		inventory.add(item);
 	}
 	public void destroyItem(Item item) {
@@ -59,13 +59,17 @@ public class Profile {
 		assert hadItem;
 	}
 	
-	public void equipUnit(PlayerUnit unit, Equipment equipment) {
+	public void fieldEquipUnit(PlayerUnit unit, Equipment equipment) {
 		boolean haveEquipment = inventory.remove(equipment);
-		unit.equip(equipment);
+		unit.fieldEquip(equipment);
 		assert haveEquipment;
 	}
-	public void unequipUnit(PlayerUnit unit, Equipment equipment) {
-		unit.unequip(equipment);
+	public void fieldUnequipUnit(PlayerUnit unit, Equipment equipment) {
+		unit.fieldUnequip(equipment);
+		inventory.add(equipment);
+	}
+	public void battleUnequipUnit(PlayerUnit unit, Equipment equipment) {
+		unit.battleUnequip(equipment);
 		inventory.add(equipment);
 	}
 	
