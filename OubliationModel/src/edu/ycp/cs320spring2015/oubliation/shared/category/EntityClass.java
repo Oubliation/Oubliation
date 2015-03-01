@@ -1,12 +1,10 @@
-package edu.ycp.cs320spring2015.shared.category;
+package edu.ycp.cs320spring2015.oubliation.shared.category;
 
-public abstract class CategoryClass implements Category {
-	
+public abstract class EntityClass implements Entity {
 	final private String name;
 	final private String description;
 	
-
-	public CategoryClass(String name, String description) {
+	public EntityClass(String name, String description) {
 		this.name = name;
 		this.description = description;
 	}

@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.shared.category;
+package edu.ycp.cs320spring2015.oubliation.shared.category;
 
 import java.util.Collections;
 import java.util.EnumMap;

@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.shared.category;
+package edu.ycp.cs320spring2015.oubliation.shared.category;
 
 public class Job extends CategoryClass {
 

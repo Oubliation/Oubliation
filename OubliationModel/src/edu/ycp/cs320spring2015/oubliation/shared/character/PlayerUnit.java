@@ -3,20 +3,21 @@ package edu.ycp.cs320spring2015.oubliation.shared.character;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerBackground;
+import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerJob;
+import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerSpecies;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Helmet;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
-import edu.ycp.cs320spring2015.shared.category.PlayerBackground;
-import edu.ycp.cs320spring2015.shared.category.PlayerJob;
-import edu.ycp.cs320spring2015.shared.category.PlayerSpecies;
 
-public class PlayerUnit extends Unit {
+final public class PlayerUnit extends Unit {
 	
-	private PlayerBackground background;
-	private PlayerSpecies species;
-	private PlayerJob job;
+	final private PlayerBackground background;
+	final private PlayerSpecies species;
+	final private PlayerJob job;
 	
 	private int witchMp[];
 	private int priestMp[];
@@ -25,10 +26,34 @@ public class PlayerUnit extends Unit {
 	private ArrayList<Utility> utilityQueue;
 	private int experience;
 	
+	public PlayerUnit(String name, String description, Helmet helmet,
+			Suit suit, Shield shield, Weapon hand,
+			ArrayList<Utility> utilityBelt, PlayerBackground background,
+			PlayerSpecies species, PlayerJob job, int[] witchMp,
+			int[] priestMp, LinkedList<Equipment> battleEquipQueue,
+			ArrayList<Utility> utilityQueue, int experience) {
+		super(name, description, helmet, suit, shield, hand, utilityBelt);
+		this.background = background;
+		this.species = species;
+		this.job = job;
+		this.witchMp = witchMp;
+		this.priestMp = priestMp;
+		this.battleEquipQueue = battleEquipQueue;
+		this.utilityQueue = utilityQueue;
+		this.experience = experience;
+	}
+
 	public int getWitchMp(int level) {
 		return witchMp[level];
 	}
 	public int getPriestMp(int level) {
+		return priestMp[level];
+	}
+	
+	public int getMaxWitchMp(int level) {
+		return witchMp[level];
+	}
+	public int getMaxPriestMp(int level) {
 		return priestMp[level];
 	}
 

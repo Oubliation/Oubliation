@@ -6,29 +6,13 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 
 public class Profile {
-	final int partySize = 6;
+	final int maxPartySize = 6;
 			
 	private int money = 0;
 	private ArrayList<Item> inventory;
 	private ArrayList<PlayerUnit> party;
 	private ArrayList<PlayerUnit> roster;
 	//TODO: profile
-	
-	private int floor = 0;
-	private int xPos;
-	private int yPos;
-	private int facing;
-	
-	public void setPosition(int x, int y) {
-		xPos = x;
-		yPos = y;
-	}
-	public void ascend() {
-		floor += 1;
-	}
-	public void decend() {
-		floor -= 1;
-	}
 
 	public void createUnit(PlayerUnit unit) {
 		roster.add(unit);
@@ -42,7 +26,7 @@ public class Profile {
 		boolean haveUnit = roster.remove(unit);
 		party.add(unit);
 		
-		assert haveUnit && party.size()<=partySize;
+		assert haveUnit && party.size()<=maxPartySize;
 	}
 	public void removeUnit(PlayerUnit unit) {
 		boolean haveUnit = party.remove(unit);
@@ -83,9 +67,6 @@ public class Profile {
 		inventory.add(equipment);
 	}
 	
-	public void move() {
-		
-	}
 	public void incMoney(int amount) {
 		money += amount;
 	}
