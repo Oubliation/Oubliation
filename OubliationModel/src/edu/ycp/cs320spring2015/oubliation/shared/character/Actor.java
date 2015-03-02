@@ -9,7 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
-public abstract class Unit extends EntityClass {
+public abstract class Actor extends EntityClass {
 	
 	private int hp;
 	
@@ -20,7 +20,7 @@ public abstract class Unit extends EntityClass {
 	protected ArrayList<Utility> utilityBelt;
 	//TODO: make two hands, hand and shield slots can also hold items
 	
-	public Unit(String name, String description, Helmet helmet, Suit suit,
+	public Actor(String name, String description, int health, Helmet helmet, Suit suit,
 			Shield shield, Weapon hand, ArrayList<Utility> utilityBelt) {
 		super(name, description);
 		this.helmet = helmet;
@@ -30,9 +30,17 @@ public abstract class Unit extends EntityClass {
 		this.utilityBelt = utilityBelt;
 		hp = getMaxHp(); //TODO: what about loading savegames with PCs with less hp than max?
 	}
+	
 	//TODO: public abstract int startTurn();
+	public abstract String getBackgroundName();
+	public abstract String getBackgroundDescription();
+	public abstract String getSpeciesName();
+	public abstract String getSpeciesDescription();
+	public abstract String getJobName();
+	public abstract String getJobDescription();
 	public abstract int getHitCount();
 	public abstract int getMaxHp();
+	
 	
 	public int getAc() {
 		int totalAc = 0;
@@ -44,6 +52,19 @@ public abstract class Unit extends EntityClass {
 	
 	public int getHp() {
 		return hp;
+	}
+	
+	public Helmet getHelmet() {
+		return helmet;
+	}
+	public Suit getSuit() {
+		return suit;
+	}
+	public Shield getShield() {
+		return shield;
+	}
+	public Weapon getHand() {
+		return hand;
 	}
 	
 	public Utility[] getEquippedUtilities() {

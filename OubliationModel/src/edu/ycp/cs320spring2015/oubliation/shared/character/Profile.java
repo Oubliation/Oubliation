@@ -10,27 +10,27 @@ public class Profile {
 			
 	private int money = 0;
 	private ArrayList<Item> inventory;
-	private ArrayList<PlayerUnit> party;
-	private ArrayList<PlayerUnit> roster;
+	private ArrayList<PlayerActor> party;
+	private ArrayList<PlayerActor> roster;
 	//TODO: profile
 
-	public void createUnit(PlayerUnit unit) {
-		roster.add(unit);
+	public void createActor(PlayerActor actor) {
+		roster.add(actor);
 	}
-	public void destroyUnit(PlayerUnit unit) {
-		boolean hadUnit = roster.remove(unit);
+	public void destroyActor(PlayerActor actor) {
+		boolean hadUnit = roster.remove(actor);
 		assert hadUnit;
 	}
 	
-	public void addUnit(PlayerUnit unit) {
-		boolean haveUnit = roster.remove(unit);
-		party.add(unit);
+	public void addActor(PlayerActor actor) {
+		boolean haveUnit = roster.remove(actor);
+		party.add(actor);
 		
 		assert haveUnit && party.size()<=maxPartySize;
 	}
-	public void removeUnit(PlayerUnit unit) {
-		boolean haveUnit = party.remove(unit);
-		roster.add(unit);
+	public void removeActor(PlayerActor actor) {
+		boolean haveUnit = party.remove(actor);
+		roster.add(actor);
 		
 		assert haveUnit;
 	}
@@ -43,27 +43,27 @@ public class Profile {
 		assert hadItem;
 	}
 	
-	public void fieldEquipUnit(PlayerUnit unit, Equipment equipment) {
+	public void fieldEquipActor(PlayerActor actor, Equipment equipment) {
 		boolean haveEquipment = inventory.remove(equipment);
-		unit.fieldEquip(equipment);
+		actor.fieldEquip(equipment);
 		assert haveEquipment;
 	}
-	public void fieldUnequipUnit(PlayerUnit unit, Equipment equipment) {
-		unit.fieldUnequip(equipment);
+	public void fieldUnequipActor(PlayerActor actor, Equipment equipment) {
+		actor.fieldUnequip(equipment);
 		inventory.add(equipment);
 	}
-	public void battleUnequipUnit(PlayerUnit unit, Equipment equipment) {
-		unit.battleUnequip(equipment);
+	public void battleUnequipActor(PlayerActor actor, Equipment equipment) {
+		actor.battleUnequip(equipment);
 		inventory.add(equipment);
 	}
 	
-	public void unitQueueEquipment(PlayerUnit unit, Equipment equipment) {
+	public void actorQueueEquipment(PlayerActor actor, Equipment equipment) {
 		boolean haveEquipment = inventory.remove(equipment);
-		unit.queueEquipment(equipment);
+		actor.queueEquipment(equipment);
 		assert haveEquipment;
 	}
-	public void unitDequeEquipment(PlayerUnit unit, Equipment equipment) {
-		unit.dequeueEquipment(equipment);
+	public void actorDequeEquipment(PlayerActor actor, Equipment equipment) {
+		actor.dequeueEquipment(equipment);
 		inventory.add(equipment);
 	}
 	
@@ -76,5 +76,8 @@ public class Profile {
 	public void decMoney(int amount) {
 		if (money >= amount) { money -= amount; }
 		else { money = 0; }
+	}
+	public int getMoney() {
+		return money;
 	}
 }

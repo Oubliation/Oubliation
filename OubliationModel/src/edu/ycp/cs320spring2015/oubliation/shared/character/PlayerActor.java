@@ -13,12 +13,13 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
-final public class PlayerUnit extends Unit {
+final public class PlayerActor extends Actor {
 	
 	final private PlayerBackground background;
 	final private PlayerSpecies species;
 	final private PlayerJob job;
 	
+	private int level;
 	private int witchMp[];
 	private int priestMp[];
 	
@@ -26,21 +27,46 @@ final public class PlayerUnit extends Unit {
 	private ArrayList<Utility> utilityQueue;
 	private int experience;
 	
-	public PlayerUnit(String name, String description, Helmet helmet,
-			Suit suit, Shield shield, Weapon hand,
-			ArrayList<Utility> utilityBelt, PlayerBackground background,
-			PlayerSpecies species, PlayerJob job, int[] witchMp,
-			int[] priestMp, LinkedList<Equipment> battleEquipQueue,
-			ArrayList<Utility> utilityQueue, int experience) {
-		super(name, description, helmet, suit, shield, hand, utilityBelt);
+	public PlayerActor(String name, String description, int health, Helmet helmet,
+			Suit suit, Shield shield, Weapon hand, ArrayList<Utility> utilityBelt,
+			PlayerBackground background, PlayerSpecies species, PlayerJob job,
+			int level, int[] witchMp, int[] priestMp, ArrayList<Utility> utilityQueue,
+			int experience) {
+		super(name, description, health, helmet, suit, shield, hand, utilityBelt);
 		this.background = background;
 		this.species = species;
 		this.job = job;
+		this.level = level;
 		this.witchMp = witchMp;
 		this.priestMp = priestMp;
-		this.battleEquipQueue = battleEquipQueue;
 		this.utilityQueue = utilityQueue;
 		this.experience = experience;
+	}
+	
+	public void updateLevel() {
+		level = job.getLevel(experience);
+	}
+	public int getLevel() {
+		return level;
+	}
+	
+	public String getBackgroundName() {
+		return background.getName();
+	}
+	public String getBackgroundDescription() {
+		return background.getDescription();
+	}
+	public String getSpeciesName() {
+		return species.getName();
+	}
+	public String getSpeciesDescription() {
+		return species.getDescription();
+	}
+	public String getJobName() {
+		return job.getName();
+	}
+	public String getJobDescription() {
+		return job.getDescription();
 	}
 
 	public int getWitchMp(int level) {
@@ -131,10 +157,6 @@ final public class PlayerUnit extends Unit {
 		return baseAmount+gainAmount;
 	}
 	
-	public int getLevel() {
-		return job.getLevel(experience);
-	}
-	
 	public int getHitCount() {
 		int level = getLevel();
 		return job.getHitCount(level);
@@ -151,5 +173,8 @@ final public class PlayerUnit extends Unit {
 	
 	public void incExperience(int amount) {
 		experience += amount;
+	}
+	public int getExperience() {
+		return experience;
 	}
 }
