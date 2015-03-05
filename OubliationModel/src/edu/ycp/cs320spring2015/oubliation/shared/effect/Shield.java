@@ -3,12 +3,13 @@ package edu.ycp.cs320spring2015.oubliation.shared.effect;
 import java.util.TreeSet;
 
 import edu.ycp.cs320spring2015.oubliation.shared.category.Job;
+import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 
 public class Shield extends Armor {
 
-	public Shield(String name, String description, int price,
+	public Shield(NameTag nameTag, int price,
 			TreeSet<Job> equippableBy, int ac) {
-		super(name, description, price, equippableBy, ac);
+		super(nameTag, price, equippableBy, ac);
 		// TODO Auto-generated constructor stub
 	}
 

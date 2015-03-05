@@ -3,6 +3,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.character;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerSpecies;
@@ -27,12 +28,11 @@ final public class PlayerActor extends Actor {
 	private ArrayList<Utility> utilityQueue;
 	private int experience;
 	
-	public PlayerActor(String name, String description, int health, Helmet helmet,
-			Suit suit, Shield shield, Weapon hand, ArrayList<Utility> utilityBelt,
+	public PlayerActor(NameTag nameTag, int health, Loadout loadout,
 			PlayerBackground background, PlayerSpecies species, PlayerJob job,
 			int level, int[] witchMp, int[] priestMp, ArrayList<Utility> utilityQueue,
 			int experience) {
-		super(name, description, health, helmet, suit, shield, hand, utilityBelt);
+		super(nameTag, health, loadout);
 		this.background = background;
 		this.species = species;
 		this.job = job;

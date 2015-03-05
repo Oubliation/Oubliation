@@ -1,54 +1,38 @@
 package edu.ycp.cs320spring2015.oubliation.shared.character;
 
-import java.util.ArrayList;
-
-import edu.ycp.cs320spring2015.oubliation.shared.category.Background;
-import edu.ycp.cs320spring2015.oubliation.shared.category.Job;
-import edu.ycp.cs320spring2015.oubliation.shared.category.Species;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Helmet;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 
 public abstract class NonPlayerActor extends Actor {
 
-	final private Background background;
-	final private Species species;
-	final private Job job;
+	final private Identity identity;
 	
 	private int maxHp = 0;
 	private int hitCount = 0;
 	
-	public NonPlayerActor(String name, String description, int health, Helmet helmet,
-			Suit suit, Shield shield, Weapon hand,
-			ArrayList<Utility> utilityBelt, Background background,
-			Species species, Job job, int maxHp, int hitCount) {
-		super(name, description, health, helmet, suit, shield, hand, utilityBelt);
-		this.background = background;
-		this.species = species;
-		this.job = job;
+	public NonPlayerActor(NameTag nameTag, int health, Loadout loadout, Identity identity, int maxHp, int hitCount) {
+		super(nameTag, health, loadout);
+		this.identity = identity;
 		this.maxHp = maxHp;
 		this.hitCount = hitCount;
 	}
 	
 	public String getBackgroundName() {
-		return background.getName();
+		return identity.getBackgroundName();
 	}
 	public String getBackgroundDescription() {
-		return background.getDescription();
+		return identity.getBackgroundDescription();
 	}
 	public String getSpeciesName() {
-		return species.getName();
+		return identity.getSpeciesName();
 	}
 	public String getSpeciesDescription() {
-		return species.getDescription();
+		return identity.getSpeciesDescription();
 	}
 	public String getJobName() {
-		return job.getName();
+		return identity.getJobName();
 	}
 	public String getJobDescription() {
-		return job.getDescription();
+		return identity.getJobDescription();
 	}
 
 	public int getMaxHp() {

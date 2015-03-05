@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.category.Background;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Job;
+import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Species;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Helmet;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
@@ -17,13 +18,11 @@ public class EnemyActor extends NonPlayerActor {
 	private int moneyGiven;
 	private ArrayList<Item> itemsGiven;
 	
-	public EnemyActor(String name, String description, int health, Helmet helmet, Suit suit,
-			Shield shield, Weapon hand, ArrayList<Utility> utilityBelt,
-			Background background, Species species, Job job, int maxHp,
+	public EnemyActor(NameTag nameTag, int health, Loadout loadout,
+			Identity identity, int maxHp,
 			int hitCount, int experienceGiven, int moneyGiven,
 			ArrayList<Item> itemsGiven) {
-		super(name, description, health, helmet, suit, shield, hand, utilityBelt,
-				background, species, job, maxHp, hitCount);
+		super(nameTag, health, loadout, identity, maxHp, hitCount);
 		this.experienceGiven = experienceGiven;
 		this.moneyGiven = moneyGiven;
 		this.itemsGiven = itemsGiven;
@@ -36,7 +35,7 @@ public class EnemyActor extends NonPlayerActor {
 	}
 	public Item[] getItemsGiven() {
 		ArrayList<Item> allItemsGiven = new ArrayList<Item>(itemsGiven);
-		allItemsGiven.addAll(utilityBelt);
+		allItemsGiven.addAll(loadout.getEquippedUtilities());
 		return allItemsGiven.toArray(new Item[allItemsGiven.size()]);
 	}
 }

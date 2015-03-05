@@ -1,8 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.shared.character;
 
-import java.util.ArrayList;
-
 import edu.ycp.cs320spring2015.oubliation.shared.category.EntityClass;
+import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Helmet;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
@@ -13,21 +12,12 @@ public abstract class Actor extends EntityClass {
 	
 	private int hp;
 	
-	protected Helmet helmet;
-	protected Suit suit;
-	protected Shield shield;
-	protected Weapon hand; 
-	protected ArrayList<Utility> utilityBelt;
+	protected Loadout loadout;
 	//TODO: make two hands, hand and shield slots can also hold items
 	
-	public Actor(String name, String description, int health, Helmet helmet, Suit suit,
-			Shield shield, Weapon hand, ArrayList<Utility> utilityBelt) {
-		super(name, description);
-		this.helmet = helmet;
-		this.suit = suit;
-		this.shield = shield;
-		this.hand = hand;
-		this.utilityBelt = utilityBelt;
+	public Actor(NameTag nameTag, int health, Loadout loadout) {
+		super(nameTag);
+		this.loadout = loadout;
 		hp = getMaxHp(); //TODO: what about loading savegames with PCs with less hp than max?
 	}
 	
@@ -43,11 +33,7 @@ public abstract class Actor extends EntityClass {
 	
 	
 	public int getAc() {
-		int totalAc = 0;
-		if (helmet != null) { totalAc += helmet.getAc(); }
-		if (suit != null) { totalAc += suit.getAc(); }
-		if (shield != null) { totalAc += shield.getAc(); }
-		return totalAc;
+		return loadout.getAc();
 	}
 	
 	public int getHp() {
@@ -55,20 +41,20 @@ public abstract class Actor extends EntityClass {
 	}
 	
 	public Helmet getHelmet() {
-		return helmet;
+		return loadout.getHelmet();
 	}
 	public Suit getSuit() {
-		return suit;
+		return loadout.getSuit();
 	}
 	public Shield getShield() {
-		return shield;
+		return loadout.getShield();
 	}
 	public Weapon getHand() {
-		return hand;
+		return loadout.getHand();
 	}
 	
 	public Utility[] getEquippedUtilities() {
-		return utilityBelt.toArray(new Utility[utilityBelt.size()]);
+		return loadout.getEquippedUtilities();
 	}
 	
 	public boolean hitTest(int accuracy) {

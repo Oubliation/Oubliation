@@ -18,11 +18,11 @@ public class PlayerJob extends Job {
 	
 	//TODO: implement spell schools
 	
-	public PlayerJob(String name, String description,
+	public PlayerJob(NameTag nameTag,
 			EnumMap<BruceScore, Integer> requiredScores, int[] expChart,
 			int extraLvExp, int hitCountGainLv, int baseMaxHp, int maxHpGain,
 			int utilitySlotCount) {
-		super(name, description);
+		super(nameTag);
 		this.requiredScores = Collections.unmodifiableMap(requiredScores);
 		this.expChart = expChart;
 		this.extraLvExp = extraLvExp;

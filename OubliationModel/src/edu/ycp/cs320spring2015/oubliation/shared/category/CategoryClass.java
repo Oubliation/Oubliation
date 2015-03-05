@@ -2,21 +2,18 @@ package edu.ycp.cs320spring2015.oubliation.shared.category;
 
 public abstract class CategoryClass implements Category {
 	
-	final private String name;
-	final private String description;
-	
+	final private NameTag nameTag;
 
-	public CategoryClass(String name, String description) {
-		this.name = name;
-		this.description = description;
+	public CategoryClass(NameTag nameTag) {
+		this.nameTag = nameTag;
 	}
 	
 	public String getName() {
-		return name;
+		return nameTag.getName();
 	}
 
 	public String getDescription() {
-		return description;
+		return nameTag.getDescription();
 	}
 
 }

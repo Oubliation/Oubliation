@@ -13,11 +13,11 @@ public class PlayerBackground extends Background {
 	final private PlayerBackground rivalBackground;
 	final private NavigableSet<PlayerJob> jobBlacklist;
 	
-	public PlayerBackground(String name, String description,
+	public PlayerBackground(NameTag nameTag,
 			EnumMap<BruceScore, Double> bruceGainRate,
 			PlayerBackground rivalBackground,
 			TreeSet<PlayerJob> jobBlacklist) {
-		super(name, description);
+		super(nameTag);
 		this.bruceGainRate = Collections.unmodifiableMap(bruceGainRate);
 		this.rivalBackground = rivalBackground;
 		this.jobBlacklist = Collections.unmodifiableNavigableSet(jobBlacklist);

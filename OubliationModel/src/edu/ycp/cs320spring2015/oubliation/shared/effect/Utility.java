@@ -3,13 +3,14 @@ package edu.ycp.cs320spring2015.oubliation.shared.effect;
 import java.util.TreeSet;
 
 import edu.ycp.cs320spring2015.oubliation.shared.category.Job;
+import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 
 public class Utility extends Equipment {
 	private Effect<?> effect;
 	
-	public Utility(String name, String description, int price,
+	public Utility(NameTag nameTag, int price,
 			TreeSet<Job> equippableBy, Effect<?> effect) {
-		super(name, description, price, equippableBy);
+		super(nameTag, price, equippableBy);
 		this.effect = effect;
 	}
 

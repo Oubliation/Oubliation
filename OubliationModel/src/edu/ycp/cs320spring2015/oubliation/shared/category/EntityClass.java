@@ -1,20 +1,18 @@
 package edu.ycp.cs320spring2015.oubliation.shared.category;
 
 public abstract class EntityClass implements Entity {
-	final private String name;
-	final private String description;
-	
-	public EntityClass(String name, String description) {
-		this.name = name;
-		this.description = description;
+	final private NameTag nameTag;
+
+	public EntityClass(NameTag nameTag) {
+		this.nameTag = nameTag;
 	}
 	
 	public String getName() {
-		return name;
+		return nameTag.getName();
 	}
 
 	public String getDescription() {
-		return description;
+		return nameTag.getDescription();
 	}
 
 }

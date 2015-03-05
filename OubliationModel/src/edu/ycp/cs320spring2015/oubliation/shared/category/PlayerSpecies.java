@@ -9,9 +9,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.character.BruceScore;
 public abstract class PlayerSpecies extends Species {
 	final private Map<BruceScore, Integer> baseScores;
 
-	public PlayerSpecies(String name, String description,
+	public PlayerSpecies(NameTag nameTag,
 			EnumMap<BruceScore, Integer> baseScores) {
-		super(name, description);
+		super(nameTag);
 		this.baseScores = Collections.unmodifiableMap(baseScores);
 	}
 

@@ -8,8 +8,8 @@ import java.util.List;
 public class SpellSchool extends CategoryClass {
 	final List<List<Integer>> spells;
 	
-	public SpellSchool(String name, String description, int[][] spells) {
-		super(name, description);
+	public SpellSchool(NameTag nameTag, int[][] spells) {
+		super(nameTag);
 		ArrayList<List<Integer>> spellsArray = new ArrayList<List<Integer>>();
 		for (int[] spellLevel : spells) {
 			ArrayList<Integer> spellLevelArray = new ArrayList<Integer>();
