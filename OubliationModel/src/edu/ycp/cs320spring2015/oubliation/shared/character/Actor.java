@@ -12,7 +12,7 @@ public abstract class Actor extends EntityClass {
 	
 	private int hp;
 	
-	protected Loadout loadout;
+	private Loadout loadout;
 	//TODO: make two hands, hand and shield slots can also hold items
 	
 	public Actor(NameTag nameTag, int health, Loadout loadout) {
@@ -40,6 +40,9 @@ public abstract class Actor extends EntityClass {
 		return hp;
 	}
 	
+	protected Loadout getLoadout() {
+		return loadout;
+	}
 	public Helmet getHelmet() {
 		return loadout.getHelmet();
 	}

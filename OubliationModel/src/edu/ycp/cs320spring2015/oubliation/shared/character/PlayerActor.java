@@ -8,11 +8,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerSpecies;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Helmet;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
 final public class PlayerActor extends Actor {
 	
@@ -82,36 +78,22 @@ final public class PlayerActor extends Actor {
 	public int getMaxPriestMp(int level) {
 		return priestMp[level];
 	}
-
-	public void fieldEquip(Helmet equipment) {
-		assert helmet == null;
-		helmet = equipment;
-	}
-	public void fieldEquip(Suit equipment) {
-		assert suit == null;
-		suit = equipment;
-	}
-	public void fieldEquip(Weapon equipment) {
-		assert hand == null;
-		hand = equipment;
-	}
+	
+	
 	public void fieldEquip(Utility equipment) {
 		utilityQueue.add(equipment);
 		assert utilityQueue.size() <= job.getUtilitySlotCount();
 	}
 	public void fieldEquip(Equipment equipment) {
-		throw new UnsupportedOperationException();
-	}
-	public void battleEquip(Utility equipment) {
-		utilityBelt.add(equipment);
-		assert utilityBelt.size() <= job.getUtilitySlotCount();
+		getLoadout().fieldEquip(equipment);
 	}
 	public void battleEquip(Equipment equipment) {
-		fieldEquip(equipment);
+		getLoadout().battleEquip(equipment);
 	}
 	
+	
 	public void advanceBattleQueue() {
-		battleEquip(battleEquipQueue.pop());
+		getLoadout().battleEquip(battleEquipQueue.pop());
 	}
 	public void queueEquipment(Equipment equipment) {
 		battleEquipQueue.add(equipment);
@@ -122,32 +104,15 @@ final public class PlayerActor extends Actor {
 		assert hadEquipment;
 	}
 	
-
-	public void fieldUnequip(Helmet equipment) {
-		assert helmet == equipment;
-		helmet = null;
-	}
-	public void fieldUnequip(Suit equipment) {
-		assert suit == equipment;
-		suit = null;
-	}
-	public void fieldUnequip(Weapon equipment) {
-		assert hand == equipment;
-		hand = null;
-	}
 	public void fieldUnequip(Utility equipment) {
 		boolean haveEquipment = utilityQueue.remove(equipment);
 		assert haveEquipment;
 	}
 	public void fieldUnequip(Equipment equipment) {
-		throw new UnsupportedOperationException();
-	}
-	public void battleUnequip(Utility equipment) {
-		boolean haveEquipment = utilityBelt.remove(equipment);
-		assert haveEquipment;
+		getLoadout().fieldUnequip(equipment);
 	}
 	public void battleUnequip(Equipment equipment) {
-		fieldUnequip(equipment);
+		getLoadout().fieldUnequip(equipment);
 	}
 	
 	public int getScores(BruceScore score) {

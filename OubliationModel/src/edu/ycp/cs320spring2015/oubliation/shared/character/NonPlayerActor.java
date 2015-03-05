@@ -6,14 +6,12 @@ public abstract class NonPlayerActor extends Actor {
 
 	final private Identity identity;
 	
-	private int maxHp = 0;
-	private int hitCount = 0;
+	private NonPlayerStats stats;
 	
-	public NonPlayerActor(NameTag nameTag, int health, Loadout loadout, Identity identity, int maxHp, int hitCount) {
+	public NonPlayerActor(NameTag nameTag, int health, Loadout loadout, Identity identity, NonPlayerStats stats) {
 		super(nameTag, health, loadout);
 		this.identity = identity;
-		this.maxHp = maxHp;
-		this.hitCount = hitCount;
+		this.stats = stats;
 	}
 	
 	public String getBackgroundName() {
@@ -36,9 +34,9 @@ public abstract class NonPlayerActor extends Actor {
 	}
 
 	public int getMaxHp() {
-		return maxHp;
+		return stats.getMaxHp();
 	}
 	public int getHitCount() {
-		return hitCount;
+		return stats.getHitCount();
 	}
 }
