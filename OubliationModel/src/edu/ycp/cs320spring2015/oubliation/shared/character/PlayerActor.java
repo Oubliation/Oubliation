@@ -1,96 +1,79 @@
 package edu.ycp.cs320spring2015.oubliation.shared.character;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerBackground;
-import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerJob;
-import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerSpecies;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 
 final public class PlayerActor extends Actor {
 	
-	final private PlayerBackground background;
-	final private PlayerSpecies species;
-	final private PlayerJob job;
-	
-	private int level;
-	private int witchMp[];
-	private int priestMp[];
+	final private PlayerIdentity identity;
+	private PlayerStats stats;
 	
 	private LinkedList<Equipment> battleEquipQueue;
-	private ArrayList<Utility> utilityQueue;
-	private int experience;
 	
 	public PlayerActor(NameTag nameTag, int health, Loadout loadout,
-			PlayerBackground background, PlayerSpecies species, PlayerJob job,
-			int level, int[] witchMp, int[] priestMp, ArrayList<Utility> utilityQueue,
-			int experience) {
+			PlayerIdentity identity, PlayerStats stats) {
 		super(nameTag, health, loadout);
-		this.background = background;
-		this.species = species;
-		this.job = job;
-		this.level = level;
-		this.witchMp = witchMp;
-		this.priestMp = priestMp;
-		this.utilityQueue = utilityQueue;
-		this.experience = experience;
+		this.identity = identity;
+		this.stats = stats;
 	}
 	
 	public void updateLevel() {
-		level = job.getLevel(experience);
+		identity.updateLevel();
 	}
 	public int getLevel() {
-		return level;
+		return identity.getLevel();
 	}
 	
 	public String getBackgroundName() {
-		return background.getName();
+		return identity.getBackgroundName();
 	}
 	public String getBackgroundDescription() {
-		return background.getDescription();
+		return identity.getBackgroundDescription();
 	}
+
 	public String getSpeciesName() {
-		return species.getName();
+		return identity.getSpeciesName();
 	}
 	public String getSpeciesDescription() {
-		return species.getDescription();
+		return identity.getSpeciesDescription();
 	}
 	public String getJobName() {
-		return job.getName();
+		return identity.getJobName();
 	}
 	public String getJobDescription() {
-		return job.getDescription();
+		return identity.getJobDescription();
 	}
 
 	public int getWitchMp(int level) {
-		return witchMp[level];
+		return stats.getWitchMp(level);
 	}
 	public int getPriestMp(int level) {
-		return priestMp[level];
+		return stats.getPriestMp(level);
 	}
 	
 	public int getMaxWitchMp(int level) {
-		return witchMp[level];
+		return Integer.MAX_VALUE;
 	}
 	public int getMaxPriestMp(int level) {
-		return priestMp[level];
+		return Integer.MAX_VALUE;
 	}
 	
 	
 	public void fieldEquip(Utility equipment) {
-		utilityQueue.add(equipment);
-		assert utilityQueue.size() <= job.getUtilitySlotCount();
+		stats.addUtility(equipment);
+		assert stats.getUtilityQueue().length <= identity.getUtilitySlotCount();
 	}
 	public void fieldEquip(Equipment equipment) {
 		getLoadout().fieldEquip(equipment);
 	}
 	public void battleEquip(Equipment equipment) {
 		getLoadout().battleEquip(equipment);
+		assert getLoadout().getEquippedUtilities().length <= identity.getUtilitySlotCount();
 	}
-	
 	
 	public void advanceBattleQueue() {
 		getLoadout().battleEquip(battleEquipQueue.pop());
@@ -105,8 +88,7 @@ final public class PlayerActor extends Actor {
 	}
 	
 	public void fieldUnequip(Utility equipment) {
-		boolean haveEquipment = utilityQueue.remove(equipment);
-		assert haveEquipment;
+		stats.removeUtility(equipment);
 	}
 	public void fieldUnequip(Equipment equipment) {
 		getLoadout().fieldUnequip(equipment);
@@ -116,30 +98,23 @@ final public class PlayerActor extends Actor {
 	}
 	
 	public int getScores(BruceScore score) {
-		int baseAmount = species.getBaseScore(score);
-		int gainAmount = background.getScoreGain(score, getLevel());
-		
-		return baseAmount+gainAmount;
+		return identity.getScores(score);
 	}
-	
 	public int getHitCount() {
-		int level = getLevel();
-		return job.getHitCount(level);
+		return identity.getHitCount();
 	}
-
 	public boolean isCompatibleBackground(PlayerBackground bg) {
-		return background.isCompatibleBackground(bg);
+		return identity.isCompatibleBackground(bg);
 	}
 
 	public int getMaxHp() {
-		int level = getLevel();
-		return job.getMaxHp(level);
+		return identity.getMaxHp();
 	}
 	
 	public void incExperience(int amount) {
-		experience += amount;
+		identity.incExperience(amount);
 	}
 	public int getExperience() {
-		return experience;
+		return identity.getExperience();
 	}
 }

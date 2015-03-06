@@ -57,6 +57,12 @@ public class PlayerIdentity {
 		int level = getLevel();
 		return job.getHitCount(level);
 	}
+	public int getUtilitySlotCount() {
+		return job.getUtilitySlotCount();
+	}
+	public void getSpells() {
+		job.getSpells();
+	}
 
 	public boolean isCompatibleBackground(PlayerBackground bg) {
 		return background.isCompatibleBackground(bg);

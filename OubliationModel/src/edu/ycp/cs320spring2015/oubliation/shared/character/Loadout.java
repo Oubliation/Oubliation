@@ -68,7 +68,6 @@ public class Loadout {
 	}
 	public void battleEquip(Utility equipment) {
 		utilityBelt.add(equipment);
-		//TODO: assert utilityBelt.size() <= job.getUtilitySlotCount();
 	}
 	public void battleEquip(Equipment equipment) {
 		fieldEquip(equipment);
