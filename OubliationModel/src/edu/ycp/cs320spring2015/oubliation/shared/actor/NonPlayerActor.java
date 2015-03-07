@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.shared.character;
+package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
 import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 
@@ -33,7 +33,7 @@ public abstract class NonPlayerActor extends Actor {
 		return identity.getJobDescription();
 	}
 
-	public int getMaxHp() {
+	public int getMaxHealth() {
 		return stats.getMaxHp();
 	}
 	public int getHitCount() {

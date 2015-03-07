@@ -1,9 +1,11 @@
-package edu.ycp.cs320spring2015.oubliation.shared.character;
+package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
 import java.util.LinkedList;
 
+import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
-import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerBackground;
+import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 
@@ -107,7 +109,7 @@ final public class PlayerActor extends Actor {
 		return identity.isCompatibleBackground(bg);
 	}
 
-	public int getMaxHp() {
+	public int getMaxHealth() {
 		return identity.getMaxHp();
 	}
 	

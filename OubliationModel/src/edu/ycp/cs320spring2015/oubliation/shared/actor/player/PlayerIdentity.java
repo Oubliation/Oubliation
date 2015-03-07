@@ -1,8 +1,8 @@
-package edu.ycp.cs320spring2015.oubliation.shared.character;
+package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
-import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerBackground;
-import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerJob;
-import edu.ycp.cs320spring2015.oubliation.shared.category.PlayerSpecies;
+import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
+import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
+import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
 
 public class PlayerIdentity {
 	final private PlayerBackground background;

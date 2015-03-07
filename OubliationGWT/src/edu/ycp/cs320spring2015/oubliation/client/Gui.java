@@ -1,6 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.client;
 
-import edu.ycp.cs320spring2015.oubliation.shared.character.PlayerActor;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 
 public abstract class Gui {
 	abstract public void showMain();

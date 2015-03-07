@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.shared.category;
+package edu.ycp.cs320spring2015.oubliation.shared.category.identity;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
-import edu.ycp.cs320spring2015.oubliation.shared.character.BruceScore;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
+import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 
 public class PlayerBackground extends Background {
 	final private Map<BruceScore, Double> bruceGainRate;

@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.shared.character;
+package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
 import java.util.ArrayList;
 
