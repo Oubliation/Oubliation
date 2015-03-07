@@ -17,6 +17,17 @@ public class Profile {
 	private ArrayList<PlayerActor> party;  //active player actors
 	private ArrayList<PlayerActor> roster; //reserve player actors
 	private HashSet<String> dungeonFlags; //active dungeon flags
+	
+	public Profile(int money, ArrayList<Item> inventory,
+			ArrayList<PlayerActor> party, ArrayList<PlayerActor> roster,
+			HashSet<String> dungeonFlags) {
+		this.money = money;
+		this.inventory = inventory;
+		this.party = party;
+		this.roster = roster;
+		this.dungeonFlags = dungeonFlags;
+	}
+
 	//TODO: profile (saving, loading, logging in)
 	
 	/**
@@ -92,6 +103,9 @@ public class Profile {
 		if (money >= amount) { money -= amount; }
 		else { money = 0; }
 	}
+	/**
+	 * @return amount of money owned by player
+	 */
 	public int getMoney() {
 		return money;
 	}
@@ -104,13 +118,22 @@ public class Profile {
 	public boolean isFlagActive(String flag) {
 		return dungeonFlags.contains(flag);
 	}
+	/**
+	 * @param flag flag to activate
+	 */
 	public void setFlag(String flag) {
 		dungeonFlags.add(flag);
 	}
+	/**
+	 * @param flag flag to clear
+	 */
 	public void clearFlag(String flag) {
 		dungeonFlags.remove(flag);
 	}
 	
+	/**
+	 * @param flag flag to toggle
+	 */
 	public void toggleFlag(String flag) {
 		if (isFlagActive(flag)) {
 			setFlag(flag);
