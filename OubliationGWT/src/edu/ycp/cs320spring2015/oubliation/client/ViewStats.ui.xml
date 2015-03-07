@@ -1,0 +1,31 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.h1 .h2 .h3 .p {
+			display:block
+		}
+		
+		.h1 { font-size: 1.5em; font-weight: bold; }
+		.h2 { text-decoration: underline; font-size: 1.1em; font-weight: bold; }
+		.h3 { font-weight: bold; }
+		.p { font-style:italic; }
+		
+	</ui:style>
+	<g:HTMLPanel>
+		<g:FlowPanel>
+			<g:Label addStyleNames="{style.h1}" ui:field="name" />
+			<g:Label addStyleNames="{style.p}" ui:field="description" />
+			
+			<g:Label addStyleNames="{style.h2}">Equipment</g:Label>
+			<g:Label addStyleNames="{style.h3}">Hand:</g:Label>
+			<g:Label addStyleNames="{style.p}" ui:field="hand" />
+			<g:Label addStyleNames="{style.h3}">Helm:</g:Label>
+			<g:Label addStyleNames="{style.p}" ui:field="helm" />
+			<g:Label addStyleNames="{style.h3}">Suit:</g:Label>
+			<g:Label addStyleNames="{style.p}" ui:field="suit" />
+			<g:Label addStyleNames="{style.h3}">Shield:</g:Label>
+			<g:Label addStyleNames="{style.p}" ui:field="shield" />
+		</g:FlowPanel> 
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -20,7 +20,7 @@
   <!-- Other module inherits                                      -->
 
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='com.cs320spring2015.oubliation.client.Oubliation'/>
+  <entry-point class='edu.ycp.cs320spring2015.oubliation.client.Oubliation'/>
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>

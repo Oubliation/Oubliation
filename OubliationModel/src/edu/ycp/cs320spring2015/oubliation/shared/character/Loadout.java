@@ -26,12 +26,17 @@ public class Loadout {
 	protected Weapon hand; 
 	protected ArrayList<Utility> utilityBelt;
 	
-	public int getAc() {
-		int totalAc = 0;
-		if (helmet != null) { totalAc += helmet.getAc(); }
-		if (suit != null) { totalAc += suit.getAc(); }
-		if (shield != null) { totalAc += shield.getAc(); }
-		return totalAc;
+	/**
+	 * 
+	 * @return the total of Ar on the armor 
+	 */
+	
+	public int getArmorRank() {
+		int totalArmorRank = 0;
+		if (helmet != null) { totalArmorRank += helmet.getArmorRank(); }
+		if (suit != null) { totalArmorRank += suit.getArmorRank(); }
+		if (shield != null) { totalArmorRank += shield.getArmorRank(); }
+		return totalArmorRank;
 	}
 	
 	public Helmet getHelmet() {
@@ -73,7 +78,10 @@ public class Loadout {
 		fieldEquip(equipment);
 	}
 	
-
+	
+	/**
+	 * @param equipment equipment to remove
+	 */
 	public void fieldUnequip(Helmet equipment) {
 		assert helmet == equipment;
 		helmet = null;

@@ -6,15 +6,15 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.Job;
 import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 
 public abstract class Armor extends Equipment {
-	private int Ac;
+	private int armorRank;
 	
 	public Armor(NameTag nameTag, int price,
-			TreeSet<Job> equippableBy, int ac) {
+			TreeSet<Job> equippableBy, int armorRank) {
 		super(nameTag, price, equippableBy);
-		Ac = ac;
+		this.armorRank = armorRank;
 	}
 
-	public int getAc() {
-		return Ac;
+	public int getArmorRank() {
+		return armorRank;
 	}
 }

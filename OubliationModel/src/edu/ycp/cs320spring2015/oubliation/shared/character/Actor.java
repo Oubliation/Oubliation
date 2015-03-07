@@ -32,8 +32,8 @@ public abstract class Actor extends EntityClass {
 	public abstract int getMaxHp();
 	
 	
-	public int getAc() {
-		return loadout.getAc();
+	public int getArmorRank() {
+		return loadout.getArmorRank();
 	}
 	
 	public int getHp() {
