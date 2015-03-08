@@ -38,12 +38,14 @@ public class PlayerIdentity {
 		return job.getDescription();
 	}
 	
-
+	public int getLevel() {
+		return level;
+	}
 	public void updateLevel() {
 		level = job.getLevel(experience);
 	}
-	public int getLevel() {
-		return level;
+	public boolean isLevelUpReady() {
+		return (job.getLevel(experience) > level);
 	}
 
 	public int getScores(BruceScore score) {
