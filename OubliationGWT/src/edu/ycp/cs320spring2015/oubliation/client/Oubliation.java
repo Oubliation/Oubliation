@@ -8,6 +8,6 @@ public class Oubliation implements EntryPoint {
 	private ViewStats stats = new ViewStats();
 	
 	public void onModuleLoad() {
-		RootPanel.get().add(stats);
+		RootPanel.get("gwtapp").add(stats);
 	}
 }
