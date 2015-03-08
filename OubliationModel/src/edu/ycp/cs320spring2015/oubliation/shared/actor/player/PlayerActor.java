@@ -23,11 +23,14 @@ final public class PlayerActor extends Actor {
 		this.stats = stats;
 	}
 	
+	public int getLevel() {
+		return identity.getLevel();
+	}
 	public void updateLevel() {
 		identity.updateLevel();
 	}
-	public int getLevel() {
-		return identity.getLevel();
+	public boolean isLevelUpReady() {
+		return identity.isLevelUpReady();
 	}
 	
 	public String getBackgroundName() {
