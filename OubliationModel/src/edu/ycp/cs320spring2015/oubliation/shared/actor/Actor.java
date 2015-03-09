@@ -2,7 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
 import edu.ycp.cs320spring2015.oubliation.shared.category.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Helmet;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
@@ -58,8 +58,8 @@ public abstract class Actor extends EntityClass {
 	protected Loadout getLoadout() {
 		return loadout;
 	}
-	public Helmet getHelmet() {
-		return loadout.getHelmet();
+	public Headwear getHeadwear() {
+		return loadout.getHeadwear();
 	}
 	public Suit getSuit() {
 		return loadout.getSuit();
