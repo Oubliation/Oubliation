@@ -16,9 +16,9 @@ final public class PlayerActor extends Actor {
 	
 	private LinkedList<Equipment> battleEquipQueue;
 	
-	public PlayerActor(NameTag nameTag, int health, Loadout loadout,
+	public PlayerActor(NameTag nameTag, Loadout loadout, int health,
 			PlayerIdentity identity, PlayerStats stats) {
-		super(nameTag, health, loadout);
+		super(nameTag, loadout, health);
 		this.identity = identity;
 		this.stats = stats;
 	}

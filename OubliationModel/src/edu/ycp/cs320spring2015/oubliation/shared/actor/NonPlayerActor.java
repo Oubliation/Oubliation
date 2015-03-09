@@ -8,8 +8,8 @@ public abstract class NonPlayerActor extends Actor {
 	
 	private NonPlayerStats stats;
 	
-	public NonPlayerActor(NameTag nameTag, int health, Loadout loadout, Identity identity, NonPlayerStats stats) {
-		super(nameTag, health, loadout);
+	public NonPlayerActor(NameTag nameTag, Loadout loadout, Identity identity, NonPlayerStats stats) {
+		super(nameTag, loadout, stats.getMaxHp());
 		this.identity = identity;
 		this.stats = stats;
 	}

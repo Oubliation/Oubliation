@@ -17,10 +17,10 @@ public abstract class Actor extends EntityClass {
 	
 	private Loadout loadout; //equipment
 	
-	public Actor(NameTag nameTag, int health, Loadout loadout) {
+	public Actor(NameTag nameTag, Loadout loadout, int health) {
 		super(nameTag);
-		this.health = health;
 		this.loadout = loadout;
+		this.health = health;
 	}
 	
 	//identity info

@@ -7,9 +7,10 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Profile;
 
 public class ViewStats extends Composite {
 
@@ -19,79 +20,17 @@ public class ViewStats extends Composite {
 	interface ViewStatsUiBinder extends UiBinder<Widget, ViewStats> {
 	}
 	
-	@UiField Label health;
-	@UiField Label armorRank;
-	@UiField Label experience;
-	
-	@UiField Label witchA;
-	@UiField Label witchB;
-	@UiField Label witchC;
-	@UiField Label witchD;
-	@UiField Label witchE;
-	@UiField Label witchF;
-	@UiField Label priestA;
-	@UiField Label priestB;
-	@UiField Label priestC;
-	@UiField Label priestD;
-	@UiField Label priestE;
-	@UiField Label priestF;
-	
-	@UiField Label name;
-	@UiField Label description;
-	@UiField Label hand;
-	@UiField Label helmet;
-	@UiField Label suit;
-	@UiField Label shield;
-	@UiField Label itemA;
-	@UiField Label itemB;
-	@UiField Label itemC;
-	
-	@UiField Label mightily;
-	@UiField Label healthily;
-	@UiField Label intelligently;
-	@UiField Label godly;
-	@UiField Label quickly;
-	@UiField Label luckily;
-	
-	public ViewStats() {
+	@UiField FlowPanel statContainer;
+
+	public ViewStats(Profile profile) {
 		initWidget(uiBinder.createAndBindUi(this));
-		name.setText("Garglemouth");
-		description.setText("Level 5 Fairy Witch Scholar");
-		health.setText("20/20");
-		armorRank.setText("-4");
-		experience.setText("12115");
-		
-		witchA.setText("20/20");
-		witchB.setText("16/16");
-		witchC.setText("8/8");
-		witchD.setText("4/4");
-		witchE.setText("2/2");
-		witchF.setText("1/1");
-		priestA.setText("20/20");
-		priestB.setText("16/16");
-		priestC.setText("8/8");
-		priestD.setText("4/4");
-		priestE.setText("2/2");
-		priestF.setText("1/1");
-		
-		hand.setText("Sword");
-		helmet.setText("Hood");
-		suit.setText("Plate Mail");
-		shield.setText("Dragon Shield");
-		itemA.setText("Potion");
-		itemB.setText("Fire Scroll");
-		itemC.setText("Potion");
-		
-		mightily.setText("5");
-		healthily.setText("7");
-		intelligently.setText("4");
-		godly.setText("3");
-		quickly.setText("11");
-		luckily.setText("9");
+		for (int i=0; i<6; i+=1) {
+			StatBlock stats = new StatBlock();
+			statContainer.add(stats);
+		}
 	}
 
-
-	@UiHandler("name")
+	@UiHandler("backLink")
 	void onClick(ClickEvent e) {
 		Window.alert("Hello!");
 	}

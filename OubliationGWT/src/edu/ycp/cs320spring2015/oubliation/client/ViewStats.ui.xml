@@ -2,123 +2,17 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		.h1 .h2 .h3 .p {
-			display:block
+		.screen {
+			max-width: 1000px;
 		}
 		
-		.h1 { font-size: 1.6em; font-weight: bolder; }
-		.h2 { text-decoration: underline; font-size: 1.1em; font-weight: bold; }
-		.h3 { font-weight: bold; }
-		.p { font-style:italic; }
-		
-		.container {
-			width: 200px;
+		.center {
+			text-align: center;
 		}
-		
 	</ui:style>
-	<g:HTMLPanel>
-		<g:FlowPanel>
-			<g:FlowPanel>
-				<g:Label styleName="{style.h1}" ui:field="name" />
-				<g:Label styleName="{style.p}" ui:field="description" />
-				<g:Grid>
-					<g:row>
-						<g:cell styleName="{style.h3}">Health:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="health" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Armor Rank:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="armorRank" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Experience:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="experience" /></g:customCell>
-					</g:row>
-				</g:Grid>
-				<g:Grid>
-					<g:row>
-						<g:cell styleName="{style.h3}">Witch:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="witchA" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="witchB" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="witchC" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="witchD" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="witchE" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="witchF" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Priest:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="priestA" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="priestB" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="priestC" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="priestD" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="priestE" /></g:customCell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="priestF" /></g:customCell>
-					</g:row>
-				</g:Grid>
-			</g:FlowPanel>
-			
-			<g:FlowPanel styleName="{style.container}">
-				<g:Label styleName="{style.h2}">Equipment</g:Label>
-				<g:Grid ui:field="equipmentGrid">
-					<g:row>
-						<g:cell styleName="{style.h3}">Hand:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="hand" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Helm:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="helmet" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Suit:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="suit" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Shield:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="shield" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Item:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="itemA"/></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell />
-						<g:customCell><g:Label styleName="{style.p}" ui:field="itemB"/></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell />
-						<g:customCell><g:Label styleName="{style.p}" ui:field="itemC"/></g:customCell>
-					</g:row>
-				</g:Grid>
-			</g:FlowPanel>
-			<g:FlowPanel styleName="{style.container}">
-				<g:Label styleName="{style.h2}">Attributes</g:Label>
-				<g:Grid>
-					<g:row>
-						<g:cell styleName="{style.h3}">Mightily:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="mightily" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Healthily:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="healthily" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Intelligently:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="intelligently" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Godly:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="godly" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Quickly:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="quickly" /></g:customCell>
-					</g:row>
-					<g:row>
-						<g:cell styleName="{style.h3}">Luckily:</g:cell>
-						<g:customCell><g:Label styleName="{style.p}" ui:field="luckily" /></g:customCell>
-					</g:row>
-				</g:Grid>
-			</g:FlowPanel>
-		</g:FlowPanel> 
-	</g:HTMLPanel>
+	<g:FlowPanel styleName="{style.screen}">
+		<g:FlowPanel ui:field="statContainer">
+		</g:FlowPanel>
+		<g:Hyperlink styleName="{style.center}" ui:field="backLink">Back</g:Hyperlink>
+	</g:FlowPanel>
 </ui:UiBinder> 

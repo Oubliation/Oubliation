@@ -12,7 +12,7 @@ public class EnemyActor extends NonPlayerActor {
 	
 	public EnemyActor(NameTag nameTag, int health, Loadout loadout,
 			Identity identity, NonPlayerStats stats, EnemySpoils enemySpoils) {
-		super(nameTag, health, loadout, identity, stats);
+		super(nameTag, loadout, identity, stats);
 		this.enemySpoils = enemySpoils;
 	}
 	public int getExpGiven() {
