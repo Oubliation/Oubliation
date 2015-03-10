@@ -16,10 +16,10 @@ public class PlayerStats {
 	}
 	
 	public int getWitchMp(int level) {
-		return witchMp[level];
+		return witchMp[level-1];
 	}
 	public int getPriestMp(int level) {
-		return priestMp[level];
+		return priestMp[level-1];
 	}
 	public void addUtility(Utility utility) {
 		utilityQueue.add(utility);

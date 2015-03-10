@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
-import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 
@@ -61,10 +60,12 @@ final public class PlayerActor extends Actor {
 	}
 	
 	public int getMaxWitchMp(int level) {
-		return Integer.MAX_VALUE;
+		//TODO: implement
+		return stats.getWitchMp(level);
 	}
 	public int getMaxPriestMp(int level) {
-		return Integer.MAX_VALUE;
+		//TODO: implement
+		return stats.getPriestMp(level);
 	}
 	
 	
@@ -102,14 +103,11 @@ final public class PlayerActor extends Actor {
 		getLoadout().fieldUnequip(equipment);
 	}
 	
-	public int getScores(BruceScore score) {
+	public int getScore(BruceScore score) {
 		return identity.getScores(score);
 	}
 	public int getHitCount() {
 		return identity.getHitCount();
-	}
-	public boolean isCompatibleBackground(PlayerBackground bg) {
-		return identity.isCompatibleBackground(bg);
 	}
 
 	public int getMaxHealth() {

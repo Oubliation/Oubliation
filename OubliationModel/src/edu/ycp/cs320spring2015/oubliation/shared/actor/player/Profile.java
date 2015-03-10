@@ -44,6 +44,9 @@ public class Profile {
 		boolean hadUnit = roster.remove(actor);
 		assert hadUnit;
 	}
+	public PlayerActor[] getRoster() {
+		return roster.toArray(new PlayerActor[roster.size()]);
+	}
 	
 	public void addActor(PlayerActor actor) {
 		boolean haveUnit = roster.remove(actor);
@@ -56,6 +59,9 @@ public class Profile {
 		roster.add(actor);
 		
 		assert haveUnit;
+	}
+	public PlayerActor[] getParty() {
+		return party.toArray(new PlayerActor[party.size()]);
 	}
 
 	public void createItem(Item item) {

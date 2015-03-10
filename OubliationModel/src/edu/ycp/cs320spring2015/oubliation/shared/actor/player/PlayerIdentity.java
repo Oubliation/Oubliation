@@ -66,10 +66,6 @@ public class PlayerIdentity {
 		job.getSpells();
 	}
 
-	public boolean isCompatibleBackground(PlayerBackground bg) {
-		return background.isCompatibleBackground(bg);
-	}
-
 	public int getMaxHp() {
 		int level = getLevel();
 		return job.getMaxHp(level);

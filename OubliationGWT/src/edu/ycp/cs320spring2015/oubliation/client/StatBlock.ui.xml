@@ -74,8 +74,8 @@
 					<g:customCell styleName="{style.p}"><g:Label ui:field="hand" /></g:customCell>
 				</g:row>
 				<g:row>
-					<g:cell styleName="{style.h3}">Helm:</g:cell>
-					<g:customCell styleName="{style.p}"><g:Label ui:field="helmet" /></g:customCell>
+					<g:cell styleName="{style.h3}">Headwear:</g:cell>
+					<g:customCell styleName="{style.p}"><g:Label ui:field="headwear" /></g:customCell>
 				</g:row>
 				<g:row>
 					<g:cell styleName="{style.h3}">Suit:</g:cell>

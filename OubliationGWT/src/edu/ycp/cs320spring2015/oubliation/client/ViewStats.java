@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Profile;
 
 public class ViewStats extends Composite {
@@ -21,11 +22,16 @@ public class ViewStats extends Composite {
 	}
 	
 	@UiField FlowPanel statContainer;
-
-	public ViewStats(Profile profile) {
+	
+	public ViewStats() {
 		initWidget(uiBinder.createAndBindUi(this));
-		for (int i=0; i<6; i+=1) {
+	}
+	
+	public void setProfile(Profile profile) {
+		
+		for (PlayerActor actor : profile.getParty()) {
 			StatBlock stats = new StatBlock();
+			stats.setActor(actor);
 			statContainer.add(stats);
 		}
 	}
