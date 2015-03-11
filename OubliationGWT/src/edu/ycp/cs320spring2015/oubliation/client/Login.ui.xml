@@ -1,0 +1,27 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.header {
+			text-align: center;	
+		}
+		.rightalign {
+			text-align: right;	
+		}
+		
+	</ui:style>
+	<g:FlowPanel>
+		<g:Label styleName="{style.header}">Oubliation</g:Label>
+		<g:Grid>
+			<g:row>
+				<g:cell>Username</g:cell>
+				<g:customCell><g:TextBox /></g:customCell>	
+			</g:row>
+			<g:row>
+				<g:cell>Password</g:cell>
+				<g:customCell><g:PasswordTextBox /></g:customCell>	
+			</g:row>
+		</g:Grid>
+		<g:Button styleName="rightalign">Login</g:Button>
+	</g:FlowPanel>
+</ui:UiBinder> 
