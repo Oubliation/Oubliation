@@ -15,15 +15,13 @@ public abstract class Actor extends EntityClass {
 	
 	private int health;
 	
-	private Loadout loadout; //equipment
+	private Loadout loadout; // contains all equipment
 	
 	public Actor(NameTag nameTag, Loadout loadout, int health) {
 		super(nameTag);
 		this.loadout = loadout;
 		this.health = health;
 	}
-	
-	//identity info
 	
 	//TODO: public abstract int startTurn();
 	public abstract String getBackgroundName();
@@ -34,7 +32,15 @@ public abstract class Actor extends EntityClass {
 	public abstract String getJobDescription();
 	
 	//battle info
+	
+	/**
+	 * @return number of times actor will hit an enemy by themselves
+	 */
 	public abstract int getHitCount();
+	
+	/**
+	 * @return Maximum amount of health actor can have
+	 */
 	public abstract int getMaxHealth();
 	
 	
@@ -77,7 +83,7 @@ public abstract class Actor extends EntityClass {
 	
 	
 	/**
-	 * @return whether attack has hit or mis 
+	 * @return whether attack has hit or missed
 	 */
 	public boolean hitTest(int accuracy) {
 		return false;
