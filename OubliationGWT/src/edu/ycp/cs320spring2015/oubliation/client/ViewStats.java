@@ -11,7 +11,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Profile;
 
 public class ViewStats extends Composite {
 
@@ -23,15 +22,11 @@ public class ViewStats extends Composite {
 	
 	@UiField FlowPanel statContainer;
 	
-	public ViewStats() {
+	public ViewStats(PlayerActor[] party) {
 		initWidget(uiBinder.createAndBindUi(this));
-	}
-	
-	public void setProfile(Profile profile) {
 		
-		for (PlayerActor actor : profile.getParty()) {
-			StatBlock stats = new StatBlock();
-			stats.setActor(actor);
+		for (PlayerActor actor : party) {
+			StatBlock stats = new StatBlock(actor);
 			statContainer.add(stats);
 		}
 	}

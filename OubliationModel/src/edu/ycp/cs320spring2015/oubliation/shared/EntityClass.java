@@ -1,4 +1,6 @@
-package edu.ycp.cs320spring2015.oubliation.shared.category;
+package edu.ycp.cs320spring2015.oubliation.shared;
+
+import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 
 public abstract class EntityClass implements Entity {
 	final private NameTag nameTag;

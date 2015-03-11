@@ -8,10 +8,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Profile;
 public class Oubliation implements EntryPoint {
 
 	private Profile profile = TestConstructor.makeTestProfile();
-	private ViewStats statScreen = new ViewStats();
+	private ViewStats statScreen = new ViewStats(profile.getParty());
 	
 	public void onModuleLoad() {
-		statScreen.setProfile(profile);
 		RootPanel.get("gwtapp").add(statScreen);
 	}
 }

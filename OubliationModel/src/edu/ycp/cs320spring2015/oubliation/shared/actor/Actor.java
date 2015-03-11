@@ -1,6 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
-import edu.ycp.cs320spring2015.oubliation.shared.category.EntityClass;
+import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;

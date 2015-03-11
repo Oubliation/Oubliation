@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.shared.category;
+package edu.ycp.cs320spring2015.oubliation.shared;
 
 public interface Entity {
 	public String getName();

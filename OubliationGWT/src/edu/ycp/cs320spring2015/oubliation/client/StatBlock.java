@@ -8,9 +8,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.ycp.cs320spring2015.oubliation.shared.Entity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.category.Entity;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 
 public class StatBlock extends Composite {
@@ -57,23 +57,9 @@ public class StatBlock extends Composite {
 	
 	final NumberFormat twoDigit = NumberFormat.getFormat("00");
 	
-	public StatBlock() {
+	public StatBlock(PlayerActor actor) {
 		initWidget(uiBinder.createAndBindUi(this));
-	}
-	
-	private String getNumOfMax(int num, int max) {
-		return twoDigit.format(num) +"/"+ twoDigit.format(max);
-	}
-	
-	private String getNameSafely(Entity entity) {
-		if (entity != null) {
-			return entity.getName();
-		} else {
-			return "--";
-		}
-	}
-	
-	public void setActor(PlayerActor actor) {
+		
 		name.setText(actor.getName());
 		description.setText("Level "+actor.getLevel()+" "+actor.getSpeciesName()+" "+actor.getJobName()+" "+actor.getBackgroundName());
 		
@@ -124,5 +110,17 @@ public class StatBlock extends Composite {
 		godly.setText(twoDigit.format(actor.getScore(BruceScore.godly)));
 		quickly.setText(twoDigit.format(actor.getScore(BruceScore.quickly)));
 		luckily.setText(twoDigit.format(actor.getScore(BruceScore.luckily)));
+	}
+	
+	private String getNumOfMax(int num, int max) {
+		return twoDigit.format(num) +"/"+ twoDigit.format(max);
+	}
+	
+	private String getNameSafely(Entity entity) {
+		if (entity != null) {
+			return entity.getName();
+		} else {
+			return "--";
+		}
 	}
 }
