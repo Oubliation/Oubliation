@@ -23,16 +23,16 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
-public final class TestConstructor {
+public final class Debug {
 	public static Profile makeTestProfile() {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
 		for (int count=0; count<6; count+=1) {
-			party.add(TestConstructor.makePlayerActor());
+			party.add(Debug.makePlayerActor());
 		}
 		
 		ArrayList<PlayerActor> roster = new ArrayList<PlayerActor>();
 		for (int count=0; count<10; count+=1) {
-			roster.add(TestConstructor.makePlayerActor());
+			roster.add(Debug.makePlayerActor());
 		}
 		Profile profile = new Profile(200, new ArrayList<Item>(), party, roster, new HashSet<String>());
 		
