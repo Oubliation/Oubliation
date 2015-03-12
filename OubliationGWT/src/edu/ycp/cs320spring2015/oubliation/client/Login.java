@@ -29,7 +29,7 @@ public class Login extends Composite {
 
 	@UiHandler("loginButton")
 	void onClick(ClickEvent e) {
-		if (DataKeeper.isProfile(username.getText(), password.getText())) {
+		if (DataKeeper.verifyLogin(username.getText(), password.getText())) {
 			
 		}
 	}
