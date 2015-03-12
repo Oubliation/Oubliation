@@ -15,13 +15,13 @@
 		<g:Grid>
 			<g:row>
 				<g:cell>Username</g:cell>
-				<g:customCell><g:TextBox /></g:customCell>	
+				<g:customCell><g:TextBox ui:field="username" /></g:customCell>	
 			</g:row>
 			<g:row>
 				<g:cell>Password</g:cell>
-				<g:customCell><g:PasswordTextBox /></g:customCell>	
+				<g:customCell><g:PasswordTextBox ui:field="password" /></g:customCell>	
 			</g:row>
 		</g:Grid>
-		<g:Button styleName="rightalign">Login</g:Button>
+		<g:Button ui:field="loginButton">Login</g:Button>
 	</g:FlowPanel>
 </ui:UiBinder> 
