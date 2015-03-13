@@ -45,7 +45,7 @@ public class PlayerIdentity {
 		level = job.getLevel(experience);
 	}
 	public boolean isLevelUpReady() {
-		return (job.getLevel(experience) > level);
+		return (job.getLevel(experience) != level);
 	}
 
 	public int getScores(BruceScore score) {
@@ -65,7 +65,7 @@ public class PlayerIdentity {
 		job.getSpells();
 	}
 
-	public int getMaxHp() {
+	public int getMaxHealth() {
 		int level = getLevel();
 		return job.getMaxHp(level);
 	}

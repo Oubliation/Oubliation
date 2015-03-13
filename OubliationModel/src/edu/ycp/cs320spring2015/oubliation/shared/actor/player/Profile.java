@@ -72,7 +72,7 @@ public class Profile implements Serializable {
 		boolean hadItem = inventory.remove(item);
 		assert hadItem;
 	}
-	
+	/*
 	public void fieldEquipActor(PlayerActor actor, Equipment equipment) {
 		boolean haveEquipment = inventory.remove(equipment);
 		actor.fieldEquip(equipment);
@@ -86,6 +86,7 @@ public class Profile implements Serializable {
 		actor.battleUnequip(equipment);
 		inventory.add(equipment);
 	}
+	*/
 	
 	public void actorQueueEquipment(PlayerActor actor, Equipment equipment) {
 		boolean haveEquipment = inventory.remove(equipment);

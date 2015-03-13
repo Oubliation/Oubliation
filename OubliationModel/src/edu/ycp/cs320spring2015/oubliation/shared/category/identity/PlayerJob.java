@@ -40,7 +40,7 @@ public class PlayerJob extends Job {
 	public int getLevel(int experience) {
 		int maxLevel = expChart.length-1;
 		for (int level=0; level<maxLevel; level++) {
-			if (expChart[level] < experience) { return level+1; }
+			if (expChart[level] > experience) { return level+1; }
 		}
 		
 		int maxExp = expChart[maxLevel];
@@ -52,7 +52,7 @@ public class PlayerJob extends Job {
 	}
 	
 	public int getMaxHp(int level) {
-		return baseMaxHp + level*maxHpGain;
+		return baseMaxHp + (level*maxHpGain);
 	}
 	
 	public int getUtilitySlotCount() {

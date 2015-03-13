@@ -71,17 +71,28 @@ public class Loadout implements Serializable {
 		assert suit == null;
 		suit = equipment;
 	}
+	public void fieldEquip(Shield equipment) {
+		assert shield == null;
+		shield = equipment;
+	}
 	public void fieldEquip(Weapon equipment) {
 		assert hand == null;
 		hand = equipment;
 	}
-	public void fieldEquip(Equipment equipment) {
-		throw new UnsupportedOperationException();
-	}
+	
 	public void battleEquip(Utility equipment) {
 		utilityBelt.add(equipment);
 	}
-	public void battleEquip(Equipment equipment) {
+	public void battleEquip(Headwear equipment) {
+		fieldEquip(equipment);
+	}
+	public void battleEquip(Suit equipment) {
+		fieldEquip(equipment);
+	}
+	public void battleEquip(Shield equipment) {
+		fieldEquip(equipment);
+	}
+	public void battleEquip(Weapon equipment) {
 		fieldEquip(equipment);
 	}
 	
@@ -97,18 +108,29 @@ public class Loadout implements Serializable {
 		assert suit == equipment;
 		suit = null;
 	}
+	public void fieldUnequip(Shield equipment) {
+		assert shield == equipment;
+		shield = null;
+	}
 	public void fieldUnequip(Weapon equipment) {
 		assert hand == equipment;
 		hand = null;
 	}
-	public void fieldUnequip(Equipment equipment) {
-		throw new UnsupportedOperationException();
-	}
+	
 	public void battleUnequip(Utility equipment) {
 		boolean haveEquipment = utilityBelt.remove(equipment);
 		assert haveEquipment;
 	}
-	public void battleUnequip(Equipment equipment) {
+	public void battleUnequip(Headwear equipment) {
+		fieldUnequip(equipment);
+	}
+	public void battleUnequip(Suit equipment) {
+		fieldUnequip(equipment);
+	}
+	public void battleUnequip(Shield equipment) {
+		fieldUnequip(equipment);
+	}
+	public void battleUnequip(Weapon equipment) {
 		fieldUnequip(equipment);
 	}
 }

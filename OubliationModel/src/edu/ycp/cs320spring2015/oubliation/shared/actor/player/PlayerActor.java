@@ -6,7 +6,11 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
 final public class PlayerActor extends Actor {
 	
@@ -73,17 +77,11 @@ final public class PlayerActor extends Actor {
 		stats.addUtility(equipment);
 		assert stats.getUtilityQueue().length <= identity.getUtilitySlotCount();
 	}
-	public void fieldEquip(Equipment equipment) {
-		getLoadout().fieldEquip(equipment);
-	}
-	public void battleEquip(Equipment equipment) {
-		getLoadout().battleEquip(equipment);
-		assert getLoadout().getEquippedUtilities().length <= identity.getUtilitySlotCount();
-	}
 	
-	public void advanceBattleQueue() {
-		getLoadout().battleEquip(battleEquipQueue.pop());
-	}
+	//FIXME:
+//	public void advanceBattleQueue() {
+//		getLoadout().battleEquip(battleEquipQueue.pop());
+//	}
 	public void queueEquipment(Equipment equipment) {
 		battleEquipQueue.add(equipment);
 		//TODO: a test to make sure nothing will overflow?
@@ -96,12 +94,84 @@ final public class PlayerActor extends Actor {
 	public void fieldUnequip(Utility equipment) {
 		stats.removeUtility(equipment);
 	}
-	public void fieldUnequip(Equipment equipment) {
+	
+	
+	//TODO: get rid of this awful hack
+	public void fieldEquip(Headwear equipment) {
+		getLoadout().fieldEquip(equipment);
+	}
+
+	public void fieldEquip(Suit equipment) {
+		getLoadout().fieldEquip(equipment);
+	}
+
+	public void fieldEquip(Shield equipment) {
+		getLoadout().fieldEquip(equipment);
+	}
+
+	public void fieldEquip(Weapon equipment) {
+		getLoadout().fieldEquip(equipment);
+	}
+
+	public void battleEquip(Utility equipment) {
+		getLoadout().battleEquip(equipment);
+	}
+
+	public void battleEquip(Headwear equipment) {
+		getLoadout().battleEquip(equipment);
+	}
+
+	public void battleEquip(Suit equipment) {
+		getLoadout().battleEquip(equipment);
+	}
+
+	public void battleEquip(Shield equipment) {
+		getLoadout().battleEquip(equipment);
+	}
+
+	public void battleEquip(Weapon equipment) {
+		getLoadout().battleEquip(equipment);
+	}
+
+	public void fieldUnequip(Headwear equipment) {
 		getLoadout().fieldUnequip(equipment);
 	}
-	public void battleUnequip(Equipment equipment) {
+
+	public void fieldUnequip(Suit equipment) {
 		getLoadout().fieldUnequip(equipment);
 	}
+
+	public void fieldUnequip(Shield equipment) {
+		getLoadout().fieldUnequip(equipment);
+	}
+
+	public void fieldUnequip(Weapon equipment) {
+		getLoadout().fieldUnequip(equipment);
+	}
+
+	public void battleUnequip(Utility equipment) {
+		getLoadout().battleUnequip(equipment);
+	}
+
+	public void battleUnequip(Headwear equipment) {
+		getLoadout().battleUnequip(equipment);
+	}
+
+	public void battleUnequip(Suit equipment) {
+		getLoadout().battleUnequip(equipment);
+	}
+
+	public void battleUnequip(Shield equipment) {
+		getLoadout().battleUnequip(equipment);
+	}
+
+	public void battleUnequip(Weapon equipment) {
+		getLoadout().battleUnequip(equipment);
+	}
+
+	
+	
+	
 	
 	public int getScore(BruceScore score) {
 		return identity.getScores(score);
@@ -111,7 +181,7 @@ final public class PlayerActor extends Actor {
 	}
 
 	public int getMaxHealth() {
-		return identity.getMaxHp();
+		return identity.getMaxHealth();
 	}
 	
 	public void incExperience(int amount) {
