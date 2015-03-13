@@ -1,6 +1,8 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
-public class NonPlayerStats {
+import java.io.Serializable;
+
+public class NonPlayerStats implements Serializable {
 	private int maxHp = 0;
 	private int hitCount = 0;
 	

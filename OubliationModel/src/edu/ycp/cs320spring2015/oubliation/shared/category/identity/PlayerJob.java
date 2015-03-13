@@ -12,7 +12,7 @@ public class PlayerJob extends Job {
 	final private Map<BruceScore, Integer> requiredScores;
 	final private int[] expChart;
 	final private int extraLvExp;
-	final private int hitCountGainLv;
+	final private int baseHitCount;
 	final private int baseMaxHp;
 	final private int maxHpGain;
 	final private int utilitySlotCount;
@@ -21,20 +21,20 @@ public class PlayerJob extends Job {
 	
 	public PlayerJob(NameTag nameTag,
 			EnumMap<BruceScore, Integer> requiredScores, int[] expChart,
-			int extraLvExp, int hitCountGainLv, int baseMaxHp, int maxHpGain,
+			int extraLvExp, int baseHitCount, int baseMaxHp, int maxHpGain,
 			int utilitySlotCount) {
 		super(nameTag);
 		this.requiredScores = Collections.unmodifiableMap(requiredScores);
 		this.expChart = expChart;
 		this.extraLvExp = extraLvExp;
-		this.hitCountGainLv = hitCountGainLv;
+		this.baseHitCount = baseHitCount;
 		this.baseMaxHp = baseMaxHp;
 		this.maxHpGain = maxHpGain;
 		this.utilitySlotCount = utilitySlotCount;
 	}
 
-	public int getRequirement(BruceScore score) {
-		return requiredScores.get(score);
+	public boolean meetsRequirement(BruceScore score, int amount) {
+		return requiredScores.get(score) <= amount;
 	} //TODO: requirement iterator? would iterate only over required scores
 
 	public int getLevel(int experience) {
@@ -47,8 +47,8 @@ public class PlayerJob extends Job {
 		return maxLevel+1 + (experience-maxExp)/extraLvExp;
 	}
 	
-	public int getHitCount(int level) {
-		return level/hitCountGainLv + 1;
+	public int getHitCount() {
+		return baseHitCount;
 	}
 	
 	public int getMaxHp(int level) {

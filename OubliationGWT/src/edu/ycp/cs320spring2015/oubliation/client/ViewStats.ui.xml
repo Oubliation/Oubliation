@@ -13,6 +13,6 @@
 	<g:FlowPanel styleName="{style.screen}">
 		<g:FlowPanel ui:field="statContainer">
 		</g:FlowPanel>
-		<g:Hyperlink styleName="{style.center}" ui:field="backLink">Back</g:Hyperlink>
+		<g:Hyperlink addStyleNames="{style.center}" ui:field="backLink">Back</g:Hyperlink>
 	</g:FlowPanel>
 </ui:UiBinder> 

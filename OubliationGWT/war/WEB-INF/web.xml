@@ -5,11 +5,20 @@
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <!-- Servlets -->
+ 	<!-- Servlets -->
+	<servlet>
+	  	<servlet-name>DataKeeperImpl</servlet-name>
+	  	<servlet-class>
+	    	edu.ycp.cs320spring2015.oubliation.server.DataKeeperImpl
+	  	</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  	<servlet-name>DataKeeperImpl</servlet-name>
+	  	<url-pattern>/oubliation/DataKeeper</url-pattern>
+	</servlet-mapping>
   
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>Oubliation.html</welcome-file>
-  </welcome-file-list>
-
+  	<!-- Default page to serve -->
+  	<welcome-file-list>
+    	<welcome-file>Oubliation.html</welcome-file>
+  	</welcome-file-list>
 </web-app>

@@ -3,10 +3,13 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 		.header {
-			text-align: center;	
+			font-size: 3em;
+			text-align: center;
+			padding: 1em;
 		}
-		.rightalign {
-			text-align: right;	
+		.error {
+			color: red;
+			padding: 1em;
 		}
 		
 	</ui:style>
@@ -23,5 +26,6 @@
 			</g:row>
 		</g:Grid>
 		<g:Button ui:field="loginButton">Login</g:Button>
+		<g:Label ui:field="error" styleName="{style.error}" />
 	</g:FlowPanel>
 </ui:UiBinder> 

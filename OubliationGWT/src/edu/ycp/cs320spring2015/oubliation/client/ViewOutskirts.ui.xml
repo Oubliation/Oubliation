@@ -1,0 +1,31 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.header {
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+	
+	.section {
+		padding: 0.5em;
+	}
+	</ui:style>
+	<g:FlowPanel>
+		<g:FlowPanel>
+			<g:Label styleName="{style.header}">Welcome to the town outskirts</g:Label>
+		</g:FlowPanel>
+		<g:FlowPanel styleName="{style.section}">
+			<g:Hyperlink ui:field="stats">Stats</g:Hyperlink>
+			<g:Hyperlink>Inventory</g:Hyperlink>
+		</g:FlowPanel>
+		<g:FlowPanel styleName="{style.section}">
+			<g:Hyperlink>Shop</g:Hyperlink>
+			<g:Hyperlink>Guild</g:Hyperlink>
+			<g:Hyperlink>Barracks</g:Hyperlink>
+		</g:FlowPanel>
+		<g:FlowPanel styleName="{style.section}">
+			<g:Hyperlink>Enter the oubliette</g:Hyperlink>
+		</g:FlowPanel>
+	</g:FlowPanel>
+</ui:UiBinder> 

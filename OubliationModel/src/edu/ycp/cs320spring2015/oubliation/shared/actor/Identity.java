@@ -1,10 +1,12 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
+import java.io.Serializable;
+
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Background;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Species;
 
-public class Identity {
+public class Identity implements Serializable {
 	final private Background background;
 	final private Species species;
 	final private Job job;

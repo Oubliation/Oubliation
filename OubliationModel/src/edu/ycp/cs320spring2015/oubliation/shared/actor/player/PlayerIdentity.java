@@ -56,8 +56,7 @@ public class PlayerIdentity {
 	}
 	
 	public int getHitCount() {
-		int level = getLevel();
-		return job.getHitCount(level);
+		return job.getHitCount();
 	}
 	public int getUtilitySlotCount() {
 		return job.getUtilitySlotCount();

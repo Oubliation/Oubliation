@@ -1,10 +1,11 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 
-public class PlayerStats {
+public class PlayerStats implements Serializable {
 	private int witchMp[];
 	private int priestMp[];
 	private ArrayList<Utility> utilityQueue;

@@ -1,5 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -9,7 +10,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 /**
  * maintains data concerning player state
  */
-public class Profile {
+public class Profile implements Serializable {
 	final int maxPartySize = 6;
 			
 	private int money = 0; 

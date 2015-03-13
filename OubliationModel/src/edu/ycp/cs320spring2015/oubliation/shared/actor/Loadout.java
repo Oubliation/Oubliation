@@ -1,5 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
@@ -12,7 +13,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 /**
  * Equipped items on an Actor
  */
-public class Loadout {
+public class Loadout implements Serializable {
 
 	public Loadout(Headwear helmet, Suit suit, Shield shield, Weapon hand,
 			ArrayList<Utility> utilityBelt) {
