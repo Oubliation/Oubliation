@@ -34,4 +34,5 @@ public class ViewOutskirts extends Composite {
 		this.setVisible(false);
 		RootPanel.get("gwtapp").add(new ViewStats(profile.getParty(), this));
 	}
+	
 }
