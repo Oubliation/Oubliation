@@ -128,7 +128,7 @@ public class Debug {
 		}
 		return new Profile(200, new ArrayList<Item>(), party, roster, new HashSet<String>());
 	}
-
+	/*
 	@Test
 	public void nameTag() {
 		NameTag nameTag = new NameTag("Name", "Description");
@@ -368,5 +368,5 @@ public class Debug {
 	}
 	
 	//TODO: profile test
-	}
-}
+//	}*/
+//}
