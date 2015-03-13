@@ -1,6 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared.location;
 
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 
 public class Dungeon {
 	

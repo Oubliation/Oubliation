@@ -3,7 +3,7 @@ package edu.ycp.cs320spring2015.oubliation.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 
 public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {

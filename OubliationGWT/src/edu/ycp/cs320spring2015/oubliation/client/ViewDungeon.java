@@ -8,7 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Dungeon;
 
 public class ViewDungeon extends Composite {

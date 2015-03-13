@@ -1,9 +1,10 @@
-package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
+package edu.ycp.cs320spring2015.oubliation.shared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 

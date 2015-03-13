@@ -2,7 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 
 public interface DataKeeperAsync {
 
