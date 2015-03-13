@@ -30,9 +30,16 @@ public class ViewOutskirts extends Composite {
 	}
 	
 	@UiHandler("stats")
-	void onClick(ClickEvent e) {
+	void onClickViewStats(ClickEvent e) {
 		this.setVisible(false);
 		RootPanel.get("gwtapp").add(new ViewStats(profile.getParty(), this));
+	}
+	
+	@UiHandler("guild")
+	void onClickGuild(ClickEvent e) {
+		this.removeFromParent();
+		RootPanel.get("gwtapp").add(new ViewGuild(profile));
+		
 	}
 	
 }

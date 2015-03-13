@@ -21,7 +21,7 @@
 		</g:FlowPanel>
 		<g:FlowPanel styleName="{style.section}">
 			<g:Hyperlink>Shop</g:Hyperlink>
-			<g:Hyperlink>Guild</g:Hyperlink>
+			<g:Hyperlink ui:field="guild">Guild</g:Hyperlink>
 			<g:Hyperlink>Barracks</g:Hyperlink>
 		</g:FlowPanel>
 		<g:FlowPanel styleName="{style.section}">

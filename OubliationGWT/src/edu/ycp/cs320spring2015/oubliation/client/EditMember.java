@@ -5,30 +5,25 @@ package edu.ycp.cs320spring2015.oubliation.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 
-import edu.ycp.cs320spring2015.oubliation.shared.Profile;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-
 /**
- * @author Brandon Miller
+ * @author Brandon
  *
  */
-public class ViewGuild extends Composite{
+public class EditMember extends Composite{
 
-	private static ViewGuildUiBinder uiBinder = GWT
-			.create(ViewGuildUiBinder.class);
+	private static EditMemberUiBinder uiBinder = GWT
+			.create(EditMemberUiBinder.class);
 
-	interface ViewGuildUiBinder extends UiBinder<Widget, ViewGuild> {
+	interface EditMemberUiBinder extends UiBinder<Widget, EditMember> {
 	}
 
 	/**
@@ -42,40 +37,14 @@ public class ViewGuild extends Composite{
 	 * Note that depending on the widget that is used, it may be necessary to
 	 * implement HasHTML instead of HasText.
 	 */
-	@UiField FlowPanel party;
-	@UiField FlowPanel guild;
-	
-	Profile profile;
-	
-	public ViewGuild(Profile profile) {
+	public EditMember() {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.profile = profile;
-		update();
 	}
-	
-	private void update() {
-		PlayerActor partyArr[] = profile.getParty();
-		PlayerActor rosterArr[] = profile.getRoster();
-		
-		party.clear();
-		guild.clear();
-		
-		for(final PlayerActor partyMember : partyArr){
-			Button button = new Button(partyMember.getName());
-			button.addClickHandler(new ClickHandler() {public void onClick(ClickEvent e) {	profile.removeActor(partyMember); update(); }});
-			party.add(button); 
-		}		
-		for(final PlayerActor guildMember : rosterArr){
-			Button button = new Button(guildMember.getName());
-			button.addClickHandler(new ClickHandler() {public void onClick(ClickEvent e) {	profile.addActor(guildMember); update();}});
-			guild.add(button);
-		}
-	}
-	
-//	@UiField
-//	Button button;
 //
-//	public ViewGuild(String firstName) {
+//	@UiField
+//	Label name;
+//
+//	public EditMember(String firstName) {
 //		initWidget(uiBinder.createAndBindUi(this));
 //
 //		// Can access @UiField after calling createAndBindUi
@@ -95,9 +64,8 @@ public class ViewGuild extends Composite{
 //	 * Gets invoked when the default constructor is called
 //	 * and a string is provided in the ui.xml file.
 //	 */
-//	
 //	public String getText() {
 //		return button.getText();
 //	}
-//	
+
 }

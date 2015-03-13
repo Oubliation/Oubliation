@@ -11,7 +11,6 @@
 		<!-- Add GWT widgets here. Enter < and hit Ctrl-Space to auto-complete 
 			widget names. The ui:field attribute binds an element to a field in the owner 
 			class. See the GWT docs on UI Binder for more details. -->
-		<g:FlowPanel ui:field="party"></g:FlowPanel>
-		<g:FlowPanel ui:field="guild"></g:FlowPanel>
+		<g:Label ui:field="Name"/><g:Hyperlink>Move</g:Hyperlink>
 	</g:HTMLPanel>
 </ui:UiBinder> 
