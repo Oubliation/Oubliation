@@ -132,21 +132,21 @@ public class PlayerModels {
 
 		assertTrue(loadout.getArmorRank() == 6);
 		
-		loadout.fieldUnequip(headwear);
-		loadout.fieldUnequip(suit);
+		loadout.unequip(headwear);
+		loadout.unequip(suit);
 		assertTrue(loadout.getArmorRank() == 2);
 		
-		loadout.fieldUnequip(shield);
-		loadout.fieldUnequip(weapon);
+		loadout.unequip(shield);
+		loadout.unequip(weapon);
 		assertTrue(loadout.getArmorRank() == 0);
 		
 		
-		loadout.fieldEquip(headwear);
-		loadout.fieldEquip(suit);
+		loadout.equip(headwear);
+		loadout.equip(suit);
 		assertTrue(loadout.getArmorRank() == 4);
 		
-		loadout.fieldEquip(shield);
-		loadout.fieldEquip(weapon);
+		loadout.equip(shield);
+		loadout.equip(weapon);
 		assertTrue(loadout.getArmorRank() == 6);
 		
 		//assertTrue(loadout.getEquippedUtilities().equals(new Utility[0]));
@@ -234,25 +234,22 @@ public class PlayerModels {
 
 		assertTrue(actor.getArmorRank() == 6);
 		
-		// FIXME:
-		/*
-		actor.fieldUnequip(headwear);
-		actor.fieldUnequip(suit);
+		actor.unequip(headwear);
+		actor.unequip(suit);
 		assertTrue(actor.getArmorRank() == 2);
 		
-		actor.fieldUnequip(shield);
-		actor.fieldUnequip(weapon);
-		assertTrue(actor.getArmorRank() == 4);
-		
-		
-		actor.fieldEquip(headwear);
-		actor.fieldEquip(suit);
+		actor.unequip(shield);
+		actor.unequip(weapon);
 		assertTrue(actor.getArmorRank() == 0);
 		
-		actor.fieldEquip(shield);
-		actor.fieldEquip(weapon);
+		
+		actor.equip(headwear);
+		actor.equip(suit);
+		assertTrue(actor.getArmorRank() == 4);
+		
+		actor.equip(shield);
+		actor.equip(weapon);
 		assertTrue(actor.getArmorRank() == 6);
-		*/
 		
 		//assertTrue(actor.getEquippedUtilities().equals(new Utility[0]));
 	}

@@ -101,7 +101,7 @@ public class Debug {
 	public static PlayerStats makePlayerStats() {
 		int[] witchMp = {40, 36, 30, 24, 16, 8};
 		int[] priestMp = {40, 36, 30, 24, 16, 8};
-		return new PlayerStats(witchMp, priestMp,  new ArrayList<Utility>());
+		return new PlayerStats(witchMp, priestMp);
 	}
 	
 	public static PlayerActor makePlayerActor() {

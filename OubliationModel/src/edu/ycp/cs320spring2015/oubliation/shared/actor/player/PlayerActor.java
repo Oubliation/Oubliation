@@ -55,13 +55,6 @@ final public class PlayerActor extends Actor {
 	public String getJobDescription() {
 		return identity.getJobDescription();
 	}
-
-	public int getWitchMp(int level) {
-		return stats.getWitchMp(level);
-	}
-	public int getPriestMp(int level) {
-		return stats.getPriestMp(level);
-	}
 	
 	public int getMaxWitchMp(int level) {
 		//TODO: implement
@@ -71,103 +64,28 @@ final public class PlayerActor extends Actor {
 		//TODO: implement
 		return stats.getPriestMp(level);
 	}
+
+	public int getWitchMp(int level) {
+		return stats.getWitchMp(level);
+	}
+	public int getPriestMp(int level) {
+		return stats.getPriestMp(level);
+	}
 	
 	
-	public void fieldEquip(Utility equipment) {
-		stats.addUtility(equipment);
-		assert stats.getUtilityQueue().length <= identity.getUtilitySlotCount();
+	public void equip(Equipment equipment) {
+		equipment.equipTo(getLoadout());
+	}
+	
+	public void unequip(Equipment equipment) {
+		equipment.unequipFrom(getLoadout());
 	}
 	
 	//FIXME:
 //	public void advanceBattleQueue() {
 //		getLoadout().battleEquip(battleEquipQueue.pop());
 //	}
-	public void queueEquipment(Equipment equipment) {
-		battleEquipQueue.add(equipment);
-		//TODO: a test to make sure nothing will overflow?
-	}
-	public void dequeueEquipment(Equipment equipment) {
-		boolean hadEquipment = battleEquipQueue.remove(equipment);
-		assert hadEquipment;
-	}
 	
-	public void fieldUnequip(Utility equipment) {
-		stats.removeUtility(equipment);
-	}
-	
-	
-	//TODO: get rid of this awful hack
-	public void fieldEquip(Headwear equipment) {
-		getLoadout().fieldEquip(equipment);
-	}
-
-	public void fieldEquip(Suit equipment) {
-		getLoadout().fieldEquip(equipment);
-	}
-
-	public void fieldEquip(Shield equipment) {
-		getLoadout().fieldEquip(equipment);
-	}
-
-	public void fieldEquip(Weapon equipment) {
-		getLoadout().fieldEquip(equipment);
-	}
-
-	public void battleEquip(Utility equipment) {
-		getLoadout().battleEquip(equipment);
-	}
-
-	public void battleEquip(Headwear equipment) {
-		getLoadout().battleEquip(equipment);
-	}
-
-	public void battleEquip(Suit equipment) {
-		getLoadout().battleEquip(equipment);
-	}
-
-	public void battleEquip(Shield equipment) {
-		getLoadout().battleEquip(equipment);
-	}
-
-	public void battleEquip(Weapon equipment) {
-		getLoadout().battleEquip(equipment);
-	}
-
-	public void fieldUnequip(Headwear equipment) {
-		getLoadout().fieldUnequip(equipment);
-	}
-
-	public void fieldUnequip(Suit equipment) {
-		getLoadout().fieldUnequip(equipment);
-	}
-
-	public void fieldUnequip(Shield equipment) {
-		getLoadout().fieldUnequip(equipment);
-	}
-
-	public void fieldUnequip(Weapon equipment) {
-		getLoadout().fieldUnequip(equipment);
-	}
-
-	public void battleUnequip(Utility equipment) {
-		getLoadout().battleUnequip(equipment);
-	}
-
-	public void battleUnequip(Headwear equipment) {
-		getLoadout().battleUnequip(equipment);
-	}
-
-	public void battleUnequip(Suit equipment) {
-		getLoadout().battleUnequip(equipment);
-	}
-
-	public void battleUnequip(Shield equipment) {
-		getLoadout().battleUnequip(equipment);
-	}
-
-	public void battleUnequip(Weapon equipment) {
-		getLoadout().battleUnequip(equipment);
-	}
 
 	
 	

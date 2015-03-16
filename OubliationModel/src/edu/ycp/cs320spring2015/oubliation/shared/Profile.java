@@ -50,11 +50,14 @@ public class Profile implements Serializable {
 		return roster.toArray(new PlayerActor[roster.size()]);
 	}
 	
+	public boolean hasMaxParty() {
+		return party.size()<=maxPartySize;
+	}
 	public void addActor(PlayerActor actor) {
 		boolean haveUnit = roster.remove(actor);
 		party.add(actor);
 		
-		assert haveUnit && party.size()<=maxPartySize;
+		assert haveUnit && hasMaxParty();
 	}
 	public void removeActor(PlayerActor actor) {
 		boolean haveUnit = party.remove(actor);
@@ -62,6 +65,7 @@ public class Profile implements Serializable {
 		
 		assert haveUnit;
 	}
+	
 	public PlayerActor[] getParty() {
 		return party.toArray(new PlayerActor[party.size()]);
 	}
@@ -87,7 +91,6 @@ public class Profile implements Serializable {
 		actor.battleUnequip(equipment);
 		inventory.add(equipment);
 	}
-	*/
 	
 	public void actorQueueEquipment(PlayerActor actor, Equipment equipment) {
 		boolean haveEquipment = inventory.remove(equipment);
@@ -98,6 +101,7 @@ public class Profile implements Serializable {
 		actor.dequeueEquipment(equipment);
 		inventory.add(equipment);
 	}
+	*/
 	
 	public void incMoney(int amount) {
 		money += amount;

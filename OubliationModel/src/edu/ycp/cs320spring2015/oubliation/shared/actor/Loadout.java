@@ -13,7 +13,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 /**
  * Equipped items on an Actor
  */
-public class Loadout implements Serializable {
+public class Loadout implements Serializable, CanEquip {
 
 	public Loadout(Headwear helmet, Suit suit, Shield shield, Weapon hand,
 			ArrayList<Utility> utilityBelt) {
@@ -55,7 +55,6 @@ public class Loadout implements Serializable {
 	public Weapon getHand() {
 		return hand;
 	}
-	
 	public Utility[] getEquippedUtilities() {
 		return utilityBelt.toArray(new Utility[utilityBelt.size()]);
 	}
@@ -63,74 +62,47 @@ public class Loadout implements Serializable {
 	/**
 	 * @param equipment article to equip 
 	 */
-	public void fieldEquip(Headwear equipment) {
+	public void equip(Headwear equipment) {
 		assert headwear == null;
 		headwear = equipment;
 	}
-	public void fieldEquip(Suit equipment) {
+	public void equip(Suit equipment) {
 		assert suit == null;
 		suit = equipment;
 	}
-	public void fieldEquip(Shield equipment) {
+	public void equip(Shield equipment) {
 		assert shield == null;
 		shield = equipment;
 	}
-	public void fieldEquip(Weapon equipment) {
+	public void equip(Weapon equipment) {
 		assert hand == null;
 		hand = equipment;
 	}
-	
-	public void battleEquip(Utility equipment) {
+	public void equip(Utility equipment) {
 		utilityBelt.add(equipment);
 	}
-	public void battleEquip(Headwear equipment) {
-		fieldEquip(equipment);
-	}
-	public void battleEquip(Suit equipment) {
-		fieldEquip(equipment);
-	}
-	public void battleEquip(Shield equipment) {
-		fieldEquip(equipment);
-	}
-	public void battleEquip(Weapon equipment) {
-		fieldEquip(equipment);
-	}
-	
 	
 	/**
 	 * @param equipment article to remove
 	 */
-	public void fieldUnequip(Headwear equipment) {
+	public void unequip(Headwear equipment) {
 		assert headwear == equipment;
 		headwear = null;
 	}
-	public void fieldUnequip(Suit equipment) {
+	public void unequip(Suit equipment) {
 		assert suit == equipment;
 		suit = null;
 	}
-	public void fieldUnequip(Shield equipment) {
+	public void unequip(Shield equipment) {
 		assert shield == equipment;
 		shield = null;
 	}
-	public void fieldUnequip(Weapon equipment) {
+	public void unequip(Weapon equipment) {
 		assert hand == equipment;
 		hand = null;
 	}
-	
-	public void battleUnequip(Utility equipment) {
+	public void unequip(Utility equipment) {
 		boolean haveEquipment = utilityBelt.remove(equipment);
 		assert haveEquipment;
-	}
-	public void battleUnequip(Headwear equipment) {
-		fieldUnequip(equipment);
-	}
-	public void battleUnequip(Suit equipment) {
-		fieldUnequip(equipment);
-	}
-	public void battleUnequip(Shield equipment) {
-		fieldUnequip(equipment);
-	}
-	public void battleUnequip(Weapon equipment) {
-		fieldUnequip(equipment);
 	}
 }

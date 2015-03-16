@@ -8,12 +8,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 public class PlayerStats implements Serializable {
 	private int witchMp[];
 	private int priestMp[];
-	private ArrayList<Utility> utilityQueue;
 	
-	public PlayerStats(int[] witchMp, int[] priestMp, ArrayList<Utility> utilityQueue) {
+	public PlayerStats(int[] witchMp, int[] priestMp) {
 		this.witchMp = witchMp;
 		this.priestMp = priestMp;
-		this.utilityQueue = utilityQueue;
 	}
 	
 	public int getWitchMp(int level) {
@@ -22,14 +20,10 @@ public class PlayerStats implements Serializable {
 	public int getPriestMp(int level) {
 		return priestMp[level-1];
 	}
-	public void addUtility(Utility utility) {
-		utilityQueue.add(utility);
+	public void spendWitchMp(int level, int amount) {
+		witchMp[level-1] -= amount;
 	}
-	public void removeUtility(Utility utility) {
-		boolean haveUtility = utilityQueue.remove(utility);
-		assert haveUtility;
-	}
-	public Utility[] getUtilityQueue() {
-		return utilityQueue.toArray(new Utility[utilityQueue.size()]);
+	public void spendPriestMp(int level, int amount) {
+		priestMp[level-1] -= amount;
 	}
 }
