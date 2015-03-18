@@ -9,7 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 public class Weapon extends Utility {
 
 	public Weapon(NameTag nameTag, int price,
-			TreeSet<Job> equippableBy, Effect<?> effect) {
+			TreeSet<Job> equippableBy, Effect effect) {
 		super(nameTag, price, equippableBy, effect);
 	}
 

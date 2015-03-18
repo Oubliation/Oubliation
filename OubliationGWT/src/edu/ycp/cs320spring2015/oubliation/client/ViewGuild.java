@@ -21,13 +21,13 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
  *
  */
 public class ViewGuild extends Composite{
-
+	//TODO: Only allows you to remove actors, not add them
 	private static ViewGuildUiBinder uiBinder = GWT
 			.create(ViewGuildUiBinder.class);
 
 	interface ViewGuildUiBinder extends UiBinder<Widget, ViewGuild> {
 	}
-
+	
 	/**
 	 * Because this class has a default constructor, it can
 	 * be used as a binder template. In other words, it can be used in other
