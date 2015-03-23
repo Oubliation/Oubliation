@@ -6,6 +6,11 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 
+/**
+ * 
+ * Armor which is worn on the torso
+ *
+ */
 public class Suit extends Armor {
 
 	public Suit(NameTag nameTag, int price,

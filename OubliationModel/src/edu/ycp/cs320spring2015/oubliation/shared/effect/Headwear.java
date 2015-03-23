@@ -6,6 +6,11 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 
+/**
+ * 
+ * Armor equipped to the head
+ *
+ */
 public class Headwear extends Armor {
 
 	public Headwear(NameTag nameTag, int price,

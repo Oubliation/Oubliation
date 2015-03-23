@@ -6,6 +6,11 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 
+/**
+ * 
+ * Utility which can attack an enemy repeatedly
+ *
+ */
 public class Weapon extends Utility {
 
 	public Weapon(NameTag nameTag, int price,

@@ -6,6 +6,11 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 
+/**
+ * 
+ * Equipment with a usable effect
+ *
+ */
 public class Utility extends Equipment {
 	private Effect effect;
 	
