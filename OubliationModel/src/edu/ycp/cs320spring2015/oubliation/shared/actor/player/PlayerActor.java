@@ -2,9 +2,9 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
 import java.util.LinkedList;
 
+import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
-import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
@@ -12,6 +12,11 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
+/**
+ * TODO: Come back here! Complete JavaDoc
+ * An actor controlled by the player;extends Actor
+ *
+ */
 final public class PlayerActor extends Actor {
 	
 	final private PlayerIdentity identity;
@@ -19,13 +24,24 @@ final public class PlayerActor extends Actor {
 	
 	private LinkedList<Equipment> battleEquipQueue;
 	
+	/**
+	 * 
+	 * @param nameTag {@link NameTag}
+	 * @param loadout {@link Loadout}
+	 * @param health The amount of life-force that an actor has before death.
+	 * @param identity {@link PlayerIdentity}
+	 * @param stats {@link PlayerStats}
+	 */
 	public PlayerActor(NameTag nameTag, Loadout loadout, int health,
 			PlayerIdentity identity, PlayerStats stats) {
 		super(nameTag, loadout, health);
 		this.identity = identity;
 		this.stats = stats;
 	}
-	
+	/**
+	 * 
+	 * @see PlayerIdentity#getLevel()
+	 */
 	public int getLevel() {
 		return identity.getLevel();
 	}
@@ -55,11 +71,18 @@ final public class PlayerActor extends Actor {
 	public String getJobDescription() {
 		return identity.getJobDescription();
 	}
-	
+	/**
+	 * 
+	 * @see PlayerStats#getMaxWitchMp()
+	 */
 	public int getMaxWitchMp(int level) {
 		//TODO: implement
 		return stats.getWitchMp(level);
 	}
+	/**
+	 * 
+	 * @see PlayerStats#getMaxPriestMp()
+	 */
 	public int getMaxPriestMp(int level) {
 		//TODO: implement
 		return stats.getPriestMp(level);

@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 
 public abstract class Equipment extends Item {

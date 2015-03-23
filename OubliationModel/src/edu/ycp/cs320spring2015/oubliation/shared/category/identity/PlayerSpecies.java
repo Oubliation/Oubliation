@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
+import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
-import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
 
 public class PlayerSpecies extends Species {
 	final private Map<BruceScore, Integer> baseScores;

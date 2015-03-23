@@ -1,13 +1,23 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
-import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
-
+import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
+/**
+ * 
+ * For actors not controlled by player; extends Actor
+ *
+ */
 public abstract class NonPlayerActor extends Actor {
 
 	final private Identity identity;
 	
 	private NonPlayerStats stats;
-	
+	/**
+	 * 
+	 * @param nameTag {@link NameTag} 
+	 * @param loadout {@link Loadout}
+	 * @param identity {@link Identity}
+	 * @param stats {@link NonPlayerStats}
+	 */
 	public NonPlayerActor(NameTag nameTag, Loadout loadout, Identity identity, NonPlayerStats stats) {
 		super(nameTag, loadout, stats.getMaxHp());
 		this.identity = identity;

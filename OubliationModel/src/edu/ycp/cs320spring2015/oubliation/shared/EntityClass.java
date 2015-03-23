@@ -1,8 +1,11 @@
 package edu.ycp.cs320spring2015.oubliation.shared;
 
-import edu.ycp.cs320spring2015.oubliation.shared.category.NameTag;
-
+/**
+ * implements {@link Entity}
+ * @param nameTag
+ */
 public abstract class EntityClass implements Entity {
+	
 	final private NameTag nameTag;
 
 	public EntityClass(NameTag nameTag) {
