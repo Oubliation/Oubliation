@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
+
 public class SpellSchool extends CategoryClass {
 	final List<List<Integer>> spells;
 	

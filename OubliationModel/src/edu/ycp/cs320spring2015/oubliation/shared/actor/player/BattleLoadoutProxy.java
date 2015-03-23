@@ -10,7 +10,11 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
-
+/**
+ * TODO: Come back to this
+ * A wrapper for {@link Loadout}; Implements CanEquip
+ *
+ */
 public class BattleLoadoutProxy implements CanEquip {
 	Loadout loadout;
 	ArrayList<Utility> readiedUtilities;

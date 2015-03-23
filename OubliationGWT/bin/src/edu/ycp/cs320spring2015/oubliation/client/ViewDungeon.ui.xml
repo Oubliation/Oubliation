@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:o="edu.ycp.cs320spring2015.oubliation.client">
+	<ui:style>
+		.sidebar {
+			float: left;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:FlowPanel />
+		<o:Canvas ui:field="canvas" height="200" width="200" />
+	</g:HTMLPanel>
+</ui:UiBinder> 

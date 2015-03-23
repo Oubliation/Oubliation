@@ -20,6 +20,14 @@ public class Profile implements Serializable {
 	private ArrayList<PlayerActor> roster; //reserve player actors
 	private HashSet<String> dungeonFlags; //active dungeon flags
 	
+	/**
+	 * Maintains data concerning player state.
+	 * @param money accrued by the party
+	 * @param inventory items obtained by the party
+	 * @param party i.e. the characters in the party
+	 * @param roster characters waiting in the guild
+	 * @param dungeonFlags flags triggered by the party inside the dungeon.
+	 */
 	public Profile(int money, ArrayList<Item> inventory,
 			ArrayList<PlayerActor> party, ArrayList<PlayerActor> roster,
 			HashSet<String> dungeonFlags) {
@@ -46,66 +54,123 @@ public class Profile implements Serializable {
 		boolean hadUnit = roster.remove(actor);
 		assert hadUnit;
 	}
+	/**
+	 * 
+	 * @return array of roster members
+	 */
 	public PlayerActor[] getRoster() {
 		return roster.toArray(new PlayerActor[roster.size()]);
 	}
-	
+	/**
+	 * 
+	 * @return True if the party is full, false if the party is not full
+	 */
 	public boolean hasMaxParty() {
 		return party.size()<=maxPartySize;
 	}
+	/**
+	 * 
+	 * @param actor to add to the party
+	 */
 	public void addActor(PlayerActor actor) {
 		boolean haveUnit = roster.remove(actor);
 		party.add(actor);
 		
 		assert haveUnit && hasMaxParty();
 	}
+	/**
+	 * 
+	 * @param actor to remove from the party
+	 */
 	public void removeActor(PlayerActor actor) {
 		boolean haveUnit = party.remove(actor);
 		roster.add(actor);
 		
 		assert haveUnit;
 	}
-	
+	/**
+	 * 
+	 * @return array of party members
+	 */
 	public PlayerActor[] getParty() {
 		return party.toArray(new PlayerActor[party.size()]);
 	}
-
+	/**
+	 * 
+	 * @param item to add to the inventory
+	 */
 	public void createItem(Item item) {
 		inventory.add(item);
 	}
+	/**
+	 * 
+	 * @param item to be removed from the inventory
+	 */
 	public void destroyItem(Item item) {
 		boolean hadItem = inventory.remove(item);
 		assert hadItem;
 	}
 	/*
-	public void fieldEquipActor(PlayerActor actor, Equipment equipment) {
-		boolean haveEquipment = inventory.remove(equipment);
-		actor.fieldEquip(equipment);
-		assert haveEquipment;
-	}
-	public void fieldUnequipActor(PlayerActor actor, Equipment equipment) {
-		actor.fieldUnequip(equipment);
-		inventory.add(equipment);
-	}
-	public void battleUnequipActor(PlayerActor actor, Equipment equipment) {
-		actor.battleUnequip(equipment);
-		inventory.add(equipment);
-	}
-	
-	public void actorQueueEquipment(PlayerActor actor, Equipment equipment) {
-		boolean haveEquipment = inventory.remove(equipment);
-		actor.queueEquipment(equipment);
-		assert haveEquipment;
-	}
-	public void actorDequeEquipment(PlayerActor actor, Equipment equipment) {
-		actor.dequeueEquipment(equipment);
-		inventory.add(equipment);
-	}
-	*/
-	
+//	/**
+//	 * 
+//	 * @param actor to equip the item on.
+//	 * @param equipment to equip onto the actor
+//	 */
+//	public void fieldEquipActor(PlayerActor actor, Equipment equipment) {
+//		boolean haveEquipment = inventory.remove(equipment);
+//		actor.fieldEquip(equipment);
+//		assert haveEquipment;
+//	}
+//	/**
+//	 * 
+//	 * @param actor to un-equip the item from.
+//	 * @param equipment to take from the actor and place in the inventory.
+//	 */
+//	public void fieldUnequipActor(PlayerActor actor, Equipment equipment) {
+//		actor.fieldUnequip(equipment);
+//		inventory.add(equipment);
+//	}
+//	/**
+//	 * 
+//	 * @param actor to un-equip the item from.
+//	 * @param equipment to take from the actor and place in the inventory.
+//	 */
+//	public void battleUnequipActor(PlayerActor actor, Equipment equipment) {
+//		actor.battleUnequip(equipment);
+//		inventory.add(equipment);
+//	}
+//	/**
+//	 * 
+//	 * @param actor who is to be equipped when the turn in queue comes
+//	 * @param equipment to equip onto the actor
+//	 */
+//	public void actorQueueEquipment(PlayerActor actor, Equipment equipment) {
+//		boolean haveEquipment = inventory.remove(equipment);
+//		actor.queueEquipment(equipment);
+//		assert haveEquipment;
+//	}
+//	/**
+//	 * Removes the two params from queue
+//	 * @param actor who is to be equipped when the turn in queue comes
+//	 * @param equipment to equip onto the actor
+//	 */
+//	public void actorDequeEquipment(PlayerActor actor, Equipment equipment) {
+//		actor.dequeueEquipment(equipment);
+//		inventory.add(equipment);
+//	}
+//	*/
+	/**
+	 * 
+	 * @param amount amount of money to add
+	 */
 	public void incMoney(int amount) {
 		money += amount;
 	}
+	/**
+	 * 
+	 * @param amount The amount of money for the required operation, to check against how much money accrued by the party.
+	 * @return True if money is the correct amount needed; false if otherwise
+	 */
 	public boolean checkMoney(int amount) {
 		return money >= amount;
 	}
