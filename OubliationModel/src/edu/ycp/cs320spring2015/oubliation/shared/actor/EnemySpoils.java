@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 /**
  * 
- * Represents the rewards to the player for a successful battle; implements Serializable
+ * Represents the rewards to the player for a successful battle
  *
  */
-public class EnemySpoils implements Serializable {
+public class EnemySpoils {
 	private int experienceGiven;
 	private int moneyGiven;
 	private ArrayList<Item> itemsGiven;

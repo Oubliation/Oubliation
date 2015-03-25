@@ -1,6 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
+import java.io.Serializable;
+
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
@@ -10,7 +11,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 /**
  * Interface for equipping items.
  */
-public interface CanEquip {
+public interface CanEquip extends Serializable {
 /* Adding items */
 	/**
 	 * @param Headwear article to equip 

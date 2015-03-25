@@ -23,7 +23,15 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
+/**
+ * 
+ * Debug class for creating game objects to quickly test systems
+ *
+ */
 public class Debug {
+	/**
+	 * @return arbitrary PlayerJob for testing
+	 */
 	public static PlayerJob makePlayerJob() {
 		NameTag jobTag = new NameTag("Witch", "");
 		EnumMap<BruceScore, Integer> attribReqValues = new EnumMap<BruceScore, Integer>(BruceScore.class);
@@ -37,6 +45,9 @@ public class Debug {
 		return new PlayerJob(jobTag, attribReqValues, expRequired, 6400, 1, 16, 8, 2);
 	}
 	
+	/**
+	 * @return arbitrary PlayerBackground for testing
+	 */
 	public static PlayerBackground makePlayerBackground() {
 		NameTag bgTag = new NameTag("Scholar", "");
 		EnumMap<BruceScore, Double> attribGainRates = new EnumMap<BruceScore, Double>(BruceScore.class);
@@ -48,7 +59,10 @@ public class Debug {
 		attribGainRates.put(BruceScore.luckily, 1.3);
 		return new PlayerBackground(bgTag, attribGainRates, new TreeSet<PlayerJob>());
 	}
-	
+
+	/**
+	 * @return arbitrary PlayerSpecies for testing
+	 */
 	public static PlayerSpecies makePlayerSpecies() {
 		NameTag speciesTag = new NameTag("Fairy", "");
 		EnumMap<BruceScore, Integer> attribBaseValues = new EnumMap<BruceScore, Integer>(BruceScore.class);
@@ -60,7 +74,10 @@ public class Debug {
 		attribBaseValues.put(BruceScore.luckily, 3);
 		return new PlayerSpecies(speciesTag, attribBaseValues);
 	}
-	
+
+	/**
+	 * @return arbitrary PlayerIdentity for testing
+	 */
 	public static PlayerIdentity makePlayerIdentity() {
 		PlayerJob job = makePlayerJob();
 		PlayerBackground bg = makePlayerBackground();
@@ -68,27 +85,42 @@ public class Debug {
 		
 		return new PlayerIdentity(bg, species, job, 3, 100);
 	}
-	
+
+	/**
+	 * @return arbitrary Headwear for testing
+	 */
 	public static Headwear makeHeadwear() {
 		NameTag headwearTag = new NameTag("Leather Hood", "");
 		return new Headwear(headwearTag, 100, new TreeSet<Job>(), 1);
 	}
-	
+
+	/**
+	 * @return arbitrary Suit for testing
+	 */
 	public static Suit makeSuit() {
 		NameTag suitTag = new NameTag("Plate Mail", "");
 		return new Suit(suitTag, 100, new TreeSet<Job>(), 3);
 	}
-	
+
+	/**
+	 * @return arbitrary Shield for testing
+	 */
 	public static Shield makeShield() {
 		NameTag shieldTag = new NameTag("Dragon Shield", "");
 		return new Shield(shieldTag, 100, new TreeSet<Job>(), 2);
 	}
-	
+
+	/**
+	 * @return arbitrary Weapon for testing
+	 */
 	public static Weapon makeWeapon() {
 		NameTag weaponTag = new NameTag("Sword", "");
 		return new Weapon(weaponTag, 100, new TreeSet<Job>(), null);
 	}
-	
+
+	/**
+	 * @return arbitrary Loadout for testing
+	 */
 	public static Loadout makeLoadout() {
 		Headwear headwear = makeHeadwear();
 		Suit suit = makeSuit();
@@ -97,13 +129,19 @@ public class Debug {
 		
 		return new Loadout(headwear, suit, shield, weapon, new ArrayList<Utility>());
 	}
-	
+
+	/**
+	 * @return arbitrary PlayerStats for testing
+	 */
 	public static PlayerStats makePlayerStats() {
 		int[] witchMp = {40, 36, 30, 24, 16, 8};
 		int[] priestMp = {40, 36, 30, 24, 16, 8};
 		return new PlayerStats(witchMp, priestMp);
 	}
-	
+
+	/**
+	 * @return arbitrary PlayerActor for testing
+	 */
 	public static PlayerActor makePlayerActor() {
 		PlayerIdentity identity = makePlayerIdentity();
 		Loadout loadout = makeLoadout();
@@ -112,7 +150,10 @@ public class Debug {
 		NameTag playerTag = new NameTag("Nevik", "A character controlled by the Player");
 		return new PlayerActor(playerTag, loadout, 20, identity, stats);
 	}
-	
+
+	/**
+	 * @return arbitrary Profile for testing
+	 */
 	public static Profile makeProfile() {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
 		for (int count=0; count<6; count+=1) {

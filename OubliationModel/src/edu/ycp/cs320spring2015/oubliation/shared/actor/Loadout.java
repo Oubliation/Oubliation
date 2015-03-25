@@ -11,9 +11,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
 /**
- * Equipped items on an Actor; implements serializable and CanEquip
+ * Equipped items on an Actor; implements CanEquip
  */
-public class Loadout implements Serializable, CanEquip {
+public class Loadout implements CanEquip {
 	
 	/**
 	 * 

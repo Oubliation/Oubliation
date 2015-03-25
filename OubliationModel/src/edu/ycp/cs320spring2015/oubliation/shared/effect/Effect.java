@@ -3,6 +3,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.effect;
 import java.io.Serializable;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 
 /**
  * 
@@ -10,6 +11,12 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
  *
  */
 public abstract class Effect implements Serializable {
+	Element element;
+	
+	public Effect(Element element) {
+		this.element = element;
+	}
+	
 	/**
 	 * 
 	 * @param source actor which caused the effect, if applicable

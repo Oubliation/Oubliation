@@ -2,10 +2,10 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
 import java.io.Serializable;
 /**
- * Miscellaneous statistics of Non-Player Actors; implements Serializable
+ * Miscellaneous statistics of Non-Player Actors
  *
  */
-public class NonPlayerStats implements Serializable {
+public class NonPlayerStats {
 	private int maxHp = 0; 
 	private int hitCount = 0;
 	

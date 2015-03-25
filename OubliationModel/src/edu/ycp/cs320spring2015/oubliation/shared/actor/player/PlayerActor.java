@@ -39,15 +39,20 @@ final public class PlayerActor extends Actor {
 		this.stats = stats;
 	}
 	/**
-	 * 
 	 * @see PlayerIdentity#getLevel()
 	 */
 	public int getLevel() {
 		return identity.getLevel();
 	}
+	/**
+	 * @see PlayerIdentity#updateLevel()
+	 */
 	public void updateLevel() {
 		identity.updateLevel();
 	}
+	/**
+	 * @see PlayerIdentity#isLevelUpReady()
+	 */
 	public boolean isLevelUpReady() {
 		return identity.isLevelUpReady();
 	}
@@ -58,7 +63,6 @@ final public class PlayerActor extends Actor {
 	public String getBackgroundDescription() {
 		return identity.getBackgroundDescription();
 	}
-
 	public String getSpeciesName() {
 		return identity.getSpeciesName();
 	}
@@ -87,23 +91,37 @@ final public class PlayerActor extends Actor {
 		//TODO: implement
 		return stats.getPriestMp(level);
 	}
-
+	
+	/**
+	 * @see PlayerStats#getWitchMp(int)
+	 */
 	public int getWitchMp(int level) {
 		return stats.getWitchMp(level);
 	}
+	/**
+	 * @see PlayerStats#getPriestMp(int)
+	 */
 	public int getPriestMp(int level) {
 		return stats.getPriestMp(level);
 	}
 	
-	
+	/**
+	 * @param equipment to equip
+	 */
 	public void equip(Equipment equipment) {
 		equipment.equipTo(getLoadout());
 	}
 	
+	/**
+	 * @param equipment to unequip
+	 */
 	public void unequip(Equipment equipment) {
 		equipment.unequipFrom(getLoadout());
 	}
 	
+	/**
+	 * equip next equipment in the battle equip queue
+	 */
 	//FIXME:
 //	public void advanceBattleQueue() {
 //		getLoadout().battleEquip(battleEquipQueue.pop());

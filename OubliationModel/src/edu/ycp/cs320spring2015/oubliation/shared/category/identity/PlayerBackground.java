@@ -27,9 +27,9 @@ public class PlayerBackground extends Background {
 	}
 	
 	/**
-	 * @param score B.R.U.C.E. score (attribute) to check
+	 * @param score B.R.U.C.E. score (attribute) to evaluate
 	 * @param level experience level to match
-	 * @return value of the attribute background gained at level x 
+	 * @return value of the attribute gained at level x provided this background 
 	 */
 	public int getScoreGain(BruceScore score, int level) {
 		return (int) (bruceGainRate.get(score)*level);

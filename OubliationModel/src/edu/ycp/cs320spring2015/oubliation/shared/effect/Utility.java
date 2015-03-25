@@ -21,6 +21,9 @@ public class Utility extends Equipment {
 		this.effect = effect;
 	}
 
+	/**
+	 * @param controller used to effect state
+	 */
 	public void apply(BattleController controller) { //TODO: consider exactly how effect works
 		
 	}

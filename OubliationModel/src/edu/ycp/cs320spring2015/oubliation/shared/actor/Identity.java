@@ -8,10 +8,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Species;
 
 /**
  * 
- * An actors identifying characteristics; implements serializable
+ * An actor's identifying characteristics
  *
  */
-public class Identity implements Serializable {
+public class Identity {
 	final private Background background;
 	final private Species species;
 	final private Job job;
