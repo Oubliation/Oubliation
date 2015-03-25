@@ -1,5 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
@@ -13,9 +14,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
  * An actor controlled by the player;extends Actor
  *
  */
-final public class PlayerActor extends Actor {
+final public class PlayerActor extends Actor implements Serializable {
 	private static final long serialVersionUID = -6349964020742433276L;
-	@SuppressWarnings("unused") private PlayerActor () { super(); }
+	public PlayerActor () {}
 	
 	private PlayerIdentity identity;
 	private PlayerStats stats;

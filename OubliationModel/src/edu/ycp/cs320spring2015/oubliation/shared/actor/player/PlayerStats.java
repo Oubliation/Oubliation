@@ -12,6 +12,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
  */
 public class PlayerStats implements Serializable {
 	private static final long serialVersionUID = -6550379214140225472L;
+	public PlayerStats() {}
 	
 	private ArrayList<Utility> autoEquipUtilities; //utilities to be automatically added to the battle equip queue
 	private int witchMp[]; //mana for each level of witch spells

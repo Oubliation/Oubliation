@@ -11,6 +11,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
  */
 public abstract class Armor extends Equipment {
 	private static final long serialVersionUID = 3117431489237651964L;
+	public Armor() {}
 	
 	private int armorRank;
 	

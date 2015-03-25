@@ -13,6 +13,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
  */
 public class Headwear extends Armor {
 	private static final long serialVersionUID = 1399598762358488552L;
+	public Headwear() {}
 
 	public Headwear(NameTag nameTag, int price,
 			TreeSet<Job> equippableBy, int ac) {

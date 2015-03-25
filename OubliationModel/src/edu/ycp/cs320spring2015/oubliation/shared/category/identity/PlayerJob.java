@@ -1,8 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared.category.identity;
 
-import java.util.Collections;
 import java.util.EnumMap;
-import java.util.Map;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
@@ -14,14 +12,15 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
  */
 public class PlayerJob extends Job {
 	private static final long serialVersionUID = -8431500043835535609L;
+	public PlayerJob() {}
 	
-	final private Map<BruceScore, Integer> requiredScores; // attributes required to aquire this job
-	final private int[] expChart; //experience needed to reach each level
-	final private int extraLvExp; //experience needed to reach levels beyond expChart
-	final private int baseHitCount; //base number of hits performed by this job
-	final private int baseMaxHp; //base maximum health provided by this job
-	final private int maxHpGain; //maximum health gained on each level up
-	final private int utilitySlotCount; //number of slots for utilities this class may have
+	private EnumMap<BruceScore, Integer> requiredScores; // attributes required to aquire this job
+	private int[] expChart; //experience needed to reach each level
+	private int extraLvExp; //experience needed to reach levels beyond expChart
+	private int baseHitCount; //base number of hits performed by this job
+	private int baseMaxHp; //base maximum health provided by this job
+	private int maxHpGain; //maximum health gained on each level up
+	private int utilitySlotCount; //number of slots for utilities this class may have
 	
 	//TODO: implement spell schools
 	
@@ -30,7 +29,7 @@ public class PlayerJob extends Job {
 			int extraLvExp, int baseHitCount, int baseMaxHp, int maxHpGain,
 			int utilitySlotCount) {
 		super(nameTag);
-		this.requiredScores = Collections.unmodifiableMap(requiredScores);
+		this.requiredScores = requiredScores;
 		this.expChart = expChart;
 		this.extraLvExp = extraLvExp;
 		this.baseHitCount = baseHitCount;

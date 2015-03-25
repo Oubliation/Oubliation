@@ -10,6 +10,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.CategoryClass;
  */
 public class Background extends CategoryClass {
 	private static final long serialVersionUID = 7635009574294103253L;
+	public Background() {}
 
 	public Background(NameTag nameTag) {
 		super(nameTag);

@@ -10,4 +10,5 @@ public interface DataKeeper extends RemoteService {
 	public boolean validateLogin(String username, String password);
 	public Profile loadProfile(String username);
 	public void saveProfile(String username, Profile profile);
+	public _Dummy dummy(_Dummy dummy);
 }

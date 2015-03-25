@@ -13,5 +13,7 @@ public interface DataKeeperAsync {
 
 	void validateLogin(String username, String password,
 			AsyncCallback<Boolean> callback);
+	
+	void dummy(_Dummy dummy, AsyncCallback<_Dummy> callback);
 
 }

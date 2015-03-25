@@ -1,11 +1,13 @@
 package edu.ycp.cs320spring2015.oubliation.shared;
 
+import java.io.Serializable;
+
 /**
  * implements {@link Entity}
  */
-public abstract class EntityClass implements Entity {
+public abstract class EntityClass implements Entity, Serializable {
 	private static final long serialVersionUID = 5438401186682378274L;
-	protected EntityClass() { super(); }
+	public EntityClass() {}
 	
 	private NameTag nameTag;
 	/**

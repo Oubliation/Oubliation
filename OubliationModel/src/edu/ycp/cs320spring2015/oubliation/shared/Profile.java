@@ -13,7 +13,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
  */
 public final class Profile implements Serializable {
 	private static final long serialVersionUID = 6002185655350502612L;
-	@SuppressWarnings("unused") private Profile() {}
+	public Profile() {}
 
 	final int maxPartySize = 6;
 			

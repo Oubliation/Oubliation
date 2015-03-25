@@ -14,6 +14,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies
  */
 public class PlayerIdentity implements HasIdentity, Serializable {
 	private static final long serialVersionUID = 8270320869115654218L;
+	public PlayerIdentity() {}
 	
 	private PlayerBackground background;
 	private PlayerSpecies species;

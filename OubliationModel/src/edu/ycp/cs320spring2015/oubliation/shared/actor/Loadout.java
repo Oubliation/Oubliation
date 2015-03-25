@@ -14,7 +14,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
  */
 public final class Loadout implements CanEquip, Serializable {
 	private static final long serialVersionUID = -3436712080673262727L;
-	@SuppressWarnings("unused") private Loadout() {}
+	public Loadout() {}
 
 	/**
 	 * 

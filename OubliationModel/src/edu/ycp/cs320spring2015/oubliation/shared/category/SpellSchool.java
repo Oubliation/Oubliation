@@ -14,6 +14,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
  */
 public class SpellSchool extends CategoryClass {
 	private static final long serialVersionUID = -4878500979571572536L;
+	public SpellSchool() {}
 	
 	private List<List<Integer>> spells;
 	

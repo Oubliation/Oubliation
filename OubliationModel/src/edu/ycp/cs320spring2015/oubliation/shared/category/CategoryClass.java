@@ -9,6 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
  */
 public abstract class CategoryClass extends EntityClass implements Category {
 	private static final long serialVersionUID = -364323350675604809L;
+	public CategoryClass() {}
 
 	public CategoryClass(NameTag nameTag) {
 		super(nameTag);

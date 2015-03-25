@@ -3,6 +3,7 @@ package edu.ycp.cs320spring2015.oubliation.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
+import edu.ycp.cs320spring2015.oubliation.client._Dummy;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 
@@ -27,6 +28,11 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	@Override
 	public Profile loadProfile(String username) {
 		return Debug.makeProfile();
+	}
+	
+	@Override
+	public _Dummy dummy(_Dummy dummy) {
+		return dummy;
 	}
 
 }

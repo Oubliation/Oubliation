@@ -1,8 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared.category.identity;
 
-import java.util.Collections;
 import java.util.EnumMap;
-import java.util.Map;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
@@ -14,13 +12,14 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
  */
 public class PlayerSpecies extends Species {
 	private static final long serialVersionUID = 82279970986527165L;
+	public PlayerSpecies() {}
 	
-	private Map<BruceScore, Integer> baseScores; //base attribute value provided by this species
+	private EnumMap<BruceScore, Integer> baseScores; //base attribute value provided by this species
 	
 	public PlayerSpecies(NameTag nameTag,
 			EnumMap<BruceScore, Integer> baseScores) {
 		super(nameTag);
-		this.baseScores = Collections.unmodifiableMap(baseScores);
+		this.baseScores = baseScores;
 	}
 	
 	/**

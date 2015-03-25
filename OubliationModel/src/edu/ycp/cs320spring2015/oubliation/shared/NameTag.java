@@ -7,7 +7,7 @@ package edu.ycp.cs320spring2015.oubliation.shared;
  */
 public final class NameTag implements Entity{
 	private static final long serialVersionUID = 1251479448538576281L;
-	@SuppressWarnings("unused") private NameTag() { super(); }
+	public NameTag() {}
 	
 	private String name;
 	private String description;

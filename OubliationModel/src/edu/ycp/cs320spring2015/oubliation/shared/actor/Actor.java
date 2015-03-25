@@ -1,5 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
+import java.io.Serializable;
+
 import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
@@ -11,9 +13,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 /**
  * Living/dead/undead entities within the game world
  */
-public abstract class Actor extends EntityClass implements HasIdentity {
+public abstract class Actor extends EntityClass implements HasIdentity, Serializable {
 	private static final long serialVersionUID = -1804243837789490964L;
-	protected Actor() {}
+	public Actor() {}
 
 	private int health;
 
@@ -22,7 +24,7 @@ public abstract class Actor extends EntityClass implements HasIdentity {
 	/**
 	 * 
 	 * @param nameTag {@link NameTag}
-	 * @param loadout All the equipment that the actor has on their body.
+	 * @param loadout {@link Loadout}All the equipment that the actor has on their body.
 	 * @param health How much life-force that the actor has until death.
 	 */
 	public Actor(NameTag nameTag, Loadout loadout, int health) {

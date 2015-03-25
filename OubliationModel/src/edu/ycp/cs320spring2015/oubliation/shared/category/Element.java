@@ -11,8 +11,10 @@ public enum Element implements Category {
 	ice("Ice", "Impairs animate bodies through the intense dispersion of kinetic energy."), 
 	magic("Magic", "Impairs animate bodies by discharging unstable occult energies.");
 	
-	final private String name; //name of the element
-	final private String description;  //description of the element
+	private String name; //name of the element
+	private String description;  //description of the element
+	
+	Element() {}
 	
 	Element(String name, String description) {
 		this.name = name;

@@ -9,6 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
  */
 public class Item extends EntityClass {
 	private static final long serialVersionUID = 6238883918558663956L;
+	public Item() {}
 	
 	private int price;
 	
