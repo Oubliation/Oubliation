@@ -42,7 +42,7 @@ public class ViewGuild extends Composite{
 	@UiField FlowPanel party;
 	@UiField FlowPanel guild;
 	
-	Profile profile;
+	final Profile profile;
 	
 	public ViewGuild(Profile profile) {
 		initWidget(uiBinder.createAndBindUi(this));

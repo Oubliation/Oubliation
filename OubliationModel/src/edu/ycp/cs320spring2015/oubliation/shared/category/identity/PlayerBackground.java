@@ -15,8 +15,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
  *
  */
 public class PlayerBackground extends Background {
-	final private Map<BruceScore, Double> bruceGainRate;
-	final private Set<PlayerJob> jobBlacklist;
+	private static final long serialVersionUID = 5665319881433223605L;
+	
+	private Map<BruceScore, Double> bruceGainRate;
+	private Set<PlayerJob> jobBlacklist;
 	
 	public PlayerBackground(NameTag nameTag,
 			EnumMap<BruceScore, Double> bruceGainRate,

@@ -4,11 +4,13 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 
 /**
  * 
- * object which could be held by actors
+ * object which may be held by actors
  *
  */
 public class Item extends EntityClass {
-	final private int price;
+	private static final long serialVersionUID = 6238883918558663956L;
+	
+	private int price;
 	
 	public Item(NameTag nameTag, int price) {
 		super(nameTag);

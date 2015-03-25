@@ -5,17 +5,15 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
+import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 
 public class Login extends Composite {
 
@@ -28,7 +26,7 @@ public class Login extends Composite {
 	@UiField PasswordTextBox password;
 	@UiField Label error;
 	
-	DataKeeperAsync dataKeeper;
+	private final DataKeeperAsync dataKeeper;
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -36,27 +34,35 @@ public class Login extends Composite {
 	}
 	
 	private void login() {
-    	error.setText("You logged in!");
-    	this.removeFromParent();
-    	RootPanel.get("gwtapp").add(new ViewOutskirts(Debug.makeProfile()));
-    	
+		final Login self = this;
+		AsyncCallback<Profile> callback = new AsyncCallback<Profile>() {
+			public void onSuccess(Profile profile) {
+		    	self.removeFromParent();
+		    	RootPanel.get("gwtapp").add(new ViewOutskirts(profile));
+			}
+
+			public void onFailure(Throwable caught) {
+		    	error.setText(caught.getMessage());
+		    }
+		};
+		dataKeeper.loadProfile("username", callback);
 	}
 
 	@UiHandler("loginButton")
 	void onClick(ClickEvent e) {
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
-		    public void onSuccess(Boolean isValid) {
-		    	if (isValid.equals(true)) {
-			    	login();
-		    	} else {
-			    	error.setText("Username or password is incorrect.");
-		    	}
-		    }
-
-		    public void onFailure(Throwable caught) {
-		    	error.setText(caught.getMessage());
-		    }
-		  };
+			public void onSuccess(Boolean isValid) {
+				if (isValid.equals(true)) {
+					login();
+				} else {
+					error.setText("Username or password is incorrect.");
+				}
+			}
+			
+			public void onFailure(Throwable caught) {
+				error.setText(caught.getMessage());
+			}
+		 };
 	
 		dataKeeper.validateLogin(username.getText(), password.getText(), callback);
 	}

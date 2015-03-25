@@ -1,14 +1,22 @@
 package edu.ycp.cs320spring2015.oubliation.shared;
 
 /**
- *  @param name Name of the entity
- *  @param description Description of the entity
+ * Attachable name and description for entities	
+ * implements {@link Entity} 
  *  @functions {@link #getName()}, {@link #getDescription()}
  */
-public class NameTag implements Entity{
-	final private String name;
-	final private String description;
+public final class NameTag implements Entity{
+	private static final long serialVersionUID = 1251479448538576281L;
+	@SuppressWarnings("unused") private NameTag() { super(); }
 	
+	private String name;
+	private String description;
+	
+	/**
+	 * 
+	 * @param name Name of the entity
+	 * @param description Description of the entity
+	 */
 	public NameTag(String name, String description) {
 		this.name = name;
 		this.description = description;

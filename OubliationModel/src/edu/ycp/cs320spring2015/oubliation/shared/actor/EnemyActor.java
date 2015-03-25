@@ -8,7 +8,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 
 public class EnemyActor extends NonPlayerActor {
-	private EnemySpoils enemySpoils;
+	private static final long serialVersionUID = 1948800440853986420L;
+	
+	final private transient EnemySpoils enemySpoils;
 	
 	/**
 	 * 

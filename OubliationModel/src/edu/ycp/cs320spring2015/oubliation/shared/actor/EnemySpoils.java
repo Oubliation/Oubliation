@@ -1,6 +1,5 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
@@ -12,7 +11,15 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 public class EnemySpoils {
 	private int experienceGiven;
 	private int moneyGiven;
-	private ArrayList<Item> itemsGiven;
+	private final ArrayList<Item> itemsGiven;
+	
+	public EnemySpoils(int experienceGiven, int moneyGiven,
+			ArrayList<Item> itemsGiven) {
+		super();
+		this.experienceGiven = experienceGiven;
+		this.moneyGiven = moneyGiven;
+		this.itemsGiven = itemsGiven;
+	}
 	/**
 	* @return The experience points the party deserves for defeating the enemy.
 	*/

@@ -18,15 +18,11 @@ public class ViewOutskirts extends Composite {
 	interface OutskirtsUiBinder extends UiBinder<Widget, ViewOutskirts> {
 	}
 	
-	Profile profile;
+	final Profile profile;
 
 	public ViewOutskirts(Profile profile) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.profile = profile;
-	}
-
-	public ViewOutskirts(String firstName) {
-		initWidget(uiBinder.createAndBindUi(this));
 	}
 	
 	@UiHandler("stats")

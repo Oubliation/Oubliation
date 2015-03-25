@@ -12,10 +12,13 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
  * Living/dead/undead entities within the game world
  */
 public abstract class Actor extends EntityClass implements HasIdentity {
-	
+	private static final long serialVersionUID = -1804243837789490964L;
+	protected Actor() {}
+
 	private int health;
 
 	private Loadout loadout; // contains all equipment
+	
 	/**
 	 * 
 	 * @param nameTag {@link NameTag}

@@ -1,7 +1,5 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
-import java.io.Serializable;
-
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;

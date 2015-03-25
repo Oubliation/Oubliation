@@ -13,6 +13,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
  *
  */
 public class Utility extends Equipment {
+	private static final long serialVersionUID = -4845314151894554625L;
+	
 	private Effect effect;
 	
 	public Utility(NameTag nameTag, int price,

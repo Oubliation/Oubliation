@@ -9,6 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.CategoryClass;
  *
  */
 public class Species extends CategoryClass {
+	private static final long serialVersionUID = -7995343837360387517L;
 
 	public Species(NameTag nameTag) {
 		super(nameTag);

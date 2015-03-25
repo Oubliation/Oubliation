@@ -1,6 +1,5 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
-import java.io.Serializable;
 /**
  * Miscellaneous statistics of Non-Player Actors
  *

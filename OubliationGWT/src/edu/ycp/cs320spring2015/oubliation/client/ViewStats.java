@@ -21,7 +21,7 @@ public class ViewStats extends Composite {
 	
 	@UiField FlowPanel statContainer;
 	
-	Widget previousScreen;
+	final Widget previousScreen;
 	
 	public ViewStats(PlayerActor[] party, Widget currentScreen) {
 		initWidget(uiBinder.createAndBindUi(this));

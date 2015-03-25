@@ -11,7 +11,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 /**
  * maintains data concerning player state
  */
-public class Profile implements Serializable {
+public final class Profile implements Serializable {
+	private static final long serialVersionUID = 6002185655350502612L;
+	@SuppressWarnings("unused") private Profile() {}
+
 	final int maxPartySize = 6;
 			
 	private int money = 0; 

@@ -7,10 +7,11 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
  *
  */
 public abstract class NonPlayerActor extends Actor {
-
-	final private NonPlayerIdentity identity;
+	private static final long serialVersionUID = 663010937548176787L;
 	
-	private NonPlayerStats stats;
+	private final transient NonPlayerIdentity identity;
+	private final transient NonPlayerStats stats;
+	
 	/**
 	 * 
 	 * @param nameTag {@link NameTag} 

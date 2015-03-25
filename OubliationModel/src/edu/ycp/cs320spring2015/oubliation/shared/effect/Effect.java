@@ -11,6 +11,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
  *
  */
 public abstract class Effect implements Serializable {
+	private static final long serialVersionUID = 2954502499169810978L;
+	
 	Element element;
 	
 	public Effect(Element element) {

@@ -9,6 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.CategoryClass;
  *
  */
 public class Job extends CategoryClass {
+	private static final long serialVersionUID = 8517219475841277395L;
 
 	public Job(NameTag nameTag) {
 		super(nameTag);

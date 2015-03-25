@@ -8,7 +8,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
  *
  */
 public class AllyActor extends NonPlayerActor {
-	
+	private static final long serialVersionUID = -6250038243498902232L;
+
 	/**
 	 * 
 	 * @param nameTag {@link NameTag}

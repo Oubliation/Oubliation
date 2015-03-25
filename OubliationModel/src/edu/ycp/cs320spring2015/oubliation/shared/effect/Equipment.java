@@ -15,6 +15,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
  *
  */
 public abstract class Equipment extends Item {
+	private static final long serialVersionUID = -8434198402659462673L;
+	
 	private SortedSet<Job> equippableBy;
 
 	public Equipment(NameTag nameTag, int price, TreeSet<Job> equippableBy) {

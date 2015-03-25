@@ -1,7 +1,5 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
-import java.io.Serializable;
-
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Background;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Species;

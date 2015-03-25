@@ -4,14 +4,9 @@ import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
 /**
  * TODO: Come back here! Complete JavaDoc
@@ -19,8 +14,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
  *
  */
 final public class PlayerActor extends Actor {
+	private static final long serialVersionUID = -6349964020742433276L;
+	@SuppressWarnings("unused") private PlayerActor () { super(); }
 	
-	final private PlayerIdentity identity;
+	private PlayerIdentity identity;
 	private PlayerStats stats;
 	
 	private LinkedList<Equipment> battleEquipQueue;

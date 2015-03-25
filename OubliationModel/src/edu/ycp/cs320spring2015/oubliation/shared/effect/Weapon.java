@@ -12,6 +12,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
  *
  */
 public class Weapon extends Utility {
+	private static final long serialVersionUID = -7151504325373853962L;
 
 	public Weapon(NameTag nameTag, int price,
 			TreeSet<Job> equippableBy, Effect effect) {

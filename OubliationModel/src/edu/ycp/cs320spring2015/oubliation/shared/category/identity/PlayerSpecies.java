@@ -13,7 +13,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
  *
  */
 public class PlayerSpecies extends Species {
-	final private Map<BruceScore, Integer> baseScores; //base attribute value provided by this species
+	private static final long serialVersionUID = 82279970986527165L;
+	
+	private Map<BruceScore, Integer> baseScores; //base attribute value provided by this species
 	
 	public PlayerSpecies(NameTag nameTag,
 			EnumMap<BruceScore, Integer> baseScores) {

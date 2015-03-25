@@ -13,6 +13,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
  *
  */
 public class PlayerJob extends Job {
+	private static final long serialVersionUID = -8431500043835535609L;
 	
 	final private Map<BruceScore, Integer> requiredScores; // attributes required to aquire this job
 	final private int[] expChart; //experience needed to reach each level

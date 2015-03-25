@@ -3,7 +3,6 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
@@ -13,8 +12,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 /**
  * Equipped items on an Actor; implements CanEquip, Serializable
  */
-public class Loadout implements CanEquip, Serializable {
-	
+public final class Loadout implements CanEquip, Serializable {
+	private static final long serialVersionUID = -3436712080673262727L;
+	@SuppressWarnings("unused") private Loadout() {}
+
 	/**
 	 * 
 	 * @param helmet {@link Headwear}

@@ -2,12 +2,15 @@ package edu.ycp.cs320spring2015.oubliation.shared;
 
 /**
  * implements {@link Entity}
- * @param nameTag
  */
 public abstract class EntityClass implements Entity {
+	private static final long serialVersionUID = 5438401186682378274L;
+	protected EntityClass() { super(); }
 	
-	final private NameTag nameTag;
-
+	private NameTag nameTag;
+	/**
+	 * @param nameTag
+	 */
 	public EntityClass(NameTag nameTag) {
 		this.nameTag = nameTag;
 	}

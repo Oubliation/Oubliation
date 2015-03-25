@@ -20,14 +20,16 @@ public class ViewDungeon extends Composite {
 	}
 	
 	@UiField(provided = true) Canvas canvas;
-	private Context2d context;
-	private Profile profile;
-	private Dungeon dungeon;
+	private final Context2d context;
+	private final Profile profile;
+	private final Dungeon dungeon;
 
 	public ViewDungeon(Profile profile) {
 		canvas = Canvas.createIfSupported();
 		initWidget(uiBinder.createAndBindUi(this));
+		
 		this.profile = profile;
+		dungeon = new Dungeon(0);
 		context = canvas.getContext2d(); 
 	}
 	

@@ -12,6 +12,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
  *
  */
 public class Suit extends Armor {
+	private static final long serialVersionUID = 5832506045474733159L;
 
 	public Suit(NameTag nameTag, int price,
 			TreeSet<Job> equippableBy, int ac) {
