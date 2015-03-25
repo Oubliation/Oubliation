@@ -14,32 +14,27 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
  * A wrapper for {@link Loadout}; Implements CanEquip
  *
  */
-public class BattleLoadoutProxy implements CanEquip {
+public class FieldLoadoutAdaptor implements CanEquip {
 	Loadout loadout; //actual loadout
-	ArrayList<Utility> readiedUtilities; //utilities readied for battle
+	PlayerStats stats; //stat object for redirecting utilities
 	
 	
-	public BattleLoadoutProxy(Loadout loadout) {
+	public FieldLoadoutAdaptor(Loadout loadout, PlayerStats stats) {
 		this.loadout = loadout;
+		this.stats = stats;
 	}
 	
 	/**
 	 * @param equipment utility to ready
 	 */
 	public void equip(Utility equipment) {
-		readiedUtilities.add(equipment);
+		stats.autoEquipAdd(equipment);
 	}
 	/**
 	 * @param equipment utility to unready
 	 */
 	public void unequip(Utility equipment) {
-		readiedUtilities.remove(equipment);
-	}
-	/**
-	 * @return array of readied utilities
-	 */
-	public Utility[] getReadiedUtilities() {
-		return readiedUtilities.toArray(new Utility[readiedUtilities.size()]);
+		stats.autoEquipRemove(equipment);
 	}
 	
 	/**

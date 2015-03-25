@@ -11,7 +11,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 /**
  * Interface for equipping items.
  */
-public interface CanEquip extends Serializable {
+public interface CanEquip {
 /* Adding items */
 	/**
 	 * @param Headwear article to equip 

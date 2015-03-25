@@ -2,6 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
 import java.io.Serializable;
 
+import edu.ycp.cs320spring2015.oubliation.shared.actor.HasIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
@@ -11,7 +12,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies
  * An player actor's identifying characteristics; implements serializable
  *
  */
-public class PlayerIdentity implements Serializable {
+public class PlayerIdentity implements HasIdentity, Serializable {
 	final private PlayerBackground background;
 	final private PlayerSpecies species;
 	final private PlayerJob job;
@@ -26,39 +27,21 @@ public class PlayerIdentity implements Serializable {
 		this.experience = experience;
 	}
 	
-	/**
-	 * @return name of background
-	 */
 	public String getBackgroundName() {
 		return background.getName();
 	}
-	/**
-	 * @return description of background
-	 */
 	public String getBackgroundDescription() {
 		return background.getDescription();
 	}
-	/**
-	 * @return name of species
-	 */
 	public String getSpeciesName() {
 		return species.getName();
 	}
-	/**
-	 * @return description of species
-	 */
 	public String getSpeciesDescription() {
 		return species.getDescription();
 	}
-	/**
-	 * @return name of job
-	 */
 	public String getJobName() {
 		return job.getName();
 	}
-	/**
-	 * @return description of job
-	 */
 	public String getJobDescription() {
 		return job.getDescription();
 	}

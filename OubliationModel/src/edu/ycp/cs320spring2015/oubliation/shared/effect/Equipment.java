@@ -21,7 +21,7 @@ public abstract class Equipment extends Item {
 		super(nameTag, price);
 		this.equippableBy = Collections.unmodifiableSortedSet(equippableBy);
 	}
-	
+
 	/**
 	 * @param loadout object to equip this item to
 	 */

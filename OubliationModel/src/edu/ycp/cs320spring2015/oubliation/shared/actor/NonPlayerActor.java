@@ -8,17 +8,17 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
  */
 public abstract class NonPlayerActor extends Actor {
 
-	final private Identity identity;
+	final private NonPlayerIdentity identity;
 	
 	private NonPlayerStats stats;
 	/**
 	 * 
 	 * @param nameTag {@link NameTag} 
 	 * @param loadout {@link Loadout}
-	 * @param identity {@link Identity}
+	 * @param identity {@link NonPlayerIdentity}
 	 * @param stats {@link NonPlayerStats}
 	 */
-	public NonPlayerActor(NameTag nameTag, Loadout loadout, Identity identity, NonPlayerStats stats) {
+	public NonPlayerActor(NameTag nameTag, Loadout loadout, NonPlayerIdentity identity, NonPlayerStats stats) {
 		super(nameTag, loadout, stats.getMaxHp());
 		this.identity = identity;
 		this.stats = stats;

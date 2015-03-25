@@ -11,7 +11,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 /**
  * Living/dead/undead entities within the game world
  */
-public abstract class Actor extends EntityClass {
+public abstract class Actor extends EntityClass implements HasIdentity {
 	
 	private int health;
 
@@ -29,37 +29,6 @@ public abstract class Actor extends EntityClass {
 	}
 	
 	//TODO: public abstract int startTurn();
-	
-	/**
-	 * 
-	 * @return A string of the background name
-	 */
-	public abstract String getBackgroundName();
-	/**
-	 * 
-	 * @return A string of the background description
-	 */
-	public abstract String getBackgroundDescription();
-	/**
-	 * 
-	 * @return A string of the species name
-	 */
-	public abstract String getSpeciesName();
-	/**
-	 * 
-	 * @return A string of the species description
-	 */
-	public abstract String getSpeciesDescription();
-	/**
-	 * 
-	 * @return A string of the job name
-	 */
-	public abstract String getJobName();
-	/**
-	 * 
-	 * @return A string of the job description
-	 */
-	public abstract String getJobDescription();
 	
 	//battle info
 	

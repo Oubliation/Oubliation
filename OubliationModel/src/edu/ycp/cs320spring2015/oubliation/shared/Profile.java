@@ -110,55 +110,53 @@ public class Profile implements Serializable {
 		boolean hadItem = inventory.remove(item);
 		assert hadItem;
 	}
-	/*
-//	/**
-//	 * 
-//	 * @param actor to equip the item on.
-//	 * @param equipment to equip onto the actor
-//	 */
-//	public void fieldEquipActor(PlayerActor actor, Equipment equipment) {
-//		boolean haveEquipment = inventory.remove(equipment);
-//		actor.fieldEquip(equipment);
-//		assert haveEquipment;
-//	}
-//	/**
-//	 * 
-//	 * @param actor to un-equip the item from.
-//	 * @param equipment to take from the actor and place in the inventory.
-//	 */
-//	public void fieldUnequipActor(PlayerActor actor, Equipment equipment) {
-//		actor.fieldUnequip(equipment);
-//		inventory.add(equipment);
-//	}
-//	/**
-//	 * 
-//	 * @param actor to un-equip the item from.
-//	 * @param equipment to take from the actor and place in the inventory.
-//	 */
-//	public void battleUnequipActor(PlayerActor actor, Equipment equipment) {
-//		actor.battleUnequip(equipment);
-//		inventory.add(equipment);
-//	}
-//	/**
-//	 * 
-//	 * @param actor who is to be equipped when the turn in queue comes
-//	 * @param equipment to equip onto the actor
-//	 */
-//	public void actorQueueEquipment(PlayerActor actor, Equipment equipment) {
-//		boolean haveEquipment = inventory.remove(equipment);
-//		actor.queueEquipment(equipment);
-//		assert haveEquipment;
-//	}
-//	/**
-//	 * Removes the two params from queue
-//	 * @param actor who is to be equipped when the turn in queue comes
-//	 * @param equipment to equip onto the actor
-//	 */
-//	public void actorDequeEquipment(PlayerActor actor, Equipment equipment) {
-//		actor.dequeueEquipment(equipment);
-//		inventory.add(equipment);
-//	}
-//	*/
+	/**
+	 * 
+	 * @param actor to equip the item on.
+	 * @param equipment to equip onto the actor
+	 */
+	public void fieldEquipActor(PlayerActor actor, Equipment equipment) {
+		boolean haveEquipment = inventory.remove(equipment);
+		actor.fieldEquip(equipment);
+		assert haveEquipment;
+	}
+	/**
+	 * 
+	 * @param actor to un-equip the item from.
+	 * @param equipment to take from the actor and place in the inventory.
+	 */
+	public void fieldUnequipActor(PlayerActor actor, Equipment equipment) {
+		actor.fieldUnequip(equipment);
+		inventory.add(equipment);
+	}
+	/**
+	 * 
+	 * @param actor to un-equip the item from.
+	 * @param equipment to take from the actor and place in the inventory.
+	 */
+	public void battleUnequipActor(PlayerActor actor, Equipment equipment) {
+		actor.battleUnequip(equipment);
+		inventory.add(equipment);
+	}
+	/**
+	 * 
+	 * @param actor who is to be equipped when the turn in queue comes
+	 * @param equipment to equip onto the actor
+	 */
+	public void actorQueueEquipment(PlayerActor actor, Equipment equipment) {
+		boolean haveEquipment = inventory.remove(equipment);
+		actor.queueEquipment(equipment);
+		assert haveEquipment;
+	}
+	/**
+	 * Removes the two params from queue
+	 * @param actor who is to be equipped when the turn in queue comes
+	 * @param equipment to equip onto the actor
+	 */
+	public void actorDequeEquipment(PlayerActor actor, Equipment equipment) {
+		actor.dequeueEquipment(equipment);
+		inventory.add(equipment);
+	}
 	/**
 	 * 
 	 * @param amount amount of money to add

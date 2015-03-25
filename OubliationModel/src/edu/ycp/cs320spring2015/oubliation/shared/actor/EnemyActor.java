@@ -15,12 +15,12 @@ public class EnemyActor extends NonPlayerActor {
 	 * @param nameTag {@link NameTag}
 	 * @param health An int representing the remaining life-force of a Non-player Actor before death.
 	 * @param loadout {@link Loadout}
-	 * @param identity {@link Identity}
+	 * @param identity {@link NonPlayerIdentity}
 	 * @param stats {@link NonPlayerStats}
 	 * @param enemySpoils {@link EnemySpoils}
 	 */
 	public EnemyActor(NameTag nameTag, int health, Loadout loadout,
-			Identity identity, NonPlayerStats stats, EnemySpoils enemySpoils) {
+			NonPlayerIdentity identity, NonPlayerStats stats, EnemySpoils enemySpoils) {
 		super(nameTag, loadout, identity, stats);
 		this.enemySpoils = enemySpoils;
 	}

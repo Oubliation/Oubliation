@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
@@ -104,33 +105,55 @@ final public class PlayerActor extends Actor {
 	public int getPriestMp(int level) {
 		return stats.getPriestMp(level);
 	}
-	
+
 	/**
-	 * @param equipment to equip
+	 * @param equipment to equip outside battle
 	 */
-	public void equip(Equipment equipment) {
-		equipment.equipTo(getLoadout());
+	public void fieldEquip(Equipment equipment) {
+		equipment.equipTo(new FieldLoadoutAdaptor(getLoadout(), stats));
 	}
 	
 	/**
-	 * @param equipment to unequip
+	 * @param equipment to unequip outside battle
 	 */
-	public void unequip(Equipment equipment) {
-		equipment.unequipFrom(getLoadout());
+	public void fieldUnequip(Equipment equipment) {
+		equipment.unequipFrom(new FieldLoadoutAdaptor(getLoadout(), stats));
 	}
-	
+	/**
+	 * @param add equipment to the battle equip queue
+	 */
+	public void queueEquipment(Equipment equipment) {
+		battleEquipQueue.add(equipment);
+	}
+	/**
+	 * @param remove equipment from the battle equip queue
+	 */
+	public void dequeueEquipment(Equipment equipment) {
+		battleEquipQueue.remove(equipment);
+	}
 	/**
 	 * equip next equipment in the battle equip queue
 	 */
-	//FIXME:
-//	public void advanceBattleQueue() {
-//		getLoadout().battleEquip(battleEquipQueue.pop());
-//	}
+	public void advanceBattleQueue() {
+		battleEquipQueue.pop().equipTo(getLoadout());
+	}
+	/**
+	 * @param equipment to unequip
+	 */
+	public void battleUnequip(Equipment equipment) {
+		equipment.unequipFrom(getLoadout());
+	}
 	
-
+	public Utility[] getAutoEquip() {
+		return stats.getAutoEquip();
+	}
 	
-	
-	
+	public void startBattle() {
+		
+	}
+	public void endBattle() {
+		
+	}
 	
 	public int getScore(BruceScore score) {
 		return identity.getScores(score);

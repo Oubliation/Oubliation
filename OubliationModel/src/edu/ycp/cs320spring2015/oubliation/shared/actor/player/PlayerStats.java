@@ -11,12 +11,33 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
  *
  */
 public class PlayerStats implements Serializable {
+	private ArrayList<Utility> autoEquipUtilities; //utilities to be automatically added to the battle equip queue
 	private int witchMp[]; //mana for each level of witch spells
 	private int priestMp[]; //mana for each level of priest spells
 	
-	public PlayerStats(int[] witchMp, int[] priestMp) {
+	public PlayerStats(int[] witchMp, int[] priestMp, ArrayList<Utility> autoEquipUtilities) {
 		this.witchMp = witchMp;
 		this.priestMp = priestMp;
+		this.autoEquipUtilities = autoEquipUtilities;
+	}
+	
+	/**
+	 * @param utility to be added to the auto equip
+	 */
+	public void autoEquipAdd(Utility utility) {
+		autoEquipUtilities.add(utility);
+	}
+	/**
+	 * @param utility to be removed from the auto equip
+	 */
+	public void autoEquipRemove(Utility utility) {
+		autoEquipUtilities.remove(utility);
+	}
+	/**
+	 * @return array of utilities in the auto equip
+	 */
+	public Utility[] getAutoEquip() {
+		return autoEquipUtilities.toArray(new Utility[autoEquipUtilities.size()]);
 	}
 	
 	/**
