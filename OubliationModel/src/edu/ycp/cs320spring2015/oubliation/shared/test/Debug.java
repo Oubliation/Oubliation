@@ -12,7 +12,6 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
-import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
@@ -58,7 +57,8 @@ public class Debug {
 		attribGainRates.put(BruceScore.godly, 0.5);
 		attribGainRates.put(BruceScore.quickly, 1.5);
 		attribGainRates.put(BruceScore.luckily, 1.3);
-		return new PlayerBackground(bgTag, attribGainRates, new TreeSet<PlayerJob>());
+		String backgroundRival = "Cartoonist";
+		return new PlayerBackground(bgTag, attribGainRates, new TreeSet<String>(), backgroundRival);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class Debug {
 	 */
 	public static Headwear makeHeadwear() {
 		NameTag headwearTag = new NameTag("Leather Hood", "");
-		return new Headwear(headwearTag, 100, new TreeSet<Job>(), 1);
+		return new Headwear(headwearTag, 100, new TreeSet<String>(), 1);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class Debug {
 	 */
 	public static Suit makeSuit() {
 		NameTag suitTag = new NameTag("Plate Mail", "");
-		return new Suit(suitTag, 100, new TreeSet<Job>(), 3);
+		return new Suit(suitTag, 100, new TreeSet<String>(), 3);
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class Debug {
 	 */
 	public static Shield makeShield() {
 		NameTag shieldTag = new NameTag("Dragon Shield", "");
-		return new Shield(shieldTag, 100, new TreeSet<Job>(), 2);
+		return new Shield(shieldTag, 100, new TreeSet<String>(), 2);
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class Debug {
 	 */
 	public static Weapon makeWeapon() {
 		NameTag weaponTag = new NameTag("Sword", "");
-		return new Weapon(weaponTag, 100, new TreeSet<Job>(), null);
+		return new Weapon(weaponTag, 100, new TreeSet<String>(), null);
 	}
 
 	/**

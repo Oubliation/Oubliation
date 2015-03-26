@@ -16,7 +16,7 @@ public class Suit extends Armor {
 	public Suit() {}
 
 	public Suit(NameTag nameTag, int price,
-			TreeSet<Job> equippableBy, int ac) {
+			TreeSet<String> equippableBy, int ac) {
 		super(nameTag, price, equippableBy, ac);
 		// TODO Auto-generated constructor stub
 	}

@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.client;
+package edu.ycp.cs320spring2015.oubliation.client.town;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.NumberFormat;
@@ -12,7 +12,11 @@ import edu.ycp.cs320spring2015.oubliation.shared.Entity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-
+/**
+ * 
+ * Displays stat block for a single character.
+ *
+ */
 public class StatBlock extends Composite {
 
 	private static ViewStatsUiBinder uiBinder = GWT
@@ -21,6 +25,7 @@ public class StatBlock extends Composite {
 	interface ViewStatsUiBinder extends UiBinder<Widget, StatBlock> {
 	}
 	
+	//import fields from ui.xml file
 	@UiField Label health;
 	@UiField Label armorRank;
 	@UiField Label experience;
@@ -55,8 +60,10 @@ public class StatBlock extends Composite {
 	@UiField Label quickly;
 	@UiField Label luckily;
 	
+	//two digit number formatting
 	final NumberFormat twoDigit = NumberFormat.getFormat("00");
 	
+	//fills in fields from actor model
 	public StatBlock(PlayerActor actor) {
 		initWidget(uiBinder.createAndBindUi(this));
 		
@@ -85,6 +92,7 @@ public class StatBlock extends Composite {
 		suit.setText(getNameSafely(actor.getSuit()));
 		shield.setText(getNameSafely(actor.getShield()));
 		
+		//have empty item fields if auto equip not full
 		Utility[] items = actor.getEquippedUtilities();
 		if (items.length >= 1) {
 			itemA.setText(items[0].getName());
@@ -112,10 +120,20 @@ public class StatBlock extends Composite {
 		luckily.setText(twoDigit.format(actor.getScore(BruceScore.luckily)));
 	}
 	
+	/**
+	 * @param num current amount
+	 * @param max maximum amount
+	 * @return formatted string of fraction num/max using two digits each
+	 */
 	private String getNumOfMax(int num, int max) {
 		return twoDigit.format(num) +"/"+ twoDigit.format(max);
 	}
 	
+	/**
+	 * 
+	 * @param entity Entity to retrieve name from
+	 * @return name of entity or "--" if null
+	 */
 	private String getNameSafely(Entity entity) {
 		if (entity != null) {
 			return entity.getName();

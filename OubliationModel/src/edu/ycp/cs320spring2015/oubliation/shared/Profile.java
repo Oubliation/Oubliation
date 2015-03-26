@@ -70,17 +70,18 @@ public final class Profile implements Serializable {
 	 * @return True if the party is full, false if the party is not full
 	 */
 	public boolean hasMaxParty() {
-		return party.size()<=maxPartySize;
+		return party.size()>=maxPartySize;
 	}
 	/**
 	 * 
 	 * @param actor to add to the party
 	 */
 	public void addActor(PlayerActor actor) {
+		assert !hasMaxParty();
 		boolean haveUnit = roster.remove(actor);
 		party.add(actor);
 		
-		assert haveUnit && hasMaxParty();
+		assert haveUnit;
 	}
 	/**
 	 * 

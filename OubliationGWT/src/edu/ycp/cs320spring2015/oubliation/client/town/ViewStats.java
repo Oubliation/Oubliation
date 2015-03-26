@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.client;
+package edu.ycp.cs320spring2015.oubliation.client.town;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -11,6 +11,11 @@ import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 
+/**
+ * 
+ * Displays stat blocks for the entire party
+ *
+ */
 public class ViewStats extends Composite {
 
 	private static ViewStatsUiBinder uiBinder = GWT
@@ -21,7 +26,7 @@ public class ViewStats extends Composite {
 	
 	@UiField FlowPanel statContainer;
 	
-	final Widget previousScreen;
+	final Widget previousScreen; //contains previously displayed screen
 	
 	public ViewStats(PlayerActor[] party, Widget currentScreen) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -32,9 +37,13 @@ public class ViewStats extends Composite {
 			statContainer.add(stats);
 		}
 	}
-
+	
+	/**
+	 * Navigate back to previous screen
+	 * @param event mouse click event data
+	 */
 	@UiHandler("backLink")
-	void onClick(ClickEvent e) {
+	void onClick(ClickEvent event) {
 		this.removeFromParent();
 		previousScreen.setVisible(true);
 	}
