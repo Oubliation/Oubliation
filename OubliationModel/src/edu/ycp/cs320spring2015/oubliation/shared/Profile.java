@@ -3,10 +3,12 @@ package edu.ycp.cs320spring2015.oubliation.shared;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorTransfer;
 
 /**
  * maintains data concerning player state
@@ -40,8 +42,6 @@ public final class Profile implements Serializable {
 		this.roster = roster;
 		this.dungeonFlags = dungeonFlags;
 	}
-
-	//TODO: profile (saving, loading, logging in)
 	
 	/**
 	 * @param actor PlayerActor to add to roster
@@ -218,6 +218,17 @@ public final class Profile implements Serializable {
 			setFlag(flag);
 		} else {
 			clearFlag(flag);
+		}
+	}
+	
+	public void save() {
+		LinkedList<PlayerActorTransfer> partyTransfer = new LinkedList<PlayerActorTransfer>();
+		LinkedList<PlayerActorTransfer> rosterTransfer = new LinkedList<PlayerActorTransfer>();
+		for (PlayerActor actor : party) {
+			partyTransfer.add(actor.getTransfer());
+		}
+		for (PlayerActor actor : roster) {
+			rosterTransfer.add(actor.getTransfer());
 		}
 	}
 }

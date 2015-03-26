@@ -24,5 +24,8 @@ public abstract class EntityClass implements Entity, Serializable {
 	public String getDescription() {
 		return nameTag.getDescription();
 	}
-
+	
+	protected NameTag getNameTag() {
+		return nameTag;
+	}
 }

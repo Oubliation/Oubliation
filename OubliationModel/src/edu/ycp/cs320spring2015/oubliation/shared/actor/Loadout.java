@@ -8,6 +8,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorTransfer;
 
 /**
  * Equipped items on an Actor; implements CanEquip, Serializable
@@ -156,5 +157,9 @@ public final class Loadout implements CanEquip, Serializable {
 	public void unequip(Utility equipment) {
 		boolean haveEquipment = utilityBelt.remove(equipment);
 		assert haveEquipment;
+	}
+
+	public void addTransferData(PlayerActorTransfer transfer) {
+		transfer.setLoadout(headwear.getName(), suit.getName(), shield.getName(), hand.getName());
 	}
 }

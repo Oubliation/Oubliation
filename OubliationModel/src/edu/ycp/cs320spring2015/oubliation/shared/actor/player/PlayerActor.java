@@ -8,6 +8,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorTransfer;
 
 /**
  * TODO: Come back here! Complete JavaDoc
@@ -169,5 +170,12 @@ final public class PlayerActor extends Actor implements Serializable {
 	}
 	public int getExperience() {
 		return identity.getExperience();
+	}
+	public PlayerActorTransfer getTransfer() {
+		PlayerActorTransfer transfer = new PlayerActorTransfer(getNameTag(), getHealth(), identity);
+		getLoadout().addTransferData(transfer);
+		stats.addTransferData(transfer);
+		
+		return transfer;
 	}
 }
