@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
 
 public class Login extends Composite {
 
@@ -35,8 +36,9 @@ public class Login extends Composite {
 	
 	private void login() {
 		final Login self = this;
-		AsyncCallback<Profile> callback = new AsyncCallback<Profile>() {
-			public void onSuccess(Profile profile) {
+		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
+			public void onSuccess(ProfileTransfer transfer) {
+				Profile profile = transfer.makeProfile();
 		    	self.removeFromParent();
 		    	RootPanel.get("gwtapp").add(new ViewOutskirts(profile));
 			}

@@ -9,6 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorTransfer;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
 
 /**
  * maintains data concerning player state
@@ -221,14 +222,16 @@ public final class Profile implements Serializable {
 		}
 	}
 	
-	public void save() {
+	public ProfileTransfer getTransferData() {
 		LinkedList<PlayerActorTransfer> partyTransfer = new LinkedList<PlayerActorTransfer>();
 		LinkedList<PlayerActorTransfer> rosterTransfer = new LinkedList<PlayerActorTransfer>();
+		LinkedList<String> inventory = new LinkedList<String>();
 		for (PlayerActor actor : party) {
 			partyTransfer.add(actor.getTransfer());
 		}
 		for (PlayerActor actor : roster) {
 			rosterTransfer.add(actor.getTransfer());
 		}
+		return new ProfileTransfer(money, inventory, partyTransfer, rosterTransfer, dungeonFlags);
 	}
 }

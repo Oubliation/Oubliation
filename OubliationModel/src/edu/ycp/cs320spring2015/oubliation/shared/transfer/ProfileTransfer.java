@@ -20,9 +20,9 @@ public class ProfileTransfer implements Serializable {
 	private HashSet<String> dungeonFlags;
 	
 	
-	public ProfileTransfer(LinkedList<PlayerActorTransfer> partyTransfer,
-			LinkedList<PlayerActorTransfer> rosterTransfer,
-			LinkedList<String> inventoryTransfer, int money,
+	public ProfileTransfer(int money, LinkedList<String> inventoryTransfer, 
+			LinkedList<PlayerActorTransfer> partyTransfer,
+			LinkedList<PlayerActorTransfer> rosterTransfer, 
 			HashSet<String> dungeonFlags) {
 		super();
 		this.partyTransfer = partyTransfer;
@@ -36,6 +36,14 @@ public class ProfileTransfer implements Serializable {
 	public Profile makeProfile() {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
 		ArrayList<PlayerActor> roster = new ArrayList<PlayerActor>();
-		return new Profile(money, new ArrayList<Item>(), party, roster, dungeonFlags);
+		ArrayList<Item> inventory = new ArrayList<Item>();
+
+		for (PlayerActorTransfer actor : partyTransfer) {
+			party.add(actor.makePlayerActor());
+		}
+		for (PlayerActorTransfer actor : rosterTransfer) {
+			roster.add(actor.makePlayerActor());
+		}
+		return new Profile(money, inventory, party, roster, dungeonFlags);
 	}
 }

@@ -22,6 +22,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
 
 /**
  * 
@@ -165,5 +166,9 @@ public class Debug {
 			roster.add(makePlayerActor());
 		}
 		return new Profile(200, new ArrayList<Item>(), party, roster, new HashSet<String>());
+	}
+	
+	public static ProfileTransfer makeProfileTransfer() {
+		return makeProfile().getTransferData();
 	}
 }
