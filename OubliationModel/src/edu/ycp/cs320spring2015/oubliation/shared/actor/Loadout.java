@@ -12,7 +12,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 /**
  * Equipped items on an Actor; implements CanEquip, Serializable
  */
-public final class Loadout implements CanEquip, Serializable {
+final public class Loadout implements CanEquip, Serializable {
 	private static final long serialVersionUID = -3436712080673262727L;
 	public Loadout() {}
 
@@ -33,11 +33,12 @@ public final class Loadout implements CanEquip, Serializable {
 		this.utilityBelt = utilityBelt;
 	}
 	
-	protected Headwear headwear; //armor
-	protected Suit suit; //armor
-	protected Shield shield; //armor
-	protected Weapon hand; //weapon
-	protected ArrayList<Utility> utilityBelt; //utilities (usable items)
+	private Headwear headwear; //armor
+	private Suit suit; //armor
+	private Shield shield; //armor
+	private Weapon hand; //weapon
+	private ArrayList<Utility> utilityBelt; //utilities (usable items)
+	
 	//TODO: make two hands, hand and shield slots can also hold items
 	
 	/**
