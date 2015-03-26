@@ -38,7 +38,7 @@ public class Login extends Composite {
 		final Login self = this;
 		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
 			public void onSuccess(ProfileTransfer transfer) {
-				Profile profile = transfer.makeProfile();
+				Profile profile = transfer.constructProfile();
 		    	self.removeFromParent();
 		    	RootPanel.get("gwtapp").add(new ViewOutskirts(profile));
 			}

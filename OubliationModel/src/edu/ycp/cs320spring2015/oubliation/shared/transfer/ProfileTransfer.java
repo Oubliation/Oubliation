@@ -33,16 +33,16 @@ public class ProfileTransfer implements Serializable {
 	}
 
 
-	public Profile makeProfile() {
+	public Profile constructProfile() {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
 		ArrayList<PlayerActor> roster = new ArrayList<PlayerActor>();
 		ArrayList<Item> inventory = new ArrayList<Item>();
 
 		for (PlayerActorTransfer actor : partyTransfer) {
-			party.add(actor.makePlayerActor());
+			party.add(actor.constructPlayerActor());
 		}
 		for (PlayerActorTransfer actor : rosterTransfer) {
-			roster.add(actor.makePlayerActor());
+			roster.add(actor.constructPlayerActor());
 		}
 		return new Profile(money, inventory, party, roster, dungeonFlags);
 	}
