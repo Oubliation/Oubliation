@@ -9,4 +9,5 @@ public class Oubliation implements EntryPoint {
 		Login login = new Login();
 		RootPanel.get("gwtapp").add(login);
 	}
+	
 }

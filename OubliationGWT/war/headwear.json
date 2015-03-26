@@ -1,0 +1,9 @@
+[
+	{
+		"name": "Leather hood",
+		"description": "A hood made of fine leather.",
+		"price": 100,
+		"equippableBy": [],
+		"ar": 1
+	}
+]

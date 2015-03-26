@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ycp.cs320spring2015.oubliation.client;
+package edu.ycp.cs320spring2015.oubliation.client.town;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * 
+ * Nothing right now
  *
  */
 public class EditMember extends Composite{

@@ -4,7 +4,6 @@ import java.util.TreeSet;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
-import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 
 /**
  * 
@@ -16,7 +15,7 @@ public class Weapon extends Utility {
 	public Weapon() {}
 
 	public Weapon(NameTag nameTag, int price,
-			TreeSet<Job> equippableBy, Effect effect) {
+			TreeSet<String> equippableBy, Effect effect) {
 		super(nameTag, price, equippableBy, effect);
 	}
 

@@ -5,6 +5,7 @@ import java.util.TreeSet;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 
 /**
  * 
@@ -16,14 +17,17 @@ public class PlayerBackground extends Background {
 	public PlayerBackground() {}
 	
 	private EnumMap<BruceScore, Double> bruceGainRate;
-	private TreeSet<PlayerJob> jobBlacklist;
+	private TreeSet<String> jobBlacklist;
+	private String backgroundRival;
 	
 	public PlayerBackground(NameTag nameTag,
 			EnumMap<BruceScore, Double> bruceGainRate,
-			TreeSet<PlayerJob> jobBlacklist) {
+			TreeSet<String> jobBlacklist,
+			String backgroundRival) {
 		super(nameTag);
 		this.bruceGainRate = bruceGainRate;
 		this.jobBlacklist = jobBlacklist;
+		this.backgroundRival = backgroundRival;
 	}
 	
 	/**
@@ -40,6 +44,10 @@ public class PlayerBackground extends Background {
 	 * @return whether or not job is compatible with this background
 	 */
 	public boolean isCompatibleJob(PlayerJob job) {
-		return !jobBlacklist.contains(job);
+		return !jobBlacklist.contains(job.getName());
+	}
+	
+	public boolean hasCompatibleBackground(PlayerActor actor) {
+		return backgroundRival != actor.getBackgroundName();
 	}
 }

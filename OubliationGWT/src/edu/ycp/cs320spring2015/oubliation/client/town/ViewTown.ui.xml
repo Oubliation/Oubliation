@@ -12,8 +12,7 @@
 	}
 	</ui:style>
 	<g:FlowPanel>
-		<g:FlowPanel>
-			<g:Label styleName="{style.header}">Welcome to the town outskirts</g:Label>
+		<g:FlowPanel ui:field="body">
 		</g:FlowPanel>
 		<g:FlowPanel styleName="{style.section}">
 			<g:Hyperlink ui:field="stats">Stats</g:Hyperlink>
@@ -25,7 +24,7 @@
 			<g:Hyperlink>Barracks</g:Hyperlink>
 		</g:FlowPanel>
 		<g:FlowPanel styleName="{style.section}">
-			<g:Hyperlink>Enter the oubliette</g:Hyperlink>
+			<g:Hyperlink ui:field="exit" />
 		</g:FlowPanel>
 	</g:FlowPanel>
 </ui:UiBinder> 

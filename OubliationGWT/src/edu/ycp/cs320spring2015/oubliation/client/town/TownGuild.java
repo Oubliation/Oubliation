@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ycp.cs320spring2015.oubliation.client;
+package edu.ycp.cs320spring2015.oubliation.client.town;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -17,39 +17,31 @@ import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 
 /**
- * @author Brandon Miller
+ * View of guild with party management features
  *
  */
-public class ViewGuild extends Composite{
+public class TownGuild extends Composite{
 	//TODO: Only allows you to remove actors, not add them
 	private static ViewGuildUiBinder uiBinder = GWT
 			.create(ViewGuildUiBinder.class);
 
-	interface ViewGuildUiBinder extends UiBinder<Widget, ViewGuild> {
+	interface ViewGuildUiBinder extends UiBinder<Widget, TownGuild> {
 	}
 	
-	/**
-	 * Because this class has a default constructor, it can
-	 * be used as a binder template. In other words, it can be used in other
-	 * *.ui.xml files as follows:
-	 * <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	 *   xmlns:g="urn:import:**user's package**">
-	 *  <g:**UserClassName**>Hello!</g:**UserClassName>
-	 * </ui:UiBinder>
-	 * Note that depending on the widget that is used, it may be necessary to
-	 * implement HasHTML instead of HasText.
-	 */
 	@UiField FlowPanel party;
 	@UiField FlowPanel guild;
 	
 	final Profile profile;
 	
-	public ViewGuild(Profile profile) {
+	public TownGuild(Profile profile) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.profile = profile;
 		update();
 	}
 	
+	/**
+	 * updates UI to encompass changes to the party & roster
+	 */
 	private void update() {
 		PlayerActor partyArr[] = profile.getParty();
 		PlayerActor rosterArr[] = profile.getRoster();
@@ -59,12 +51,20 @@ public class ViewGuild extends Composite{
 		
 		for(final PlayerActor partyMember : partyArr){
 			Button button = new Button(partyMember.getName());
-			button.addClickHandler(new ClickHandler() {public void onClick(ClickEvent e) { profile.removeActor(partyMember); update();}});
+			button.addClickHandler(new ClickHandler() { public void onClick(ClickEvent e) {
+				profile.removeActor(partyMember);
+				update();
+			}});
 			party.add(button); 
 		}		
 		for(final PlayerActor guildMember : rosterArr){
 			Button button = new Button(guildMember.getName());
-			button.addClickHandler(new ClickHandler() {public void onClick(ClickEvent e) { if (!profile.hasMaxParty()) profile.addActor(guildMember); update();}});
+			button.addClickHandler(new ClickHandler() {public void onClick(ClickEvent e) {
+				if (!profile.hasMaxParty()) {
+					profile.addActor(guildMember);
+					update();
+				}
+			}});
 			guild.add(button);
 		}
 	}

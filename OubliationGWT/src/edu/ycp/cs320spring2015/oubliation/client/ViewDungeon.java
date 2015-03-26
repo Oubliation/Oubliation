@@ -11,6 +11,11 @@ import com.google.gwt.user.client.ui.Widget;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Dungeon;
 
+/**
+ * 
+ * Provides first person view of dungeon and controls for navigating it.  
+ *
+ */
 public class ViewDungeon extends Composite {
 
 	private static ViewDungeonUiBinder uiBinder = GWT
@@ -19,10 +24,10 @@ public class ViewDungeon extends Composite {
 	interface ViewDungeonUiBinder extends UiBinder<Widget, ViewDungeon> {
 	}
 	
-	@UiField(provided = true) Canvas canvas;
-	private final Context2d context;
+	@UiField(provided = true) Canvas canvas; //canvas HTML object
+	private final Context2d context; //Canvas 2d drawing context
 	private final Profile profile;
-	private final Dungeon dungeon;
+	private final Dungeon dungeon; //dungeon model
 
 	public ViewDungeon(Profile profile) {
 		canvas = Canvas.createIfSupported();
@@ -33,6 +38,9 @@ public class ViewDungeon extends Composite {
 		context = canvas.getContext2d(); 
 	}
 	
+	/**
+	 * renders current dungeon view to context
+	 */
 	private void renderDungeon() {
 		
 	}
