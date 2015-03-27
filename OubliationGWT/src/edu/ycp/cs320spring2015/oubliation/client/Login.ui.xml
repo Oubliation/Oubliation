@@ -25,7 +25,7 @@
 				<g:customCell><g:PasswordTextBox ui:field="password" /></g:customCell>	
 			</g:row>
 		</g:Grid>
-		<g:Button ui:field="loginButton">Login</g:Button>
+		<g:Button ui:field="loginButton">Login</g:Button><g:Button ui:field="registerButton">Register</g:Button>
 		<g:Label ui:field="error" styleName="{style.error}" />
 	</g:FlowPanel>
 </ui:UiBinder> 

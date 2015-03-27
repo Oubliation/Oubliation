@@ -13,25 +13,35 @@ public class ProfileTransfer implements Serializable {
 	private static final long serialVersionUID = 2470630709430676604L;
 	public ProfileTransfer() {}
 	
+	private String username;
 	private LinkedList<PlayerActorTransfer> partyTransfer;
 	private LinkedList<PlayerActorTransfer> rosterTransfer;
 	private LinkedList<String> inventoryTransfer;
 	private int money;
 	private HashSet<String> dungeonFlags;
+
 	
+	public ProfileTransfer(String username) {
+		this.username = username;
+		partyTransfer = new LinkedList<PlayerActorTransfer>();
+		rosterTransfer = new LinkedList<PlayerActorTransfer>();
+		inventoryTransfer = new LinkedList<String>();
+		money = 0;
+		dungeonFlags = new HashSet<String>();
+	}
 	
-	public ProfileTransfer(int money, LinkedList<String> inventoryTransfer, 
+	public ProfileTransfer(String username, int money,
+			LinkedList<String> inventoryTransfer, 
 			LinkedList<PlayerActorTransfer> partyTransfer,
 			LinkedList<PlayerActorTransfer> rosterTransfer, 
 			HashSet<String> dungeonFlags) {
-		super();
+		this.username = username;
 		this.partyTransfer = partyTransfer;
 		this.rosterTransfer = rosterTransfer;
 		this.inventoryTransfer = inventoryTransfer;
 		this.money = money;
 		this.dungeonFlags = dungeonFlags;
 	}
-
 
 	public Profile constructProfile() {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
@@ -44,6 +54,6 @@ public class ProfileTransfer implements Serializable {
 		for (PlayerActorTransfer actor : rosterTransfer) {
 			roster.add(actor.constructPlayerActor());
 		}
-		return new Profile(money, inventory, party, roster, dungeonFlags);
+		return new Profile(username, money, inventory, party, roster, dungeonFlags);
 	}
 }

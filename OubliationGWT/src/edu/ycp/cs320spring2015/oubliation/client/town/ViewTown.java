@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
@@ -12,6 +13,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.ycp.cs320spring2015.oubliation.client.Login;
+import edu.ycp.cs320spring2015.oubliation.client.Oubliation;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 
 /**
@@ -20,10 +23,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.Profile;
  */
 public class ViewTown extends Composite {
 
-	private static OutskirtsUiBinder uiBinder = GWT
-			.create(OutskirtsUiBinder.class);
+	private static ViewTownUiBinder uiBinder = GWT
+			.create(ViewTownUiBinder.class);
 
-	interface OutskirtsUiBinder extends UiBinder<Widget, ViewTown> {
+	interface ViewTownUiBinder extends UiBinder<Widget, ViewTown> {
 	}
 	
 	@UiField FlowPanel body;
@@ -59,6 +62,8 @@ public class ViewTown extends Composite {
 			location.removeFromParent();
 		}
 		location = destination;
+		saveGame();
+		
 		outskirts.removeFromParent();
 		exit.setText(returnExit);
 		body.add(location);
@@ -66,8 +71,21 @@ public class ViewTown extends Composite {
 	
 	private void enterOutskirts() {
 		location = null;
+		
+		saveGame();
 		exit.setText(dungeonExit);
 		body.add(outskirts);
+	}
+	
+	private void saveGame() {
+		AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+			public void onSuccess(Void _) {}
+			
+			public void onFailure(Throwable caught) {
+				//TODO: show error message
+			}
+		 };
+		Oubliation.getDataKeeper().saveProfile(profile.getUsername(), profile.getTransferData(), callback);
 	}
 	
 	@UiHandler("exit")
@@ -78,6 +96,13 @@ public class ViewTown extends Composite {
 		} else {
 			//enter the dungeon
 		}
+	}
+	
+	@UiHandler("quit")
+	void onClickQuit(ClickEvent e){
+		saveGame();
+		this.removeFromParent();
+		RootPanel.get("gwtapp").add(new Login());
 	}
 	
 }

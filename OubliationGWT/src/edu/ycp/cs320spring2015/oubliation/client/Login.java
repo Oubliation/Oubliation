@@ -29,33 +29,20 @@ public class Login extends Composite {
 	@UiField TextBox username;
 	@UiField PasswordTextBox password;
 	@UiField Label error;
-	
-	private final DataKeeperAsync dataKeeper;
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
-		dataKeeper = (DataKeeperAsync) GWT.create(DataKeeper.class);
 		username.setFocus(true);
 	}
 	
-	private void login() {
-		final Login self = this;
-		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
-			public void onSuccess(ProfileTransfer transfer) {
-				Profile profile = transfer.constructProfile();
-		    	self.removeFromParent();
-		    	RootPanel.get("gwtapp").add(new ViewTown(profile));
-			}
-
-			public void onFailure(Throwable caught) {
-		    	error.setText(caught.getMessage());
-		    }
-		};
-		dataKeeper.loadProfile("username", callback);
+	private void bootGame(ProfileTransfer transfer) {
+		Profile profile = transfer.constructProfile();
+    	this.removeFromParent();
+    	RootPanel.get("gwtapp").add(new ViewTown(profile));
 	}
 	
 	@UiHandler("loginButton")
-	void onClick(ClickEvent e) {
+	void onClickLogin(ClickEvent e) {
 		processInput();
 	}
 	
@@ -67,10 +54,10 @@ public class Login extends Composite {
 	}
 	
 	private void processInput() {
-		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
-			public void onSuccess(Boolean isValid) {
-				if (isValid.equals(true)) {
-					login();
+		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
+			public void onSuccess(ProfileTransfer transfer) {
+				if (transfer != null) {
+					bootGame(transfer);
 				} else {
 					error.setText("Username or password is incorrect.");
 					username.setText("");
@@ -85,8 +72,20 @@ public class Login extends Composite {
 			}
 		 };
 	
-		dataKeeper.validateLogin(username.getText(), password.getText(), callback);
+		Oubliation.getDataKeeper().loadProfile(username.getText(), password.getText(), callback);
 	}
 	
-
+	@UiHandler("registerButton")
+	void onClickRegister(ClickEvent e) {
+		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
+			public void onSuccess(ProfileTransfer transfer) {
+				bootGame(transfer);
+			}
+			
+			public void onFailure(Throwable caught) {
+				error.setText(caught.getMessage());
+			}
+		};
+		Oubliation.getDataKeeper().newProfile(username.getText(), password.getText(), callback);
+	}
 }

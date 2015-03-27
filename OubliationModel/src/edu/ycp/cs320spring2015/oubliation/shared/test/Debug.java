@@ -156,6 +156,13 @@ public class Debug {
 	 * @return arbitrary Profile for testing
 	 */
 	public static Profile makeProfile() {
+		return makeProfile("username");
+	}
+	/**
+	 * @param username of profile
+	 * @return arbitrary Profile for testing
+	 */
+	public static Profile makeProfile(String username) {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
 		for (int count=0; count<6; count+=1) {
 			party.add(makePlayerActor());
@@ -165,10 +172,20 @@ public class Debug {
 		for (int count=0; count<10; count+=1) {
 			roster.add(makePlayerActor());
 		}
-		return new Profile(200, new ArrayList<Item>(), party, roster, new HashSet<String>());
+		return new Profile(username, 200, new ArrayList<Item>(), party, roster, new HashSet<String>());
 	}
 	
+	/**
+	 * @return easily serialized form of Profile
+	 */
 	public static ProfileTransfer makeProfileTransfer() {
-		return makeProfile().getTransferData();
+		return makeProfileTransfer("username");
+	}
+	/**
+	 * @param username of profile
+	 * @return easily serialized form of Profile
+	 */
+	public static ProfileTransfer makeProfileTransfer(String username) {
+		return makeProfile(username).getTransferData();
 	}
 }

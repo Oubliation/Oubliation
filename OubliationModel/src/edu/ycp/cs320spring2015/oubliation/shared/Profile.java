@@ -19,7 +19,8 @@ public final class Profile implements Serializable {
 	public Profile() {}
 
 	final int maxPartySize = 6;
-			
+	
+	private String username;
 	private int money = 0; 
 	private ArrayList<Item> inventory;
 	private ArrayList<PlayerActor> party;  //active player actors
@@ -34,9 +35,10 @@ public final class Profile implements Serializable {
 	 * @param roster characters waiting in the guild
 	 * @param dungeonFlags flags triggered by the party inside the dungeon.
 	 */
-	public Profile(int money, ArrayList<Item> inventory,
+	public Profile(String username, int money, ArrayList<Item> inventory,
 			ArrayList<PlayerActor> party, ArrayList<PlayerActor> roster,
 			HashSet<String> dungeonFlags) {
+		this.username = username;
 		this.money = money;
 		this.inventory = inventory;
 		this.party = party;
@@ -223,6 +225,13 @@ public final class Profile implements Serializable {
 		}
 	}
 	
+	public String getUsername() {
+		return username;
+	}
+	
+	/**
+	 * @return serializable form of this profile
+	 */
 	public ProfileTransfer getTransferData() {
 		LinkedList<PlayerActorTransfer> partyTransfer = new LinkedList<PlayerActorTransfer>();
 		LinkedList<PlayerActorTransfer> rosterTransfer = new LinkedList<PlayerActorTransfer>();
@@ -233,6 +242,6 @@ public final class Profile implements Serializable {
 		for (PlayerActor actor : roster) {
 			rosterTransfer.add(actor.getTransfer());
 		}
-		return new ProfileTransfer(money, inventory, partyTransfer, rosterTransfer, dungeonFlags);
+		return new ProfileTransfer(username, money, inventory, partyTransfer, rosterTransfer, dungeonFlags);
 	}
 }

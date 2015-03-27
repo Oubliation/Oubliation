@@ -46,7 +46,7 @@ public class PlayerActorTransfer implements Serializable {
 	 * @param weaponName name of equipped weapon to serialize
 	 */
 	public void setLoadout(String headwearName, String suitName, String shieldName, String weaponName) {
-		assert this.headwearName == null && this.suitName == null && this.shieldName == null && weaponName == null;
+		assert this.headwearName == null && this.suitName == null && this.shieldName == null && this.weaponName == null;
 		this.headwearName = headwearName;
 		this.suitName = suitName;
 		this.shieldName = shieldName;

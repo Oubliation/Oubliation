@@ -26,5 +26,8 @@
 		<g:FlowPanel styleName="{style.section}">
 			<g:Hyperlink ui:field="exit" />
 		</g:FlowPanel>
+		<g:FlowPanel styleName="{style.section}">
+			<g:Hyperlink ui:field="quit">Save &amp; Quit</g:Hyperlink>
+		</g:FlowPanel>
 	</g:FlowPanel>
 </ui:UiBinder> 
