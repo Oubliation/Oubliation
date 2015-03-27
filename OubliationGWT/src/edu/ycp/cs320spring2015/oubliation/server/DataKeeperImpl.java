@@ -13,22 +13,32 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	
 	private HashMap<String, FakeEntry> fakeDatabase = new HashMap<String, FakeEntry>();
 
-	public ProfileTransfer newProfile(String username, String password) {
-		ProfileTransfer profile = Debug.makeProfileTransfer(username);
-		FakeEntry entry = new FakeEntry(password, profile);
-		fakeDatabase.put(username, entry);
-		
-		return profile;
+	public Boolean createProfile(String username, String password) {
+		if (!fakeDatabase.containsKey(username)) {
+			ProfileTransfer profile = Debug.makeProfileTransfer(username);
+			FakeEntry entry = new FakeEntry(password, profile);
+			fakeDatabase.put(username, entry);
+			
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public Boolean validateLogin(String username, String password) {
+		FakeEntry entry = fakeDatabase.get(username);
+		if (entry != null) {
+			return password.equals(entry.getPassword());
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public ProfileTransfer loadProfile(String username, String password) {
+	public ProfileTransfer loadProfile(String username) {
 		FakeEntry entry = fakeDatabase.get(username);
-		if (password.equals(entry.getPassword())) {
-			return entry.getSavedata();
-		} else {
-			return null;
-		}
+		return entry.getSavedata();
 	}
 
 	@Override

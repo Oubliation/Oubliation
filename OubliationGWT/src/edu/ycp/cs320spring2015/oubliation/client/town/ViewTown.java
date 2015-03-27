@@ -31,6 +31,7 @@ public class ViewTown extends Composite {
 	
 	@UiField FlowPanel body;
 	@UiField Hyperlink exit;
+	@UiField Label error;
 	
 	String outskirtsHeader = "Welcome to the town outskirts";
 	String returnExit = "Return to the town outskirts";
@@ -82,7 +83,7 @@ public class ViewTown extends Composite {
 			public void onSuccess(Void _) {}
 			
 			public void onFailure(Throwable caught) {
-				//TODO: show error message
+				error.setText("Error: couldn't save data");
 			}
 		 };
 		Oubliation.getDataKeeper().saveProfile(profile.getUsername(), profile.getTransferData(), callback);
@@ -104,5 +105,4 @@ public class ViewTown extends Composite {
 		this.removeFromParent();
 		RootPanel.get("gwtapp").add(new Login());
 	}
-	
 }

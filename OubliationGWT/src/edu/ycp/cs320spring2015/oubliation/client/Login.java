@@ -26,13 +26,13 @@ public class Login extends Composite {
 	interface LoginUiBinder extends UiBinder<Widget, Login> {
 	}
 	
-	@UiField TextBox username;
-	@UiField PasswordTextBox password;
+	@UiField TextBox usernameBox;
+	@UiField PasswordTextBox passwordBox;
 	@UiField Label error;
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
-		username.setFocus(true);
+		usernameBox.setFocus(true);
 	}
 	
 	private void bootGame(ProfileTransfer transfer) {
@@ -46,7 +46,7 @@ public class Login extends Composite {
 		processInput();
 	}
 	
-	@UiHandler(value={"username", "password"})
+	@UiHandler(value={"usernameBox", "passwordBox"})
 	public void onKeyDown(KeyDownEvent event) {
 		if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
         	processInput();
@@ -54,29 +54,31 @@ public class Login extends Composite {
 	}
 	
 	private void processInput() {
-		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
-			public void onSuccess(ProfileTransfer transfer) {
-				if (transfer != null) {
-					bootGame(transfer);
+		final String usernameInput = usernameBox.getText();
+		final String passwordInput = passwordBox.getText();
+		
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			public void onSuccess(Boolean isValid) {
+				if (isValid) {
+					loadProfile(usernameInput);
 				} else {
 					error.setText("Username or password is incorrect.");
-					username.setText("");
-					password.setText("");
+					usernameBox.setText("");
+					passwordBox.setText("");
 					
-					username.setFocus(true);
+					usernameBox.setFocus(true);
 				}
 			}
 			
 			public void onFailure(Throwable caught) {
 				error.setText(caught.getMessage());
 			}
-		 };
-	
-		Oubliation.getDataKeeper().loadProfile(username.getText(), password.getText(), callback);
+		};
+		
+		Oubliation.getDataKeeper().validateLogin(usernameInput, passwordInput, callback);
 	}
 	
-	@UiHandler("registerButton")
-	void onClickRegister(ClickEvent e) {
+	private void loadProfile(String usernameInput) {
 		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
 			public void onSuccess(ProfileTransfer transfer) {
 				bootGame(transfer);
@@ -86,6 +88,31 @@ public class Login extends Composite {
 				error.setText(caught.getMessage());
 			}
 		};
-		Oubliation.getDataKeeper().newProfile(username.getText(), password.getText(), callback);
+		Oubliation.getDataKeeper().loadProfile(usernameInput, callback);
+	}
+	
+	@UiHandler("registerButton")
+	void onClickRegister(ClickEvent e) {
+		final String usernameInput = usernameBox.getText();
+		final String passwordInput = passwordBox.getText();
+		
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			public void onSuccess(Boolean usernameWasAvailable) {
+				if (usernameWasAvailable) {
+					loadProfile(usernameInput);
+				} else {
+					error.setText("Username is already taken.");
+					usernameBox.setText("");
+					passwordBox.setText("");
+					
+					usernameBox.setFocus(true);
+				}
+			}
+			
+			public void onFailure(Throwable caught) {
+				error.setText(caught.getMessage());
+			}
+		};
+		Oubliation.getDataKeeper().createProfile(usernameInput, passwordInput, callback);
 	}
 }

@@ -18,11 +18,11 @@
 		<g:Grid>
 			<g:row>
 				<g:cell>Username</g:cell>
-				<g:customCell><g:TextBox ui:field="username" /></g:customCell>	
+				<g:customCell><g:TextBox ui:field="usernameBox" /></g:customCell>	
 			</g:row>
 			<g:row>
 				<g:cell>Password</g:cell>
-				<g:customCell><g:PasswordTextBox ui:field="password" /></g:customCell>	
+				<g:customCell><g:PasswordTextBox ui:field="passwordBox" /></g:customCell>	
 			</g:row>
 		</g:Grid>
 		<g:Button ui:field="loginButton">Login</g:Button><g:Button ui:field="registerButton">Register</g:Button>

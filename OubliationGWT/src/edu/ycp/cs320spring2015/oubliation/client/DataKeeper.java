@@ -7,8 +7,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
 
 @RemoteServiceRelativePath("DataKeeper")
 public interface DataKeeper extends RemoteService {
-	public ProfileTransfer newProfile(String username, String password);
-	public ProfileTransfer loadProfile(String username, String password);
+	public Boolean createProfile(String username, String password);
+	public Boolean validateLogin(String username, String password);
+	public ProfileTransfer loadProfile(String username);
 	public void saveProfile(String username, ProfileTransfer profile);
 	public _Dummy dummy(_Dummy dummy);
 }

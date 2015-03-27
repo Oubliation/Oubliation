@@ -13,6 +13,7 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
+import com.google.gwt.user.client.Window;
 
 public class HeadwearOverlay extends EquipmentOverlay {
 	protected HeadwearOverlay() {}
@@ -21,25 +22,27 @@ public class HeadwearOverlay extends EquipmentOverlay {
 		String url = URL.encode(GWT.getModuleBaseURL() + filename);
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
 		try {
-			Request request = builder.sendRequest(null, new RequestCallback() {
+			builder.sendRequest(null, new RequestCallback() {
 				public void onError(Request request, Throwable exception) {
-					// "Couldn't retrieve JSON"
+					Window.alert("Couldn't retrieve JSON");
 				}
 				
 				public void onResponseReceived(Request request, Response response) {
 					if (200 == response.getStatusCode()) {
 						JsArray<HeadwearOverlay> jsonArray = JsonUtils.<JsArray<HeadwearOverlay>>safeEval(response.getText());
-						LinkedList<Headwear> jsonList = new LinkedList<Headwear>();
+						LinkedList<Headwear> dataList = new LinkedList<Headwear>();
 						for (int count=0; count<jsonArray.length(); count+=1) {
-							jsonList.add(jsonArray.get(count).getHeadwear());
+							dataList.add(jsonArray.get(count).getHeadwear());
 						}
+						Headwear[] dataArray = dataList.toArray(new Headwear[dataList.size()]);
+						//TODO: do something with this
 					} else {
-						// "Couldn't retrieve JSON (" + response.getStatusText() + ")"
+						Window.alert("Couldn't retrieve JSON (" + response.getStatusText() + ")");
 					}
 				}
 			});
 		} catch (RequestException e) {
-		  // "Couldn't retrieve JSON";
+		  Window.alert("Couldn't retrieve JSON");
 		}
 	}
 	
