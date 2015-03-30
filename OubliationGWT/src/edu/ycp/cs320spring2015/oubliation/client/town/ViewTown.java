@@ -57,6 +57,11 @@ public class ViewTown extends Composite {
 	void onClickGuild(ClickEvent e) {
 		enterLocation(new TownGuild(profile));
 	}
+	
+	@UiHandler("barracks")
+	void onClickBarracks(ClickEvent e) {
+		enterLocation(new TownBarracks(profile));
+	}
 
 	private void enterLocation(Widget destination) {
 		if (location != null) {

@@ -224,7 +224,9 @@ public final class Profile implements Serializable {
 			clearFlag(flag);
 		}
 	}
-	
+	/**
+	 * @return the username.
+	 */
 	public String getUsername() {
 		return username;
 	}
@@ -244,4 +246,22 @@ public final class Profile implements Serializable {
 		}
 		return new ProfileTransfer(username, money, inventory, partyTransfer, rosterTransfer, dungeonFlags);
 	}
+	/**
+	 * Goes through the party healing each person
+	 * by the specified amount.
+	 * @param amount
+	 */
+	public void healParty(int amount){
+		for(PlayerActor actor : party){actor.receiveHealing(amount);}
+	}
+	/**
+	 * Goes through the party 
+	 * increasing the xp of each person
+	 * by the specified amount.
+	 * @param amount
+	 */
+	public void increasePartyXP(int amount){
+		for(PlayerActor actor : party){actor.incExperience(amount);}
+	}
+	
 }

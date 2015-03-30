@@ -111,7 +111,11 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 * @param amount amount of healing received
 	 */
 	public void receiveHealing(int amount) {
-		
+		health += amount;
+		int maxHealth = getMaxHealth();
+		if (health > maxHealth) {
+			health = maxHealth;
+		}
 	}
 	/**
 	 * @param amount amount of damage received
@@ -120,7 +124,7 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 		
 	}
 	/**
-	 * status to be afflicted with
+	 * status to be afflicted with; not implemented yet
 	 */
 	public void receiveStatus() {
 		

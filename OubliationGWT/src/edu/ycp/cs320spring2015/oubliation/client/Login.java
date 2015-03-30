@@ -39,6 +39,7 @@ public class Login extends Composite {
 		Profile profile = transfer.constructProfile();
     	this.removeFromParent();
     	RootPanel.get("gwtapp").add(new ViewTown(profile));
+    	//profile.increasePartyXP(300);  //For testing purposes
 	}
 	
 	@UiHandler("loginButton")
