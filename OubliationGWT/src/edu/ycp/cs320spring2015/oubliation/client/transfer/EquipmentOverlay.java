@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.transfer;
+package edu.ycp.cs320spring2015.oubliation.client.transfer;
 
 import java.util.TreeSet;
 

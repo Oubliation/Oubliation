@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 
 public class ProfileTransfer implements Serializable {
@@ -43,16 +45,16 @@ public class ProfileTransfer implements Serializable {
 		this.dungeonFlags = dungeonFlags;
 	}
 
-	public Profile constructProfile() {
+	public Profile constructProfile(Map<String, Headwear> headwearMap) {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
 		ArrayList<PlayerActor> roster = new ArrayList<PlayerActor>();
 		ArrayList<Item> inventory = new ArrayList<Item>();
 
 		for (PlayerActorTransfer actor : partyTransfer) {
-			party.add(actor.constructPlayerActor());
+			party.add(actor.constructPlayerActor(headwearMap));
 		}
 		for (PlayerActorTransfer actor : rosterTransfer) {
-			roster.add(actor.constructPlayerActor());
+			roster.add(actor.constructPlayerActor(headwearMap));
 		}
 		return new Profile(username, money, inventory, party, roster, dungeonFlags);
 	}

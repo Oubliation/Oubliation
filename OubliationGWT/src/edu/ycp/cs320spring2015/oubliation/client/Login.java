@@ -1,5 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.client;
 
+import java.util.Map;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -17,6 +19,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.client.town.ViewTown;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
 
 public class Login extends Composite {
@@ -29,6 +32,9 @@ public class Login extends Composite {
 	@UiField TextBox usernameBox;
 	@UiField PasswordTextBox passwordBox;
 	@UiField Label error;
+	
+	private Map<String, Headwear> headwearMap;
+	private ProfileTransfer transfer;
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -81,7 +87,10 @@ public class Login extends Composite {
 	private void loadProfile(String usernameInput) {
 		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
 			public void onSuccess(ProfileTransfer transfer) {
-				bootGame(transfer);
+				setTransfer(transfer);
+				if (this.transfer != null && this.headwearMap != null) {
+					bootGame(transfer);
+				}
 			}
 			
 			public void onFailure(Throwable caught) {
@@ -89,6 +98,14 @@ public class Login extends Composite {
 			}
 		};
 		Oubliation.getDataKeeper().loadProfile(usernameInput, callback);
+	}
+	
+	private void setTransfer(ProfileTransfer transfer) {
+		this.transfer = transfer;
+	}
+
+	private void setHeadwearMap(Map<String, Headwear> headwearMap) {
+		this.headwearMap = headwearMap;
 	}
 	
 	@UiHandler("registerButton")

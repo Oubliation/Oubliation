@@ -3,12 +3,14 @@ package edu.ycp.cs320spring2015.oubliation.shared.transfer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Map;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 
@@ -19,7 +21,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
  */
 public class PlayerActorTransfer implements Serializable {
 	private static final long serialVersionUID = 6140506450106292650L;
-	public PlayerActorTransfer() {}
+	public PlayerActorTransfer() { headwearName = "Leather hood"; }
 	
 	//data
 	NameTag nameTag;
@@ -68,8 +70,10 @@ public class PlayerActorTransfer implements Serializable {
 	/**
 	 * @return reconstruct PlayerActor from stored transfer data
 	 */
-	public PlayerActor constructPlayerActor() {
+	public PlayerActor constructPlayerActor(Map<String, Headwear> headwearMap) {
 		Loadout loadout = Debug.makeLoadout();
+		loadout.unequip( loadout.getHeadwear() );
+		loadout.equip(headwearMap.get(headwearName));
 		PlayerStats stats = new PlayerStats(witchMp, priestMp, new ArrayList<Utility>());
 		return new PlayerActor(nameTag, loadout, 20, identity, stats);
 	}

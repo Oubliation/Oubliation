@@ -234,21 +234,21 @@ public class PlayerModels {
 
 		assertTrue(actor.getArmorRank() == 6);
 		
-		actor.unequip(headwear);
-		actor.unequip(suit);
+		actor.fieldUnequip(headwear);
+		actor.fieldUnequip(suit);
 		assertTrue(actor.getArmorRank() == 2);
 		
-		actor.unequip(shield);
-		actor.unequip(weapon);
+		actor.fieldUnequip(shield);
+		actor.fieldUnequip(weapon);
 		assertTrue(actor.getArmorRank() == 0);
 		
 		
-		actor.equip(headwear);
-		actor.equip(suit);
+		actor.fieldEquip(headwear);
+		actor.fieldEquip(suit);
 		assertTrue(actor.getArmorRank() == 4);
 		
-		actor.equip(shield);
-		actor.equip(weapon);
+		actor.fieldEquip(shield);
+		actor.fieldEquip(weapon);
 		assertTrue(actor.getArmorRank() == 6);
 		
 		//assertTrue(actor.getEquippedUtilities().equals(new Utility[0]));
