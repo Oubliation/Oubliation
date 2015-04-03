@@ -1,5 +1,6 @@
-package edu.ycp.cs320spring2015.oubliation.shared.actor;
+package edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer;
 
+import edu.ycp.cs320spring2015.oubliation.shared.actor.HasIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Background;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Species;

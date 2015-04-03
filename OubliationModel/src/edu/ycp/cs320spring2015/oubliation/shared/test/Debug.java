@@ -21,7 +21,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 /**
  * 
@@ -149,7 +149,7 @@ public class Debug {
 		PlayerStats stats = makePlayerStats();
 		
 		NameTag playerTag = new NameTag("Nevik", "A character controlled by the Player");
-		return new PlayerActor(playerTag, loadout, 20, identity, stats);
+		return new PlayerActor(playerTag, 20, "Healthy", loadout, identity, stats);
 	}
 
 	/**
@@ -178,14 +178,14 @@ public class Debug {
 	/**
 	 * @return easily serialized form of Profile
 	 */
-	public static ProfileTransfer makeProfileTransfer() {
+	public static ProfileMemento makeProfileTransfer() {
 		return makeProfileTransfer("username");
 	}
 	/**
 	 * @param username of profile
 	 * @return easily serialized form of Profile
 	 */
-	public static ProfileTransfer makeProfileTransfer(String username) {
+	public static ProfileMemento makeProfileTransfer(String username) {
 		return makeProfile(username).getTransferData();
 	}
 }

@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.client.town.ViewTown;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 public class Login extends Composite {
 
@@ -35,7 +35,7 @@ public class Login extends Composite {
 		usernameBox.setFocus(true);
 	}
 	
-	private void bootGame(ProfileTransfer transfer) {
+	private void bootGame(ProfileMemento transfer) {
 		Profile profile = transfer.constructProfile();
     	this.removeFromParent();
     	RootPanel.get("gwtapp").add(new ViewTown(profile));
@@ -80,8 +80,8 @@ public class Login extends Composite {
 	}
 	
 	private void loadProfile(String usernameInput) {
-		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
-			public void onSuccess(ProfileTransfer transfer) {
+		AsyncCallback<ProfileMemento> callback = new AsyncCallback<ProfileMemento>() {
+			public void onSuccess(ProfileMemento transfer) {
 				bootGame(transfer);
 			}
 			

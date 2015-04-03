@@ -10,6 +10,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 
 /**
@@ -17,12 +18,14 @@ import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
  * Store and reconstruct PlayerActor data for transfer
  *
  */
-public class PlayerActorTransfer implements Serializable {
+public class PlayerActorMemento implements Serializable {
 	private static final long serialVersionUID = 6140506450106292650L;
-	public PlayerActorTransfer() {}
+	public PlayerActorMemento() {}
 	
 	//data
 	NameTag nameTag;
+	int health;
+	String status;
 	PlayerIdentity identity;
 	String headwearName;
 	String suitName;
@@ -31,11 +34,11 @@ public class PlayerActorTransfer implements Serializable {
 	LinkedList<String> autoEquipUtilities;
 	int[] witchMp;
 	int[] priestMp;
-	int health;
 
-	public PlayerActorTransfer(NameTag nameTag, int health, PlayerIdentity identity) {
+	public PlayerActorMemento(NameTag nameTag, int health, String status, PlayerIdentity identity) {
 		this.nameTag = nameTag;
 		this.health = health;
+		this.status = status;
 		this.identity = identity;
 	}
 	
@@ -71,6 +74,6 @@ public class PlayerActorTransfer implements Serializable {
 	public PlayerActor constructPlayerActor() {
 		Loadout loadout = Debug.makeLoadout();
 		PlayerStats stats = new PlayerStats(witchMp, priestMp, new ArrayList<Utility>());
-		return new PlayerActor(nameTag, loadout, 20, identity, stats);
+		return new PlayerActor(nameTag, 20, status, loadout, identity, stats);
 	}
 }

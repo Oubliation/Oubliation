@@ -1,12 +1,12 @@
 package edu.ycp.cs320spring2015.oubliation.server;
 
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 public class FakeEntry {
-	private ProfileTransfer savedata;
+	private ProfileMemento savedata;
 	private String password;
 	
-	public FakeEntry(String password, ProfileTransfer savedata) {
+	public FakeEntry(String password, ProfileMemento savedata) {
 		this.savedata = savedata;
 		this.password = password;
 	}
@@ -15,7 +15,7 @@ public class FakeEntry {
 		return password;
 	};
 	
-	public ProfileTransfer getSavedata() {
+	public ProfileMemento getSavedata() {
 		return savedata;
 	}
 }

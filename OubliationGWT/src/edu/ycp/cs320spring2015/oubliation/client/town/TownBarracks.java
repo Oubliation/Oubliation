@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 
 
 public class TownBarracks extends Composite {
@@ -50,7 +51,7 @@ public class TownBarracks extends Composite {
 	 * @param actor
 	 */
 	public void removeStatus(PlayerActor actor){
-		actor.receiveStatus();
+		actor.setStatus(new Healthy(actor));
 	}
 	
 	/**

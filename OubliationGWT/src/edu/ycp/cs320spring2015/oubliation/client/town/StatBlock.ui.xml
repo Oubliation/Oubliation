@@ -37,6 +37,10 @@
 					<g:customCell styleName="{style.p}"><g:Label ui:field="health" /></g:customCell>
 				</g:row>
 				<g:row>
+					<g:cell styleName="{style.h3}">Status:</g:cell>
+					<g:customCell styleName="{style.p}"><g:Label ui:field="status" /></g:customCell>
+				</g:row>
+				<g:row>
 					<g:cell styleName="{style.h3}">Armor Rank:</g:cell>
 					<g:customCell styleName="{style.p}"><g:Label ui:field="armorRank" /></g:customCell>
 				</g:row>

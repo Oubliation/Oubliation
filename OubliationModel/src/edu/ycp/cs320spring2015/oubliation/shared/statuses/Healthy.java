@@ -1,35 +1,52 @@
 package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 
-import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
+import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BattleController;
 
-public class Healthy extends EntityClass {
+public class Healthy extends Status {
+	private static final long serialVersionUID = -245305006902248841L;
 	
-	public Healthy() {
-	}
-	
-	
-	public BattleController onTurn(Actor actor) {
-		return null;
+	public Healthy(Actor parent) {
+		super(new NameTag("Healthy", "Oll Korrect"), parent);
 	}
 	
-	public int onAttackHitTest(int accuracy) {
-		return accuracy;
-	}
-	public int onDefendHitTest(int accuracy) {
-		return accuracy;
+	@Override
+	public BattleController onTurnStart(BattleController controller) {
+		return controller;
 	}
 	
-	public int onAttackHurt(int damage) {
-		return damage;
-	}
-	public int onDefendHurt(int damage) {
-		return damage;
+	public ActionModifier getActionModifier(final Status target) {
+		return new ActionModifier() {
+
+			@Override
+			public boolean getActionHitTest(int accuracy) {
+				return target.onRecieveHitTest(accuracy);
+			}
+
+			@Override
+			public void onActionDamage(int amount) {
+				target.onReceiveDamage(amount);
+			}
+
+			@Override
+			public void onActionHeal(int amount) {
+				target.onReceiveDamage(amount);
+				
+			}
+		};
 	}
 	
-	public void onAttack(Actor actor) {
+	@Override
+	public boolean onRecieveHitTest(int accuracy) {
+		return getParent().hitTest(accuracy);
 	}
-	public void onDefend(Actor actor) {
+	@Override
+	public void onReceiveDamage(int damage) {
+		getParent().receiveDamage(damage);
+	}
+	@Override
+	public void onReceiveHealing(int amount) {
+		getParent().receiveHealing(amount);
 	}
 }

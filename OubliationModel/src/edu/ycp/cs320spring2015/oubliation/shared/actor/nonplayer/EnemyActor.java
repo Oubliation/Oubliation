@@ -1,10 +1,11 @@
-package edu.ycp.cs320spring2015.oubliation.shared.actor;
+package edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 
 public class EnemyActor extends NonPlayerActor {
@@ -21,9 +22,9 @@ public class EnemyActor extends NonPlayerActor {
 	 * @param stats {@link NonPlayerStats}
 	 * @param enemySpoils {@link EnemySpoils}
 	 */
-	public EnemyActor(NameTag nameTag, int health, Loadout loadout,
+	public EnemyActor(NameTag nameTag, String status, Loadout loadout,
 			NonPlayerIdentity identity, NonPlayerStats stats, EnemySpoils enemySpoils) {
-		super(nameTag, loadout, identity, stats);
+		super(nameTag, status, loadout, identity, stats);
 		this.enemySpoils = enemySpoils;
 	}
 	/**
