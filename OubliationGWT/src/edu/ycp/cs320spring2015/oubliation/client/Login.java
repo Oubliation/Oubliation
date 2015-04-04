@@ -18,6 +18,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.client.town.ViewTown;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.HeadwearOverlay;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
@@ -33,18 +35,12 @@ public class Login extends Composite {
 	@UiField PasswordTextBox passwordBox;
 	@UiField Label error;
 	
-	private Map<String, Headwear> headwearMap;
+	private Map<String, HeadwearOverlay> headwearMap;
 	private ProfileTransfer transfer;
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
 		usernameBox.setFocus(true);
-	}
-	
-	private void bootGame(ProfileTransfer transfer) {
-		Profile profile = transfer.constructProfile();
-    	this.removeFromParent();
-    	RootPanel.get("gwtapp").add(new ViewTown(profile));
 	}
 	
 	@UiHandler("loginButton")
@@ -84,30 +80,6 @@ public class Login extends Composite {
 		Oubliation.getDataKeeper().validateLogin(usernameInput, passwordInput, callback);
 	}
 	
-	private void loadProfile(String usernameInput) {
-		AsyncCallback<ProfileTransfer> callback = new AsyncCallback<ProfileTransfer>() {
-			public void onSuccess(ProfileTransfer transfer) {
-				setTransfer(transfer);
-				if (this.transfer != null && this.headwearMap != null) {
-					bootGame(transfer);
-				}
-			}
-			
-			public void onFailure(Throwable caught) {
-				error.setText(caught.getMessage());
-			}
-		};
-		Oubliation.getDataKeeper().loadProfile(usernameInput, callback);
-	}
-	
-	private void setTransfer(ProfileTransfer transfer) {
-		this.transfer = transfer;
-	}
-
-	private void setHeadwearMap(Map<String, Headwear> headwearMap) {
-		this.headwearMap = headwearMap;
-	}
-	
 	@UiHandler("registerButton")
 	void onClickRegister(ClickEvent e) {
 		final String usernameInput = usernameBox.getText();
@@ -131,5 +103,54 @@ public class Login extends Composite {
 			}
 		};
 		Oubliation.getDataKeeper().createProfile(usernameInput, passwordInput, callback);
+	}
+	
+	private void loadProfile(String usernameInput) {
+		AsyncCallback<ProfileTransfer> transferCallback = new AsyncCallback<ProfileTransfer>() {
+			public void onSuccess(ProfileTransfer transfer) {
+				setTransfer(transfer);
+				tryBoot();
+			}
+			
+			public void onFailure(Throwable caught) {
+				error.setText(caught.getMessage());
+			}
+		};
+		AsyncCallback<EntityResourceMap<HeadwearOverlay>>
+			headwearMapCallback = new AsyncCallback<EntityResourceMap<HeadwearOverlay>>() {
+				public void onSuccess(EntityResourceMap<HeadwearOverlay> headwearMap) {
+					setHeadwearMap(headwearMap);
+					tryBoot();
+				}
+				
+				public void onFailure(Throwable caught) {
+					error.setText(caught.getMessage());
+				}
+		};
+		Oubliation.getDataKeeper().loadProfile(usernameInput, transferCallback);
+		new HeadwearOverlay.ResourceMap(new String[] {"headwear.json"}, headwearMapCallback);
+	}
+	
+	private void setTransfer(ProfileTransfer transfer) {
+		this.transfer = transfer;
+	}
+
+	private void setHeadwearMap(EntityResourceMap<HeadwearOverlay> headwearMap) {
+		this.headwearMap = headwearMap;
+	}
+	
+	private void tryBoot() {
+		if (transfer != null && headwearMap != null) { bootGame(); }
+	}
+		
+	private void bootGame() {
+		Profile profile = constructProfile(transfer, headwearMap);
+    	this.removeFromParent();
+    	RootPanel.get("gwtapp").add(new ViewTown(profile));
+	}
+
+	private Profile constructProfile(ProfileTransfer transfer, Map<String, HeadwearOverlay> headwearOverlayMap) {
+		Map<String, Headwear> headwearMap = HeadwearOverlay.remapHeadwear(headwearOverlayMap);
+		return transfer.constructProfile(headwearMap);
 	}
 }

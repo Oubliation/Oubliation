@@ -2,9 +2,10 @@ package edu.ycp.cs320spring2015.oubliation.client.transfer;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+import edu.ycp.cs320spring2015.oubliation.shared.Entity;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 
-public abstract class EntityOverlay<T> extends JavaScriptObject {
+public abstract class EntityOverlay<T extends Entity> extends JavaScriptObject {
 	protected EntityOverlay() {}
 
 	protected final native String getName() /*-{
@@ -13,9 +14,7 @@ public abstract class EntityOverlay<T> extends JavaScriptObject {
 	protected final native String getDescription() /*-{
 		return this.description;
 	}-*/;
-	protected NameTag getNameTag() {
+	protected final NameTag getNameTag() {
 		return new NameTag(getName(), getDescription());
 	}
-	
-	public abstract T getData();
 }

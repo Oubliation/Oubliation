@@ -17,7 +17,7 @@ public abstract class EquipmentOverlay<T extends Equipment> extends EntityOverla
 		return this.ar;
 	}-*/;
 	
-	protected TreeSet<String> getJobSet() {
+	protected final TreeSet<String> getJobSet() {
 		String[] jobNames = getEquippableBy();
 		TreeSet<String> jobSet = new TreeSet<String>();
 		for (String jobName : jobNames) {
