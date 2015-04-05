@@ -9,6 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 
 public class StatusMemento implements Serializable {
 	private static final long serialVersionUID = -4037908614220711720L;
+	protected StatusMemento() {}
 	
 	String statusName;
 	int param;
