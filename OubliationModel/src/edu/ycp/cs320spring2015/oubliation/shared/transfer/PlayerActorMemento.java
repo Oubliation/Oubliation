@@ -27,7 +27,7 @@ public class PlayerActorMemento implements Serializable {
 	//data
 	NameTag nameTag;
 	int health;
-	String status;
+	StatusMemento status;
 	PlayerIdentity identity;
 	String headwearName;
 	String suitName;
@@ -37,7 +37,7 @@ public class PlayerActorMemento implements Serializable {
 	int[] witchMp;
 	int[] priestMp;
 
-	public PlayerActorMemento(NameTag nameTag, int health, String status, PlayerIdentity identity) {
+	public PlayerActorMemento(NameTag nameTag, int health, StatusMemento status, PlayerIdentity identity) {
 		this.nameTag = nameTag;
 		this.health = health;
 		this.status = status;

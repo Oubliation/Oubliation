@@ -49,4 +49,9 @@ public class Healthy extends Status {
 	public void onReceiveHealing(int amount) {
 		getParent().receiveHealing(amount);
 	}
+	
+	@Override
+	protected int getParam() {
+		return -1;
+	}
 }

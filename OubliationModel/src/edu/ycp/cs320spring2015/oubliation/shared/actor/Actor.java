@@ -12,6 +12,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Corpse;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 /**
  * Living/dead/undead entities within the game world
@@ -38,10 +39,10 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public Actor(NameTag nameTag, int health, String status, Loadout loadout) {
+	public Actor(NameTag nameTag, int health, StatusMemento status, Loadout loadout) {
 		super(nameTag);
 		this.health = health;
-		this.status = Status.getStatus(this, status);
+		this.status = status.constructStatus(this);
 		this.loadout = loadout;
 	}
 	

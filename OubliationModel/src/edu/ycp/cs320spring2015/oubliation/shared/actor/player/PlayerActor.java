@@ -9,6 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 /**
  * TODO: Come back here! Complete JavaDoc
@@ -32,7 +33,7 @@ final public class PlayerActor extends Actor implements Serializable {
 	 * @param identity {@link PlayerIdentity}
 	 * @param stats {@link PlayerStats}
 	 */
-	public PlayerActor(NameTag nameTag, int health, String status,
+	public PlayerActor(NameTag nameTag, int health, StatusMemento status,
 			Loadout loadout, PlayerIdentity identity, PlayerStats stats) {
 		super(nameTag, health, status, loadout);
 		this.identity = identity;
@@ -172,7 +173,7 @@ final public class PlayerActor extends Actor implements Serializable {
 		return identity.getExperience();
 	}
 	public PlayerActorMemento getTransfer() {
-		PlayerActorMemento transfer = new PlayerActorMemento(getNameTag(), getHealth(), getStatusName(), identity);
+		PlayerActorMemento transfer = new PlayerActorMemento(getNameTag(), getHealth(), getStatus().getMemento(), identity);
 		getLoadout().addTransferData(transfer);
 		stats.addTransferData(transfer);
 		

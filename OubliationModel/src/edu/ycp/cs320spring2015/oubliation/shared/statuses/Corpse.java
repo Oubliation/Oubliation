@@ -29,4 +29,9 @@ public class Corpse extends Status {
 
 	@Override
 	public void onReceiveHealing(int amount) {}
+	
+	@Override
+	protected int getParam() {
+		return -1;
+	}
 }

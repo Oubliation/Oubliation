@@ -7,6 +7,7 @@ import java.util.List;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 public class EnemyActor extends NonPlayerActor {
 	private static final long serialVersionUID = 1948800440853986420L;
@@ -22,7 +23,7 @@ public class EnemyActor extends NonPlayerActor {
 	 * @param stats {@link NonPlayerStats}
 	 * @param enemySpoils {@link EnemySpoils}
 	 */
-	public EnemyActor(NameTag nameTag, String status, Loadout loadout,
+	public EnemyActor(NameTag nameTag, StatusMemento status, Loadout loadout,
 			NonPlayerIdentity identity, NonPlayerStats stats, EnemySpoils enemySpoils) {
 		super(nameTag, status, loadout, identity, stats);
 		this.enemySpoils = enemySpoils;
