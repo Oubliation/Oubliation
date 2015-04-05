@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorTransfer;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 /**
  * maintains data concerning player state
@@ -224,7 +224,9 @@ public final class Profile implements Serializable {
 			clearFlag(flag);
 		}
 	}
-	
+	/**
+	 * @return the username.
+	 */
 	public String getUsername() {
 		return username;
 	}
@@ -232,9 +234,9 @@ public final class Profile implements Serializable {
 	/**
 	 * @return serializable form of this profile
 	 */
-	public ProfileTransfer getTransferData() {
-		LinkedList<PlayerActorTransfer> partyTransfer = new LinkedList<PlayerActorTransfer>();
-		LinkedList<PlayerActorTransfer> rosterTransfer = new LinkedList<PlayerActorTransfer>();
+	public ProfileMemento getTransferData() {
+		LinkedList<PlayerActorMemento> partyTransfer = new LinkedList<PlayerActorMemento>();
+		LinkedList<PlayerActorMemento> rosterTransfer = new LinkedList<PlayerActorMemento>();
 		LinkedList<String> inventory = new LinkedList<String>();
 		for (PlayerActor actor : party) {
 			partyTransfer.add(actor.getTransfer());
@@ -242,6 +244,24 @@ public final class Profile implements Serializable {
 		for (PlayerActor actor : roster) {
 			rosterTransfer.add(actor.getTransfer());
 		}
-		return new ProfileTransfer(username, money, inventory, partyTransfer, rosterTransfer, dungeonFlags);
+		return new ProfileMemento(username, money, inventory, partyTransfer, rosterTransfer, dungeonFlags);
 	}
+	/**
+	 * Goes through the party healing each person
+	 * by the specified amount.
+	 * @param amount
+	 */
+	public void healParty(int amount){
+		for(PlayerActor actor : party){actor.receiveHealing(amount);}
+	}
+	/**
+	 * Goes through the party 
+	 * increasing the xp of each person
+	 * by the specified amount.
+	 * @param amount
+	 */
+	public void increasePartyXP(int amount){
+		for(PlayerActor actor : party){actor.incExperience(amount);}
+	}
+	
 }

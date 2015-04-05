@@ -6,7 +6,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
 import edu.ycp.cs320spring2015.oubliation.client._Dummy;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	private static final long serialVersionUID = -7277596399415609046L;
@@ -15,7 +15,7 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 
 	public Boolean createProfile(String username, String password) {
 		if (!fakeDatabase.containsKey(username)) {
-			ProfileTransfer profile = Debug.makeProfileTransfer(username);
+			ProfileMemento profile = Debug.makeProfileTransfer(username);
 			FakeEntry entry = new FakeEntry(password, profile);
 			fakeDatabase.put(username, entry);
 			
@@ -36,13 +36,13 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	}
 
 	@Override
-	public ProfileTransfer loadProfile(String username) {
+	public ProfileMemento loadProfile(String username) {
 		FakeEntry entry = fakeDatabase.get(username);
 		return entry.getSavedata();
 	}
 
 	@Override
-	public void saveProfile(String username, ProfileTransfer profile) {
+	public void saveProfile(String username, ProfileMemento profile) {
 		FakeEntry oldEntry = fakeDatabase.get(username);
 		FakeEntry newEntry = new FakeEntry(oldEntry.getPassword(), profile);
 		fakeDatabase.put(username, newEntry);

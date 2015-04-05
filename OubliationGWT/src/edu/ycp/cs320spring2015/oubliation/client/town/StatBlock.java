@@ -27,6 +27,7 @@ public class StatBlock extends Composite {
 	
 	//import fields from ui.xml file
 	@UiField Label health;
+	@UiField Label status;
 	@UiField Label armorRank;
 	@UiField Label experience;
 	
@@ -71,6 +72,7 @@ public class StatBlock extends Composite {
 		description.setText("Level "+actor.getLevel()+" "+actor.getSpeciesName()+" "+actor.getJobName()+" "+actor.getBackgroundName());
 		
 		health.setText(getNumOfMax(actor.getHealth(), actor.getMaxHealth()));
+		status.setText(actor.getStatusName());
 		armorRank.setText("-"+actor.getArmorRank());
 		experience.setText(Integer.toString(actor.getExperience()));
 		

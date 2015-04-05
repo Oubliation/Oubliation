@@ -19,12 +19,15 @@ import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
  * Store and reconstruct PlayerActor data for transfer
  *
  */
-public class PlayerActorTransfer implements Serializable {
+public class PlayerActorMemento implements Serializable {
 	private static final long serialVersionUID = 6140506450106292650L;
-	public PlayerActorTransfer() { headwearName = "Leather hood"; }
+	
+	public PlayerActorMemento() { }
 	
 	//data
 	NameTag nameTag;
+	int health;
+	String status;
 	PlayerIdentity identity;
 	String headwearName;
 	String suitName;
@@ -33,11 +36,11 @@ public class PlayerActorTransfer implements Serializable {
 	LinkedList<String> autoEquipUtilities;
 	int[] witchMp;
 	int[] priestMp;
-	int health;
 
-	public PlayerActorTransfer(NameTag nameTag, int health, PlayerIdentity identity) {
+	public PlayerActorMemento(NameTag nameTag, int health, String status, PlayerIdentity identity) {
 		this.nameTag = nameTag;
 		this.health = health;
+		this.status = status;
 		this.identity = identity;
 	}
 	
@@ -75,6 +78,6 @@ public class PlayerActorTransfer implements Serializable {
 		loadout.unequip( loadout.getHeadwear() );
 		loadout.equip(headwearMap.get(headwearName));
 		PlayerStats stats = new PlayerStats(witchMp, priestMp, new ArrayList<Utility>());
-		return new PlayerActor(nameTag, loadout, 20, identity, stats);
+		return new PlayerActor(nameTag, 20, status, loadout, identity, stats);
 	}
 }

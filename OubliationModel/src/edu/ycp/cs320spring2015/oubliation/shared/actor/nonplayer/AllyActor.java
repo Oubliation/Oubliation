@@ -1,6 +1,7 @@
-package edu.ycp.cs320spring2015.oubliation.shared.actor;
+package edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 
 /**
  * 
@@ -18,8 +19,8 @@ public class AllyActor extends NonPlayerActor {
 	 * @param identity {@link NonPlayerIdentity}
 	 * @param stats {@link NonPlayerStats}
 	 */
-	public AllyActor(NameTag nameTag, int health, Loadout loadout, NonPlayerIdentity identity, NonPlayerStats stats) {
-		super(nameTag, loadout, identity, stats);
+	public AllyActor(NameTag nameTag, String status, Loadout loadout, NonPlayerIdentity identity, NonPlayerStats stats) {
+		super(nameTag, status, loadout, identity, stats);
 	}
 
 }

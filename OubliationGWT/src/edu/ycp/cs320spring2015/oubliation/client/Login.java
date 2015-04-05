@@ -22,8 +22,7 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.HeadwearOverlay;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileTransfer;
-
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 public class Login extends Composite {
 
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
@@ -36,7 +35,7 @@ public class Login extends Composite {
 	@UiField Label error;
 	
 	private Map<String, HeadwearOverlay> headwearMap;
-	private ProfileTransfer transfer;
+	private ProfileMemento transfer;
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -106,8 +105,8 @@ public class Login extends Composite {
 	}
 	
 	private void loadProfile(String usernameInput) {
-		AsyncCallback<ProfileTransfer> transferCallback = new AsyncCallback<ProfileTransfer>() {
-			public void onSuccess(ProfileTransfer transfer) {
+		AsyncCallback<ProfileMemento> transferCallback = new AsyncCallback<ProfileMemento>() {
+			public void onSuccess(ProfileMemento transfer) {
 				setTransfer(transfer);
 				tryBoot();
 			}
@@ -131,7 +130,7 @@ public class Login extends Composite {
 		new HeadwearOverlay.ResourceMap(new String[] {"headwear.json"}, headwearMapCallback);
 	}
 	
-	private void setTransfer(ProfileTransfer transfer) {
+	private void setTransfer(ProfileMemento transfer) {
 		this.transfer = transfer;
 	}
 
@@ -149,7 +148,7 @@ public class Login extends Composite {
     	RootPanel.get("gwtapp").add(new ViewTown(profile));
 	}
 
-	private Profile constructProfile(ProfileTransfer transfer, Map<String, HeadwearOverlay> headwearOverlayMap) {
+	private Profile constructProfile(ProfileMemento transfer, Map<String, HeadwearOverlay> headwearOverlayMap) {
 		Map<String, Headwear> headwearMap = HeadwearOverlay.remapHeadwear(headwearOverlayMap);
 		return transfer.constructProfile(headwearMap);
 	}

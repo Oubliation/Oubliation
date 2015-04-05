@@ -12,12 +12,12 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
  * A wrapper for {@link Loadout}; Implements CanEquip
  *
  */
-public class FieldLoadoutAdaptor implements CanEquip {
+public class FieldLoadoutFacade implements CanEquip {
 	Loadout loadout; //actual loadout
 	PlayerStats stats; //stat object for redirecting utilities
 	
 	
-	public FieldLoadoutAdaptor(Loadout loadout, PlayerStats stats) {
+	public FieldLoadoutFacade(Loadout loadout, PlayerStats stats) {
 		this.loadout = loadout;
 		this.stats = stats;
 	}

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorTransfer;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
 
 /**
  * 
@@ -74,7 +74,7 @@ public class PlayerStats implements Serializable {
 		priestMp[level-1] -= amount;
 	}
 
-	public void addTransferData(PlayerActorTransfer transfer) {
+	public void addTransferData(PlayerActorMemento transfer) {
 		LinkedList<String> autoEquipNames = new LinkedList<String>();
 		for (Utility utility : autoEquipUtilities) {
 			autoEquipNames.add(utility.getName());
