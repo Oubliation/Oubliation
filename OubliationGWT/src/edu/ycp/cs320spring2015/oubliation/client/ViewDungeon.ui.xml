@@ -6,9 +6,39 @@
 		.sidebar {
 			float: left;
 		}
+		.top {
+			text-align: top;
+		}
+		.left {
+			text-align: left;
+		}
+		.right {
+			text-align: right;
+		}
+		.bottom {
+			text-align: bottom;
+		}
 	</ui:style>
-	<g:HTMLPanel>
-		<g:FlowPanel />
-		<o:Canvas ui:field="canvas" height="200" width="200" />
-	</g:HTMLPanel>
+	<g:DockLayoutPanel unit='EM'>
+  		<g:north size='5'>
+     		<g:Label>Welcome to the Oubliette!</g:Label>
+     		<g:Label ui:field="dungeonLvl">You are on Level</g:Label>
+  	 	</g:north>
+  	 	<g:center>
+     		<o:Canvas ui:field="canvas" height="200" width="200" />
+  	 	</g:center>
+  	 	<g:west size='192'>
+   	  		<g:HTML>
+       			<ul>
+       				<g:Button styleName="{style.top}" ui:field="Forward">Forward</g:Button>
+					<g:Button styleName="{style.bottom}" ui:field="Backward">Backward</g:Button>
+					<g:Button styleName="{style.left}" ui:field="Left">Left</g:Button>
+					<g:Button styleName="{style.right}" ui:field="Right">Right</g:Button>
+         			<li>Sidebar</li>
+         			<li>Sidebar</li>
+         			<li>Sidebar</li>
+       			</ul>
+     		</g:HTML>
+   		</g:west>		
+	</g:DockLayoutPanel>
 </ui:UiBinder> 
