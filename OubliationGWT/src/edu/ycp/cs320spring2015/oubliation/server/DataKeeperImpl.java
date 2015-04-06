@@ -1,10 +1,14 @@
 package edu.ycp.cs320spring2015.oubliation.server;
 
+import java.util.Map;
+
 import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
 import edu.ycp.cs320spring2015.oubliation.client._Dummy;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.NoEffect;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
@@ -46,6 +50,20 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 		FakeEntry oldEntry = fakeDatabase.get(username);
 		FakeEntry newEntry = new FakeEntry(oldEntry.getPassword(), profile);
 		fakeDatabase.put(username, newEntry);
+	}
+	
+	@Override
+	public Map<String, Effect> getEffectMap(String[] effectNames) {
+		HashMap<String, Effect> effectMap = new HashMap<String, Effect>();
+		for (String name : effectNames) {
+			try {
+				effectMap.put(name, (Effect) Class.forName(name).getConstructor().newInstance());
+			} catch(Exception e) {
+				effectMap.put(name, new NoEffect());
+			}
+		}
+		assert(effectMap.size()>0);
+		return effectMap;
 	}
 	
 	@Override

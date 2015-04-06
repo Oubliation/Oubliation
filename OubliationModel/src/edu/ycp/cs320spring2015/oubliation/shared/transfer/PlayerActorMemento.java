@@ -2,11 +2,13 @@ package edu.ycp.cs320spring2015.oubliation.shared.transfer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
@@ -34,6 +36,7 @@ public class PlayerActorMemento implements Serializable {
 	String shieldName;
 	String weaponName;
 	LinkedList<String> autoEquipUtilities;
+	EnumMap<BruceScore, Integer> bonusScores;
 	int[] witchMp;
 	int[] priestMp;
 
@@ -63,9 +66,10 @@ public class PlayerActorMemento implements Serializable {
 	 * @param witchMp current witch mana count for each level to serialize 
 	 * @param priestMp current priest mana count for each level to serialize 
 	 */
-	public void setStats(LinkedList<String> autoEquipUtilities, int[] witchMp, int[] priestMp) {
-		assert this.autoEquipUtilities == null && this.witchMp == null && this.priestMp == null;
+	public void setStats(LinkedList<String> autoEquipUtilities, EnumMap<BruceScore, Integer> bonusScores, int[] witchMp, int[] priestMp) {
+		assert this.autoEquipUtilities == null && this.bonusScores == null && this.witchMp == null && this.priestMp == null;
 		this.autoEquipUtilities = autoEquipUtilities;
+		this.bonusScores = bonusScores;
 		this.witchMp = witchMp;
 		this.priestMp = priestMp;
 	}
@@ -77,7 +81,7 @@ public class PlayerActorMemento implements Serializable {
 		Loadout loadout = Debug.makeLoadout();
 		loadout.unequip( loadout.getHeadwear() );
 		loadout.equip(headwearMap.get(headwearName));
-		PlayerStats stats = new PlayerStats(witchMp, priestMp, new ArrayList<Utility>());
+		PlayerStats stats = new PlayerStats(new ArrayList<Utility>(), bonusScores, witchMp, priestMp);
 		return new PlayerActor(nameTag, 20, status, loadout, identity, stats);
 	}
 }

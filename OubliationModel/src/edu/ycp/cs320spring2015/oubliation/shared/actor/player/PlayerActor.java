@@ -156,7 +156,7 @@ final public class PlayerActor extends Actor implements Serializable {
 	}
 	
 	public int getScore(BruceScore score) {
-		return identity.getScores(score);
+		return identity.getScores(score)+stats.getBonusScore(score);
 	}
 	public int getHitCount() {
 		return identity.getHitCount();

@@ -2,6 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
@@ -16,14 +17,16 @@ public class PlayerStats implements Serializable {
 	private static final long serialVersionUID = -6550379214140225472L;
 	public PlayerStats() {}
 	
-	private ArrayList<Utility> autoEquipUtilities; //utilities to be automatically added to the battle equip queue
 	private int witchMp[]; //mana for each level of witch spells
 	private int priestMp[]; //mana for each level of priest spells
+	private ArrayList<Utility> autoEquipUtilities; //utilities to be automatically added to the battle equip queue
+	private EnumMap<BruceScore, Integer> bonusScores; //extra bruce scores assigned to this character
 	
-	public PlayerStats(int[] witchMp, int[] priestMp, ArrayList<Utility> autoEquipUtilities) {
+	public PlayerStats(ArrayList<Utility> autoEquipUtilities, EnumMap<BruceScore, Integer> bonusScores, int[] witchMp, int[] priestMp) {
+		this.autoEquipUtilities = autoEquipUtilities;
+		this.bonusScores = bonusScores;
 		this.witchMp = witchMp;
 		this.priestMp = priestMp;
-		this.autoEquipUtilities = autoEquipUtilities;
 	}
 	
 	/**
@@ -43,6 +46,14 @@ public class PlayerStats implements Serializable {
 	 */
 	public Utility[] getAutoEquip() {
 		return autoEquipUtilities.toArray(new Utility[autoEquipUtilities.size()]);
+	}
+	
+	/**
+	 * @param score of bonus to check
+	 * @return bonus to given score
+	 */
+	public int getBonusScore(BruceScore score) {
+		return bonusScores.get(score);
 	}
 	
 	/**
@@ -79,7 +90,7 @@ public class PlayerStats implements Serializable {
 		for (Utility utility : autoEquipUtilities) {
 			autoEquipNames.add(utility.getName());
 		}
-		transfer.setStats(autoEquipNames, witchMp, priestMp);
+		transfer.setStats(autoEquipNames, bonusScores, witchMp, priestMp);
 		
 	}
 }

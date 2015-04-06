@@ -127,7 +127,7 @@ public class Login extends Composite {
 				}
 		};
 		Oubliation.getDataKeeper().loadProfile(usernameInput, transferCallback);
-		new HeadwearOverlay.ResourceMap(new String[] {"headwear.json"}, headwearMapCallback);
+		new HeadwearOverlay.ResourceMap(new String[] {"/data/headwear.json"}, headwearMapCallback);
 	}
 	
 	private void setTransfer(ProfileMemento transfer) {

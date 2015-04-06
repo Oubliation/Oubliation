@@ -136,9 +136,16 @@ public class Debug {
 	 * @return arbitrary PlayerStats for testing
 	 */
 	public static PlayerStats makePlayerStats() {
+		EnumMap<BruceScore, Integer> PaBonusScores = new EnumMap<BruceScore, Integer>(BruceScore.class);
+		PaBonusScores.put(BruceScore.mightily, 0);
+		PaBonusScores.put(BruceScore.healthily, 0);
+		PaBonusScores.put(BruceScore.intelligently, 0);
+		PaBonusScores.put(BruceScore.godly, 0);
+		PaBonusScores.put(BruceScore.quickly, 0);
+		PaBonusScores.put(BruceScore.luckily, 0);
 		int[] witchMp = {40, 36, 30, 24, 16, 8};
 		int[] priestMp = {40, 36, 30, 24, 16, 8};
-		return new PlayerStats(witchMp, priestMp, new ArrayList<Utility>());
+		return new PlayerStats(new ArrayList<Utility>(), PaBonusScores, witchMp, priestMp);
 	}
 
 	/**

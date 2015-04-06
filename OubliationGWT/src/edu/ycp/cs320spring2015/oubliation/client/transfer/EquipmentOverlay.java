@@ -2,9 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.client.transfer;
 
 import java.util.TreeSet;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
-
-public abstract class EquipmentOverlay<T extends Equipment> extends EntityOverlay<T> {
+public abstract class EquipmentOverlay extends EntityOverlay {
 	protected EquipmentOverlay() {}
 	
 	protected final native int getPrice() /*-{

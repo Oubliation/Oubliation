@@ -16,9 +16,7 @@ import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.StatusCodeException;
 
-import edu.ycp.cs320spring2015.oubliation.shared.Entity;
-
-public class EntityResourceMap<O extends EntityOverlay<? extends Entity>> implements Map<String, O> {
+public class EntityResourceMap<O extends EntityOverlay> implements Map<String, O> {
 	private HashMap<String, O> resourceMap = new HashMap<String, O>();
 	final private int totalFiles;
 	private int fileCount = 0;

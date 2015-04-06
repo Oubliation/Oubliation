@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 
-final public class HeadwearOverlay extends EquipmentOverlay<Headwear> {
+final public class HeadwearOverlay extends EquipmentOverlay {
 	protected HeadwearOverlay() { }
 	
 	static final public class ResourceMap extends EntityResourceMap<HeadwearOverlay> {
@@ -16,7 +16,6 @@ final public class HeadwearOverlay extends EquipmentOverlay<Headwear> {
 				AsyncCallback<EntityResourceMap<HeadwearOverlay>> callback) {
 			super(filenames, callback);
 		}
-		
 	}
 	
 	static public Map<String, Headwear> remapHeadwear(Map<String, HeadwearOverlay> overlayMap) {

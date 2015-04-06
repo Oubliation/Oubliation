@@ -14,16 +14,10 @@ public abstract class Effect implements Serializable {
 	private static final long serialVersionUID = 2954502499169810978L;
 	public Effect() {}
 	
-	Element element;
-	
-	public Effect(Element element) {
-		this.element = element;
-	}
-	
 	/**
 	 * 
 	 * @param source actor which caused the effect, if applicable
 	 * @param target actor to be targeted by the effect
 	 */
-	public abstract void apply(Actor source, Actor target); //TODO: null object pattern?
+	public abstract void apply(Actor source, Actor target, Element element, int potency, int accuracy); //TODO: null object pattern?
 }
