@@ -152,4 +152,5 @@ public class Login extends Composite {
 		Map<String, Headwear> headwearMap = HeadwearOverlay.remapHeadwear(headwearOverlayMap);
 		return transfer.constructProfile(headwearMap);
 	}
+
 }

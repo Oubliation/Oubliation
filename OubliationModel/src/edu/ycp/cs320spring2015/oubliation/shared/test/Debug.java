@@ -1,6 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.shared.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.TreeSet;
@@ -21,6 +22,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
@@ -195,5 +197,14 @@ public class Debug {
 	 */
 	public static ProfileMemento makeProfileTransfer(String username) {
 		return makeProfile(username).getTransferData();
+	}
+	
+	public static Tile[][] makeMap(){
+		
+		Tile[][] map = new Tile[20][20];
+		Tile[] row = new Tile[20];
+		Arrays.fill(row, new Tile());
+		Arrays.fill(map, row);
+		return map;
 	}
 }

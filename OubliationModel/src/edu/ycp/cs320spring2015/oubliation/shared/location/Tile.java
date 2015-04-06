@@ -1,6 +1,8 @@
 package edu.ycp.cs320spring2015.oubliation.shared.location;
 
-public abstract class Tile {
+//TODO: Change back to abstract
+public class Tile {
+	boolean isSolid;
 	public void getNormalTexture() {
 		
 	}
@@ -12,5 +14,8 @@ public abstract class Tile {
 	}
 	public void interact(DungeonController controller) {
 		
+	}
+	public void setIsSolid(boolean solid){
+		this.isSolid = solid;
 	}
 }

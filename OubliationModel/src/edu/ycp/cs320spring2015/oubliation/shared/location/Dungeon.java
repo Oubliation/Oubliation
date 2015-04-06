@@ -1,6 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.shared.location;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 
 public class Dungeon {
 	
@@ -11,6 +12,11 @@ public class Dungeon {
 	private int level;
 	
 	public Dungeon(int floor) {
+		this.facing = Cardinal.west;
+		this.playerX = 0;
+		this.playerY = 0;
+		this.map = Debug.makeMap();
+		this.level = floor;
 	}
 	
 	public void move(Ordinal direction, Profile profile) {
@@ -57,6 +63,12 @@ public class Dungeon {
 	
 	public int getLevel(){
 		return this.level;
+	}
+	public int getPlayerX(){
+		return this.playerX;
+	}
+	public int getPlayerY(){
+		return this.playerY;
 	}
 	
 }

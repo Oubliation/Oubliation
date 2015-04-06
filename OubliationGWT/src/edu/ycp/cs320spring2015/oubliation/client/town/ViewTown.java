@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.client.Login;
 import edu.ycp.cs320spring2015.oubliation.client.Oubliation;
+import edu.ycp.cs320spring2015.oubliation.client.ViewDungeon;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 
 /**
@@ -101,6 +102,8 @@ public class ViewTown extends Composite {
 			enterOutskirts();
 		} else {
 			//enter the dungeon
+			this.removeFromParent();
+			RootPanel.get("gwtapp").add(new ViewDungeon(profile));
 		}
 	}
 	
