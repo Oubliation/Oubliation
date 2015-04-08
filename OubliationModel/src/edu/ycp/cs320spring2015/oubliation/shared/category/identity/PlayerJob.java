@@ -15,7 +15,7 @@ public class PlayerJob extends Job {
 	public PlayerJob() {}
 	
 	private EnumMap<BruceScore, Integer> requiredScores; // attributes required to aquire this job
-	private int[] expChart; //experience needed to reach each level
+	private Integer[] expChart; //experience needed to reach each level
 	private int extraLvExp; //experience needed to reach levels beyond expChart
 	private int baseHitCount; //base number of hits performed by this job
 	private int baseMaxHp; //base maximum health provided by this job
@@ -25,7 +25,7 @@ public class PlayerJob extends Job {
 	//TODO: implement spell schools
 	
 	public PlayerJob(NameTag nameTag,
-			EnumMap<BruceScore, Integer> requiredScores, int[] expChart,
+			EnumMap<BruceScore, Integer> requiredScores, Integer[] expChart,
 			int extraLvExp, int baseHitCount, int baseMaxHp, int maxHpGain,
 			int utilitySlotCount) {
 		super(nameTag);
