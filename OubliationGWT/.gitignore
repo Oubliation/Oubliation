@@ -1,5 +1,9 @@
 *.class
 
+# Package Files #
+*.jar
+*.war
+
 #whitespace libraries
 !gwt-servlet.jar
 !derby.jar
@@ -7,10 +11,6 @@
 !derbynet.jar
 !derbyrun.jar
 !derbytools.jar
-
-# Package Files #
-*.jar
-*.war
 
 # gwt caches and compiled units #
 war/gwt_bree/
