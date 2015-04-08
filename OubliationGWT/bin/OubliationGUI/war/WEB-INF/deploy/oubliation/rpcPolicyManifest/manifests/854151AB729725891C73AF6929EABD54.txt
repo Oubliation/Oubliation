@@ -1,2 +1,0 @@
-serviceClass: com.cs320spring2015.oubliation.client.GreetingService
-path: C829B3A5502134DE59496594936940B5.gwt.rpc

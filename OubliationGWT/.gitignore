@@ -29,3 +29,6 @@ www-test/
 
 #old GWT (1.5) created this dir
 .gwt-tmp/
+
+# Don't put the bin directory under version control
+/bin
