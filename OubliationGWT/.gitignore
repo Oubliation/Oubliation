@@ -2,6 +2,11 @@
 
 #whitespace libraries
 !gwt-servlet.jar
+!derby.jar
+!derbyclient.jar
+!derbynet.jar
+!derbyrun.jar
+!derbytools.jar
 
 # Package Files #
 *.jar
