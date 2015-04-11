@@ -39,6 +39,16 @@ public class Login extends Composite {
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
+//		AsyncCallback<Void> callback  = new AsyncCallback<Void>() {
+//			@Override
+//			public void onSuccess(Void _) {}
+//			
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				error.setText(caught.getMessage());
+//			}
+//		};
+//		Oubliation.getDataKeeper().createDb(callback);
 		usernameBox.setFocus(true);
 	}
 	
