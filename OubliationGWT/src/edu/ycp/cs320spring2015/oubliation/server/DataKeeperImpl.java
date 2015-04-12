@@ -14,7 +14,6 @@ import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
 import edu.ycp.cs320spring2015.oubliation.client._Dummy;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.NoEffect;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
-import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
@@ -27,8 +26,6 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 			throw new IllegalStateException("Could not load Derby JDBC driver");
 		}
 	}
-	
-	private HashMap<String, FakeEntry> fakeDatabase = new HashMap<String, FakeEntry>();
 
 	private static final int MAX_ATTEMPTS = 10;
 	
@@ -90,39 +87,122 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	}
 	
 	@Override
-	public Boolean createProfile(String username, String password) {
-		if (!fakeDatabase.containsKey(username)) {
-			ProfileMemento profile = Debug.makeProfileTransfer(username);
-			FakeEntry entry = new FakeEntry(password, profile);
-			fakeDatabase.put(username, entry);
-			
-			return true;
-		} else {
-			return false;
-		}
+	public void createProfile(final String username, final String password) {
+		executeTransaction(new Transaction<Void>() {
+			@Override
+			public Void execute(Connection conn) throws SQLException {
+				PreparedStatement createAccount = null;
+				PreparedStatement getId = null;
+				ResultSet idResult = null;
+				PreparedStatement createData = null;
+				try {
+					createAccount = conn.prepareStatement(
+						"insert into accounts values (default, ?, ?)"
+					);
+					createAccount.setString(1, username);
+					createAccount.setString(2, password);
+					createAccount.executeUpdate();
+					
+					getId = conn.prepareStatement(
+						"select id from accounts where username = ?"
+					);
+					getId.setString(1, username);
+					idResult = getId.executeQuery();
+					idResult.next();
+					
+					createData = conn.prepareStatement(
+						"insert into data values (?, null)"
+					);
+					createData.setInt(1, idResult.getInt(1));
+					createData.executeUpdate();
+				} finally {
+					DbUtils.closeQuietly(createAccount);
+					DbUtils.closeQuietly(getId);
+					DbUtils.closeQuietly(idResult);
+					DbUtils.closeQuietly(createData);
+				}
+				return null;
+			}
+		});
 	}
 	
 	@Override
-	public Boolean validateLogin(String username, String password) {
-		FakeEntry entry = fakeDatabase.get(username);
-		if (entry != null) {
-			return password.equals(entry.getPassword());
-		} else {
-			return false;
-		}
+	public Boolean validateLogin(final String username, final String password) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				try {
+					stmt = conn.prepareStatement(
+						"select profile from accounts where username = ?"
+					);
+					stmt.setString(1, username);
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					
+					return resultSet.getString(2) == password;
+				} finally {
+					DbUtils.closeQuietly(stmt);
+					DbUtils.closeQuietly(resultSet);
+				}
+			}
+		});
 	}
 
 	@Override
-	public ProfileMemento loadProfile(String username) {
-		FakeEntry entry = fakeDatabase.get(username);
-		return entry.getSavedata();
+	public ProfileMemento loadProfile(final String username) {
+		return executeTransaction(new Transaction<ProfileMemento>() {
+			@Override
+			public ProfileMemento execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				try {
+					stmt = conn.prepareStatement(
+						"select profile from accounts, data where accounts.id = data.id and username = ?"
+					);
+					stmt.setString(1, username);
+					resultSet = stmt.executeQuery();
+					resultSet.first();
+					
+					return (ProfileMemento) resultSet.getObject(1);
+				} finally {
+					DbUtils.closeQuietly(stmt);
+					DbUtils.closeQuietly(resultSet);
+				}
+			}
+		});
 	}
 
 	@Override
-	public void saveProfile(String username, ProfileMemento profile) {
-		FakeEntry oldEntry = fakeDatabase.get(username);
-		FakeEntry newEntry = new FakeEntry(oldEntry.getPassword(), profile);
-		fakeDatabase.put(username, newEntry);
+	public void saveProfile(final String username, final ProfileMemento profile) {
+		executeTransaction(new Transaction<Void>() {
+			@Override
+			public Void execute(Connection conn) throws SQLException {
+				PreparedStatement getId = null;
+				ResultSet idResult = null;
+				PreparedStatement updateProfile = null;
+				try {
+					getId = conn.prepareStatement(
+						"select id from accounts where username = ?"
+					);
+					getId.setString(1, username);
+					idResult = getId.executeQuery();
+					
+					updateProfile = conn.prepareStatement(
+						"update data set profile = ? where id = ?"
+					);
+					updateProfile.setObject(1, profile);
+					updateProfile.setInt(2, idResult.getInt(1));
+					updateProfile.executeUpdate();
+				} finally {
+					DbUtils.closeQuietly(getId);
+					DbUtils.closeQuietly(idResult);
+					DbUtils.closeQuietly(updateProfile);
+				}
+				return null;
+			}
+		});
 	}
 	
 	@Override

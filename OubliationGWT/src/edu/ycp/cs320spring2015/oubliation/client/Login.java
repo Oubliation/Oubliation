@@ -94,21 +94,19 @@ public class Login extends Composite {
 		final String usernameInput = usernameBox.getText();
 		final String passwordInput = passwordBox.getText();
 		
-		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
-			public void onSuccess(Boolean usernameWasAvailable) {
-				if (usernameWasAvailable) {
-					loadProfile(usernameInput);
-				} else {
-					error.setText("Username is already taken.");
-					usernameBox.setText("");
-					passwordBox.setText("");
-					
-					usernameBox.setFocus(true);
-				}
+		AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+			public void onSuccess(Void _) {
+				loadProfile(usernameInput);
 			}
 			
 			public void onFailure(Throwable caught) {
 				error.setText(caught.getMessage());
+//				} else {
+//				error.setText("Username is already taken.");
+//				usernameBox.setText("");
+//				passwordBox.setText("");
+//				
+//				usernameBox.setFocus(true);
 			}
 		};
 		Oubliation.getDataKeeper().createProfile(usernameInput, passwordInput, callback);
