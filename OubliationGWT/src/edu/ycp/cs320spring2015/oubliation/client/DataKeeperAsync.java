@@ -9,7 +9,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 public interface DataKeeperAsync {
 	
-	void createProfile(String username, String password, AsyncCallback<Void> callback);
+	void createProfile(String username, String password, long id, AsyncCallback<Void> callback);
 	
 	void validateLogin(String username, String password, AsyncCallback<Boolean> callback);
 

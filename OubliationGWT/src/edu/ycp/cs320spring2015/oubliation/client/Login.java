@@ -1,5 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.client;
 
+import java.util.Date;
 import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
@@ -39,17 +40,22 @@ public class Login extends Composite {
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
-//		AsyncCallback<Void> callback  = new AsyncCallback<Void>() {
-//			@Override
-//			public void onSuccess(Void _) {}
-//			
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				error.setText(caught.getMessage());
-//			}
-//		};
-//		Oubliation.getDataKeeper().createDb(callback);
+		//createDb();
 		usernameBox.setFocus(true);
+	}
+	
+	@SuppressWarnings("unused")
+	private void createDb() {
+		AsyncCallback<Void> callback  = new AsyncCallback<Void>() {
+			@Override
+			public void onSuccess(Void _) {}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				error.setText(caught.getMessage());
+			}
+		};
+		Oubliation.getDataKeeper().createDb(callback);
 	}
 	
 	@UiHandler("loginButton")
@@ -109,7 +115,7 @@ public class Login extends Composite {
 //				usernameBox.setFocus(true);
 			}
 		};
-		Oubliation.getDataKeeper().createProfile(usernameInput, passwordInput, callback);
+		Oubliation.getDataKeeper().createProfile(usernameInput, passwordInput, (new Date()).getTime(), callback);
 	}
 	
 	private void loadProfile(String usernameInput) {
