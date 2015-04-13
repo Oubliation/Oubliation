@@ -20,8 +20,6 @@ public interface DataKeeperAsync {
 	
 	void getEffectMap(String[] effectNames, AsyncCallback<Map<String, Effect>> callback);
 	
-	void createDb(AsyncCallback<Void> callback);
-	
 	void dummy(_Dummy dummy, AsyncCallback<_Dummy> callback);
 
 }

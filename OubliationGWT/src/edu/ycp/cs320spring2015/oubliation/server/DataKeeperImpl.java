@@ -7,12 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Console;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
-import edu.ycp.cs320spring2015.oubliation.client.Oubliation;
 import edu.ycp.cs320spring2015.oubliation.client._Dummy;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.NoEffect;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
@@ -80,7 +81,8 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	}
 
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:res/oubliation.db;create=true");
+		String homeDir = System.getProperty("user.home");
+		Connection conn = DriverManager.getConnection("jdbc:derby:" + homeDir + "/oubliation.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -111,6 +113,8 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 					createData.setLong(1, id);
 					createData.setObject(2, Debug.makeProfileTransfer(username));
 					createData.executeUpdate();
+
+					registerSession(username);
 				} finally {
 					DbUtils.closeQuietly(createAccount);
 					DbUtils.closeQuietly(createData);
@@ -122,6 +126,7 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	
 	@Override
 	public Boolean validateLogin(final String username, final String password) {
+		validateSession(username);
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -133,8 +138,17 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 					);
 					stmt.setString(1, username);
 					resultSet = stmt.executeQuery();
-					resultSet.next();
-					return resultSet.getString(1).equals(password);
+					if(resultSet.next()) {
+						if (resultSet.getString(1).equals(password)) {
+							registerSession(username);
+							return true;
+						} else {
+							return false;
+						}
+					} else {
+						throw new  UsernameFailureException("Username does not exist");
+					}
+					
 				} finally {
 					DbUtils.closeQuietly(stmt);
 					DbUtils.closeQuietly(resultSet);
@@ -142,9 +156,17 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 			}
 		});
 	}
+	
+public void registerSession(String username) {
+
+	HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
+    HttpSession session = httpServletRequest.getSession();
+    session.setAttribute("username", username);
+}
 
 	@Override
 	public ProfileMemento loadProfile(final String username) {
+		validateSession(username);
 		return executeTransaction(new Transaction<ProfileMemento>() {
 			@Override
 			public ProfileMemento execute(Connection conn) throws SQLException {
@@ -169,6 +191,12 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 
 	@Override
 	public void saveProfile(final String username, final ProfileMemento profile) {
+		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
+        HttpSession session = httpServletRequest.getSession();
+        if (!session.getAttribute("username").equals(username)) {
+        	throw new UsernameFailureException("Invaild request");
+        }
+        
 		executeTransaction(new Transaction<Void>() {
 			@Override
 			public Void execute(Connection conn) throws SQLException {
@@ -199,6 +227,14 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 		});
 	}
 	
+	public void validateSession(String username) {
+		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
+        HttpSession session = httpServletRequest.getSession();
+        if (!session.getAttribute("username").equals(username)) {
+        	throw new UsernameFailureException("Invaild request");
+        }
+	}
+	
 	@Override
 	public Map<String, Effect> getEffectMap(String[] effectNames) {
 		HashMap<String, Effect> effectMap = new HashMap<String, Effect>();
@@ -213,7 +249,6 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 		return effectMap;
 	}
 	
-	@Override
 	public void createDb() {
 		executeTransaction(new Transaction<Void>() {
 			@Override
@@ -243,6 +278,11 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 			}
 		});
 	}
+	
+	static public void main(String[] argc) {
+		(new DataKeeperImpl()).createDb();
+	}
+	
 	
 	@Override
 	public _Dummy dummy(_Dummy dummy) {

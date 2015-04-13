@@ -15,6 +15,5 @@ public interface DataKeeper extends RemoteService {
 	public ProfileMemento loadProfile(String username);
 	public void saveProfile(String username, ProfileMemento profile);
 	public Map<String, Effect> getEffectMap(String[] effectName);
-	public void createDb();
 	public _Dummy dummy(_Dummy dummy);
 }
