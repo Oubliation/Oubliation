@@ -48,6 +48,6 @@ public class PlayerBackground extends Background {
 	}
 	
 	public boolean hasCompatibleBackground(PlayerActor actor) {
-		return backgroundRival != actor.getBackgroundName();
+		return !backgroundRival.equals(actor.getBackgroundName());
 	}
 }
