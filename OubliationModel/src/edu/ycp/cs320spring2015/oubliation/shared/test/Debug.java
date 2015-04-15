@@ -44,7 +44,7 @@ public class Debug {
 		attribReqValues.put(BruceScore.godly, 3);
 		attribReqValues.put(BruceScore.quickly, 3);
 		attribReqValues.put(BruceScore.luckily, 3);
-		int[] expRequired = {100, 200, 400, 800, 1600, 3200, 6400};
+		Integer[] expRequired = {100, 200, 400, 800, 1600, 3200, 6400};
 		return new PlayerJob(jobTag, attribReqValues, expRequired, 6400, 1, 16, 8, 2);
 	}
 	

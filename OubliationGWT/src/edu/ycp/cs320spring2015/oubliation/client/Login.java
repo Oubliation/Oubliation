@@ -1,7 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.client;
 
 import java.util.Date;
-import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -19,11 +18,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.client.town.ViewTown;
-import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
-import edu.ycp.cs320spring2015.oubliation.client.transfer.HeadwearOverlay;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.ProfileLoader;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 public class Login extends Composite {
 
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
@@ -34,9 +30,6 @@ public class Login extends Composite {
 	@UiField TextBox usernameBox;
 	@UiField PasswordTextBox passwordBox;
 	@UiField Label error;
-	
-	private Map<String, HeadwearOverlay> headwearMap;
-	private ProfileMemento transfer;
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -62,7 +55,7 @@ public class Login extends Composite {
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 			public void onSuccess(Boolean isValid) {
 				if (isValid) {
-					loadProfile(usernameInput);
+					bootGame(usernameInput);
 				} else {
 					error.setText("Username or password is incorrect.");
 					usernameBox.setText("");
@@ -87,7 +80,7 @@ public class Login extends Composite {
 		
 		AsyncCallback<Void> callback = new AsyncCallback<Void>() {
 			public void onSuccess(Void _) {
-				loadProfile(usernameInput);
+				bootGame(usernameInput);
 			}
 			
 			public void onFailure(Throwable caught) {
@@ -103,53 +96,17 @@ public class Login extends Composite {
 		Oubliation.getDataKeeper().createProfile(usernameInput, passwordInput, (new Date()).getTime(), callback);
 	}
 	
-	private void loadProfile(String usernameInput) {
-		AsyncCallback<ProfileMemento> transferCallback = new AsyncCallback<ProfileMemento>() {
-			public void onSuccess(ProfileMemento transfer) {
-				setTransfer(transfer);
-				tryBoot();
+	private void bootGame(String usernameInput) {
+		AsyncCallback<Profile> callback = new AsyncCallback<Profile>() {
+			public void onSuccess(Profile profile) {
+		    	Login.this.removeFromParent();
+		    	RootPanel.get("gwtapp").add(new ViewTown(profile));
 			}
-			
 			public void onFailure(Throwable caught) {
 				error.setText(caught.getMessage());
 			}
 		};
-		AsyncCallback<EntityResourceMap<HeadwearOverlay>>
-			headwearMapCallback = new AsyncCallback<EntityResourceMap<HeadwearOverlay>>() {
-				public void onSuccess(EntityResourceMap<HeadwearOverlay> headwearMap) {
-					setHeadwearMap(headwearMap);
-					tryBoot();
-				}
-				
-				public void onFailure(Throwable caught) {
-					error.setText(caught.getMessage());
-				}
-		};
-		Oubliation.getDataKeeper().loadProfile(usernameInput, transferCallback);
-		new HeadwearOverlay.ResourceMap(new String[] {"/data/headwear.json"}, headwearMapCallback);
-	}
-	
-	private void setTransfer(ProfileMemento transfer) {
-		this.transfer = transfer;
-	}
-
-	private void setHeadwearMap(EntityResourceMap<HeadwearOverlay> headwearMap) {
-		this.headwearMap = headwearMap;
-	}
-	
-	private void tryBoot() {
-		if (transfer != null && headwearMap != null) { bootGame(); }
-	}
-		
-	private void bootGame() {
-		Profile profile = constructProfile(transfer, headwearMap);
-    	this.removeFromParent();
-    	RootPanel.get("gwtapp").add(new ViewTown(profile));
-	}
-
-	private Profile constructProfile(ProfileMemento transfer, Map<String, HeadwearOverlay> headwearOverlayMap) {
-		Map<String, Headwear> headwearMap = HeadwearOverlay.remapHeadwear(headwearOverlayMap);
-		return transfer.constructProfile(headwearMap);
+		new ProfileLoader(usernameInput, callback);
 	}
 
 }

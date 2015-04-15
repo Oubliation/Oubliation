@@ -1,0 +1,9 @@
+[
+	{
+		"name": "Dragon Shield",
+		"description": "A shield designed to withstand dragons.",
+		"price": 100,
+		"equippableBy": [],
+		"ar": 2
+	}
+]

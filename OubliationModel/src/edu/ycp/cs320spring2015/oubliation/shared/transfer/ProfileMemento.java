@@ -8,7 +8,6 @@ import java.util.Map;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 
 public class ProfileMemento implements Serializable {
@@ -45,16 +44,16 @@ public class ProfileMemento implements Serializable {
 		this.dungeonFlags = dungeonFlags;
 	}
 
-	public Profile constructProfile(Map<String, Headwear> headwearMap) {
+	public Profile constructProfile(LoadoutLoader loader) {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
 		ArrayList<PlayerActor> roster = new ArrayList<PlayerActor>();
 		ArrayList<Item> inventory = new ArrayList<Item>();
 
 		for (PlayerActorMemento actor : partyTransfer) {
-			party.add(actor.constructPlayerActor(headwearMap));
+			party.add(actor.constructPlayerActor(loader));
 		}
 		for (PlayerActorMemento actor : rosterTransfer) {
-			roster.add(actor.constructPlayerActor(headwearMap));
+			roster.add(actor.constructPlayerActor(loader));
 		}
 		return new Profile(username, money, inventory, party, roster, dungeonFlags);
 	}
