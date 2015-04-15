@@ -12,11 +12,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 
 /**
  * 
@@ -79,13 +75,14 @@ public class PlayerActorMemento implements Serializable {
 	/**
 	 * @return reconstruct PlayerActor from stored transfer data
 	 */
-	public PlayerActor constructPlayerActor(Map<String, Headwear> headwearMap, Map<String, Suit> suitMap,
-			Map<String, Shield> shieldMap, Map<String, Utility> utilityMap, Map<String, Weapon> weaponMap) {
+	public PlayerActor constructPlayerActor(LoadoutLoader loader) {
 		ArrayList<Utility> utilityBelt = new ArrayList<Utility>();
+		Map<String, Utility> utilityMap = loader.getUtilityMap();
 		for (String utilityName : autoEquipUtilities) {
 			utilityBelt.add(utilityMap.get(utilityName));
 		}
-		Loadout loadout = new Loadout(headwearMap.get(headwearName), suitMap.get(suitName), shieldMap.get(shieldName), weaponMap.get(weaponName), utilityBelt);
+		Loadout loadout = new Loadout(loader.getHeadwearMap().get(headwearName), loader.getSuitMap().get(suitName),
+				loader.getShieldMap().get(shieldName), loader.getWeaponMap().get(weaponName), utilityBelt);
 		PlayerStats stats = new PlayerStats(new ArrayList<Utility>(), bonusScores, witchMp, priestMp);
 		return new PlayerActor(nameTag, 20, status, loadout, identity, stats);
 	}
