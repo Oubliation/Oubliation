@@ -1,0 +1,9 @@
+[
+	{
+		"name": "Plate Mail",
+		"description": "Mail joined from iron plates.",
+		"price": 100,
+		"equippableBy": [],
+		"ar": 3
+	}
+]

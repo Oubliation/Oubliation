@@ -29,7 +29,7 @@ public class SuitOverlay extends EquipmentOverlay {
 		return remapEntity(overlayMap, extractor);
 	}
 	
-	public Suit getSuit() {
+	public final Suit getSuit() {
 		return new Suit(getNameTag(), getPrice(), getStringSet(getEquippableBy()), getAr());
 	}
 }

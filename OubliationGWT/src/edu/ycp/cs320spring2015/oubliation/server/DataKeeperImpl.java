@@ -1,8 +1,8 @@
 package edu.ycp.cs320spring2015.oubliation.server;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;

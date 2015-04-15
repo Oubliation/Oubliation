@@ -33,7 +33,7 @@ public class ItemOverlay extends EntityOverlay {
 		return this.price;
 	}-*/;
 	
-	public Item getItem() {
+	public final Item getItem() {
 		return new Item(getNameTag(), getPrice());
 	}
 }

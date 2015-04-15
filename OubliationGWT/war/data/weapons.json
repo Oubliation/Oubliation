@@ -1,0 +1,9 @@
+[
+	{
+		"name": "Sword",
+		"description": "Hit things to perform murder.",
+		"price": 100,
+		"equippableBy": [],
+		"effect": null
+	}
+]

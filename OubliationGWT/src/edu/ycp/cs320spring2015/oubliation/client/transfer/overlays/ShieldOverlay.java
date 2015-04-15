@@ -30,7 +30,7 @@ public class ShieldOverlay extends EquipmentOverlay {
 		return remapEntity(overlayMap, extractor);
 	}
 	
-	public Shield getShield() {
+	public final Shield getShield() {
 		return new Shield(getNameTag(), getPrice(), getStringSet(getEquippableBy()), getAr());
 	}
 }
