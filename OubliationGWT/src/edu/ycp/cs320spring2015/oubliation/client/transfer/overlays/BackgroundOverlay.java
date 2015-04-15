@@ -1,10 +1,12 @@
-package edu.ycp.cs320spring2015.oubliation.client.transfer;
+package edu.ycp.cs320spring2015.oubliation.client.transfer.overlays;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityOverlay;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Background;
 
 public class BackgroundOverlay extends EntityOverlay {
@@ -19,11 +21,12 @@ public class BackgroundOverlay extends EntityOverlay {
 	}
 	
 	static public Map<String, Background> remapBackground(Map<String, BackgroundOverlay> overlayMap) {
-		HashMap<String, Background> entityMap = new HashMap<String, Background>();
-		for (String key : overlayMap.keySet()) {
-			entityMap.put(key, overlayMap.get(key).getBackground());
-		}
-		return entityMap;
+		EntityExtractor<Background, BackgroundOverlay> extractor = new EntityExtractor<Background, BackgroundOverlay>() {
+			public Background getEntity(BackgroundOverlay overlay) {
+				return overlay.getBackground();
+			}
+		};
+		return remapEntity(overlayMap, extractor);
 	}
 	
 	public Background getBackground() {

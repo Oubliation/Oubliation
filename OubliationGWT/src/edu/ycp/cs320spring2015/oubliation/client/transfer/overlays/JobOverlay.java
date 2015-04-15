@@ -1,10 +1,12 @@
-package edu.ycp.cs320spring2015.oubliation.client.transfer;
+package edu.ycp.cs320spring2015.oubliation.client.transfer.overlays;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityOverlay;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 
 public class JobOverlay extends EntityOverlay {
@@ -19,11 +21,12 @@ public class JobOverlay extends EntityOverlay {
 	}
 	
 	static public Map<String, Job> remapHeadwear(Map<String, JobOverlay> overlayMap) {
-		HashMap<String, Job> entityMap = new HashMap<String, Job>();
-		for (String key : overlayMap.keySet()) {
-			entityMap.put(key, overlayMap.get(key).getJob());
-		}
-		return entityMap;
+		EntityExtractor<Job, JobOverlay> extractor = new EntityExtractor<Job, JobOverlay>() {
+			public Job getEntity(JobOverlay overlay) {
+				return overlay.getJob();
+			}
+		};
+		return EntityOverlay.remapEntity(overlayMap, extractor);
 	}
 	
 	public Job getJob() {

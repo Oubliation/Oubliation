@@ -22,7 +22,6 @@ public class EntityResourceMap<O extends EntityOverlay> implements Map<String, O
 	private int fileCount = 0;
 	
 	protected EntityResourceMap(String[] filepaths, final AsyncCallback<EntityResourceMap<O>> callback) {
-		final EntityResourceMap<O> that = this;
 		totalFiles = filepaths.length;
 		try {
 			for (String filepath : filepaths) {
@@ -43,7 +42,7 @@ public class EntityResourceMap<O extends EntityOverlay> implements Map<String, O
 							}
 							fileCount += 1;
 							if (fileCount == totalFiles) {
-								callback.onSuccess(that);
+								callback.onSuccess(EntityResourceMap.this);
 							}
 						} else {
 							callback.onFailure(new StatusCodeException(response.getStatusCode(), response.getStatusText()));

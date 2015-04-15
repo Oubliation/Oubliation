@@ -1,10 +1,11 @@
-package edu.ycp.cs320spring2015.oubliation.client.transfer;
+package edu.ycp.cs320spring2015.oubliation.client.transfer.overlays;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 
 public class SuitOverlay extends EquipmentOverlay {
@@ -20,14 +21,15 @@ public class SuitOverlay extends EquipmentOverlay {
 	}
 	
 	static public Map<String, Suit> remapSuit(Map<String, SuitOverlay> overlayMap) {
-		HashMap<String, Suit> entityMap = new HashMap<String, Suit>();
-		for (String key : overlayMap.keySet()) {
-			entityMap.put(key, overlayMap.get(key).getSuit());
-		}
-		return entityMap;
+		EntityExtractor<Suit, SuitOverlay> extractor = new EntityExtractor<Suit, SuitOverlay>() {
+			public Suit getEntity(SuitOverlay overlay) {
+				return overlay.getSuit();
+			}
+		};
+		return remapEntity(overlayMap, extractor);
 	}
 	
 	public Suit getSuit() {
-		return new Suit(getNameTag(), getPrice(), getJobSet(), getAr());
+		return new Suit(getNameTag(), getPrice(), getStringSet(getEquippableBy()), getAr());
 	}
 }

@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.client.town.ViewTown;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
-import edu.ycp.cs320spring2015.oubliation.client.transfer.HeadwearOverlay;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.HeadwearOverlay;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;

@@ -1,10 +1,12 @@
-package edu.ycp.cs320spring2015.oubliation.client.transfer;
+package edu.ycp.cs320spring2015.oubliation.client.transfer.overlays;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityOverlay;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Species;
 
 public class SpeciesOverlay extends EntityOverlay {
@@ -19,11 +21,12 @@ public class SpeciesOverlay extends EntityOverlay {
 	}
 	
 	static public Map<String, Species> remapSpecies(Map<String, SpeciesOverlay> overlayMap) {
-		HashMap<String, Species> entityMap = new HashMap<String, Species>();
-		for (String key : overlayMap.keySet()) {
-			entityMap.put(key, overlayMap.get(key).getSpecies());
-		}
-		return entityMap;
+		EntityExtractor<Species, SpeciesOverlay> extractor = new EntityExtractor<Species, SpeciesOverlay>() {
+			public Species getEntity(SpeciesOverlay overlay) {
+				return overlay.getSpecies();
+			}
+		};
+		return EntityOverlay.remapEntity(overlayMap, extractor);
 	}
 	
 	public Species getSpecies() {
