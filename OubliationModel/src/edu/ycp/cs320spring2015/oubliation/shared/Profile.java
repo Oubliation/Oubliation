@@ -6,8 +6,14 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Armor;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
@@ -106,8 +112,57 @@ public final class Profile implements Serializable {
 	 * 
 	 * @param item to add to the inventory
 	 */
-	public void createItem(Item item) {
+	public void createItem(Item item){
 		inventory.add(item);
+	}
+	/**
+	 * 
+	 * @param armor to add to the inventory
+	 */
+	public void createArmor(Armor armor){
+		inventory.add(armor);
+	}
+	/**
+	 * 
+	 * @param headwear to add to the inventory
+	 */
+	public void createHeadwear(Headwear headwear){
+		inventory.add(headwear);
+	}
+	/**
+	 * 
+	 * @param suit to add to the inventory
+	 */
+	public void createSuit(Suit suit){
+		inventory.add(suit);
+	}
+	/**
+	 * 
+	 * @param equipment to add to the inventory
+	 */
+	public void createEquipment(Equipment equip){
+		inventory.add(equip);
+	}
+	/**
+	 * 
+	 * @param shield to add to the inventory
+	 */
+	public void createShield(Shield shield){
+		inventory.add(shield);
+	}
+	/**
+	 * 
+	 * @param utility to add to the inventory
+	 */
+	public void createUtility(Utility utility){
+		inventory.add(utility);
+	}
+	/**
+	 * 
+	 * @param weapon to add to the inventory
+	 */
+	public void createWeapon(Weapon weapon){
+		inventory.add(weapon);
 	}
 	/**
 	 * 
@@ -115,6 +170,62 @@ public final class Profile implements Serializable {
 	 */
 	public void destroyItem(Item item) {
 		boolean hadItem = inventory.remove(item);
+		assert hadItem;
+	}
+	/**
+	 * 
+	 * @param armor to add to the inventory
+	 */
+	public void destroyArmor(Armor armor){
+		boolean hadItem = inventory.remove(armor);
+		assert hadItem;
+	}
+	/**
+	 * 
+	 * @param headwear to add to the inventory
+	 */
+	public void destroyHeadwear(Headwear headwear){
+		boolean hadItem = inventory.remove(headwear);
+		assert hadItem;
+	}
+	/**
+	 * 
+	 * @param suit to add to the inventory
+	 */
+	public void destroySuit(Suit suit){
+		boolean hadItem = inventory.remove(suit);
+		assert hadItem;
+	}
+	/**
+	 * 
+	 * @param equipment to add to the inventory
+	 */
+	public void destroyEquipment(Equipment equip){
+		boolean hadItem = inventory.remove(equip);
+		assert hadItem;
+	}
+	/**
+	 * 
+	 * @param shield to add to the inventory
+	 */
+	public void destroyShield(Shield shield){
+		boolean hadItem = inventory.remove(shield);
+		assert hadItem;
+	}
+	/**
+	 * 
+	 * @param utility to add to the inventory
+	 */
+	public void destroyUtility(Utility utility){
+		boolean hadItem = inventory.remove(utility);
+		assert hadItem;
+	}
+	/**
+	 * 
+	 * @param weapon to add to the inventory
+	 */
+	public void destroyWeapon(Weapon weapon){
+		boolean hadItem = inventory.remove(weapon);
 		assert hadItem;
 	}
 	/**
