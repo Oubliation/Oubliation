@@ -8,7 +8,12 @@ import java.io.Serializable;
  *
  */
 public enum BruceScore implements Serializable {
-	mightily, healthily, intelligently, godly, quickly, luckily;
+	mightily, //damage
+	healthily, //max hp
+	intelligently, //max witch mp
+	godly, //max priest mp
+	quickly, //turn order, dodge chance
+	luckily; //hit chance, status chance
 	
 	BruceScore() {}
 }

@@ -120,6 +120,10 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 		return loadout.getEquippedUtilities();
 	}
 	
+	public int getAttackMod() {
+		return 0;
+	}
+	
 	
 	/**
 	 * @return whether attack has hit or missed
@@ -142,7 +146,7 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 * @param amount amount of damage received
 	 */
 	public void receiveDamage(int amount) {
-		health -= amount;
+		health -= Math.max(amount-getArmorRank(), 0);
 		if (health <= 0) {
 			health = 0;
 			setStatus(new Corpse(this));

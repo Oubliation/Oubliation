@@ -5,12 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
@@ -45,7 +46,7 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 		}
 	}
 	
-	private<ResultType> ResultType doExecuteTransaction(Transaction<ResultType> txn) throws SQLException {
+	private<ResultType> ResultType doExecuteTransaction(Transaction<ResultType> txn) throws SQLException, SQLIntegrityConstraintViolationException {
 		Connection conn = connect();
 		
 		try {
@@ -82,7 +83,7 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 
 	private Connection connect() throws SQLException {
 		String homeDir = System.getProperty("user.home");
-		Connection conn = DriverManager.getConnection("jdbc:derby:" + homeDir + "/oubliation.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:" + homeDir + "\\oubliation.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -92,10 +93,10 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	}
 	
 	@Override
-	public void createProfile(final String username, final String password, final long id) {
-		executeTransaction(new Transaction<Void>() {
+	public Boolean createProfile(final String username, final String password, final long id) {
+		return executeTransaction(new Transaction<Boolean>() {
 			@Override
-			public Void execute(Connection conn) throws SQLException {
+			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement createAccount = null;
 				PreparedStatement createData = null;
 				try {
@@ -115,18 +116,19 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 					createData.executeUpdate();
 
 					registerSession(username);
+					return true;
+				} catch (SQLIntegrityConstraintViolationException exception) {
+					return false;
 				} finally {
 					DbUtils.closeQuietly(createAccount);
 					DbUtils.closeQuietly(createData);
 				}
-				return null;
 			}
 		});
 	}
 	
 	@Override
 	public Boolean validateLogin(final String username, final String password) {
-		validateSession(username);
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -146,7 +148,7 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 							return false;
 						}
 					} else {
-						throw new  UsernameFailureException("Username does not exist");
+						return false;
 					}
 					
 				} finally {
@@ -191,11 +193,7 @@ public void registerSession(String username) {
 
 	@Override
 	public void saveProfile(final String username, final ProfileMemento profile) {
-		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
-        HttpSession session = httpServletRequest.getSession();
-        if (!session.getAttribute("username").equals(username)) {
-        	throw new UsernameFailureException("Invaild request");
-        }
+        validateSession(username);
         
 		executeTransaction(new Transaction<Void>() {
 			@Override
@@ -231,7 +229,7 @@ public void registerSession(String username) {
 		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
         HttpSession session = httpServletRequest.getSession();
         if (!session.getAttribute("username").equals(username)) {
-        	throw new UsernameFailureException("Invaild request");
+        	throw new SecurityException("Invalid request");
         }
 	}
 	

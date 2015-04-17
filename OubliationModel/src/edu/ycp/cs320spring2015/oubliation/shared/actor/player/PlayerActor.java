@@ -81,16 +81,14 @@ final public class PlayerActor extends Actor implements Serializable {
 	 * @see PlayerStats#getMaxWitchMp()
 	 */
 	public int getMaxWitchMp(int level) {
-		//TODO: implement
-		return stats.getWitchMp(level);
+		return Math.max((getScore(BruceScore.intelligently)-level)*4, 0);
 	}
 	/**
 	 * 
 	 * @see PlayerStats#getMaxPriestMp()
 	 */
 	public int getMaxPriestMp(int level) {
-		//TODO: implement
-		return stats.getPriestMp(level);
+		return Math.max((getScore(BruceScore.godly)-level)*4, 0);
 	}
 	
 	/**
@@ -163,7 +161,7 @@ final public class PlayerActor extends Actor implements Serializable {
 	}
 
 	public int getMaxHealth() {
-		return identity.getMaxHealth();
+		return identity.getMaxHealth()+(getScore(BruceScore.healthily)/3);
 	}
 	
 	public void incExperience(int amount) {
@@ -172,6 +170,17 @@ final public class PlayerActor extends Actor implements Serializable {
 	public int getExperience() {
 		return identity.getExperience();
 	}
+	
+	public int getAttackMod() {
+		return getScore(BruceScore.mightily)/3;
+	}
+	
+	public int getAccuracyMod() {
+		return getScore(BruceScore.luckily)/3;
+		
+	}
+	
+	
 	public PlayerActorMemento getTransfer() {
 		PlayerActorMemento transfer = new PlayerActorMemento(getNameTag(), getHealth(), getStatus().getMemento(), identity);
 		getLoadout().addTransferData(transfer);
