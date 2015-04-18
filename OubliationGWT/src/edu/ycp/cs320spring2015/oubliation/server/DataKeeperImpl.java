@@ -126,7 +126,6 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	
 	@Override
 	public Boolean validateLogin(final String username, final String password) {
-		validateSession(username);
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {

@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 
+import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 
 public class ProfileMemento implements Serializable {
 	private static final long serialVersionUID = 2470630709430676604L;
@@ -17,7 +16,7 @@ public class ProfileMemento implements Serializable {
 	private String username;
 	private LinkedList<PlayerActorMemento> partyTransfer;
 	private LinkedList<PlayerActorMemento> rosterTransfer;
-	private LinkedList<String> inventoryTransfer;
+	private InventoryMemento inventoryTransfer;
 	private int money;
 	private HashSet<String> dungeonFlags;
 
@@ -26,13 +25,13 @@ public class ProfileMemento implements Serializable {
 		this.username = username;
 		partyTransfer = new LinkedList<PlayerActorMemento>();
 		rosterTransfer = new LinkedList<PlayerActorMemento>();
-		inventoryTransfer = new LinkedList<String>();
+		inventoryTransfer = new InventoryMemento();
 		money = 0;
 		dungeonFlags = new HashSet<String>();
 	}
 	
 	public ProfileMemento(String username, int money,
-			LinkedList<String> inventoryTransfer, 
+			InventoryMemento inventoryTransfer, 
 			LinkedList<PlayerActorMemento> partyTransfer,
 			LinkedList<PlayerActorMemento> rosterTransfer, 
 			HashSet<String> dungeonFlags) {
@@ -47,7 +46,7 @@ public class ProfileMemento implements Serializable {
 	public Profile constructProfile(LoadoutLoader loader) {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
 		ArrayList<PlayerActor> roster = new ArrayList<PlayerActor>();
-		ArrayList<Item> inventory = new ArrayList<Item>();
+		CreateInventory inventory = inventoryTransfer.constructInventory(loader);
 
 		for (PlayerActorMemento actor : partyTransfer) {
 			party.add(actor.constructPlayerActor(loader));

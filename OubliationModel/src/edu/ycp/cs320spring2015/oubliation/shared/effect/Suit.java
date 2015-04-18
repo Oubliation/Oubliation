@@ -2,9 +2,9 @@ package edu.ycp.cs320spring2015.oubliation.shared.effect;
 
 import java.util.TreeSet;
 
+import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
-import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
 
 /**
  * 
@@ -20,6 +20,16 @@ public class Suit extends Armor {
 		super(nameTag, price, equippableBy, ac);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public void addTo(CreateInventory inventory) {
+		inventory.createSuit(this);
+	}
+	@Override
+	public void removeFrom(CreateInventory inventory) {
+		inventory.destroySuit(this);
+	}
+
 
 	@Override
 	public void equipTo(CanEquip loadout) {

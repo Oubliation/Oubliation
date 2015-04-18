@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
@@ -23,7 +24,10 @@ public abstract class Equipment extends Item {
 		super(nameTag, price);
 		this.equippableBy = Collections.unmodifiableSortedSet(equippableBy);
 	}
-
+	
+	public abstract void addTo(CreateInventory inventory);
+	public abstract void removeFrom(CreateInventory inventory);
+	
 	/**
 	 * @param loadout object to equip this item to
 	 */

@@ -2,6 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.effect;
 
 import java.util.TreeSet;
 
+import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BattleController;
@@ -28,6 +29,15 @@ public class Utility extends Equipment {
 	 */
 	public void apply(BattleController controller) { //TODO: consider exactly how effect works
 		
+	}
+	
+	@Override
+	public void addTo(CreateInventory inventory) {
+		inventory.createUtility(this);
+	}
+	@Override
+	public void removeFrom(CreateInventory inventory) {
+		inventory.destroyUtility(this);
 	}
 
 	@Override

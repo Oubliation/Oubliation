@@ -3,6 +3,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
@@ -109,26 +110,30 @@ final public class PlayerActor extends Actor implements Serializable {
 	/**
 	 * @param equipment to equip outside battle
 	 */
-	public void fieldEquip(Equipment equipment) {
+	public void fieldEquip(Equipment equipment, CreateInventory inventory) {
+		equipment.removeFrom(inventory);
 		equipment.equipTo(new FieldLoadoutFacade(getLoadout(), stats));
 	}
 	
 	/**
 	 * @param equipment to unequip outside battle
 	 */
-	public void fieldUnequip(Equipment equipment) {
+	public void fieldUnequip(Equipment equipment, CreateInventory inventory) {
+		equipment.addTo(inventory);
 		equipment.unequipFrom(new FieldLoadoutFacade(getLoadout(), stats));
 	}
 	/**
 	 * @param add equipment to the battle equip queue
 	 */
-	public void queueEquipment(Equipment equipment) {
+	public void queueEquipment(Equipment equipment, CreateInventory inventory) {
+		equipment.removeFrom(inventory);
 		battleEquipQueue.add(equipment);
 	}
 	/**
 	 * @param remove equipment from the battle equip queue
 	 */
-	public void dequeueEquipment(Equipment equipment) {
+	public void dequeueEquipment(Equipment equipment, CreateInventory inventory) {
+		equipment.addTo(inventory);
 		battleEquipQueue.remove(equipment);
 	}
 	/**
@@ -140,7 +145,8 @@ final public class PlayerActor extends Actor implements Serializable {
 	/**
 	 * @param equipment to unequip
 	 */
-	public void battleUnequip(Equipment equipment) {
+	public void battleUnequip(Equipment equipment, CreateInventory inventory) {
+		equipment.addTo(inventory);
 		equipment.unequipFrom(getLoadout());
 	}
 	

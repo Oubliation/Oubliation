@@ -6,14 +6,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Armor;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.InventoryMemento;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
@@ -28,7 +21,7 @@ public final class Profile implements Serializable {
 	
 	private String username;
 	private int money = 0; 
-	private ArrayList<Item> inventory;
+	private CreateInventory inventory;
 	private ArrayList<PlayerActor> party;  //active player actors
 	private ArrayList<PlayerActor> roster; //reserve player actors
 	private HashSet<String> dungeonFlags; //active dungeon flags
@@ -41,7 +34,7 @@ public final class Profile implements Serializable {
 	 * @param roster characters waiting in the guild
 	 * @param dungeonFlags flags triggered by the party inside the dungeon.
 	 */
-	public Profile(String username, int money, ArrayList<Item> inventory,
+	public Profile(String username, int money, CreateInventory inventory,
 			ArrayList<PlayerActor> party, ArrayList<PlayerActor> roster,
 			HashSet<String> dungeonFlags) {
 		this.username = username;
@@ -108,173 +101,54 @@ public final class Profile implements Serializable {
 	public PlayerActor[] getParty() {
 		return party.toArray(new PlayerActor[party.size()]);
 	}
-	/**
-	 * 
-	 * @param item to add to the inventory
-	 */
-	public void createItem(Item item){
-		inventory.add(item);
-	}
-	/**
-	 * 
-	 * @param armor to add to the inventory
-	 */
-	public void createArmor(Armor armor){
-		inventory.add(armor);
-	}
-	/**
-	 * 
-	 * @param headwear to add to the inventory
-	 */
-	public void createHeadwear(Headwear headwear){
-		inventory.add(headwear);
-	}
-	/**
-	 * 
-	 * @param suit to add to the inventory
-	 */
-	public void createSuit(Suit suit){
-		inventory.add(suit);
-	}
-	/**
-	 * 
-	 * @param equipment to add to the inventory
-	 */
-	public void createEquipment(Equipment equip){
-		inventory.add(equip);
-	}
-	/**
-	 * 
-	 * @param shield to add to the inventory
-	 */
-	public void createShield(Shield shield){
-		inventory.add(shield);
-	}
-	/**
-	 * 
-	 * @param utility to add to the inventory
-	 */
-	public void createUtility(Utility utility){
-		inventory.add(utility);
-	}
-	/**
-	 * 
-	 * @param weapon to add to the inventory
-	 */
-	public void createWeapon(Weapon weapon){
-		inventory.add(weapon);
-	}
-	/**
-	 * 
-	 * @param item to be removed from the inventory
-	 */
-	public void destroyItem(Item item) {
-		boolean hadItem = inventory.remove(item);
-		assert hadItem;
-	}
-	/**
-	 * 
-	 * @param armor to add to the inventory
-	 */
-	public void destroyArmor(Armor armor){
-		boolean hadItem = inventory.remove(armor);
-		assert hadItem;
-	}
-	/**
-	 * 
-	 * @param headwear to add to the inventory
-	 */
-	public void destroyHeadwear(Headwear headwear){
-		boolean hadItem = inventory.remove(headwear);
-		assert hadItem;
-	}
-	/**
-	 * 
-	 * @param suit to add to the inventory
-	 */
-	public void destroySuit(Suit suit){
-		boolean hadItem = inventory.remove(suit);
-		assert hadItem;
-	}
-	/**
-	 * 
-	 * @param equipment to add to the inventory
-	 */
-	public void destroyEquipment(Equipment equip){
-		boolean hadItem = inventory.remove(equip);
-		assert hadItem;
-	}
-	/**
-	 * 
-	 * @param shield to add to the inventory
-	 */
-	public void destroyShield(Shield shield){
-		boolean hadItem = inventory.remove(shield);
-		assert hadItem;
-	}
-	/**
-	 * 
-	 * @param utility to add to the inventory
-	 */
-	public void destroyUtility(Utility utility){
-		boolean hadItem = inventory.remove(utility);
-		assert hadItem;
-	}
-	/**
-	 * 
-	 * @param weapon to add to the inventory
-	 */
-	public void destroyWeapon(Weapon weapon){
-		boolean hadItem = inventory.remove(weapon);
-		assert hadItem;
-	}
-	/**
-	 * 
-	 * @param actor to equip the item on.
-	 * @param equipment to equip onto the actor
-	 */
-	public void fieldEquipActor(PlayerActor actor, Equipment equipment) {
-		boolean haveEquipment = inventory.remove(equipment);
-		actor.fieldEquip(equipment);
-		assert haveEquipment;
-	}
-	/**
-	 * 
-	 * @param actor to un-equip the item from.
-	 * @param equipment to take from the actor and place in the inventory.
-	 */
-	public void fieldUnequipActor(PlayerActor actor, Equipment equipment) {
-		actor.fieldUnequip(equipment);
-		inventory.add(equipment);
-	}
-	/**
-	 * 
-	 * @param actor to un-equip the item from.
-	 * @param equipment to take from the actor and place in the inventory.
-	 */
-	public void battleUnequipActor(PlayerActor actor, Equipment equipment) {
-		actor.battleUnequip(equipment);
-		inventory.add(equipment);
-	}
-	/**
-	 * 
-	 * @param actor who is to be equipped when the turn in queue comes
-	 * @param equipment to equip onto the actor
-	 */
-	public void actorQueueEquipment(PlayerActor actor, Equipment equipment) {
-		boolean haveEquipment = inventory.remove(equipment);
-		actor.queueEquipment(equipment);
-		assert haveEquipment;
-	}
-	/**
-	 * Removes the two params from queue
-	 * @param actor who is to be equipped when the turn in queue comes
-	 * @param equipment to equip onto the actor
-	 */
-	public void actorDequeEquipment(PlayerActor actor, Equipment equipment) {
-		actor.dequeueEquipment(equipment);
-		inventory.add(equipment);
-	}
+//
+//	/**
+//	 * 
+//	 * @param actor to equip the item on.
+//	 * @param equipment to equip onto the actor
+//	 */
+//	public void fieldEquipActor(PlayerActor actor, Equipment equipment) {
+//		boolean haveEquipment = inventory.remove(equipment);
+//		actor.fieldEquip(equipment);
+//		assert haveEquipment;
+//	}
+//	/**
+//	 * 
+//	 * @param actor to un-equip the item from.
+//	 * @param equipment to take from the actor and place in the inventory.
+//	 */
+//	public void fieldUnequipActor(PlayerActor actor, Equipment equipment) {
+//		actor.fieldUnequip(equipment);
+//		//inventory.add(equipment);
+//	}
+//	/**
+//	 * 
+//	 * @param actor to un-equip the item from.
+//	 * @param equipment to take from the actor and place in the inventory.
+//	 */
+//	public void battleUnequipActor(PlayerActor actor, Equipment equipment) {
+//		actor.battleUnequip(equipment, inventory);
+//		//inventory.add(equipment);
+//	}
+//	/**
+//	 * 
+//	 * @param actor who is to be equipped when the turn in queue comes
+//	 * @param equipment to equip onto the actor
+//	 */
+//	public void actorQueueEquipment(PlayerActor actor, Equipment equipment) {
+//		boolean haveEquipment = inventory.remove(equipment);
+//		actor.queueEquipment(equipment);
+//		assert haveEquipment;
+//	}
+//	/**
+//	 * Removes the two params from queue
+//	 * @param actor who is to be equipped when the turn in queue comes
+//	 * @param equipment to equip onto the actor
+//	 */
+//	public void actorDequeEquipment(PlayerActor actor, Equipment equipment) {
+//		actor.dequeueEquipment(equipment);
+//		inventory.add(equipment);
+//	}
 	/**
 	 * 
 	 * @param amount amount of money to add
@@ -348,14 +222,14 @@ public final class Profile implements Serializable {
 	public ProfileMemento getTransferData() {
 		LinkedList<PlayerActorMemento> partyTransfer = new LinkedList<PlayerActorMemento>();
 		LinkedList<PlayerActorMemento> rosterTransfer = new LinkedList<PlayerActorMemento>();
-		LinkedList<String> inventory = new LinkedList<String>();
+		InventoryMemento inventoryTransfer = inventory.getTransfer();
 		for (PlayerActor actor : party) {
 			partyTransfer.add(actor.getTransfer());
 		}
 		for (PlayerActor actor : roster) {
 			rosterTransfer.add(actor.getTransfer());
 		}
-		return new ProfileMemento(username, money, inventory, partyTransfer, rosterTransfer, dungeonFlags);
+		return new ProfileMemento(username, money, inventoryTransfer, partyTransfer, rosterTransfer, dungeonFlags);
 	}
 	/**
 	 * Goes through the party healing each person

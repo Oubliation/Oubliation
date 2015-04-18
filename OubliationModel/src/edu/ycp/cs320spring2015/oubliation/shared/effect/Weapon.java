@@ -2,6 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.effect;
 
 import java.util.TreeSet;
 
+import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 
@@ -18,6 +19,16 @@ public class Weapon extends Utility {
 			TreeSet<String> equippableBy, Effect effect) {
 		super(nameTag, price, equippableBy, effect);
 	}
+	
+	@Override
+	public void addTo(CreateInventory inventory) {
+		inventory.createWeapon(this);
+	}
+	@Override
+	public void removeFrom(CreateInventory inventory) {
+		inventory.destroyWeapon(this);
+	}
+	
 
 	@Override
 	public void equipTo(CanEquip loadout) {
