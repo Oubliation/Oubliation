@@ -9,7 +9,7 @@ public class BattleAction {
 	private Target target;
 	private int priority;
 	
-	public void apply(Actor[] allied, Actor[] opposing) {
+	public void apply() {
 		
 	}
 }

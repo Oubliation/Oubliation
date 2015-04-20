@@ -31,7 +31,6 @@ public class ViewBattle extends Composite implements BattleController {
 	}
 	
 	@UiField Label info;
-	@UiField Hyperlink confirm;
 	@UiField FlowPanel enemyStats;
 	@UiField Grid playerStats;
 	@UiField Label playerName;
@@ -44,6 +43,7 @@ public class ViewBattle extends Composite implements BattleController {
 	@UiField FlowPanel spellMenu;
 	@UiField Grid manaStats;
 	@UiField Grid inventory;
+	@UiField FlowPanel targetSelect;
 	
 	Profile profile;
 	EnemyActor[] enemies;
@@ -79,9 +79,9 @@ public class ViewBattle extends Composite implements BattleController {
 	
 	private void updateGeneral() {
 		info.setVisible(true);
-		confirm.setVisible(false);
 		hide.setVisible(false);
 		dispell.setVisible(false);
+		targetSelect.clear();
 		
 		enemyStats.clear();
 		for (EnemyActor enemy : enemies) {
@@ -105,6 +105,8 @@ public class ViewBattle extends Composite implements BattleController {
 	private void updateTurn() {
 		updateGeneral();
 		final PlayerActor actor = profile.getParty()[playerIndex];
+		if (actor.getJobName() == "Spy") { hide.setVisible(true); }
+		if (actor.getJobName() == "Priest" || actor.getJobName() == "Templar") { dispell.setVisible(true); }
 		equipmentMenu.clear();
 		Hyperlink weaponLink = new Hyperlink();
 		equipmentMenu.add(weaponLink);
@@ -123,6 +125,7 @@ public class ViewBattle extends Composite implements BattleController {
 				}
 			}, ClickEvent.getType());
 		}
+		//equip queue
 		//spells
 		
 	}
@@ -134,7 +137,17 @@ public class ViewBattle extends Composite implements BattleController {
 
 	
 	public void selectOpposingUnit(Effect effect) {
-		
+		final PlayerActor source = profile.getParty()[playerIndex];
+		for (final EnemyActor target : enemies) {
+			Hyperlink targetOption = new Hyperlink();
+			targetOption.setText(target.getName());
+			targetOption.addHandler(new ClickHandler() {
+				public void onClick(ClickEvent e) {
+					ViewBattle.this.actionQueue.add(new BattleAction(source, target));
+					next();
+				}
+			}, ClickEvent.getType());
+		}
 	}
 	
 	public void selectOpposingRow(Effect effect) {
