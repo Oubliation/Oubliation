@@ -1,9 +1,9 @@
 package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 
+import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 public abstract class Status extends EntityClass {

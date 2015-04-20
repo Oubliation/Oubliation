@@ -1,6 +1,10 @@
 package edu.ycp.cs320spring2015.oubliation.client;
 
+import java.util.PriorityQueue;
+
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -10,12 +14,15 @@ import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.EnemyActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 
-public class ViewBattle extends Composite {
+public class ViewBattle extends Composite implements BattleController {
 
 	private static ViewBattleUiBinder uiBinder = GWT
 			.create(ViewBattleUiBinder.class);
@@ -40,21 +47,34 @@ public class ViewBattle extends Composite {
 	
 	Profile profile;
 	EnemyActor[] enemies;
-	LinkedList<BattleAction> actionQueue;
+	PriorityQueue<BattleAction> actionQueue;
 	
-	int playerIndex = 0;
+	Integer playerIndex = null;
 
 	public ViewBattle(Profile profile, EnemyActor[] enemies) {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		this.profile = profile;
 		this.enemies = enemies;
-		updateAction();
+		next();
 	}
 	
 	private void next() {
-		
-		playerIndex += 1;
+		if (playerIndex == null) {
+			BattleAction action = actionQueue.poll();
+			if (action != null) {
+				updateAction(action);
+			} else {
+				playerIndex = 0;
+				updateTurn();
+			}
+		} else if (playerIndex < profile.getParty().length) {
+			playerIndex += 1;
+			updateTurn();
+		} else {
+			playerIndex = null;
+			next();
+		}
 	}
 	
 	private void updateGeneral() {
@@ -69,18 +89,49 @@ public class ViewBattle extends Composite {
 		}
 		PlayerActor[] party = profile.getParty();
 		for (int count=0; count<party.length; count += 1) {
-			playerStats.add(new Label(party[count].getName()));
+			PlayerActor actor = party[count];
+			playerStats.setWidget(0, count, new Label(actor.getName()));
+			String buildText;
+			if (actor.getStatusName() == (new Healthy(null)).getName()) {
+				buildText = actor.getDescription();
+			} else {
+				buildText = actor.getStatusName();
+			}
+			playerStats.setWidget(1, count, new Label(buildText));
+			playerStats.setWidget(2, count, new Label(actor.getHealth()+"/"+actor.getMaxHealth()));
 		}
 	}
 	
-	private void updateAction() {
+	private void updateTurn() {
 		updateGeneral();
+		final PlayerActor actor = profile.getParty()[playerIndex];
+		equipmentMenu.clear();
+		Hyperlink weaponLink = new Hyperlink();
+		equipmentMenu.add(weaponLink);
+		weaponLink.setText(actor.getHand().getName());
+		weaponLink.addHandler(new ClickHandler() {
+			public void onClick(ClickEvent e) {
+				actor.getHand().apply(ViewBattle.this);
+			}
+		}, ClickEvent.getType());
+		for (final Utility utility : actor.getEquippedUtilities()) {
+			Hyperlink utilityLink = new Hyperlink();
+			utilityLink.setText(utility.getName());
+			utilityLink.addHandler(new ClickHandler() {
+				public void onClick(ClickEvent e) {
+					utility.apply(ViewBattle.this);
+				}
+			}, ClickEvent.getType());
+		}
+		//spells
 		
 	}
 	
-	private void updateTurn() {
-		
+	private void updateAction(BattleAction action) {
+		updateGeneral();
+		action.apply();
 	}
+
 	
 	public void selectOpposingUnit(Effect effect) {
 		
@@ -112,6 +163,10 @@ public class ViewBattle extends Composite {
 	}
 	
 	public void selectAlliedGroup(Effect effect) {
+		
+	}
+	
+	public void moveParty(int x, int y) {
 		
 	}
 }
