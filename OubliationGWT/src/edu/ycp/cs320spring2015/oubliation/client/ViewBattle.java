@@ -1,5 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.client;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 import com.google.gwt.core.client.GWT;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.EnemyActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
@@ -47,7 +49,11 @@ public class ViewBattle extends Composite implements BattleController {
 	
 	Profile profile;
 	EnemyActor[] enemies;
-	PriorityQueue<BattleAction> actionQueue;
+	PriorityQueue<BattleAction> actionQueue = new PriorityQueue<BattleAction>(new Comparator<BattleAction>() {
+		public int compare(BattleAction a, BattleAction b) {
+			return a.getPriority()-b.getPriority();
+		}
+	});
 	
 	Integer playerIndex = null;
 
@@ -136,14 +142,14 @@ public class ViewBattle extends Composite implements BattleController {
 	}
 
 	
-	public void selectOpposingUnit(Effect effect) {
-		final PlayerActor source = profile.getParty()[playerIndex];
-		for (final EnemyActor target : enemies) {
+	public void selectOpposingUnit(final Effect effect) {
+		final Actor source = profile.getParty()[playerIndex];
+		for (final Actor target : enemies) {
 			Hyperlink targetOption = new Hyperlink();
 			targetOption.setText(target.getName());
 			targetOption.addHandler(new ClickHandler() {
 				public void onClick(ClickEvent e) {
-					ViewBattle.this.actionQueue.add(new BattleAction(source, target));
+					ViewBattle.this.actionQueue.add(new BattleAction(source, new Actor[] {target}, effect));
 					next();
 				}
 			}, ClickEvent.getType());
