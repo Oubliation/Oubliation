@@ -18,14 +18,11 @@ public class Utility extends Equipment {
 	public Utility() {}
 	
 	private Effect effect;
-	private TargetAdaptor<BattleController> target;
 	
 	public Utility(NameTag nameTag, int price,
-			TreeSet<String> equippableBy, Effect effect,
-			TargetAdaptor<BattleController> target) {
+			TreeSet<String> equippableBy, Effect effect) {
 		super(nameTag, price, equippableBy);
 		this.effect = effect;
-		this.target = target;
 	}
 
 	/**

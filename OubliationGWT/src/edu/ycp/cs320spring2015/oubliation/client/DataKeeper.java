@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import edu.ycp.cs320spring2015.oubliation.shared.EffectOrder;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
@@ -14,6 +15,6 @@ public interface DataKeeper extends RemoteService {
 	public Boolean validateLogin(String username, String password);
 	public ProfileMemento loadProfile(String username);
 	public void saveProfile(String username, ProfileMemento profile);
-	public Map<String, Effect> getEffectMap(String[] effectName);
+	public Map<String, Effect> getEffectMap(EffectOrder[] orders);
 	public _Dummy dummy(_Dummy dummy);
 }

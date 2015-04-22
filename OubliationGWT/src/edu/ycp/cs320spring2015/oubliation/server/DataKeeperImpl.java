@@ -16,8 +16,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
 import edu.ycp.cs320spring2015.oubliation.client._Dummy;
+import edu.ycp.cs320spring2015.oubliation.shared.EffectOrder;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
-import edu.ycp.cs320spring2015.oubliation.shared.items.NoEffect;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.TargetAdaptor;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
@@ -234,13 +236,17 @@ public void registerSession(String username) {
 	}
 	
 	@Override
-	public Map<String, Effect> getEffectMap(String[] effectNames) {
+	public Map<String, Effect> getEffectMap(EffectOrder[] orders) {
 		HashMap<String, Effect> effectMap = new HashMap<String, Effect>();
-		for (String name : effectNames) {
+		for (EffectOrder order : orders) {
 			try {
-				effectMap.put(name, (Effect) Class.forName(name).getConstructor().newInstance());
+				TargetAdaptor<?> target = (TargetAdaptor<?>) Class.forName(order.getTarget()).getConstructor().newInstance();
+				Status status = (Status) Class.forName(order.getStatus()).getConstructor().newInstance();
+				effectMap.put(order.getCustomer(), (Effect) Class.forName(order.getEffect())
+						.getConstructor(TargetAdaptor.class, int.class, int.class, Status.class, int.class)
+						.newInstance(target, order.getPower(), order.getAccuracy(), status, order.getPotency()));
 			} catch(Exception e) {
-				effectMap.put(name, new NoEffect());
+				throw new IllegalStateException();
 			}
 		}
 		assert(effectMap.size()>0);
