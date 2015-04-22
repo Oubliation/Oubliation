@@ -3,6 +3,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.items;
 import java.util.TreeSet;
 
 import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.TargetAdaptor;
@@ -21,6 +22,16 @@ public class Weapon extends Utility {
 			TargetAdaptor<BattleController> target) {
 		super(nameTag, price, equippableBy, effect, target);
 	}
+	
+	@Override
+	public void addTo(CreateInventory inventory) {
+		inventory.createWeapon(this);
+	}
+	@Override
+	public void removeFrom(CreateInventory inventory) {
+		inventory.destroyWeapon(this);
+	}
+	
 
 	@Override
 	public void equipTo(CanEquip loadout) {

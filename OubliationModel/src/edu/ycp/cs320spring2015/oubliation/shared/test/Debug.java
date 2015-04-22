@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
@@ -17,7 +18,6 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackgro
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
@@ -161,6 +161,11 @@ public class Debug {
 		NameTag playerTag = new NameTag("Nevik", "A character controlled by the Player");
 		return new PlayerActor(playerTag, 20, new StatusMemento("Healthy", 0), loadout, identity, stats);
 	}
+	
+	public static CreateInventory makeInventory() {
+		//TODO: insert items for testing
+		return new CreateInventory();
+	}
 
 	/**
 	 * @return arbitrary Profile for testing
@@ -182,7 +187,7 @@ public class Debug {
 		for (int count=0; count<10; count+=1) {
 			roster.add(makePlayerActor());
 		}
-		return new Profile(username, 200, new ArrayList<Item>(), party, roster, new HashSet<String>());
+		return new Profile(username, 200, makeInventory(), party, roster, new HashSet<String>());
 	}
 	
 	/**

@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.ycp.cs320spring2015.oubliation.client.Oubliation;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.HeadwearOverlay;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.ItemOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.ShieldOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.SuitOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.UtilityOverlay;
@@ -13,6 +14,7 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.WeaponOverlay
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
@@ -23,6 +25,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 public class ProfileLoader implements LoadoutLoader {
 	
 	private ProfileMemento transfer;
+	private Map<String, ItemOverlay> itemMap;
 	private Map<String, HeadwearOverlay> headwearMap;
 	private Map<String, SuitOverlay> suitMap;
 	private Map<String, ShieldOverlay> shieldMap;
@@ -41,6 +44,17 @@ public class ProfileLoader implements LoadoutLoader {
 			public void onFailure(Throwable caught) {
 				callback.onFailure(caught);
 			}
+		};
+		AsyncCallback<EntityResourceMap<ItemOverlay>>
+			itemMapCallback = new AsyncCallback<EntityResourceMap<ItemOverlay>>() {
+				public void onSuccess(EntityResourceMap<ItemOverlay> entityMap) {
+					ProfileLoader.this.itemMap = entityMap;
+					tryBoot(callback);
+				}
+				
+				public void onFailure(Throwable caught) {
+					callback.onFailure(caught);
+				}
 		};
 		AsyncCallback<EntityResourceMap<HeadwearOverlay>>
 			headwearMapCallback = new AsyncCallback<EntityResourceMap<HeadwearOverlay>>() {
@@ -108,6 +122,7 @@ public class ProfileLoader implements LoadoutLoader {
 			}
 	};
 		Oubliation.getDataKeeper().loadProfile(usernameInput, transferCallback);
+		new ItemOverlay.ResourceMap(new String[] {"/data/items.json"}, itemMapCallback);
 		new HeadwearOverlay.ResourceMap(new String[] {"/data/headwear.json"}, headwearMapCallback);
 		new SuitOverlay.ResourceMap(new String[] {"/data/suits.json"}, suitMapCallback);
 		new ShieldOverlay.ResourceMap(new String[] {"/data/shields.json"}, shieldMapCallback);
@@ -122,6 +137,10 @@ public class ProfileLoader implements LoadoutLoader {
 		}
 	}
 	
+	@Override
+	public Map<String, Item> getItemMap() {
+		return ItemOverlay.remapItems(itemMap);
+	}
 	@Override
 	public Map<String, Headwear> getHeadwearMap() {
 		return HeadwearOverlay.remapHeadwear(headwearMap);
