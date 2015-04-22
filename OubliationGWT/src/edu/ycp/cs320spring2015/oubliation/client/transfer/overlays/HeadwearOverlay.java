@@ -6,7 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
 
 final public class HeadwearOverlay extends EquipmentOverlay {
 	protected HeadwearOverlay() { }

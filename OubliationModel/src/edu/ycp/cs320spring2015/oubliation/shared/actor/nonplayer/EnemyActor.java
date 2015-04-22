@@ -6,7 +6,7 @@ import java.util.List;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 public class EnemyActor extends NonPlayerActor {

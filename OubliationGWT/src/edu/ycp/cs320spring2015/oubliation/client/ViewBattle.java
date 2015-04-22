@@ -1,5 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.client;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -20,8 +21,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.EnemyActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 
 public class ViewBattle extends Composite implements BattleController {
@@ -48,6 +49,7 @@ public class ViewBattle extends Composite implements BattleController {
 	@UiField FlowPanel targetSelect;
 	
 	Profile profile;
+	PlayerActor[] party;
 	EnemyActor[] enemies;
 	PriorityQueue<BattleAction> actionQueue = new PriorityQueue<BattleAction>(new Comparator<BattleAction>() {
 		public int compare(BattleAction a, BattleAction b) {
@@ -74,7 +76,7 @@ public class ViewBattle extends Composite implements BattleController {
 				playerIndex = 0;
 				updateTurn();
 			}
-		} else if (playerIndex < profile.getParty().length) {
+		} else if (playerIndex < party.length) {
 			playerIndex += 1;
 			updateTurn();
 		} else {
@@ -87,13 +89,12 @@ public class ViewBattle extends Composite implements BattleController {
 		info.setVisible(true);
 		hide.setVisible(false);
 		dispell.setVisible(false);
-		targetSelect.clear();
 		
+		targetSelect.clear();
 		enemyStats.clear();
 		for (EnemyActor enemy : enemies) {
 			enemyStats.add(new Label(enemy.getName()));
 		}
-		PlayerActor[] party = profile.getParty();
 		for (int count=0; count<party.length; count += 1) {
 			PlayerActor actor = party[count];
 			playerStats.setWidget(0, count, new Label(actor.getName()));
@@ -106,11 +107,12 @@ public class ViewBattle extends Composite implements BattleController {
 			playerStats.setWidget(1, count, new Label(buildText));
 			playerStats.setWidget(2, count, new Label(actor.getHealth()+"/"+actor.getMaxHealth()));
 		}
+		party = profile.getParty();
 	}
 	
 	private void updateTurn() {
 		updateGeneral();
-		final PlayerActor actor = profile.getParty()[playerIndex];
+		final PlayerActor actor = party[playerIndex];
 		if (actor.getJobName() == "Spy") { hide.setVisible(true); }
 		if (actor.getJobName() == "Priest" || actor.getJobName() == "Templar") { dispell.setVisible(true); }
 		equipmentMenu.clear();
@@ -133,7 +135,6 @@ public class ViewBattle extends Composite implements BattleController {
 		}
 		//equip queue
 		//spells
-		
 	}
 	
 	private void updateAction(BattleAction action) {
@@ -142,11 +143,11 @@ public class ViewBattle extends Composite implements BattleController {
 	}
 
 	
-	public void selectOpposingUnit(final Effect effect) {
-		final Actor source = profile.getParty()[playerIndex];
-		for (final Actor target : enemies) {
+	
+	private void selectGivenUnits(final Actor source, final Actor[] targets, final Effect effect) {
+		for (final Actor target: targets) {
 			Hyperlink targetOption = new Hyperlink();
-			targetOption.setText(target.getName());
+			targetOption.setText("> "+target.getName());
 			targetOption.addHandler(new ClickHandler() {
 				public void onClick(ClickEvent e) {
 					ViewBattle.this.actionQueue.add(new BattleAction(source, new Actor[] {target}, effect));
@@ -156,33 +157,129 @@ public class ViewBattle extends Composite implements BattleController {
 		}
 	}
 	
-	public void selectOpposingRow(Effect effect) {
+	private void selectGivenGroup(final Actor source, final Actor[] targets, final Effect effect) {
+		String targetString = "> ";
+		for (Actor target : targets) {
+			targetString = targetString.concat(target.getName()+", ");
+		}
+		Hyperlink targetOption = new Hyperlink();
+		targetOption.setText(targetString);
+		targetOption.addHandler(new ClickHandler() {
+			public void onClick(ClickEvent e) {
+				ViewBattle.this.actionQueue.add(new BattleAction(source, targets, effect));
+				next();
+			}
+		}, ClickEvent.getType());
+	}
+	
+	private void selectGivenRows(final Actor source, final Actor[] targets, final Effect effect) {
+		int numRows = (targets.length + 2) / 3;
+		Actor[][] targetRows = new Actor[numRows][];
+		targetRows[0] = Arrays.copyOfRange(targets, 0, targets.length);
+		if (numRows == 2) {
+			 targetRows[1] = Arrays.copyOfRange(targets, 3, targets.length);
+		}
+		for (final Actor[] targetRow : targetRows) {
+			String targetString = "> ";
+			for (Actor target : targetRow) {
+				targetString = targetString.concat(target.getName()+", ");
+			}
+			Hyperlink targetOption = new Hyperlink();
+			targetOption.setText(targetString);
+			targetOption.addHandler(new ClickHandler() {
+				public void onClick(ClickEvent e) {
+					ViewBattle.this.actionQueue.add(new BattleAction(source, targetRow, effect));
+					next();
+				}
+			}, ClickEvent.getType());
+		}
+	}
+	
+	private void selectGivenColumns(final Actor source, final Actor[] targets, final Effect effect) {
+		int numCols = Math.min(targets.length, 3);
+		Actor[][] targetCols = new Actor[numCols][];
+		for (int count=0; count<numCols; count+=1) {
+			if (targets.length < count+4) {
+				targetCols[count] = new Actor[] { targets[count] };
+			} else {
+				targetCols[count] = new Actor[] { targets[count], targets[count+3] };
+			}
+		}
+		for (final Actor[] targetCol : targetCols) {
+			String targetString = "> ";
+			for (Actor target : targetCol) {
+				targetString = targetString.concat(target.getName()+", ");
+			}
+			Hyperlink targetOption = new Hyperlink();
+			targetOption.setText(targetString);
+			targetOption.addHandler(new ClickHandler() {
+				public void onClick(ClickEvent e) {
+					ViewBattle.this.actionQueue.add(new BattleAction(source, targetCol, effect));
+					next();
+				}
+			}, ClickEvent.getType());
+		}
 		
 	}
 	
-	public void selectOpposingColumn(Effect effect) {
-		
+	public void selectAnyOpposingUnits(final Effect effect) {
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(enemies, 0, enemies.length);
+		selectGivenUnits(source, targets, effect);
+	}
+
+	public void selectFrontOpposingUnits(Effect effect) {
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(enemies, 0, Math.min(2, enemies.length));
+		selectGivenUnits(source, targets, effect);
+	}
+	
+	public void selectAnyOpposingRows(Effect effect) {
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(enemies, 0, enemies.length);
+		selectGivenRows(source, targets, effect);
+	}
+	
+	public void selectFrontOpposingRow(Effect effect) {
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(enemies, 0, Math.min(2, enemies.length));
+		selectGivenGroup(source, targets, effect);
+	}
+	
+	public void selectAnyOpposingColumns(Effect effect) {
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(enemies, 0, enemies.length);
+		selectGivenColumns(source, targets, effect);
 	}
 	
 	public void selectOpposingGroup(Effect effect) {
-		
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(enemies, 0, enemies.length);
+		selectGivenGroup(source, targets, effect);
 	}
 	
-
-	public void selectAlliedUnit(Effect effect) {
-		
+	public void selectAlliedUnits(Effect effect) {
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(party, 0, party.length);
+		selectGivenUnits(source, targets, effect);
 	}
 	
-	public void selectAlliedRow(Effect effect) {
-		
+	public void selectAlliedRows(Effect effect) {
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(party, 0, party.length);
+		selectGivenRows(source, targets, effect);
 	}
 	
-	public void selectAlliedColumn(Effect effect) {
-		
+	public void selectAlliedColumns(Effect effect) {
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(party, 0, party.length);
+		selectGivenColumns(source, targets, effect);
 	}
 	
 	public void selectAlliedGroup(Effect effect) {
-		
+		Actor source = party[playerIndex];
+		Actor[] targets = Arrays.copyOfRange(party, 0, party.length);
+		selectGivenGroup(source, targets, effect);
 	}
 	
 	public void moveParty(int x, int y) {

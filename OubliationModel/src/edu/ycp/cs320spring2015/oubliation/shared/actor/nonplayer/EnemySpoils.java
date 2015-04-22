@@ -2,7 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer;
 
 import java.util.ArrayList;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
 /**
  * 
  * Represents the rewards to the player for a successful battle

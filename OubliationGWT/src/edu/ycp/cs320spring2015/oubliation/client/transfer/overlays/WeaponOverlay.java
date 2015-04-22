@@ -6,8 +6,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 
 public class WeaponOverlay extends UtilityOverlay {
 

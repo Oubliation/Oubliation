@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Equipment;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 

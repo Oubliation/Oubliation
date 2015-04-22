@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 public interface DataKeeperAsync {

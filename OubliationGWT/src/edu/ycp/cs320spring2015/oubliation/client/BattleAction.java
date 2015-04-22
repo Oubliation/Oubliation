@@ -1,7 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.client;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
 
 public class BattleAction {
 	private Actor source;

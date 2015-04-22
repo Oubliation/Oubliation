@@ -1,11 +1,11 @@
 package edu.ycp.cs320spring2015.oubliation.shared;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
 
 public interface PartyController {
-	public void moveParty(int x, int y);
-	public void selectAlliedUnit(Effect effect);
-	public void selectAlliedRow(Effect effect);
-	public void selectAlliedColumn(Effect effect);
+	public void selectAlliedUnits(Effect effect);
+	public void selectAlliedRows(Effect effect);
+	public void selectAlliedColumns(Effect effect);
 	public void selectAlliedGroup(Effect effect);
+	public void moveParty(int x, int y);
 }

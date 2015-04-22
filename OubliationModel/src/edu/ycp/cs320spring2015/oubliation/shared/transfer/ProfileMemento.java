@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
 
 public class ProfileMemento implements Serializable {
 	private static final long serialVersionUID = 2470630709430676604L;

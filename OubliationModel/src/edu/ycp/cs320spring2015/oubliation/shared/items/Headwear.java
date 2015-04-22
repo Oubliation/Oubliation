@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.shared.effect;
+package edu.ycp.cs320spring2015.oubliation.shared.items;
 
 import java.util.TreeSet;
 
@@ -7,16 +7,16 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 
 /**
  * 
- * Armor which shields actor from incoming blows
+ * Armor equipped to the head
  *
  */
-public class Shield extends Armor {
-	private static final long serialVersionUID = 4149608150769377245L;
-	public Shield() {}
+public class Headwear extends Armor {
+	private static final long serialVersionUID = 1399598762358488552L;
+	public Headwear() {}
 
-	public Shield(NameTag nameTag, int price,
-			TreeSet<String> equippableBy, int ac) {
-		super(nameTag, price, equippableBy, ac);
+	public Headwear(NameTag nameTag, int price,
+			TreeSet<String> equippableBy, int ar) {
+		super(nameTag, price, equippableBy, ar);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -31,5 +31,4 @@ public class Shield extends Armor {
 		loadout.unequip(this);
 		
 	}
-
 }

@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Equipment;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Equipment;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 

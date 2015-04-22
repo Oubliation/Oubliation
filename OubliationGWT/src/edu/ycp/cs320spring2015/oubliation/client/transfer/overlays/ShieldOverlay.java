@@ -6,7 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
 
 public class ShieldOverlay extends EquipmentOverlay {
 

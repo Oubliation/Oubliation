@@ -16,12 +16,12 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
@@ -119,7 +119,7 @@ public class Debug {
 	 */
 	public static Weapon makeWeapon() {
 		NameTag weaponTag = new NameTag("Sword", "");
-		return new Weapon(weaponTag, 100, new TreeSet<String>(), null);
+		return new Weapon(weaponTag, 100, new TreeSet<String>(), null, null);
 	}
 
 	/**

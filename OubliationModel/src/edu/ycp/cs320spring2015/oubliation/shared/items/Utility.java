@@ -1,10 +1,11 @@
-package edu.ycp.cs320spring2015.oubliation.shared.effect;
+package edu.ycp.cs320spring2015.oubliation.shared.items;
 
 import java.util.TreeSet;
 
 import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.TargetAdaptor;
 
 /**
  * 
@@ -16,18 +17,21 @@ public class Utility extends Equipment {
 	public Utility() {}
 	
 	private Effect effect;
+	private TargetAdaptor<BattleController> target;
 	
 	public Utility(NameTag nameTag, int price,
-			TreeSet<String> equippableBy, Effect effect) {
+			TreeSet<String> equippableBy, Effect effect,
+			TargetAdaptor<BattleController> target) {
 		super(nameTag, price, equippableBy);
 		this.effect = effect;
+		this.target = target;
 	}
 
 	/**
 	 * @param controller used to effect state
 	 */
 	public void apply(BattleController controller) { //TODO: consider exactly how effect works
-		
+		target.apply(controller, effect);
 	}
 
 	@Override
