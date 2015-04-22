@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.shared.items;
+package edu.ycp.cs320spring2015.oubliation.shared.behavior;
 
 import java.io.Serializable;
 
@@ -10,13 +10,13 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
  *
  */
 public abstract class Effect implements Serializable {
-	private static final long serialVersionUID = 2954502499169810978L;
+	private static final long serialVersionUID = -5840753626594178911L;
 	public Effect() {}
-	
+
 	/**
 	 * 
 	 * @param source actor which caused the effect, if applicable
 	 * @param target actor to be targeted by the effect
 	 */
-	public abstract void apply(Actor source, Actor target); //TODO: null object pattern?
+	public abstract void apply(Actor source, Actor target, int power); //TODO: null object pattern?
 }

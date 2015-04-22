@@ -60,6 +60,7 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 */
 	public abstract int getMaxHealth();
 	
+	public abstract int getInitiative();
 	
 	/**
 	 * @return the total of Armor Rank across equipped armor 

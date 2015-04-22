@@ -16,8 +16,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
 import edu.ycp.cs320spring2015.oubliation.client._Dummy;
-import edu.ycp.cs320spring2015.oubliation.shared.EffectOrder;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.BehaviorOrder;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.TargetAdaptor;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
@@ -236,21 +239,23 @@ public void registerSession(String username) {
 	}
 	
 	@Override
-	public Map<String, Effect> getEffectMap(EffectOrder[] orders) {
-		HashMap<String, Effect> effectMap = new HashMap<String, Effect>();
-		for (EffectOrder order : orders) {
+	public Map<String, Behavior> getBehaviorMap(BehaviorOrder[] orders) {
+		HashMap<String, Behavior> behaviorMap = new HashMap<String, Behavior>();
+		for (BehaviorOrder order : orders) {
 			try {
-				TargetAdaptor<?> target = (TargetAdaptor<?>) Class.forName(order.getTarget()).getConstructor().newInstance();
+				@SuppressWarnings("unchecked")
+				TargetAdaptor<BattleController> target = (TargetAdaptor<BattleController>) Class.forName(order.getTarget()).getConstructor().newInstance();
 				Status status = (Status) Class.forName(order.getStatus()).getConstructor().newInstance();
-				effectMap.put(order.getCustomer(), (Effect) Class.forName(order.getEffect())
-						.getConstructor(TargetAdaptor.class, int.class, int.class, Status.class, int.class)
-						.newInstance(target, order.getPower(), order.getAccuracy(), status, order.getPotency()));
+				Effect effect = (Effect) Class.forName(order.getEffect())
+						.getConstructor(int.class, int.class, Element.class, Status.class, int.class)
+						.newInstance(order.getPower(), order.getAccuracy(), order.getElement(), status, order.getPotency());
+				behaviorMap.put(order.getCustomer(), new Behavior(effect, target));
 			} catch(Exception e) {
 				throw new IllegalStateException();
 			}
 		}
-		assert(effectMap.size()>0);
-		return effectMap;
+		assert(behaviorMap.size()>0);
+		return behaviorMap;
 	}
 	
 	public void createDb() {

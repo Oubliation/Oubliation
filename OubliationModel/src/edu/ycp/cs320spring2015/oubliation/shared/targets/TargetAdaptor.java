@@ -1,8 +1,10 @@
 package edu.ycp.cs320spring2015.oubliation.shared.targets;
 
-import edu.ycp.cs320spring2015.oubliation.shared.PartyController;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
+import java.io.Serializable;
 
-public interface TargetAdaptor<T extends PartyController> {
-	public void apply(T controller, Effect effect);
+import edu.ycp.cs320spring2015.oubliation.shared.PartyController;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
+
+public interface TargetAdaptor<T extends PartyController> extends Serializable {
+	public void apply(T controller, Behavior behavior);
 }

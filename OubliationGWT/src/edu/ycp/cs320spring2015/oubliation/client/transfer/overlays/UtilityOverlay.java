@@ -6,7 +6,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.BehaviorOrder;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 
 public class UtilityOverlay extends EquipmentOverlay {
@@ -21,10 +22,10 @@ public class UtilityOverlay extends EquipmentOverlay {
 		}
 	}
 	
-	static public Map<String, Utility> remapUtility(Map<String, UtilityOverlay> overlayMap, final Map<String, Effect> effectMap) {
+	static public Map<String, Utility> remapUtility(Map<String, UtilityOverlay> overlayMap, final Map<String, Behavior> behaviorMap) {
 		EntityExtractor<Utility, UtilityOverlay> extractor = new EntityExtractor<Utility, UtilityOverlay>() {
 			public Utility getEntity(UtilityOverlay overlay) {
-				return overlay.getUtility(effectMap);
+				return overlay.getUtility(behaviorMap);
 			}
 		};
 		return remapEntity(overlayMap, extractor);
@@ -33,8 +34,36 @@ public class UtilityOverlay extends EquipmentOverlay {
 	final protected native String getEffectName() /*-{
 		return this.effect;
 	}-*/;
+
+	final protected native String getTargetName() /*-{
+		return this.target;
+	}-*/;
+
+	final protected native int getPower() /*-{
+		return this.power;
+	}-*/;
+
+	final protected native int getAccuracy() /*-{
+		return this.accuracy;
+	}-*/;
+
+	final protected native String getElementName() /*-{
+		return this.element;
+	}-*/;
+
+	final protected native String getStatusName() /*-{
+		return this.status;
+	}-*/;
+
+	final protected native int getPotency() /*-{
+		return this.potency;
+	}-*/;
 	
-	final public Utility getUtility(Map<String, Effect> effectMap) {
-		return new Utility(getNameTag(), getPrice(), getStringSet(getEquippableBy()), effectMap.get(getEffectName()));
+	final public BehaviorOrder getBehaviorOrder() {
+		return new BehaviorOrder(getName(), getEffectName(), getTargetName(), getPower(), getAccuracy(), getElementName(), getStatusName(), getPotency());
+	}
+	
+	final public Utility getUtility(Map<String, Behavior> behaviorMap) {
+		return new Utility(getNameTag(), getPrice(), getStringSet(getEquippableBy()), behaviorMap.get(getName()));
 	}
 }

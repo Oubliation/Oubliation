@@ -1,7 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.shared.targets;
 
 import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Effect;
 
 public class SelectAnyOpposingColumns implements TargetAdaptor<BattleController> {
 

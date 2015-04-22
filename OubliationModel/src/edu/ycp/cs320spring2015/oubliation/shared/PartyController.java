@@ -1,6 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared;
 
-import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Effect;
 
 public interface PartyController {
 	public void selectAlliedUnits(Effect effect);

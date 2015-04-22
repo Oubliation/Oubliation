@@ -6,7 +6,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.TargetAdaptor;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 
 /**
  * 
@@ -17,19 +17,19 @@ public class Utility extends Equipment {
 	private static final long serialVersionUID = -4845314151894554625L;
 	public Utility() {}
 	
-	private Effect effect;
+	private Behavior behavior;
 	
 	public Utility(NameTag nameTag, int price,
-			TreeSet<String> equippableBy, Effect effect) {
+			TreeSet<String> equippableBy, Behavior behavior) {
 		super(nameTag, price, equippableBy);
-		this.effect = effect;
+		this.behavior = behavior;
 	}
 
 	/**
 	 * @param controller used to effect state
 	 */
 	public void apply(BattleController controller) { //TODO: consider exactly how effect works
-		target.apply(controller, effect);
+		behavior.apply(controller);
 	}
 	
 	@Override
@@ -44,7 +44,6 @@ public class Utility extends Equipment {
 	@Override
 	public void equipTo(CanEquip loadout) {
 		loadout.equip(this);
-		
 	}
 
 	@Override

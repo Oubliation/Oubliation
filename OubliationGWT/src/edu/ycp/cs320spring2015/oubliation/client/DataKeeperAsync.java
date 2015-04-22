@@ -4,8 +4,8 @@ import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import edu.ycp.cs320spring2015.oubliation.shared.EffectOrder;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Effect;
+import edu.ycp.cs320spring2015.oubliation.shared.BehaviorOrder;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 public interface DataKeeperAsync {
@@ -19,7 +19,7 @@ public interface DataKeeperAsync {
 	void saveProfile(String username, ProfileMemento profile,
 			AsyncCallback<Void> callback);
 	
-	void getEffectMap(EffectOrder[] orders, AsyncCallback<Map<String, Effect>> callback);
+	void getBehaviorMap(BehaviorOrder[] orders, AsyncCallback<Map<String, Behavior>> callback);
 	
 	void dummy(_Dummy dummy, AsyncCallback<_Dummy> callback);
 

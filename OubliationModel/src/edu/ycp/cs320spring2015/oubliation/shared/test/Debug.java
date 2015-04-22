@@ -119,7 +119,7 @@ public class Debug {
 	 */
 	public static Weapon makeWeapon() {
 		NameTag weaponTag = new NameTag("Sword", "");
-		return new Weapon(weaponTag, 100, new TreeSet<String>(), null, null);
+		return new Weapon(weaponTag, 100, new TreeSet<String>(), null);
 	}
 
 	/**
