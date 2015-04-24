@@ -15,8 +15,8 @@ public class Behavior implements Serializable {
 	
 	Effect effect;
 	TargetAdaptor<BattleController> target;
-	int powerAmount;
-	int powerVariance;
+	int powerMin;
+	int powerRange;
 	int accuracy;
 	Element element;
 	Status status;
@@ -27,6 +27,6 @@ public class Behavior implements Serializable {
 	}
 	
 	public void apply(Actor source, Actor target) {
-		
+		aa
 	}
 }

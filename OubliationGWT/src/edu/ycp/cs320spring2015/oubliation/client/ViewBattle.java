@@ -121,7 +121,7 @@ public class ViewBattle extends Composite implements BattleController {
 		weaponLink.setText(actor.getHand().getName());
 		weaponLink.addHandler(new ClickHandler() {
 			public void onClick(ClickEvent e) {
-				actor.getHand().apply(ViewBattle.this);
+				actor.getHand().select(ViewBattle.this);
 			}
 		}, ClickEvent.getType());
 		for (final Utility utility : actor.getEquippedUtilities()) {
@@ -129,7 +129,7 @@ public class ViewBattle extends Composite implements BattleController {
 			utilityLink.setText(utility.getName());
 			utilityLink.addHandler(new ClickHandler() {
 				public void onClick(ClickEvent e) {
-					utility.apply(ViewBattle.this);
+					utility.select(ViewBattle.this);
 				}
 			}, ClickEvent.getType());
 		}

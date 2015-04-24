@@ -28,8 +28,8 @@ public class Utility extends Equipment {
 	/**
 	 * @param controller used to effect state
 	 */
-	public void apply(BattleController controller) { //TODO: consider exactly how effect works
-		behavior.apply(controller);
+	public void select(BattleController controller) {
+		behavior.select(controller);
 	}
 	
 	@Override

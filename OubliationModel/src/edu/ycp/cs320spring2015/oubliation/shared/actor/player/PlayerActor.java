@@ -2,6 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.Random;
 
 import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
@@ -168,6 +169,13 @@ final public class PlayerActor extends Actor implements Serializable {
 
 	public int getMaxHealth() {
 		return identity.getMaxHealth()+(getScore(BruceScore.healthily)/3);
+	}
+
+	public int getInitiative() {
+		int minInitiative = getScore(BruceScore.quickly);
+		int initiativeRange = getScore(BruceScore.luckily);
+		
+		return minInitiative+(new Random()).nextInt(initiativeRange);
 	}
 	
 	public void incExperience(int amount) {

@@ -3,6 +3,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
@@ -12,7 +13,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 public class EnemyActor extends NonPlayerActor {
 	private static final long serialVersionUID = 1948800440853986420L;
 	
-	final private transient EnemySpoils enemySpoils;
+	private EnemySpoils enemySpoils;
+	private int minInitiative;
+	private int initiativeRange;
 	
 	/**
 	 * 
@@ -24,9 +27,15 @@ public class EnemyActor extends NonPlayerActor {
 	 * @param enemySpoils {@link EnemySpoils}
 	 */
 	public EnemyActor(NameTag nameTag, StatusMemento status, Loadout loadout,
-			NonPlayerIdentity identity, NonPlayerStats stats, EnemySpoils enemySpoils) {
+			NonPlayerIdentity identity, NonPlayerStats stats, EnemySpoils enemySpoils,
+			int initiativeBase, int initiativeRange) {
 		super(nameTag, status, loadout, identity, stats);
+		this.minInitiative = initiativeBase;
+		this.initiativeRange = initiativeRange;
 		this.enemySpoils = enemySpoils;
+	}
+	public int getInitiative() {
+		return minInitiative+(new Random()).nextInt(initiativeRange);
 	}
 	/**
 	 * @see EnemySpoils#getExpGiven()
