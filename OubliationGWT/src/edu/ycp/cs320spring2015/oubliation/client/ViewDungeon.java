@@ -54,21 +54,25 @@ public class ViewDungeon extends Composite {
 	@UiHandler("Forward")
 	void onClickForward(ClickEvent e) {
 		dungeon.move(Ordinal.forward, profile);
+		renderDungeon();
 	}
 	
 	@UiHandler("Backward")
 	void onClickBackward(ClickEvent e) {
 		dungeon.move(Ordinal.backward, profile);
+		renderDungeon();
 	}
 	
 	@UiHandler("Left")
 	void onClickLeft(ClickEvent e) {
 		dungeon.move(Ordinal.left, profile);
+		renderDungeon();
 	}
 	
 	@UiHandler("Right")
 	void onClickRight(ClickEvent e) {
 		dungeon.move(Ordinal.right, profile);
+		renderDungeon();
 	}
 	
 	
@@ -81,9 +85,9 @@ public class ViewDungeon extends Composite {
 		context.rect(0, 0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
 		for(int i = 0; i < dungeon.getMap().length; i++){
 			for(int j = 0; j < dungeon.getMap()[i].length; j++){
-				if(i == dungeon.getPlayerX() && j == dungeon.getPlayerY()){context.setFillStyle("0xFFFC00");}
-				else if(dungeon.getMap()[i][j].isSolid() == true){context.setFillStyle("0xFF0000");}
-				else if(dungeon.getMap()[i][j].isSolid() == true){context.setFillStyle("0x0026FF");}
+				if(i == dungeon.getPlayerX() && j == dungeon.getPlayerY()){context.setFillStyle("#FFFC00");}
+				else if(dungeon.getMap()[i][j].isSolid() == true){context.setFillStyle("#FF0000");}
+				else if(dungeon.getMap()[i][j].isSolid() == false){context.setFillStyle("#0026FF");}
 				context.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
 			}
 		}
