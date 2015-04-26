@@ -110,14 +110,14 @@ public class ViewDungeon extends Composite {
 			for(int j = 0; j < dungeon.getMap()[i].length; j++){
 				
 				if(i == dungeon.getPlayerX() && j == dungeon.getPlayerY()){context.setFillStyle("#FFFC00");} // player position
-				else if(i == 0 && j == 0){context.setFillStyle("#00FF00");}  // back to town
+				else if(dungeon.getMap()[i][j].isStairsDown() == true){context.setFillStyle("#00FF00");}  // back to town
 				else if(dungeon.getMap()[i][j].isSolid() == true){context.setFillStyle("#FF0000");} // wall
-				else if(dungeon.getMap()[i][j].isSolid() == false){context.setFillStyle("#0026FF");} // no wall			
+				else if(dungeon.getMap()[i][j].isSolid() == false){context.setFillStyle("#0026FF");} // no wall
 				context.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
 				
 			}
 		}
-		if(dungeon.getPlayerY() == 0 && dungeon.getPlayerX() == 0){enterOutskirts();}
+		if(dungeon.getPlayerY() == 1 && dungeon.getPlayerX() == 1){enterOutskirts();}
 	}
 }
 

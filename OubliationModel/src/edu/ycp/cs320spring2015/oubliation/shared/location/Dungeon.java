@@ -14,7 +14,7 @@ public class Dungeon {
 	public Dungeon(int floor) {
 		this.facing = Cardinal.west;
 		this.playerX = 1;
-		this.playerY = 1;
+		this.playerY = 2;
 		this.map = Debug.makeMap();
 		this.level = floor;
 	}

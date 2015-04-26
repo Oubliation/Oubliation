@@ -205,12 +205,20 @@ public class Debug {
 		return makeProfile(username).getTransferData();
 	}
 	
-	public static Tile[][] makeMap(){
-		
+	public static Tile[][] makeMap(){		
 		Tile[][] map = new Tile[20][20];
-		Tile[] row = new Tile[20];
-		Arrays.fill(row, new Tile());
-		Arrays.fill(map, row);
+		for(int i = 0; i < map.length; i++){
+			map[i] = new Tile[20];
+			for(int j = 0; j < map.length; j++){
+				map[i][j] = new Tile();
+				if(j == 0){map[i][j].setIsSolid(true);}
+				else if(i == 0){map[i][j].setIsSolid(true);}
+				else if(i == 1 && j == 1){map[i][j].setIsStairsDown(true);}
+				else if(i == 18 && j == 18){map[i][j].setIsStairsUp(true);}
+				else if(i == 19){map[i][j].setIsSolid(true);}
+				else if(j == 19){map[i][j].setIsSolid(true);}
+			}
+		}
 		return map;
 	}
 }
