@@ -13,8 +13,8 @@ public class Dungeon {
 	
 	public Dungeon(int floor) {
 		this.facing = Cardinal.west;
-		this.playerX = 0;
-		this.playerY = 0;
+		this.playerX = 1;
+		this.playerY = 1;
 		this.map = Debug.makeMap();
 		this.level = floor;
 	}
@@ -36,6 +36,10 @@ public class Dungeon {
 			playerY -= facing.getY();
 			break;
 		}
+	}
+	
+	public Cardinal getFacing(){
+		return this.facing;
 	}
 	
 	public Tile getRelTile(int parallelCoord, int perpendicularCoord){

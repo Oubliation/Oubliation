@@ -7,6 +7,10 @@
     }
     .center{
 		text-align : center;
+	}
+	.error {
+		color: red;
+		padding: 1em;
 	}	
 	</ui:style>
 	<g:DockLayoutPanel unit="PX" width="800px" height="600px" addStyleNames="{style.dockLayoutPanel}">
@@ -28,10 +32,10 @@
      		<g:FlowPanel ui:field="canvasPanel"></g:FlowPanel>
   	 	</g:center>
   	 	<g:east size = "100">
-  	 		<g:Label>Brandon is awesome! </g:Label>
+  	 		<g:Label ui:field = "cardinalDirection"> </g:Label>
   	 	</g:east>
   	 	<g:south size = "100">
-  	 		<g:Label>This has gone South!</g:Label>
+  	 		<g:Label ui:field="error" styleName="{style.error}" />
   	 	</g:south>
 	</g:DockLayoutPanel>
 </ui:UiBinder> 
