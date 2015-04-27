@@ -1,0 +1,14 @@
+[{
+	"name": "Scholar",
+	"description": "",
+	"bruceGainRate": {
+		"mightily": 1.0,
+		"healthily": 1.2,
+		"intelligently": 0.7,
+		"godly": 0.5,
+		"quickly": 1.5,
+		"luckily": 1.3
+	},
+	"jobBlacklist": [],
+	"backgroundRival": "Cartoonist"
+}]

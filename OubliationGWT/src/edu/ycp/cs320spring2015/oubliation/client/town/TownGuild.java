@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -31,11 +32,13 @@ public class TownGuild extends Composite{
 	@UiField FlowPanel party;
 	@UiField FlowPanel guild;
 	
-	final Profile profile;
+	final private ViewTown view;
+	final private Profile profile;
 	
-	public TownGuild(Profile profile) {
+	public TownGuild(ViewTown view) {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.profile = profile;
+		this.view = view;
+		this.profile = view.getProfile();
 		update();
 	}
 	
@@ -67,6 +70,11 @@ public class TownGuild extends Composite{
 			}});
 			guild.add(button);
 		}
+	}
+	
+	@UiHandler("recruit")
+	void onClick(ClickEvent e) {
+		view.enterLocation(new TownRecruit(view));
 	}
 	
 //	@UiField

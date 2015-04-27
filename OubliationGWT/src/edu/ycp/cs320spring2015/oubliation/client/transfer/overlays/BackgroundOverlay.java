@@ -29,7 +29,7 @@ public class BackgroundOverlay extends EntityOverlay {
 		return remapEntity(overlayMap, extractor);
 	}
 	
-	public Background getBackground() {
+	final public Background getBackground() {
 		return new Background(getNameTag());
 	}
 }

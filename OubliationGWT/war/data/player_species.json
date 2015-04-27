@@ -1,0 +1,12 @@
+[{
+	"name": "Fairy",
+	"description": "Tiny people with wings",
+	"baseScores": {
+		"mightily": 3,
+		"healthily": 3,
+		"intelligently": 3,
+		"godly": 3,
+		"quickly": 3,
+		"luckily": 3
+	}
+}]

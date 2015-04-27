@@ -21,7 +21,7 @@ public class PlayerBackgroundOverlay extends EntityOverlay {
 		}
 	}
 	
-	static public Map<String, PlayerBackground> remapBackground(Map<String, PlayerBackgroundOverlay> overlayMap) {
+	static public Map<String, PlayerBackground> remapBackgrounds(Map<String, PlayerBackgroundOverlay> overlayMap) {
 		EntityExtractor<PlayerBackground, PlayerBackgroundOverlay> extractor = new EntityExtractor<PlayerBackground, PlayerBackgroundOverlay>() {
 			public PlayerBackground getEntity(PlayerBackgroundOverlay overlay) {
 				return overlay.getPlayerBackground();
@@ -30,19 +30,19 @@ public class PlayerBackgroundOverlay extends EntityOverlay {
 		return remapEntity(overlayMap, extractor);
 	}
 	
-	static public native JsBruceMap<Double> getBruceGainRate() /*-{
+	protected final native JsBruceMap<Double> getBruceGainRate() /*-{
 		return this.bruceGainRate;
 	}-*/;
 	
-	static public native String[] getJobBlacklist() /*-{
+	protected final native String[] getJobBlacklist() /*-{
 		return this.jobBlacklist;
 	}-*/;
 	
-	static public native String getBackgroundRival() /*-{
+	protected final native String getBackgroundRival() /*-{
 		return this.backgroundRival;
 	}-*/;
 	
-	public PlayerBackground getPlayerBackground() {
+	final public PlayerBackground getPlayerBackground() {
 		return new PlayerBackground(getNameTag(), getBruceMap(getBruceGainRate()), getStringSet(getJobBlacklist()), getBackgroundRival());
 	}
 }

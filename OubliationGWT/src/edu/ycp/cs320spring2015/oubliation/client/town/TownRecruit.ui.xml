@@ -1,0 +1,26 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.error {
+		 color: red;
+	}
+	</ui:style>
+	<g:FlowPanel>
+		<g:Label ui:field="error" styleName="{style.error}" />
+		<g:FlowPanel ui:field="namePanel">
+			<g:Label>Enter Name:</g:Label>
+			<g:TextBox ui:field="name" />
+		</g:FlowPanel>
+		<g:FlowPanel ui:field="gender" />
+		<g:FlowPanel ui:field="backgrounds" />
+		<g:FlowPanel ui:field="species" />
+		<g:FlowPanel ui:field="scores">
+			<g:Label>Points Remaining: </g:Label><g:Label ui:field="points" />
+		</g:FlowPanel>
+		<g:FlowPanel ui:field="jobs" />
+		<g:FlowPanel>
+			<g:Hyperlink ui:field="back">Back</g:Hyperlink>
+		</g:FlowPanel>
+	</g:FlowPanel>
+</ui:UiBinder> 

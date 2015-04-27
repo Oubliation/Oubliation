@@ -18,7 +18,6 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackgro
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
@@ -160,7 +159,7 @@ public class Debug {
 		PlayerStats stats = makePlayerStats();
 		
 		NameTag playerTag = new NameTag("Nevik", "A character controlled by the Player");
-		return new PlayerActor(playerTag, 20, new StatusMemento("Healthy", 0), loadout, identity, stats);
+		return new PlayerActor(playerTag, 20, new StatusMemento("Healthy"), loadout, identity, stats);
 	}
 	
 	public static CreateInventory makeInventory() {

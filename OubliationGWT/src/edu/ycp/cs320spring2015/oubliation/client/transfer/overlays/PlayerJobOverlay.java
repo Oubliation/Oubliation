@@ -57,7 +57,7 @@ public class PlayerJobOverlay extends EntityOverlay {
 		return this.utilitySlotCount;
 	}-*/;
 	
-	public PlayerJob getPlayerJob() {
+	final public PlayerJob getPlayerJob() {
 		return new PlayerJob(getNameTag(), getBruceMap(getRequiredScore()), getExpChart(), getExtraLvExp(),
 				getBaseHitCount(), getBaseMaxHp(), getMaxHpGain(), getUtilitySlotCount());
 	}

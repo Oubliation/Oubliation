@@ -1,7 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.shared.location;
 
 public enum Cardinal {
-	north(0, -1), south(0, 1), east(-1, 0), west(1, 0);
+	north(0, -1), south(0, 1), east(1, 0), west(-1, 0);
 	
 	private int x;
 	private int y;
