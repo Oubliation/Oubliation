@@ -42,7 +42,7 @@ public class ViewDungeon extends Composite {
 	private final Context2d context; //Canvas 2d drawing context
 	private final Profile profile;
 	private final Dungeon dungeon; //dungeon model
-	private final int tileSize = 10;
+	private final double tileSize = 7.5;
 		
 	public ViewDungeon(Profile profile) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -50,30 +50,34 @@ public class ViewDungeon extends Composite {
 		this.profile = profile;
 		dungeon = new Dungeon(0);
 		canvas = Canvas.createIfSupported();
-		//canvasPanel.setHeight("400px");
-		//canvasPanel.setWidth("800px");
 		context = canvas.getContext2d();
 		canvasPanel.add(canvas);
 		renderDungeon();
 	}
+	
 	/**
 	 * Move forward!
 	 * @param e
 	 */
 	@UiHandler("Forward")
 	void onClickForward(ClickEvent e) {
-		dungeon.move(Ordinal.forward, profile);
+		if(dungeon.getRelTile(1, 0).isToOutskirts()){enterOutskirts();}
+		else if(!dungeon.getRelTile(1, 0).isSolid()){dungeon.move(Ordinal.forward, profile);}
+		
 		renderDungeon();
 	}
+	
 	/**
 	 *  Move backward!
 	 * @param e
 	 */
 	@UiHandler("Backward")
 	void onClickBackward(ClickEvent e) {
-		dungeon.move(Ordinal.backward, profile);
+		if(dungeon.getRelTile(-1, 0).isToOutskirts()){enterOutskirts();}
+		if(!dungeon.getRelTile(-1, 0).isSolid()){dungeon.move(Ordinal.backward, profile);}
 		renderDungeon();
 	}
+	
 	/**
 	 * Turn left!
 	 * @param e
@@ -107,17 +111,15 @@ public class ViewDungeon extends Composite {
 		cardinalDirection.setText("You are facing " + dungeon.getFacing() + "."); // compass facing
 		context.rect(0, 0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
 		for(int i = 0; i < dungeon.getMap().length; i++){
-			for(int j = 0; j < dungeon.getMap()[i].length; j++){
-				
+			for(int j = 0; j < dungeon.getMap()[i].length; j++){				
 				if(i == dungeon.getPlayerX() && j == dungeon.getPlayerY()){context.setFillStyle("#FFFC00");} // player position
-				else if(dungeon.getMap()[i][j].isStairsDown() == true){context.setFillStyle("#00FF00");}  // back to town
-				else if(dungeon.getMap()[i][j].isSolid() == true){context.setFillStyle("#FF0000");} // wall
-				else if(dungeon.getMap()[i][j].isSolid() == false){context.setFillStyle("#0026FF");} // no wall
+				else if(dungeon.getMap()[i][j].isToOutskirts()){context.setFillStyle("#00FF00");}  // back to town; doesn't work now, renders as no wall
+				else if(dungeon.getMap()[i][j].isSolid()){context.setFillStyle("#FF0000");} // wall
+				else if(!dungeon.getMap()[i][j].isSolid()){context.setFillStyle("#0026FF");} // no wall
 				context.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
 				
 			}
-		}
-		if(dungeon.getPlayerY() == 1 && dungeon.getPlayerX() == 1){enterOutskirts();}
+		}		
 	}
 }
 

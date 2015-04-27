@@ -45,12 +45,12 @@ public class Dungeon {
 	public Tile getRelTile(int parallelCoord, int perpendicularCoord){
 		int x = playerX + facing.getX() * parallelCoord + facing.getY() * perpendicularCoord;
 		int y = playerY + facing.getY() * parallelCoord + facing.getX() * perpendicularCoord;
-		Tile relTile = map[x][y];
+		Tile relTile = this.map[x][y];
 		return relTile;
 	}
 	
 	public Tile[][] getMap(){
-		return map;
+		return this.map;
 	}
 	
 	public void setMap(Tile [][]map){

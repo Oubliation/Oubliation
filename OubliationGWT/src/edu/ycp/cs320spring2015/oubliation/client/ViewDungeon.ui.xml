@@ -13,14 +13,14 @@
 		padding: 1em;
 	}	
 	</ui:style>
-	<g:DockLayoutPanel unit="PX" width="800px" height="600px" addStyleNames="{style.dockLayoutPanel}">
-  		<g:north size = "12">
+	<g:DockLayoutPanel unit="PCT" height = "1000px" width = "400px" addStyleNames="{style.dockLayoutPanel}">
+  		<g:north size = "2">
      		<g:Label styleName="{style.center}" >Welcome to the Oubliette!</g:Label>	
   	 	</g:north>
-  	 	<g:north size = "12">
+  	 	<g:north size = "2">
   	 		<g:Label ui:field="dungeonLvl" styleName="{style.center}"> </g:Label>
   	 	</g:north>
-  	 	<g:west size = "100">
+  	 	<g:west size = "20">
   	 		<g:FlowPanel>
 	       		<g:Button  ui:field="Forward">Forward</g:Button>
 				<g:Button  ui:field="Backward">Backward</g:Button>
@@ -31,10 +31,10 @@
   	 	<g:center>
      		<g:FlowPanel ui:field="canvasPanel"></g:FlowPanel>
   	 	</g:center>
-  	 	<g:east size = "100">
+  	 	<g:east size = "20">
   	 		<g:Label ui:field = "cardinalDirection"> </g:Label>
   	 	</g:east>
-  	 	<g:south size = "100">
+  	 	<g:south size = "2">
   	 		<g:Label ui:field="error" styleName="{style.error}" />
   	 	</g:south>
 	</g:DockLayoutPanel>

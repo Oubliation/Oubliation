@@ -213,10 +213,11 @@ public class Debug {
 				map[i][j] = new Tile();
 				if(j == 0){map[i][j].setIsSolid(true);}
 				else if(i == 0){map[i][j].setIsSolid(true);}
-				else if(i == 1 && j == 1){map[i][j].setIsStairsDown(true);}
+				else if(i == 1 && j == 1){map[i][j].setIsToOutskirts(true);}
 				else if(i == 18 && j == 18){map[i][j].setIsStairsUp(true);}
 				else if(i == 19){map[i][j].setIsSolid(true);}
 				else if(j == 19){map[i][j].setIsSolid(true);}
+				else if(i == 5 && j == 5){map[i][j].setIsSolid(true);}
 			}
 		}
 		return map;

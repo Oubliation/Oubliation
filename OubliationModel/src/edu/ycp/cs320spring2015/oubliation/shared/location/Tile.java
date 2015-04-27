@@ -6,6 +6,7 @@ public class Tile {
 	boolean isStairsUp;
 	boolean isStairsDown;
 	boolean isWall;
+	boolean isToOutskirts;
 	public void getNormalTexture() {
 		
 	}
@@ -40,6 +41,9 @@ public class Tile {
 	public boolean isStairsDown(){
 		return this.isStairsDown;
 	}
+	public boolean isToOutskirts(){
+		return this.isToOutskirts;
+	}
 	public void interact(DungeonController controller) {
 		
 	}
@@ -51,5 +55,8 @@ public class Tile {
 	}
 	public void setIsStairsDown(boolean isStairsDown){
 		this.isStairsDown = isStairsDown;
+	}
+	public void setIsToOutskirts(boolean isToOutskirts){
+		this.isToOutskirts = isToOutskirts;
 	}
 }
