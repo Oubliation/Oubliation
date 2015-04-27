@@ -24,13 +24,34 @@ public abstract class EntityOverlay extends JavaScriptObject {
 		return new NameTag(getName(), getDescription());
 	}
 	
-	static protected <T> EnumMap<BruceScore, T> getBruceMap(JsBruceMap<T> jsMap) {
+	private interface Conversion<T> {
+		T convert(double value);
+	}
+
+	static protected EnumMap<BruceScore, Integer> getBruceIntegerMap(JsBruceMap jsMap) {
+		return EntityOverlay.<Integer>getBruceGenericMap(jsMap, new Conversion<Integer>() {
+			@Override
+			public Integer convert(double value) {
+				return new Integer(new Double(value).intValue());
+			}
+		});
+	}
+
+	static protected EnumMap<BruceScore, Double> getBruceDoubleMap(JsBruceMap jsMap) {
+		return EntityOverlay.<Double>getBruceGenericMap(jsMap, new Conversion<Double>() {
+			@Override
+			public Double convert(double value) {
+				return new Double(value);
+			}
+		});
+	}
+
+	private static<T> EnumMap<BruceScore, T> getBruceGenericMap(JsBruceMap jsMap, Conversion<T> conversion) {
 		EnumMap<BruceScore, T> enumMap = new EnumMap<BruceScore, T>(BruceScore.class);
 		for (BruceScore score : BruceScore.values()) {
-			enumMap.put(score, jsMap.getScore(score));
+			enumMap.put(score, conversion.convert(jsMap.getScore(score)));
 		}
 		return enumMap;
-		
 	}
 	
 	static protected <E extends Entity, O extends EntityOverlay> Map<String, E> remapEntity(Map<String, O> overlayMap, EntityExtractor<E, O> extractor) {

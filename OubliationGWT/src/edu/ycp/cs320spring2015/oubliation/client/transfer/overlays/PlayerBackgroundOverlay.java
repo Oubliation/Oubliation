@@ -30,7 +30,7 @@ public class PlayerBackgroundOverlay extends EntityOverlay {
 		return remapEntity(overlayMap, extractor);
 	}
 	
-	protected final native JsBruceMap<Double> getBruceGainRate() /*-{
+	protected final native JsBruceMap getBruceGainRate() /*-{
 		return this.bruceGainRate;
 	}-*/;
 	
@@ -43,6 +43,6 @@ public class PlayerBackgroundOverlay extends EntityOverlay {
 	}-*/;
 	
 	final public PlayerBackground getPlayerBackground() {
-		return new PlayerBackground(getNameTag(), getBruceMap(getBruceGainRate()), getStringSet(getJobBlacklist()), getBackgroundRival());
+		return new PlayerBackground(getNameTag(), getBruceDoubleMap(getBruceGainRate()), getStringSet(getJobBlacklist()), getBackgroundRival());
 	}
 }

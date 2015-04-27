@@ -30,11 +30,11 @@ public class PlayerSpeciesOverlay extends EntityOverlay {
 		return remapEntity(overlayMap, extractor);
 	}
 	
-	protected final native JsBruceMap<Integer> getBaseScores() /*-{
+	protected final native JsBruceMap getBaseScores() /*-{
 		return this.baseScores;
 	}-*/;
 	
 	final public PlayerSpecies getPlayerSpecies() {
-		return new PlayerSpecies(getNameTag(), getBruceMap(getBaseScores()));
+		return new PlayerSpecies(getNameTag(), getBruceIntegerMap(getBaseScores()));
 	}
 }
