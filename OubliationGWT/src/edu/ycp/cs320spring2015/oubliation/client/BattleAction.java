@@ -2,7 +2,6 @@ package edu.ycp.cs320spring2015.oubliation.client;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
-import edu.ycp.cs320spring2015.oubliation.shared.behavior.Effect;
 
 public class BattleAction {
 	private Actor source;
@@ -14,7 +13,7 @@ public class BattleAction {
 		this.source = source;
 		this.targets = targets;
 		this.behavior = behavior;
-		priority = source.get;
+		priority = source.getInitiative();
 	}
 	
 	public void apply() {
