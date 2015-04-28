@@ -43,6 +43,6 @@ public class PlayerBackgroundOverlay extends EntityOverlay {
 	}-*/;
 	
 	final public PlayerBackground getPlayerBackground() {
-		return new PlayerBackground(getNameTag(), getBruceDoubleMap(getBruceGainRate()), getStringSet(getJobBlacklist()), getBackgroundRival());
+		return new PlayerBackground(getNameTag(), getBruceGainRate().getDoubleMap(), getStringSet(getJobBlacklist()), getBackgroundRival());
 	}
 }

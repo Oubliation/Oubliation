@@ -35,6 +35,6 @@ public class PlayerSpeciesOverlay extends EntityOverlay {
 	}-*/;
 	
 	final public PlayerSpecies getPlayerSpecies() {
-		return new PlayerSpecies(getNameTag(), getBruceIntegerMap(getBaseScores()));
+		return new PlayerSpecies(getNameTag(), getBaseScores().getIntegerMap());
 	}
 }

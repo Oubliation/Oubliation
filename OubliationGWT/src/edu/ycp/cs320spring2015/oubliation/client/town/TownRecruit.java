@@ -72,6 +72,10 @@ public class TownRecruit extends Composite {
 	public TownRecruit(ViewTown view) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.view = view;
+		for (BruceScore score : BruceScore.values()) {
+			chosenScores.put(score, 0);
+		}
+		
 		AsyncCallback<EntityResourceMap<PlayerBackgroundOverlay>> backgroundCallback = new AsyncCallback<EntityResourceMap<PlayerBackgroundOverlay>>() {
 			public void onSuccess(EntityResourceMap<PlayerBackgroundOverlay> map) {
 				backgroundMap = PlayerBackgroundOverlay.remapBackgrounds(map);
