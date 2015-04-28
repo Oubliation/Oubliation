@@ -1,0 +1,18 @@
+[{
+	"name": "Witch",
+	"description": "",
+	"requiredScores": {
+		"mightily": 4,
+		"healthily": 4,
+		"intelligently": 4,
+		"godly": 4,
+		"quickly": 4,
+		"luckily": 4
+	},
+	"expChart": [100, 200, 400, 800, 1600, 3200, 6400],
+	"extraLvExp": 6400,
+	"baseHitCount": 1,
+	"baseMaxHp": 16,
+	"maxHpGain": 8,
+	"utilitySlotCount": 2
+}]

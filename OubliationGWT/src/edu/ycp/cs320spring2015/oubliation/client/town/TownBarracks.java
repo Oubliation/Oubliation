@@ -30,11 +30,11 @@ public class TownBarracks extends Composite {
 	@UiField Button buttonHeal;
 	@UiField Button buttonRest;
 	
-	final Profile profile;
+	final private Profile profile;
 	
-	public TownBarracks(Profile profile) {
+	public TownBarracks(ViewTown view) {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.profile = profile;
+		this.profile = view.getProfile();
 	}
 	
 	/**

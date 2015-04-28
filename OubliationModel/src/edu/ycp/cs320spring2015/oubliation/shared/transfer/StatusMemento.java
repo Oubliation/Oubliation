@@ -12,11 +12,9 @@ public class StatusMemento implements Serializable {
 	protected StatusMemento() {}
 	
 	String statusName;
-	int param;
 	
-	public StatusMemento(String statusName, int param) {
+	public StatusMemento(String statusName) {
 		this.statusName = statusName;
-		this.param = param;
 	}
 	
 	public Status constructStatus(Actor actor) {

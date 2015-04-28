@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 import edu.ycp.cs320spring2015.oubliation.client.Login;
 import edu.ycp.cs320spring2015.oubliation.client.Oubliation;
 import edu.ycp.cs320spring2015.oubliation.client.ViewDungeon;
+import edu.ycp.cs320spring2015.oubliation.client.ViewStats;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 
 /**
@@ -56,15 +57,15 @@ public class ViewTown extends Composite {
 	
 	@UiHandler("guild")
 	void onClickGuild(ClickEvent e) {
-		enterLocation(new TownGuild(profile));
+		enterLocation(new TownGuild(this));
 	}
 	
 	@UiHandler("barracks")
 	void onClickBarracks(ClickEvent e) {
-		enterLocation(new TownBarracks(profile));
+		enterLocation(new TownBarracks(this));
 	}
 
-	private void enterLocation(Widget destination) {
+	public void enterLocation(Widget destination) {
 		if (location != null) {
 			location.removeFromParent();
 		}
@@ -82,6 +83,10 @@ public class ViewTown extends Composite {
 		saveGame();
 		exit.setText(dungeonExit);
 		body.add(outskirts);
+	}
+	
+	public Profile getProfile() {
+		return profile;
 	}
 	
 	private void saveGame() {

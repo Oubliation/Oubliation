@@ -29,10 +29,8 @@ public abstract class Status extends EntityClass {
 	public abstract boolean onRecieveHitTest(int accuracy);
 	public abstract void onReceiveDamage(int damage);
 	public abstract void onReceiveHealing(int amount);
-
-	protected abstract int getParam();
 	
 	public StatusMemento getMemento() {
-		return new StatusMemento(this.getName(), this.getParam());
+		return new StatusMemento(this.getName());
 	}
 }

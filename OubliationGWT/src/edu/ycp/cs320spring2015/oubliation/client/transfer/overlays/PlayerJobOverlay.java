@@ -29,7 +29,7 @@ public class PlayerJobOverlay extends EntityOverlay {
 		return remapEntity(overlayMap, extractor);
 	}
 	
-	protected final native JsBruceMap<Integer> getRequiredScore() /*-{
+	protected final native JsBruceMap getRequiredScore() /*-{
 		return this.requiredScores;
 	}-*/;
 	
@@ -57,8 +57,8 @@ public class PlayerJobOverlay extends EntityOverlay {
 		return this.utilitySlotCount;
 	}-*/;
 	
-	public PlayerJob getPlayerJob() {
-		return new PlayerJob(getNameTag(), getBruceMap(getRequiredScore()), getExpChart(), getExtraLvExp(),
+	final public PlayerJob getPlayerJob() {
+		return new PlayerJob(getNameTag(), getRequiredScore().getIntegerMap(), getExpChart(), getExtraLvExp(),
 				getBaseHitCount(), getBaseMaxHp(), getMaxHpGain(), getUtilitySlotCount());
 	}
 }

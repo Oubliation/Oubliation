@@ -29,7 +29,7 @@ public class SpeciesOverlay extends EntityOverlay {
 		return EntityOverlay.remapEntity(overlayMap, extractor);
 	}
 	
-	public Species getSpecies() {
+	final public Species getSpecies() {
 		return new Species(getNameTag());
 	}
 }
