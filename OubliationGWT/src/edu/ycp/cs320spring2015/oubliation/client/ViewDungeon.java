@@ -110,16 +110,17 @@ public class ViewDungeon extends Composite {
 		dungeonLvl.setText("You are on dungeon level " + Integer.toString(dungeon.getLevel())); // level you are on
 		cardinalDirection.setText("You are facing " + dungeon.getFacing() + "."); // compass facing
 		context.rect(0, 0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
-		for(int i = 0; i < dungeon.getMap().length; i++){
-			for(int j = 0; j < dungeon.getMap()[i].length; j++){				
-				if(i == dungeon.getPlayerX() && j == dungeon.getPlayerY()){context.setFillStyle("#FFFC00");} // player position
-				else if(dungeon.getMap()[i][j].isToOutskirts()){context.setFillStyle("#00FF00");}  // back to town; doesn't work now, renders as no wall
-				else if(dungeon.getMap()[i][j].isSolid()){context.setFillStyle("#FF0000");} // wall
-				else if(!dungeon.getMap()[i][j].isSolid()){context.setFillStyle("#0026FF");} // no wall
-				context.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
-				
-			}
-		}		
+		// TODO: change to use the floor method
+//		for(int i = 0; i < dungeon.getMap().length; i++){
+//			for(int j = 0; j < dungeon.getMap()[i].length; j++){				
+//				if(i == dungeon.getPlayerX() && j == dungeon.getPlayerY()){context.setFillStyle("#FFFC00");} // player position
+//				else if(dungeon.getMap()[i][j].isToOutskirts()){context.setFillStyle("#00FF00");}  // back to town; doesn't work now, renders as no wall
+//				else if(dungeon.getMap()[i][j].isSolid()){context.setFillStyle("#FF0000");} // wall
+//				else if(!dungeon.getMap()[i][j].isSolid()){context.setFillStyle("#0026FF");} // no wall
+//				context.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
+//				
+//			}
+//		}		
 	}
 }
 
