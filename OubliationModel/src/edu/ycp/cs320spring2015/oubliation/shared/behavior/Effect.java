@@ -3,7 +3,6 @@ package edu.ycp.cs320spring2015.oubliation.shared.behavior;
 import java.io.Serializable;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 
 /**
  * 
@@ -19,5 +18,5 @@ public abstract class Effect implements Serializable {
 	 * @param source actor which caused the effect, if applicable
 	 * @param target actor to be targeted by the effect
 	 */
-	public abstract void apply(Actor source, Actor target, Effect power, Element element); //TODO: null object pattern?
+	public abstract void apply(Actor source, Actor target, int healthDelta); //TODO: null object pattern?
 }

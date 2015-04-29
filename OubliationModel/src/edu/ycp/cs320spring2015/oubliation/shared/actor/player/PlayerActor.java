@@ -1,6 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
 import java.io.Serializable;
+import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -8,8 +9,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
@@ -36,8 +39,9 @@ final public class PlayerActor extends Actor implements Serializable {
 	 * @param stats {@link PlayerStats}
 	 */
 	public PlayerActor(NameTag nameTag, int health, StatusMemento status,
-			Loadout loadout, PlayerIdentity identity, PlayerStats stats) {
-		super(nameTag, health, status, loadout);
+			Loadout loadout, EnumMap<Element, Double> elementalMods,
+			PlayerIdentity identity, PlayerStats stats) {
+		super(nameTag, health, status, loadout, elementalMods);
 		this.identity = identity;
 		this.stats = stats;
 	}
@@ -178,20 +182,25 @@ final public class PlayerActor extends Actor implements Serializable {
 		return minInitiative+(new Random()).nextInt(initiativeRange);
 	}
 	
-	public void incExperience(int amount) {
-		identity.incExperience(amount);
-	}
-	public int getExperience() {
-		return identity.getExperience();
-	}
-	
 	public int getAttackMod() {
 		return getScore(BruceScore.mightily)/3;
 	}
 	
 	public int getAccuracyMod() {
 		return getScore(BruceScore.luckily)/3;
-		
+	}
+	public int getEvasion() {
+		return getScore(BruceScore.quickly);
+	}
+	public void selectAnyBattleBehavior(BattleController controller) {
+		getHand().select(controller);
+	}
+	
+	public void incExperience(int amount) {
+		identity.incExperience(amount);
+	}
+	public int getExperience() {
+		return identity.getExperience();
 	}
 	
 	

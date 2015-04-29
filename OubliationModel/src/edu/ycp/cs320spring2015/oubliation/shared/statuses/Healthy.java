@@ -1,8 +1,9 @@
 package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 
-import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 
 public class Healthy extends Status {
 	private static final long serialVersionUID = -245305006902248841L;
@@ -25,13 +26,13 @@ public class Healthy extends Status {
 			}
 
 			@Override
-			public void onActionDamage(int amount) {
-				target.onReceiveDamage(amount);
+			public void onActionDamage(int amount, Element element) {
+				target.onReceiveDamage(amount, element);
 			}
 
 			@Override
 			public void onActionHeal(int amount) {
-				target.onReceiveDamage(amount);
+				target.onReceiveHealing(amount);
 				
 			}
 		};
@@ -42,8 +43,8 @@ public class Healthy extends Status {
 		return getParent().hitTest(accuracy);
 	}
 	@Override
-	public void onReceiveDamage(int damage) {
-		getParent().receiveDamage(damage);
+	public void onReceiveDamage(int damage, Element element) {
+		getParent().receiveDamage(damage, element);
 	}
 	@Override
 	public void onReceiveHealing(int amount) {

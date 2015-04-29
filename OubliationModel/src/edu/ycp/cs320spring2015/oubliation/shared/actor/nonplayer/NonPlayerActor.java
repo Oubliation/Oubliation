@@ -1,8 +1,12 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer;
 
+import java.util.EnumMap;
+
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 /**
  * 
@@ -15,6 +19,8 @@ public abstract class NonPlayerActor extends Actor {
 	private final transient NonPlayerIdentity identity;
 	private final transient NonPlayerStats stats;
 	
+	
+	
 	/**
 	 * 
 	 * @param nameTag {@link NameTag} 
@@ -22,8 +28,10 @@ public abstract class NonPlayerActor extends Actor {
 	 * @param identity {@link NonPlayerIdentity}
 	 * @param stats {@link NonPlayerStats}
 	 */
-	public NonPlayerActor(NameTag nameTag, StatusMemento status, Loadout loadout, NonPlayerIdentity identity, NonPlayerStats stats) {
-		super(nameTag, stats.getMaxHp(), status, loadout);
+	public NonPlayerActor(NameTag nameTag, StatusMemento status,
+			Loadout loadout, EnumMap<Element, Double> elementalMods,
+			NonPlayerIdentity identity, NonPlayerStats stats) {
+		super(nameTag, stats.getMaxHp(), status, loadout, elementalMods);
 		this.identity = identity;
 		this.stats = stats;
 	}
@@ -53,4 +61,26 @@ public abstract class NonPlayerActor extends Actor {
 	public int getHitCount() {
 		return stats.getHitCount();
 	}
+
+	public int getInitiative() {
+		return stats.getInitiative();
+	}
+
+	public int getAttackMod() {
+		return stats.getAttackMod();
+	}
+
+	public int getAccuracyMod() {
+		return stats.getAccuracyMod();
+	}
+
+	public int getEvasion() {
+		return stats.getEvasion();
+	}
+	
+	public void selectAnyBattleBehavior(BattleController controller) {
+		stats.selectBattleBehavior(controller);
+	}
+	
+	
 }

@@ -1,9 +1,10 @@
 package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 
-import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 public abstract class Status extends EntityClass {
@@ -27,7 +28,7 @@ public abstract class Status extends EntityClass {
 	public abstract BattleController onTurnStart(BattleController controller);
 	public abstract ActionModifier getActionModifier(final Status target);
 	public abstract boolean onRecieveHitTest(int accuracy);
-	public abstract void onReceiveDamage(int damage);
+	public abstract void onReceiveDamage(int damage, Element element);
 	public abstract void onReceiveHealing(int amount);
 
 	protected abstract int getParam();

@@ -2,9 +2,11 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.util.EnumMap;
 
 import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
@@ -12,6 +14,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Corpse;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 /**
@@ -23,8 +26,8 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 
 	private int health;
 	private Status status;
-
 	private Loadout loadout; // contains all equipment
+	private EnumMap<Element, Double> elementalMods;
 	
 	/**
 	 * 
@@ -39,11 +42,12 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public Actor(NameTag nameTag, int health, StatusMemento status, Loadout loadout) {
+	public Actor(NameTag nameTag, int health, StatusMemento status, Loadout loadout, EnumMap<Element, Double> elementalMods) {
 		super(nameTag);
 		this.health = health;
 		this.status = status.constructStatus(this);
 		this.loadout = loadout;
+		this.elementalMods = elementalMods;
 	}
 	
 	//TODO: public abstract int startTurn();
@@ -121,16 +125,17 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 		return loadout.getEquippedUtilities();
 	}
 	
-	public int getAttackMod() {
-		return 0;
-	}
+	public abstract int getAttackMod();
+	public abstract int getAccuracyMod();
+	protected abstract int getEvasion();
+	public abstract void selectAnyBattleBehavior(BattleController controller);
 	
 	
 	/**
 	 * @return whether attack has hit or missed
 	 */
 	public boolean hitTest(int accuracy) {
-		return false;
+		return (0.67 + 0.05*(accuracy-getEvasion())) *2 >= Math.random()+Math.random();
 	}
 	
 	/**
@@ -146,8 +151,8 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	/**
 	 * @param amount amount of damage received
 	 */
-	public void receiveDamage(int amount) {
-		health -= Math.max(amount-getArmorRank(), 0);
+	public void receiveDamage(int amount, Element element) {
+		health -= Math.max(amount-getArmorRank(), 0)*elementalMods.get(element);
 		if (health <= 0) {
 			health = 0;
 			setStatus(new Corpse(this));
@@ -158,6 +163,6 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 */
 	public void setStatus(Status status) {
 		this.status = status;
-	} //TODO: what if it's a magic drain attack?
+	}
 	
 }

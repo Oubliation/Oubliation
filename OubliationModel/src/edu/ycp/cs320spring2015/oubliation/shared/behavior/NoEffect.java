@@ -6,5 +6,5 @@ public class NoEffect extends Effect {
 	private static final long serialVersionUID = 273852401294940171L;
 
 	@Override
-	public void apply(Actor source, Actor target) {}
+	public void apply(Actor source, Actor target, int healthDelta) {}
 }

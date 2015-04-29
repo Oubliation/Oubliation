@@ -2,11 +2,11 @@ package edu.ycp.cs320spring2015.oubliation.shared.items;
 
 import java.util.TreeSet;
 
-import edu.ycp.cs320spring2015.oubliation.shared.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 
 /**
  * 
