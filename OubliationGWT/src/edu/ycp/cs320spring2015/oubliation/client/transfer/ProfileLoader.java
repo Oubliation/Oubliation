@@ -121,6 +121,7 @@ public class ProfileLoader implements LoadoutLoader {
 				callback.onFailure(caught);
 			}
 	};
+	
 		Oubliation.getDataKeeper().loadProfile(usernameInput, transferCallback);
 		new ItemOverlay.ResourceMap(new String[] {"/data/items.json"}, itemMapCallback);
 		new HeadwearOverlay.ResourceMap(new String[] {"/data/headwear.json"}, headwearMapCallback);

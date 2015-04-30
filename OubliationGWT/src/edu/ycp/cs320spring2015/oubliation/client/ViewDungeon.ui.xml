@@ -18,7 +18,7 @@
      		<g:Label styleName="{style.center}" >Welcome to the Oubliette!</g:Label>	
   	 	</g:north>
   	 	<g:north size = "2">
-  	 		<g:Label ui:field="dungeonLvl" styleName="{style.center}"> </g:Label>
+  	 		<g:Label ui:field="dungeonName" styleName="{style.center}"> </g:Label>
   	 	</g:north>
   	 	<g:west size = "20">
   	 		<g:FlowPanel>
@@ -35,7 +35,7 @@
   	 		<g:Label ui:field = "cardinalDirection"> </g:Label>
   	 	</g:east>
   	 	<g:south size = "2">
-  	 		<g:Label ui:field="error" styleName="{style.error}" />
+  	 		<g:Label ui:field="mapError" styleName="{style.error}" />
   	 	</g:south>
 	</g:DockLayoutPanel>
 </ui:UiBinder> 
