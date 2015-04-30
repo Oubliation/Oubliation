@@ -38,7 +38,7 @@ public class FloorOverlay extends EntityOverlay {
 		String[] textTiles = getRows();
 		Tile[][] tileTiles = new Tile[textTiles.length][];
 		for (int row=0; row<textTiles.length; row+=1) {
-			tileTiles[row] = new Tile[textTiles[row].length()];
+			//tileTiles[row] = new Tile[textTiles[row].length()];
 			for (int col=0; col<textTiles[row].length(); col+=1) {
 				tileTiles[row][col] = new Tile();
 				switch (textTiles[row].charAt(col)) {
@@ -49,55 +49,46 @@ public class FloorOverlay extends EntityOverlay {
 					tileTiles[row][col].setIsToOutskirts(true);
 					break;
 				case '+' :
-					tileTiles[row][col].setIsSolid(false);
+					tileTiles[row][col].setIsDoor(true);
+					tileTiles[row][col].setIsSolid(true);
+					tileTiles[row][col].setIsLocked(true);
 					break;
 				case 't' :
-					tileTiles[row][col].setIsSolid(false);
+					tileTiles[row][col].setIsTrap(true);
 					break;
-				case 'l' :
-					tileTiles[row][col].setIsSolid(false);
+				case 'l' :	
+					tileTiles[row][col].setIsLever(true);
 					break;
 				case 'A' :
-					tileTiles[row][col].setIsSolid(false);
+					tileTiles[row][col].setIsStairsUp(true);
 					break;
 				case 'D' :
-					tileTiles[row][col].setIsSolid(false);
+					tileTiles[row][col].setIsStairsDown(true);
 					break;
 				case 'T' :
-					tileTiles[row][col].setIsSolid(false);
+					tileTiles[row][col].setIsTreasure(true);
 					break;
-				case '~' :
-					tileTiles[row][col].setIsSolid(false);
+				case '~' :					
 					break;
-				case 'f' :
-					tileTiles[row][col].setIsSolid(false);
+				case 'f' :					
 					break;
-				case 'F' :
-					tileTiles[row][col].setIsSolid(false);
+				case 'F' :					
 					break;
-				case '#' :
-					tileTiles[row][col].setIsSolid(false);
+				case '#' :					
 					break;
-				case '%' :
-					tileTiles[row][col].setIsSolid(false);
+				case '%' :					
 					break;
-				case '9' :
-					tileTiles[row][col].setIsSolid(false);
+				case '9' :					
 					break;
-				case '6' :
-					tileTiles[row][col].setIsSolid(false);
+				case '6' :					
 					break;
-				case 'B' :
-					tileTiles[row][col].setIsSolid(false);
+				case 'B' :					
 					break;
-				case '&' :
-					tileTiles[row][col].setIsSolid(false);
+				case '&' :					
 					break;
-				case '7' :
-					tileTiles[row][col].setIsSolid(false);
+				case '7' :					
 					break;
-				case 'L' :
-					tileTiles[row][col].setIsSolid(false);
+				case 'L' :					
 					break;
 				case ' ' :
 					tileTiles[row][col].setIsSolid(false);
