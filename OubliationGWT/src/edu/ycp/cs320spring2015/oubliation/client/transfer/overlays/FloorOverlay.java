@@ -38,7 +38,7 @@ public class FloorOverlay extends EntityOverlay {
 		String[] textTiles = getRows();
 		Tile[][] tileTiles = new Tile[textTiles.length][];
 		for (int row=0; row<textTiles.length; row+=1) {
-			//tileTiles[row] = new Tile[textTiles[row].length()];
+			tileTiles[row] = new Tile[textTiles[row].length()];
 			for (int col=0; col<textTiles[row].length(); col+=1) {
 				tileTiles[row][col] = new Tile();
 				switch (textTiles[row].charAt(col)) {
@@ -68,27 +68,38 @@ public class FloorOverlay extends EntityOverlay {
 				case 'T' :
 					tileTiles[row][col].setIsTreasure(true);
 					break;
-				case '~' :					
+				case '~' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case 'f' :					
+				case 'f' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case 'F' :					
+				case 'F' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case '#' :					
+				case '#' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case '%' :					
+				case '%' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case '9' :					
+				case '9' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case '6' :					
+				case '6' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case 'B' :					
+				case 'B' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case '&' :					
+				case '&' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case '7' :					
+				case '7' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
-				case 'L' :					
+				case 'L' :
+					tileTiles[row][col].setIsSolid(false);
 					break;
 				case ' ' :
 					tileTiles[row][col].setIsSolid(false);
