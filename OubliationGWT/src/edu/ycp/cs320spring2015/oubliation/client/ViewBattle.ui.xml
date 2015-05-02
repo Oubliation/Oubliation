@@ -8,7 +8,6 @@
 		<g:Label ui:field="info" />
 		<g:FlowPanel ui:field="enemyStats" />
 		<g:Grid ui:field="playerStats"><g:row><g:column>Name</g:column><g:column>Build</g:column><g:column>Health</g:column></g:row></g:Grid>
-		<g:FlowPanel ui:field="turnMenus" />
 		<g:FlowPanel>
 			<g:Label ui:field="playerName" />
 			<g:FlowPanel ui:field="actionMenu">
@@ -21,6 +20,6 @@
 			<g:FlowPanel ui:field="spellMenu"><g:Grid ui:field="manaStats" /></g:FlowPanel>
 		</g:FlowPanel>
 		<g:Grid ui:field="inventory" />
-		<g:FlowPanel ui:field="targetSelect" />
+		<g:FlowPanel ui:field="console" />
 	</g:FlowPanel>
 </ui:UiBinder> 

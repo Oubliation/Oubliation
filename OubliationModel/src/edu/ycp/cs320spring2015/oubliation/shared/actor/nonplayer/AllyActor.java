@@ -5,7 +5,7 @@ import java.util.EnumMap;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class AllyActor extends NonPlayerActor {
 	 * @param identity {@link NonPlayerIdentity}
 	 * @param stats {@link NonPlayerStats}
 	 */
-	public AllyActor(NameTag nameTag, StatusMemento status,
+	public AllyActor(NameTag nameTag, Status status,
 			Loadout loadout, EnumMap<Element, Double> elementalMods,
 			NonPlayerIdentity identity, NonPlayerStats stats) {
 		super(nameTag, status, loadout, elementalMods, identity, stats);

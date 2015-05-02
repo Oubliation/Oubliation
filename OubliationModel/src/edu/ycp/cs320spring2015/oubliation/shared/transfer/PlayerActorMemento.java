@@ -13,6 +13,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 
 /**
  * 
@@ -27,7 +28,7 @@ public class PlayerActorMemento implements Serializable {
 	//data
 	NameTag nameTag;
 	int health;
-	StatusMemento status;
+	Status status;
 	PlayerIdentity identity;
 	String headwearName;
 	String suitName;
@@ -38,7 +39,7 @@ public class PlayerActorMemento implements Serializable {
 	int[] witchMp;
 	int[] priestMp;
 
-	public PlayerActorMemento(NameTag nameTag, int health, StatusMemento status, PlayerIdentity identity) {
+	public PlayerActorMemento(NameTag nameTag, int health, Status status, PlayerIdentity identity) {
 		this.nameTag = nameTag;
 		this.health = health;
 		this.status = status;
@@ -84,6 +85,6 @@ public class PlayerActorMemento implements Serializable {
 		Loadout loadout = new Loadout(loader.getHeadwearMap().get(headwearName), loader.getSuitMap().get(suitName),
 				loader.getShieldMap().get(shieldName), loader.getWeaponMap().get(weaponName), utilityBelt);
 		PlayerStats stats = new PlayerStats(new ArrayList<Utility>(), bonusScores, witchMp, priestMp);
-		return new PlayerActor(nameTag, 20, status, loadout, identity, stats);
+		return new PlayerActor(nameTag, 20, status.refresh(), loadout, identity, stats);
 	}
 }

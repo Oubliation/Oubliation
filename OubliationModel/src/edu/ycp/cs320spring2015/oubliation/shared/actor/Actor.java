@@ -12,10 +12,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.ActionModifier;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Corpse;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 /**
  * Living/dead/undead entities within the game world
@@ -42,10 +42,10 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public Actor(NameTag nameTag, int health, StatusMemento status, Loadout loadout, EnumMap<Element, Double> elementalMods) {
+	public Actor(NameTag nameTag, int health, Status status, Loadout loadout, EnumMap<Element, Double> elementalMods) {
 		super(nameTag);
 		this.health = health;
-		this.status = status.constructStatus(this);
+		this.status = status.refresh();
 		this.loadout = loadout;
 		this.elementalMods = elementalMods;
 	}
@@ -86,6 +86,13 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	
 	public String getStatusName() {
 		return status.getName();
+	}
+	
+	public ActionModifier getActionModifier(Actor target) {
+		return status.getActionModifier(this, target);
+	}
+	public ActionModifier getTargetModifier() {
+		return status.getTargetModifier(this);
 	}
 	
 	/**
@@ -135,28 +142,31 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 * @return whether attack has hit or missed
 	 */
 	public boolean hitTest(int accuracy) {
-		return (0.67 + 0.05*(accuracy-getEvasion())) *2 >= Math.random()+Math.random();
+		return (0.70 + 0.05*(accuracy+getAccuracyMod()-getEvasion())) *2 >= Math.random()+Math.random();
 	}
 	
 	/**
 	 * @param amount amount of healing received
 	 */
-	public void receiveHealing(int amount) {
+	public int receiveHealing(int amount) {
 		health += amount;
 		int maxHealth = getMaxHealth();
 		if (health > maxHealth) {
 			health = maxHealth;
 		}
+		return amount;
 	}
 	/**
 	 * @param amount amount of damage received
 	 */
-	public void receiveDamage(int amount, Element element) {
+	public int receiveDamage(int amount, Element element) {
+		int finalAmount = Math.max(amount-getArmorRank(), 0)*elementalMods.get(element).intValue();
 		health -= Math.max(amount-getArmorRank(), 0)*elementalMods.get(element);
 		if (health <= 0) {
 			health = 0;
-			setStatus(new Corpse(this));
+			setStatus(new Corpse());
 		}
+		return finalAmount;
 	}
 	/**
 	 * status to be afflicted with; not implemented yet

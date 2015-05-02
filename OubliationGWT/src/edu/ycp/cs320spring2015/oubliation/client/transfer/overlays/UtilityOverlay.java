@@ -6,7 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
-import edu.ycp.cs320spring2015.oubliation.shared.BehaviorOrder;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.JsBehaviorData;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 
@@ -22,48 +22,33 @@ public class UtilityOverlay extends EquipmentOverlay {
 		}
 	}
 	
-	static public Map<String, Utility> remapUtility(Map<String, UtilityOverlay> overlayMap, final Map<String, Behavior> behaviorMap) {
+	static public Map<String, Utility> remapUtility(Map<String, UtilityOverlay> overlayMap) {
 		EntityExtractor<Utility, UtilityOverlay> extractor = new EntityExtractor<Utility, UtilityOverlay>() {
 			public Utility getEntity(UtilityOverlay overlay) {
-				return overlay.getUtility(behaviorMap);
+				return overlay.getUtility();
 			}
 		};
 		return remapEntity(overlayMap, extractor);
 	}
-
-	final protected native String getEffectName() /*-{
-		return this.effect;
-	}-*/;
-
-	final protected native String getTargetName() /*-{
-		return this.target;
-	}-*/;
-
-	final protected native int getPower() /*-{
-		return this.power;
-	}-*/;
-
-	final protected native int getAccuracy() /*-{
-		return this.accuracy;
-	}-*/;
-
-	final protected native String getElementName() /*-{
-		return this.element;
-	}-*/;
-
-	final protected native String getStatusName() /*-{
-		return this.status;
-	}-*/;
-
-	final protected native int getPotency() /*-{
-		return this.potency;
+	
+	final protected native JsBehaviorData getBehaviorData() /*-{
+		return this.behavior;
 	}-*/;
 	
-	final public BehaviorOrder getBehaviorOrder() {
-		return new BehaviorOrder(getName(), getEffectName(), getTargetName(), getPower(), getAccuracy(), getElementName(), getStatusName(), getPotency());
+	final protected Behavior getBehavior() {
+		return getBehaviorData().getBattleBehavior();
+	}
+
+	final public String[] getEffectNames() {
+		JsBehaviorData data = getBehaviorData();
+		return new String[] {data.getPrimaryEffectName(), data.getSecondaryEffectName()};
+	}
+
+	final public String[] getTargetNames() {
+		return new String[] { getBehaviorData().getTargetName() };
 	}
 	
-	final public Utility getUtility(Map<String, Behavior> behaviorMap) {
-		return new Utility(getNameTag(), getPrice(), getStringSet(getEquippableBy()), behaviorMap.get(getName()));
+	final public Utility getUtility() {
+		return new Utility(getNameTag(), getPrice(), getStringSet(getEquippableBy()), getBehavior());
 	}
 }

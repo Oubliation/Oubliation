@@ -6,7 +6,7 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
@@ -23,8 +23,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 /**
  * 
@@ -159,12 +159,12 @@ public class Debug {
 		PlayerStats stats = makePlayerStats();
 		
 		NameTag playerTag = new NameTag("Nevik", "A character controlled by the Player");
-		return new PlayerActor(playerTag, 20, new StatusMemento("Healthy", 0), loadout, identity, stats);
+		return new PlayerActor(playerTag, 20, new Healthy(), loadout, identity, stats);
 	}
 	
-	public static CreateInventory makeInventory() {
+	public static Inventory makeInventory() {
 		//TODO: insert items for testing
-		return new CreateInventory();
+		return new Inventory();
 	}
 
 	/**

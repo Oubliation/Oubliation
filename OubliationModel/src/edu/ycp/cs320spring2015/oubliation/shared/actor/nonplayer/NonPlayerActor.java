@@ -6,8 +6,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 /**
  * 
  * For actors not controlled by player; extends Actor
@@ -28,7 +28,7 @@ public abstract class NonPlayerActor extends Actor {
 	 * @param identity {@link NonPlayerIdentity}
 	 * @param stats {@link NonPlayerStats}
 	 */
-	public NonPlayerActor(NameTag nameTag, StatusMemento status,
+	public NonPlayerActor(NameTag nameTag, Status status,
 			Loadout loadout, EnumMap<Element, Double> elementalMods,
 			NonPlayerIdentity identity, NonPlayerStats stats) {
 		super(nameTag, stats.getMaxHp(), status, loadout, elementalMods);

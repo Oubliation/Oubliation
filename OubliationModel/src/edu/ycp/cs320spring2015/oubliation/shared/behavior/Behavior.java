@@ -5,6 +5,8 @@ import java.util.Random;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.ActionModifier;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Corpse;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.TargetAdaptor;
 
@@ -21,76 +23,87 @@ public class Behavior implements Serializable {
 	private Element element;
 	private Effect secondaryEffect;
 	private int potency;
+
+	private String actionDescriptor;
+	private String primaryDescriptor;
+	private String secondaryDescriptor;
 	
-	private String[] descriptors;
-	
-	public Behavior(Effect primaryEffect, String[] descriptors) {
+	public Behavior(Effect primaryEffect,
+			TargetAdaptor<BattleController> target, int healthDeltaMin,
+			int healthDeltaRange, int accuracy, Element element,
+			Effect secondaryEffect, int potency, String actionDescriptor,
+			String primaryDescriptor, String secondaryDescriptor) {
 		this.primaryEffect = primaryEffect;
-		
-		healthDeltaMin = 0;
-		healthDeltaRange = 0;
-		accuracy = Integer.MAX_VALUE;
-		potency = 0;
-		
-		assert(descriptors.length > 0 && descriptors.length <= 2);
-		this.descriptors = descriptors;
+		this.target = target;
+		this.healthDeltaMin = healthDeltaMin;
+		this.healthDeltaRange = healthDeltaRange;
+		this.accuracy = accuracy;
+		this.element = element;
+		this.secondaryEffect = secondaryEffect;
+		this.potency = potency;
+		this.actionDescriptor = actionDescriptor;
+		this.primaryDescriptor = primaryDescriptor;
+		this.secondaryDescriptor = secondaryDescriptor;
 	}
-	
-	
-	
+
 	public void select(BattleController controller) {
 		target.apply(controller, this);
 	}
 	
-	public ActionResolution apply(Actor source, Actor target) {
-		ActionResolution resolution = ActionResolution.miss; 
-		if (target.hitTest(accuracy+source.getAccuracyMod())) {
+	public String apply(ActionModifier sourceMod, ActionModifier targetMod) {
+		StringBuilder description = new StringBuilder(targetMod.getTarget().getName());
+		if (targetMod.onHitTest(accuracy)) {
 			
-			resolution = ActionResolution.hit;
 			int healthDelta = healthDeltaMin+(new Random()).nextInt(healthDeltaRange);
 			boolean critical; 
 			if (Math.random() < 0.16) {
+				description.append(" is brutally ");
 				healthDelta *= 1.5;
 				critical = true;
 			} else {
+				description.append(" is ");
 				healthDelta *= 1;
 				critical = false;
 			}
 			
+			description.append(primaryDescriptor);
 			if (primaryEffect != null) {
-				primaryEffect.apply(source, target, healthDelta);
+				description.append(primaryEffect.apply(sourceMod, targetMod, healthDelta));
 			}
 			
-			if (healthDeltaMin < 0 || healthDeltaMin == 0 && healthDeltaRange < 0) {
-				source.receiveDamage(-healthDelta, element);
-			} else if (healthDeltaMin > 0 || healthDeltaMin == 0 && healthDeltaRange > 0) {
-				source.receiveHealing(healthDelta);
-			}
-			if (secondaryEffect != null && target.hitTest(potency+source.getAccuracyMod())) {
-				resolution = ActionResolution.fullHit;
-				secondaryEffect.apply(source, target, healthDelta);
-			}
-			
-			if (critical) { 
-				switch(resolution) {
-				case fullHit:
-					resolution = ActionResolution.criticalFullHit;
-					break;
-				case hit:
-					resolution = ActionResolution.criticalHit;
-					break;
-				default:
-					throw new IllegalStateException();
+			if (healthDeltaMin != 0 || healthDeltaRange != 0) {
+				description.append(" for ");
+				if (healthDeltaMin < 0 || healthDeltaMin == 0 && healthDeltaRange < 0) {
+					description.append(sourceMod.onReceiveDamage(-healthDelta, element));
+				} else if (healthDeltaMin > 0 || healthDeltaMin == 0 && healthDeltaRange > 0) {
+					description.append(sourceMod.onReceiveHealing(healthDelta));
+				}
+				description.append(" health");
+				if (critical) {
+					description.append("!");
+				} else {
+					description.append(".");
+				}
+				if (targetMod.getStatus().getClass().equals(Corpse.class)) {
+					description.append("!!!!!!");
+					description.append("");
+					description.append(" dies a painful death!");
+				}
+				
+				if (secondaryEffect != null && critical || targetMod.onHitTest(potency)) {
+					//TODO: pronouns
+					description.append(" ");
+					description.append(secondaryDescriptor);
+					description.append(secondaryEffect.apply(sourceMod, targetMod, healthDelta));
 				}
 			}
+		} else  {
+			description.append("dodges!");
 		}
-		return resolution;
+		return description.toString();
 	}
 	
-	public String getPrimaryDescriptor() {
-		return descriptors[0];
-	}
-	public String getSecondaryDescriptor() {
-		return descriptors[1];
+	public String getActionDescriptor(Actor source) {
+		return source.getName() +" "+ actionDescriptor;
 	}
 }

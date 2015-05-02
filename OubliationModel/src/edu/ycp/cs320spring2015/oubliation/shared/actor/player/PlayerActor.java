@@ -5,16 +5,16 @@ import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.Random;
 
-import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Equipment;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 /**
  * TODO: Come back here! Complete JavaDoc
@@ -29,6 +29,15 @@ final public class PlayerActor extends Actor implements Serializable {
 	private PlayerStats stats;
 	
 	private LinkedList<Equipment> battleEquipQueue;
+		
+	public static EnumMap<Element, Double> makeElementalMods() {
+		EnumMap<Element, Double> elementalMods = new EnumMap<Element, Double>(Element.class);
+		elementalMods.put(Element.ice, 1.0);
+		elementalMods.put(Element.lightning, 1.0);
+		elementalMods.put(Element.magic, 1.0);
+		elementalMods.put(Element.physical, 1.0);
+		return  elementalMods;
+	}
 	
 	/**
 	 * 
@@ -38,10 +47,9 @@ final public class PlayerActor extends Actor implements Serializable {
 	 * @param identity {@link PlayerIdentity}
 	 * @param stats {@link PlayerStats}
 	 */
-	public PlayerActor(NameTag nameTag, int health, StatusMemento status,
-			Loadout loadout, EnumMap<Element, Double> elementalMods,
-			PlayerIdentity identity, PlayerStats stats) {
-		super(nameTag, health, status, loadout, elementalMods);
+	public PlayerActor(NameTag nameTag, int health, Status status,
+			Loadout loadout, PlayerIdentity identity, PlayerStats stats) {
+		super(nameTag, health, status, loadout, makeElementalMods());
 		this.identity = identity;
 		this.stats = stats;
 	}
@@ -113,7 +121,7 @@ final public class PlayerActor extends Actor implements Serializable {
 	/**
 	 * @param equipment to equip outside battle
 	 */
-	public void fieldEquip(Equipment equipment, CreateInventory inventory) {
+	public void fieldEquip(Equipment equipment, Inventory inventory) {
 		equipment.removeFrom(inventory);
 		equipment.equipTo(new FieldLoadoutFacade(getLoadout(), stats));
 	}
@@ -121,21 +129,21 @@ final public class PlayerActor extends Actor implements Serializable {
 	/**
 	 * @param equipment to unequip outside battle
 	 */
-	public void fieldUnequip(Equipment equipment, CreateInventory inventory) {
+	public void fieldUnequip(Equipment equipment, Inventory inventory) {
 		equipment.addTo(inventory);
 		equipment.unequipFrom(new FieldLoadoutFacade(getLoadout(), stats));
 	}
 	/**
 	 * @param add equipment to the battle equip queue
 	 */
-	public void queueEquipment(Equipment equipment, CreateInventory inventory) {
+	public void queueEquipment(Equipment equipment, Inventory inventory) {
 		equipment.removeFrom(inventory);
 		battleEquipQueue.add(equipment);
 	}
 	/**
 	 * @param remove equipment from the battle equip queue
 	 */
-	public void dequeueEquipment(Equipment equipment, CreateInventory inventory) {
+	public void dequeueEquipment(Equipment equipment, Inventory inventory) {
 		equipment.addTo(inventory);
 		battleEquipQueue.remove(equipment);
 	}
@@ -148,7 +156,7 @@ final public class PlayerActor extends Actor implements Serializable {
 	/**
 	 * @param equipment to unequip
 	 */
-	public void battleUnequip(Equipment equipment, CreateInventory inventory) {
+	public void battleUnequip(Equipment equipment, Inventory inventory) {
 		equipment.addTo(inventory);
 		equipment.unequipFrom(getLoadout());
 	}
@@ -176,10 +184,10 @@ final public class PlayerActor extends Actor implements Serializable {
 	}
 
 	public int getInitiative() {
-		int minInitiative = getScore(BruceScore.quickly);
+		int initiativeMin = getScore(BruceScore.quickly);
 		int initiativeRange = getScore(BruceScore.luckily);
 		
-		return minInitiative+(new Random()).nextInt(initiativeRange);
+		return initiativeMin+(new Random()).nextInt(initiativeRange);
 	}
 	
 	public int getAttackMod() {
@@ -205,7 +213,7 @@ final public class PlayerActor extends Actor implements Serializable {
 	
 	
 	public PlayerActorMemento getTransfer() {
-		PlayerActorMemento transfer = new PlayerActorMemento(getNameTag(), getHealth(), getStatus().getMemento(), identity);
+		PlayerActorMemento transfer = new PlayerActorMemento(getNameTag(), getHealth(), getStatus(), identity);
 		getLoadout().addTransferData(transfer);
 		stats.addTransferData(transfer);
 		

@@ -10,6 +10,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import edu.ycp.cs320spring2015.oubliation.shared.Entity;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 
 public abstract class EntityOverlay extends JavaScriptObject {
 	protected EntityOverlay() {}
@@ -22,15 +23,6 @@ public abstract class EntityOverlay extends JavaScriptObject {
 	}-*/;
 	protected final NameTag getNameTag() {
 		return new NameTag(getName(), getDescription());
-	}
-	
-	static protected <T> EnumMap<BruceScore, T> getBruceMap(JsBruceMap<T> jsMap) {
-		EnumMap<BruceScore, T> enumMap = new EnumMap<BruceScore, T>(BruceScore.class);
-		for (BruceScore score : BruceScore.values()) {
-			enumMap.put(score, jsMap.getScore(score));
-		}
-		return enumMap;
-		
 	}
 	
 	static protected <E extends Entity, O extends EntityOverlay> Map<String, E> remapEntity(Map<String, O> overlayMap, EntityExtractor<E, O> extractor) {
@@ -47,5 +39,21 @@ public abstract class EntityOverlay extends JavaScriptObject {
 			stringSet.add(string);
 		}
 		return stringSet;
+	}
+
+	static protected <T> EnumMap<BruceScore, T> getBruceMap(JsBruceMap<T> jsMap) {
+		EnumMap<BruceScore, T> enumMap = new EnumMap<BruceScore, T>(BruceScore.class);
+		for (BruceScore score : BruceScore.values()) {
+			enumMap.put(score, jsMap.getScore(score));
+		}
+		return enumMap;
+	}
+
+	static protected <T> EnumMap<Element, T> getElementMap(JsElementMap<T> jsMap) {
+		EnumMap<Element, T> enumMap = new EnumMap<Element, T>(Element.class);
+		for (Element score : Element.values()) {
+			enumMap.put(score, jsMap.getElement(score));
+		}
+		return enumMap;
 	}
 }

@@ -2,7 +2,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.items;
 
 import java.util.TreeSet;
 
-import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
@@ -22,11 +22,11 @@ public class Weapon extends Utility {
 	}
 	
 	@Override
-	public void addTo(CreateInventory inventory) {
+	public void addTo(Inventory inventory) {
 		inventory.createWeapon(this);
 	}
 	@Override
-	public void removeFrom(CreateInventory inventory) {
+	public void removeFrom(Inventory inventory) {
 		inventory.destroyWeapon(this);
 	}
 	

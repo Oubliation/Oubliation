@@ -2,37 +2,28 @@ package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 
 public class Corpse extends Status {
 	private static final long serialVersionUID = -8865864496098907905L;
 
-	public Corpse(Actor actor) {
-		super(new NameTag("Corpse", "A lifeless, rotting carcass"), actor);
+	public Corpse() {
+		super(new NameTag("Corpse", "A lifeless, rotting carcass"));
 	}
 	
 	public BattleController onTurnStart(BattleController controller) {
 		return null;
 	}
 	
-	public ActionModifier getActionModifier(final Status target) {
+	public ActionModifier getActionModifier(final Actor source, Actor target) {
 		return null;
 	}
-
-	@Override
-	public boolean onRecieveHitTest(int accuracy) {
-		return false;
+	public ActionModifier getTargetModifier(final Actor target) {
+		return null;
 	}
-
-	@Override
-	public void onReceiveDamage(int damage, Element element) {}
-
-	@Override
-	public void onReceiveHealing(int amount) {}
 	
 	@Override
-	protected int getParam() {
-		return -1;
+	public Status refresh() {
+		return new Corpse();
 	}
 }

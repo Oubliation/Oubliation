@@ -1,6 +1,5 @@
 package edu.ycp.cs320spring2015.oubliation.client.transfer;
 
-import java.util.LinkedList;
 import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -12,9 +11,7 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.ShieldOverlay
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.SuitOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.UtilityOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.WeaponOverlay;
-import edu.ycp.cs320spring2015.oubliation.shared.BehaviorOrder;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
-import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
@@ -31,7 +28,6 @@ public class ProfileLoader implements LoadoutLoader {
 	private Map<String, HeadwearOverlay> headwearMap;
 	private Map<String, SuitOverlay> suitMap;
 	private Map<String, ShieldOverlay> shieldMap;
-	private Map<String, Behavior> behaviorMap;
 	private Map<String, UtilityOverlay> utilityMap;
 	private Map<String, WeaponOverlay> weaponMap;
 	
@@ -95,7 +91,7 @@ public class ProfileLoader implements LoadoutLoader {
 			utilityMapCallback = new AsyncCallback<EntityResourceMap<UtilityOverlay>>() {
 				public void onSuccess(EntityResourceMap<UtilityOverlay> entityMap) {
 					ProfileLoader.this.utilityMap = entityMap;
-					tryBehaviorLoad(callback);
+					tryProfileConstruction(callback);
 				}
 				
 				public void onFailure(Throwable caught) {
@@ -106,7 +102,7 @@ public class ProfileLoader implements LoadoutLoader {
 		weaponMapCallback = new AsyncCallback<EntityResourceMap<WeaponOverlay>>() {
 			public void onSuccess(EntityResourceMap<WeaponOverlay> entityMap) {
 				ProfileLoader.this.weaponMap = entityMap;
-				tryBehaviorLoad(callback);
+				tryProfileConstruction(callback);
 			}
 			
 			public void onFailure(Throwable caught) {
@@ -122,31 +118,8 @@ public class ProfileLoader implements LoadoutLoader {
 		new WeaponOverlay.ResourceMap(new String[] {"/data/weapons.json"}, weaponMapCallback);
 	}
 	
-	private void tryBehaviorLoad(final AsyncCallback<Profile> callback) {
-		if (utilityMap != null && weaponMap != null) {
-			AsyncCallback<Map<String, Behavior>> behaviorCallback = new AsyncCallback<Map<String, Behavior>>() {
-				public void onSuccess(Map<String, Behavior> behaviorMap) {
-					ProfileLoader.this.behaviorMap = behaviorMap;
-					tryProfileConstruction(callback);
-				}
-				
-				public void onFailure(Throwable caught) {
-					callback.onFailure(caught);
-				}
-			};
-			LinkedList<BehaviorOrder> orders = new LinkedList<BehaviorOrder>();
-			for (UtilityOverlay overlay : utilityMap.values()) {
-				orders.add(overlay.getBehaviorOrder());
-			}
-			for (WeaponOverlay overlay : weaponMap.values()) {
-				orders.add(overlay.getBehaviorOrder());
-			}
-			Oubliation.getDataKeeper().getBehaviorMap(orders.toArray(new BehaviorOrder[orders.size()]), behaviorCallback);
-		}
-	}
-	
 	private void tryProfileConstruction(AsyncCallback<Profile> callback) {
-		if (transfer != null && headwearMap != null && suitMap != null && behaviorMap != null) { //behaviorMap means utilityMap & weaponMap are loaded
+		if (transfer != null && headwearMap != null && suitMap != null && utilityMap != null && weaponMap != null) { //reflectionMaps means utilityMap & weaponMap are loaded
 			callback.onSuccess(transfer.constructProfile(this));
 		}
 	}
@@ -169,10 +142,10 @@ public class ProfileLoader implements LoadoutLoader {
 	}
 	@Override
 	public Map<String, Utility> getUtilityMap() {
-		return UtilityOverlay.remapUtility(utilityMap, behaviorMap);
+		return UtilityOverlay.remapUtility(utilityMap);
 	}
 	@Override
 	public Map<String, Weapon> getWeaponMap() {
-		return WeaponOverlay.remapWeapon(weaponMap, behaviorMap);
+		return WeaponOverlay.remapWeapon(weaponMap);
 	}
 }

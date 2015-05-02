@@ -10,9 +10,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
  *
  */
 public class NonPlayerStats {
-	private int maxHp = 0; 
-	private int hitCount = 0;
-	private int minInitiative;
+	private int maxHp; 
+	private int hitCount;
+	private int initiativeMin;
 	private int initiativeRange;
 	private int attackMod;
 	private int accuracyMod;
@@ -23,18 +23,18 @@ public class NonPlayerStats {
 	 * 
 	 * @param maxHp Maximum hit-points of the Non-Player Actor
 	 * @param hitCount Number of times an actor can hit the enemy
-	 * @param minInitiative minimum initiative the Non-Player Actor can roll
+	 * @param initiativeMin minimum initiative the Non-Player Actor can roll
 	 * @param initiativeRange rolled range of initiative for the Non-Player Character
 	 * @param attackMod modifier to action's attack damage
 	 * @param accuracyMod modifier to action's accuracy
 	 * @param evasion ability to evade incoming attack
 	 */
-	public NonPlayerStats(int maxHp, int hitCount, int minInitiative,
+	public NonPlayerStats(int maxHp, int hitCount, int initiativeMin,
 			int initiativeRange, int attackMod, int accuracyMod, int evasion,
 			Behavior[] behaviors) {
 		this.maxHp = maxHp;
 		this.hitCount = hitCount;
-		this.minInitiative = minInitiative;
+		this.initiativeMin = initiativeMin;
 		this.initiativeRange = initiativeRange;
 		this.attackMod = attackMod;
 		this.accuracyMod = accuracyMod;
@@ -57,7 +57,7 @@ public class NonPlayerStats {
 	}
 	
 	public int getInitiative() {
-		return minInitiative+(new Random()).nextInt(initiativeRange);
+		return initiativeMin+(new Random()).nextInt(initiativeRange);
 	}
 	public int getAttackMod() {
 		return attackMod;

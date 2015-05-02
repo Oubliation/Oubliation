@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,13 +14,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
 import edu.ycp.cs320spring2015.oubliation.client._Dummy;
-import edu.ycp.cs320spring2015.oubliation.shared.BehaviorOrder;
-import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
-import edu.ycp.cs320spring2015.oubliation.shared.behavior.Effect;
-import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
-import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.TargetAdaptor;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
@@ -236,26 +227,6 @@ public void registerSession(String username) {
         if (!session.getAttribute("username").equals(username)) {
         	throw new SecurityException("Invalid request");
         }
-	}
-	
-	@Override
-	public Map<String, Behavior> getBehaviorMap(BehaviorOrder[] orders) {
-		HashMap<String, Behavior> behaviorMap = new HashMap<String, Behavior>();
-		for (BehaviorOrder order : orders) {
-			try {
-				@SuppressWarnings("unchecked")
-				TargetAdaptor<BattleController> target = (TargetAdaptor<BattleController>) Class.forName(order.getTarget()).getConstructor().newInstance();
-				Status status = (Status) Class.forName(order.getStatus()).getConstructor().newInstance();
-				Effect effect = (Effect) Class.forName(order.getEffect())
-						.getConstructor(int.class, int.class, Element.class, Status.class, int.class)
-						.newInstance(order.getPower(), order.getAccuracy(), order.getElement(), status, order.getPotency());
-				behaviorMap.put(order.getCustomer(), new Behavior(effect, target));
-			} catch(Exception e) {
-				throw new IllegalStateException();
-			}
-		}
-		assert(behaviorMap.size()>0);
-		return behaviorMap;
 	}
 	
 	public void createDb() {

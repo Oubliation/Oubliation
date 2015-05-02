@@ -1,12 +1,8 @@
 package edu.ycp.cs320spring2015.oubliation.client;
 
-import java.util.Map;
-
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import edu.ycp.cs320spring2015.oubliation.shared.BehaviorOrder;
-import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 @RemoteServiceRelativePath("DataKeeper")
@@ -15,6 +11,5 @@ public interface DataKeeper extends RemoteService {
 	public Boolean validateLogin(String username, String password);
 	public ProfileMemento loadProfile(String username);
 	public void saveProfile(String username, ProfileMemento profile);
-	public Map<String, Behavior> getBehaviorMap(BehaviorOrder[] orders);
 	public _Dummy dummy(_Dummy dummy);
 }

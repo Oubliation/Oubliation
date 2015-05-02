@@ -48,7 +48,7 @@ public class ViewBattle extends Composite implements BattleController {
 	@UiField FlowPanel spellMenu;
 	@UiField Grid manaStats;
 	@UiField Grid inventory;
-	@UiField FlowPanel targetSelect;
+	@UiField FlowPanel console;
 	
 	Profile profile;
 	PlayerActor[] party;
@@ -83,6 +83,9 @@ public class ViewBattle extends Composite implements BattleController {
 			updateTurn();
 		} else {
 			playerIndex = null;
+			for (EnemyActor actor : enemies) {
+				new ArtificialIntelligence(actor, enemies, party, actionQueue, this);
+			}
 			next();
 		}
 	}
@@ -92,7 +95,7 @@ public class ViewBattle extends Composite implements BattleController {
 		hide.setVisible(false);
 		dispell.setVisible(false);
 		
-		targetSelect.clear();
+		console.clear();
 		enemyStats.clear();
 		for (EnemyActor enemy : enemies) {
 			enemyStats.add(new Label(enemy.getName()));
@@ -101,7 +104,7 @@ public class ViewBattle extends Composite implements BattleController {
 			PlayerActor actor = party[count];
 			playerStats.setWidget(0, count, new Label(actor.getName()));
 			String buildText;
-			if (actor.getStatusName() == (new Healthy(null)).getName()) {
+			if (actor.getStatus().getClass().equals(Healthy.class)) {
 				buildText = actor.getDescription();
 			} else {
 				buildText = actor.getStatusName();
@@ -140,13 +143,25 @@ public class ViewBattle extends Composite implements BattleController {
 	}
 	
 	private void updateAction(BattleAction action) {
+		String[] descriptions = action.apply();
 		updateGeneral();
-		action.apply();
+		for (String description : descriptions) {
+			console.add(new Label(description));
+		}
+		Hyperlink next = new Hyperlink();
+		next.setText("continue");
+		next.addHandler(new ClickHandler() {
+			public void onClick(ClickEvent e) {
+				next();
+			}
+		}, ClickEvent.getType());
+		console.add(next);
 	}
 
 	
 	
 	private void selectGivenUnits(final Actor source, final Actor[] targets, final Behavior behavior) {
+		console.clear();
 		for (final Actor target: targets) {
 			Hyperlink targetOption = new Hyperlink();
 			targetOption.setText("> "+target.getName());
@@ -156,13 +171,15 @@ public class ViewBattle extends Composite implements BattleController {
 					next();
 				}
 			}, ClickEvent.getType());
+			console.add(targetOption);
 		}
 	}
 	
 	private void selectGivenGroup(final Actor source, final Actor[] targets, final Behavior behavior) {
+		console.clear();
 		String targetString = "> ";
 		for (Actor target : targets) {
-			targetString = targetString.concat(target.getName()+", ");
+			targetString = targetString.concat(target.getName()+" ");
 		}
 		Hyperlink targetOption = new Hyperlink();
 		targetOption.setText(targetString);
@@ -172,9 +189,11 @@ public class ViewBattle extends Composite implements BattleController {
 				next();
 			}
 		}, ClickEvent.getType());
+		console.add(targetOption);
 	}
 	
 	private void selectGivenRows(final Actor source, final Actor[] targets, final Behavior behavior) {
+		console.clear();
 		int numRows = (targets.length + 2) / 3;
 		Actor[][] targetRows = new Actor[numRows][];
 		targetRows[0] = Arrays.copyOfRange(targets, 0, targets.length);
@@ -184,7 +203,7 @@ public class ViewBattle extends Composite implements BattleController {
 		for (final Actor[] targetRow : targetRows) {
 			String targetString = "> ";
 			for (Actor target : targetRow) {
-				targetString = targetString.concat(target.getName()+", ");
+				targetString = targetString.concat(target.getName()+" ");
 			}
 			Hyperlink targetOption = new Hyperlink();
 			targetOption.setText(targetString);
@@ -194,10 +213,12 @@ public class ViewBattle extends Composite implements BattleController {
 					next();
 				}
 			}, ClickEvent.getType());
+			console.add(targetOption);
 		}
 	}
 	
 	private void selectGivenColumns(final Actor source, final Actor[] targets, final Behavior behavior) {
+		console.clear();
 		int numCols = Math.min(targets.length, 3);
 		Actor[][] targetCols = new Actor[numCols][];
 		for (int count=0; count<numCols; count+=1) {
@@ -210,7 +231,7 @@ public class ViewBattle extends Composite implements BattleController {
 		for (final Actor[] targetCol : targetCols) {
 			String targetString = "> ";
 			for (Actor target : targetCol) {
-				targetString = targetString.concat(target.getName()+", ");
+				targetString = targetString.concat(target.getName()+" ");
 			}
 			Hyperlink targetOption = new Hyperlink();
 			targetOption.setText(targetString);
@@ -220,77 +241,99 @@ public class ViewBattle extends Composite implements BattleController {
 					next();
 				}
 			}, ClickEvent.getType());
+			console.add(targetOption);
 		}
 		
+	}
+	
+	public void selectBack() {
+		Hyperlink back = new Hyperlink();
+		back.setText("back");
+		back.addHandler(new ClickHandler() {
+			public void onClick(ClickEvent e) {
+				updateTurn();
+			}
+		}, ClickEvent.getType());
 	}
 	
 	public void selectAnyOpposingUnits(final Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(enemies, 0, enemies.length);
 		selectGivenUnits(source, targets, behavior);
+		selectBack();
 	}
 
 	public void selectFrontOpposingUnits(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(enemies, 0, Math.min(2, enemies.length));
 		selectGivenUnits(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void selectAnyOpposingRows(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(enemies, 0, enemies.length);
 		selectGivenRows(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void selectFrontOpposingRow(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(enemies, 0, Math.min(2, enemies.length));
 		selectGivenGroup(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void selectAnyOpposingColumns(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(enemies, 0, enemies.length);
 		selectGivenColumns(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void selectOpposingGroup(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(enemies, 0, enemies.length);
 		selectGivenGroup(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void selectAlliedUnits(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(party, 0, party.length);
 		selectGivenUnits(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void selectAlliedRows(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(party, 0, party.length);
 		selectGivenRows(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void selectAlliedColumns(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(party, 0, party.length);
 		selectGivenColumns(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void selectAlliedGroup(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = Arrays.copyOfRange(party, 0, party.length);
 		selectGivenGroup(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void selectSelf(Behavior behavior) {
 		Actor source = party[playerIndex];
 		Actor[] targets = new Actor[] {source};
 		selectGivenGroup(source, targets, behavior);
+		selectBack();
 	}
 	
 	public void moveParty(int x, int y) {
-		
+		throw new IllegalStateException();
 	}
 }

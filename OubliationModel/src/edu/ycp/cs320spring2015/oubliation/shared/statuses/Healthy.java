@@ -8,8 +8,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 public class Healthy extends Status {
 	private static final long serialVersionUID = -245305006902248841L;
 	
-	public Healthy(Actor parent) {
-		super(new NameTag("Healthy", "Oll Korrect"), parent);
+	public Healthy() {
+		super(new NameTag("Healthy", "Oll Korrect"));
 	}
 	
 	@Override
@@ -17,42 +17,80 @@ public class Healthy extends Status {
 		return controller;
 	}
 	
-	public ActionModifier getActionModifier(final Status target) {
-		return new ActionModifier() {
-
+	private abstract class HealthyModifier implements ActionModifier {
+		@Override
+		public Status getStatus() {
+			return Healthy.this;
+		}
+		@Override
+		public String getStatusName() {
+			return Healthy.this.getName();
+		}
+	}
+	
+	@Override
+	public ActionModifier getActionModifier(final Actor source, final Actor target) {
+		final ActionModifier targetModifier = target.getTargetModifier();
+		return new HealthyModifier() {
 			@Override
-			public boolean getActionHitTest(int accuracy) {
-				return target.onRecieveHitTest(accuracy);
+			public boolean onHitTest(int accuracy) {
+				return targetModifier.onHitTest(accuracy);
 			}
-
 			@Override
-			public void onActionDamage(int amount, Element element) {
-				target.onReceiveDamage(amount, element);
+			public int onReceiveDamage(int damage, Element element) {
+				return targetModifier.onReceiveDamage(damage, element);
 			}
-
 			@Override
-			public void onActionHeal(int amount) {
-				target.onReceiveHealing(amount);
-				
+			public int onReceiveHealing(int amount) {
+				return targetModifier.onReceiveHealing(amount);
+			}
+			@Override
+			public Actor getSource() {
+				return source;
+			}
+			@Override
+			public Actor getTarget() {
+				return target;
+			}
+			@Override
+			public ActionModifier getTargetModifier() {
+				return targetModifier;
+			}
+		};
+	}
+
+	@Override
+	public ActionModifier getTargetModifier(final Actor target) {
+		return new HealthyModifier() {
+			@Override
+			public boolean onHitTest(int accuracy) {
+				return target.hitTest(accuracy);
+			}
+			@Override
+			public int onReceiveDamage(int damage, Element element) {
+				return target.receiveDamage(damage, element);
+			}
+			@Override
+			public int onReceiveHealing(int amount) {
+				return target.receiveHealing(amount);
+			}
+			@Override
+			public Actor getSource() {
+				return null;
+			}
+			@Override
+			public Actor getTarget() {
+				return target;
+			}
+			@Override
+			public ActionModifier getTargetModifier() {
+				return null;
 			}
 		};
 	}
 	
 	@Override
-	public boolean onRecieveHitTest(int accuracy) {
-		return getParent().hitTest(accuracy);
-	}
-	@Override
-	public void onReceiveDamage(int damage, Element element) {
-		getParent().receiveDamage(damage, element);
-	}
-	@Override
-	public void onReceiveHealing(int amount) {
-		getParent().receiveHealing(amount);
-	}
-	
-	@Override
-	protected int getParam() {
-		return -1;
+	public Status refresh() {
+		return new Healthy();
 	}
 }

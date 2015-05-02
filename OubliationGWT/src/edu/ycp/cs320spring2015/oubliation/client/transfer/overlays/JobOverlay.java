@@ -29,7 +29,7 @@ public class JobOverlay extends EntityOverlay {
 		return EntityOverlay.remapEntity(overlayMap, extractor);
 	}
 	
-	public Job getJob() {
+	final public Job getJob() {
 		return new Job(getNameTag());
 	}
 }
