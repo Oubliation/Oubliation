@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Sat May 02 00:47:50 EDT 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014d-12f3-ac7e-0000055d1380 
-on database directory C:\Users\Kevin\oubliation.db with class loader WebAppClassLoader=1754662105@689604d9 
+Sat May 02 23:07:14 EDT 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014d-17bd-f3f0-00000af97848 
+on database directory C:\Users\Kevin\oubliation.db with class loader WebAppClassLoader=1636256669@61874b9d 
 Loaded from file:/C:/Users/Kevin/My%20Documents/workspace/Oubliation/OubliationGWT/src/edu/ycp/cs320spring2015/oubliation/server/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_40-b26
