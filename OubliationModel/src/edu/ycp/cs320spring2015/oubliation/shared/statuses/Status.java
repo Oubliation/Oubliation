@@ -3,34 +3,18 @@ package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BattleController;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 
 public abstract class Status extends EntityClass {
 	private static final long serialVersionUID = -1230357693092494778L;
+	protected Status() {}
 	
-	Actor parent;
-	
-	public Status(Actor parent) {
-		throw new UnsupportedOperationException();
-	}
-	
-	protected Status(NameTag nameTag, Actor parent) {
+	protected Status(NameTag nameTag) {
 		super(nameTag);
-		this.parent = parent;
 	}
 	
-	public Actor getParent() {
-		return parent;
-	}
-
 	public abstract BattleController onTurnStart(BattleController controller);
-	public abstract ActionModifier getActionModifier(final Status target);
-	public abstract boolean onRecieveHitTest(int accuracy);
-	public abstract void onReceiveDamage(int damage);
-	public abstract void onReceiveHealing(int amount);
-	
-	public StatusMemento getMemento() {
-		return new StatusMemento(this.getName());
-	}
+	public abstract ActionModifier getActionModifier(final Actor source, Actor target);
+	public abstract ActionModifier getTargetModifier(final Actor target);
+	public abstract Status refresh();
 }

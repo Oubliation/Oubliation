@@ -33,6 +33,13 @@ public class Login extends Composite {
 
 	public Login() {
 		initWidget(uiBinder.createAndBindUi(this));
+		readyInput();
+	}
+	
+	public void readyInput() {
+		usernameBox.setText("");
+		passwordBox.setText("");
+		
 		usernameBox.setFocus(true);
 	}
 	
@@ -58,15 +65,12 @@ public class Login extends Composite {
 					bootGame(usernameInput);
 				} else {
 					error.setText("Username or password is incorrect.");
-					usernameBox.setText("");
-					passwordBox.setText("");
-					
-					usernameBox.setFocus(true);
 				}
 			}
 			
 			public void onFailure(Throwable caught) {
 				error.setText(caught.getMessage());
+				readyInput();
 			}
 		};
 		
@@ -78,19 +82,19 @@ public class Login extends Composite {
 		final String usernameInput = usernameBox.getText();
 		final String passwordInput = passwordBox.getText();
 		
-		AsyncCallback<Void> callback = new AsyncCallback<Void>() {
-			public void onSuccess(Void _) {
-				bootGame(usernameInput);
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			public void onSuccess(Boolean registered) {
+				if (registered) {
+					bootGame(usernameInput);
+				} else {
+					error.setText("Username is already taken.");
+					readyInput();
+				}
 			}
 			
 			public void onFailure(Throwable caught) {
 				error.setText(caught.getMessage());
-//				} else {
-//				error.setText("Username is already taken.");
-//				usernameBox.setText("");
-//				passwordBox.setText("");
-//				
-//				usernameBox.setFocus(true);
+				readyInput();
 			}
 		};
 		Oubliation.getDataKeeper().createProfile(usernameInput, passwordInput, (new Date()).getTime(), callback);

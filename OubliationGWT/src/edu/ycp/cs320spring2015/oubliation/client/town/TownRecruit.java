@@ -35,8 +35,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 
 public class TownRecruit extends Composite {
 
@@ -193,13 +193,12 @@ public class TownRecruit extends Composite {
 						jobLink.addHandler(new ClickHandler() {
 							public void onClick(ClickEvent e) {
 								NameTag nameTag = new NameTag(name.getText(), "Player controlled actor");
-								StatusMemento status = new StatusMemento("Healthy");
 								Loadout loadout = new Loadout(null, null, null, null, new ArrayList<Utility>());
 								PlayerIdentity identity = new PlayerIdentity(chosenBackground, chosenSpecies, job, 1, 0);
 								int[] witchMp = {0, 0, 0, 0, 0, 0};
 								int[] priestMp = {0, 0, 0, 0, 0, 0};
 								PlayerStats stats = new PlayerStats(new ArrayList<Utility>(), chosenScores, witchMp, priestMp);
-								view.getProfile().createActor(new PlayerActor(nameTag, identity.getMaxHealth(), status, loadout, identity, stats));
+								view.getProfile().createActor(new PlayerActor(nameTag, identity.getMaxHealth(), new Healthy(), loadout, identity, stats));
 								
 								view.enterLocation(new TownGuild(view));
 							}

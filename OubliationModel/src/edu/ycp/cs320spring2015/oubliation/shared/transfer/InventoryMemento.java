@@ -3,13 +3,13 @@ package edu.ycp.cs320spring2015.oubliation.shared.transfer;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 
 public class InventoryMemento implements Serializable {
 	private static final long serialVersionUID = -1510893449438032734L;
@@ -52,7 +52,7 @@ public class InventoryMemento implements Serializable {
 		}
 	}
 	
-	public CreateInventory constructInventory(LoadoutLoader loader) {
+	public Inventory constructInventory(LoadoutLoader loader) {
 		ArrayList<Item> itemList = new ArrayList<Item>();
 		for (String name : itemInv) {
 			itemList.add(loader.getItemMap().get(name));
@@ -77,6 +77,6 @@ public class InventoryMemento implements Serializable {
 		for (String name : weaponInv) {
 			weaponList.add(loader.getWeaponMap().get(name));
 		}
-		return new CreateInventory(itemList, headwearList, suitList, shieldList, utilityList, weaponList);
+		return new Inventory(itemList, headwearList, suitList, shieldList, utilityList, weaponList);
 	}
 }

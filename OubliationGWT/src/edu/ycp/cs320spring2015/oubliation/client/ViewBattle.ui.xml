@@ -1,0 +1,25 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<g:FlowPanel>
+		<g:Label ui:field="info" />
+		<g:FlowPanel ui:field="enemyStats" />
+		<g:Grid ui:field="playerStats"><g:row><g:column>Name</g:column><g:column>Build</g:column><g:column>Health</g:column></g:row></g:Grid>
+		<g:FlowPanel>
+			<g:Label ui:field="playerName" />
+			<g:FlowPanel ui:field="actionMenu">
+				<g:Hyperlink ui:field="hide"></g:Hyperlink>
+				<g:Hyperlink ui:field="dispell">Dispell</g:Hyperlink>
+				<g:Hyperlink ui:field="run">Run</g:Hyperlink>
+				<g:Hyperlink ui:field="back">Back</g:Hyperlink>
+			</g:FlowPanel>
+			<g:FlowPanel ui:field="equipmentMenu" />
+			<g:FlowPanel ui:field="spellMenu"><g:Grid ui:field="manaStats" /></g:FlowPanel>
+		</g:FlowPanel>
+		<g:Grid ui:field="inventory" />
+		<g:FlowPanel ui:field="console" />
+	</g:FlowPanel>
+</ui:UiBinder> 

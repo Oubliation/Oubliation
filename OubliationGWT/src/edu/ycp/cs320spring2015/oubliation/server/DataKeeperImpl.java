@@ -5,18 +5,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.HashMap;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.ycp.cs320spring2015.oubliation.client.DataKeeper;
 import edu.ycp.cs320spring2015.oubliation.client._Dummy;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.NoEffect;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Effect;
 import edu.ycp.cs320spring2015.oubliation.shared.test.Debug;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
@@ -45,7 +42,7 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 		}
 	}
 	
-	private<ResultType> ResultType doExecuteTransaction(Transaction<ResultType> txn) throws SQLException {
+	private<ResultType> ResultType doExecuteTransaction(Transaction<ResultType> txn) throws SQLException, SQLIntegrityConstraintViolationException {
 		Connection conn = connect();
 		
 		try {
@@ -82,7 +79,7 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 
 	private Connection connect() throws SQLException {
 		String homeDir = System.getProperty("user.home");
-		Connection conn = DriverManager.getConnection("jdbc:derby:" + homeDir + "/oubliation.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:" + homeDir + "\\oubliation.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -92,10 +89,10 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 	}
 	
 	@Override
-	public void createProfile(final String username, final String password, final long id) {
-		executeTransaction(new Transaction<Void>() {
+	public Boolean createProfile(final String username, final String password, final long id) {
+		return executeTransaction(new Transaction<Boolean>() {
 			@Override
-			public Void execute(Connection conn) throws SQLException {
+			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement createAccount = null;
 				PreparedStatement createData = null;
 				try {
@@ -115,11 +112,13 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 					createData.executeUpdate();
 
 					registerSession(username);
+					return true;
+				} catch (SQLIntegrityConstraintViolationException exception) {
+					return false;
 				} finally {
 					DbUtils.closeQuietly(createAccount);
 					DbUtils.closeQuietly(createData);
 				}
-				return null;
 			}
 		});
 	}
@@ -145,7 +144,7 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 							return false;
 						}
 					} else {
-						throw new  UsernameFailureException("Username does not exist");
+						return false;
 					}
 					
 				} finally {
@@ -190,11 +189,7 @@ public void registerSession(String username) {
 
 	@Override
 	public void saveProfile(final String username, final ProfileMemento profile) {
-		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
-        HttpSession session = httpServletRequest.getSession();
-        if (!session.getAttribute("username").equals(username)) {
-        	throw new UsernameFailureException("Invaild request");
-        }
+        validateSession(username);
         
 		executeTransaction(new Transaction<Void>() {
 			@Override
@@ -230,22 +225,8 @@ public void registerSession(String username) {
 		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
         HttpSession session = httpServletRequest.getSession();
         if (!session.getAttribute("username").equals(username)) {
-        	throw new UsernameFailureException("Invaild request");
+        	throw new SecurityException("Invalid request");
         }
-	}
-	
-	@Override
-	public Map<String, Effect> getEffectMap(String[] effectNames) {
-		HashMap<String, Effect> effectMap = new HashMap<String, Effect>();
-		for (String name : effectNames) {
-			try {
-				effectMap.put(name, (Effect) Class.forName(name).getConstructor().newInstance());
-			} catch(Exception e) {
-				effectMap.put(name, new NoEffect());
-			}
-		}
-		assert(effectMap.size()>0);
-		return effectMap;
 	}
 	
 	public void createDb() {

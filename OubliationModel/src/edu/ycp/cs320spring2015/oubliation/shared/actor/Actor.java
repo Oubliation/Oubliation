@@ -2,17 +2,20 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.util.EnumMap;
 
 import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.ActionModifier;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Corpse;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 
 /**
  * Living/dead/undead entities within the game world
@@ -23,8 +26,8 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 
 	private int health;
 	private Status status;
-
 	private Loadout loadout; // contains all equipment
+	private EnumMap<Element, Double> elementalMods;
 	
 	/**
 	 * 
@@ -39,11 +42,12 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public Actor(NameTag nameTag, int health, StatusMemento status, Loadout loadout) {
+	public Actor(NameTag nameTag, int health, Status status, Loadout loadout, EnumMap<Element, Double> elementalMods) {
 		super(nameTag);
 		this.health = health;
-		this.status = status.constructStatus(this);
+		this.status = status.refresh();
 		this.loadout = loadout;
+		this.elementalMods = elementalMods;
 	}
 	
 	//TODO: public abstract int startTurn();
@@ -60,6 +64,7 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	 */
 	public abstract int getMaxHealth();
 	
+	public abstract int getInitiative();
 	
 	/**
 	 * @return the total of Armor Rank across equipped armor 
@@ -81,6 +86,13 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 	
 	public String getStatusName() {
 		return status.getName();
+	}
+	
+	public ActionModifier getActionModifier(Actor target) {
+		return status.getActionModifier(this, target);
+	}
+	public ActionModifier getTargetModifier() {
+		return status.getTargetModifier(this);
 	}
 	
 	/**
@@ -120,39 +132,47 @@ public abstract class Actor extends EntityClass implements HasIdentity, Serializ
 		return loadout.getEquippedUtilities();
 	}
 	
+	public abstract int getAttackMod();
+	public abstract int getAccuracyMod();
+	protected abstract int getEvasion();
+	public abstract void selectAnyBattleBehavior(BattleController controller);
+	
 	
 	/**
 	 * @return whether attack has hit or missed
 	 */
 	public boolean hitTest(int accuracy) {
-		return false;
+		return (0.70 + 0.05*(accuracy+getAccuracyMod()-getEvasion())) *2 >= Math.random()+Math.random();
 	}
 	
 	/**
 	 * @param amount amount of healing received
 	 */
-	public void receiveHealing(int amount) {
+	public int receiveHealing(int amount) {
 		health += amount;
 		int maxHealth = getMaxHealth();
 		if (health > maxHealth) {
 			health = maxHealth;
 		}
+		return amount;
 	}
 	/**
 	 * @param amount amount of damage received
 	 */
-	public void receiveDamage(int amount) {
-		health -= amount;
+	public int receiveDamage(int amount, Element element) {
+		int finalAmount = Math.max(amount-getArmorRank(), 0)*elementalMods.get(element).intValue();
+		health -= Math.max(amount-getArmorRank(), 0)*elementalMods.get(element);
 		if (health <= 0) {
 			health = 0;
-			setStatus(new Corpse(this));
+			setStatus(new Corpse());
 		}
+		return finalAmount;
 	}
 	/**
 	 * status to be afflicted with; not implemented yet
 	 */
 	public void setStatus(Status status) {
 		this.status = status;
-	} //TODO: what if it's a magic drain attack?
+	}
 	
 }

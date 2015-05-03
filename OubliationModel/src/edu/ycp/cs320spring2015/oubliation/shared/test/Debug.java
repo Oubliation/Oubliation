@@ -1,12 +1,11 @@
 package edu.ycp.cs320spring2015.oubliation.shared.test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
@@ -17,15 +16,15 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Floor;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
 
 /**
  * 
@@ -160,12 +159,12 @@ public class Debug {
 		PlayerStats stats = makePlayerStats();
 		
 		NameTag playerTag = new NameTag("Nevik", "A character controlled by the Player");
-		return new PlayerActor(playerTag, 20, new StatusMemento("Healthy"), loadout, identity, stats);
+		return new PlayerActor(playerTag, 20, new Healthy(), loadout, identity, stats);
 	}
 	
-	public static CreateInventory makeInventory() {
+	public static Inventory makeInventory() {
 		//TODO: insert items for testing
-		return new CreateInventory();
+		return new Inventory();
 	}
 
 	/**

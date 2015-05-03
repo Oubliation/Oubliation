@@ -1,8 +1,7 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer;
 
-import java.util.ArrayList;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 /**
  * 
  * Represents the rewards to the player for a successful battle
@@ -11,11 +10,10 @@ import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
 public class EnemySpoils {
 	private int experienceGiven;
 	private int moneyGiven;
-	private final ArrayList<Item> itemsGiven;
+	private Inventory itemsGiven;
 	
 	public EnemySpoils(int experienceGiven, int moneyGiven,
-			ArrayList<Item> itemsGiven) {
-		super();
+			Inventory itemsGiven) {
 		this.experienceGiven = experienceGiven;
 		this.moneyGiven = moneyGiven;
 		this.itemsGiven = itemsGiven;
@@ -36,7 +34,7 @@ public class EnemySpoils {
 	 * 
 	 * @return Items that are to be given to the party.
 	 */
-	public Item[] getItemsGiven() {
-		return itemsGiven.toArray(new Item[itemsGiven.size()]);
+	public Inventory getItemsGiven() {
+		return itemsGiven;
 	}
 }

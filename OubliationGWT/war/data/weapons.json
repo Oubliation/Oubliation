@@ -4,6 +4,18 @@
 		"description": "Hit things to perform murder.",
 		"price": 100,
 		"equippableBy": [],
-		"effect": null
+		"behavior": {
+			"primaryEffect": "NoEffect",
+			"target": "SelectAnyOpposingUnits",
+			"healthDeltaMin": 5,
+			"healthDeltaRange": 5,
+			"accuracy": 3,
+			"element": "physical",
+			"secondaryEffect": "NoEffect",
+			"potency": 3,
+			"actionDescriptor": "swung wildly!",
+			"primaryDescriptor": "cut to pieces",
+			"secondaryDescriptor": ""
+		}
 	}
 ]

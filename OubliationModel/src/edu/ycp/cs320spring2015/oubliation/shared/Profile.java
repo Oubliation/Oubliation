@@ -21,7 +21,7 @@ public final class Profile implements Serializable {
 	
 	private String username;
 	private int money = 0; 
-	private CreateInventory inventory;
+	private Inventory inventory;
 	private ArrayList<PlayerActor> party;  //active player actors
 	private ArrayList<PlayerActor> roster; //reserve player actors
 	private HashSet<String> dungeonFlags; //active dungeon flags
@@ -34,7 +34,7 @@ public final class Profile implements Serializable {
 	 * @param roster characters waiting in the guild
 	 * @param dungeonFlags flags triggered by the party inside the dungeon.
 	 */
-	public Profile(String username, int money, CreateInventory inventory,
+	public Profile(String username, int money, Inventory inventory,
 			ArrayList<PlayerActor> party, ArrayList<PlayerActor> roster,
 			HashSet<String> dungeonFlags) {
 		this.username = username;

@@ -1,10 +1,10 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 
 /**
  * Interface for equipping items.

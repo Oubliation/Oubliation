@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.LinkedList;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
 
 /**

@@ -50,7 +50,7 @@ public class TownBarracks extends Composite {
 	 * @param actor
 	 */
 	public void removeStatus(PlayerActor actor){
-		actor.setStatus(new Healthy(actor));
+		actor.setStatus(new Healthy());
 	}
 	
 	/**

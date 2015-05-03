@@ -1,5 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.client.transfer;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
@@ -8,6 +9,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Entity;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 
 public abstract class EntityOverlay extends JavaScriptObject {
 	protected EntityOverlay() {}
@@ -36,5 +38,13 @@ public abstract class EntityOverlay extends JavaScriptObject {
 			stringSet.add(string);
 		}
 		return stringSet;
+	}
+
+	static protected <T> EnumMap<Element, T> getElementMap(JsElementMap<T> jsMap) {
+		EnumMap<Element, T> enumMap = new EnumMap<Element, T>(Element.class);
+		for (Element score : Element.values()) {
+			enumMap.put(score, jsMap.getElement(score));
+		}
+		return enumMap;
 	}
 }

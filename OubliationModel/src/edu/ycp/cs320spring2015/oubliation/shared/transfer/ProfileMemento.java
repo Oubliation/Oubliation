@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 
@@ -46,7 +46,7 @@ public class ProfileMemento implements Serializable {
 	public Profile constructProfile(LoadoutLoader loader) {
 		ArrayList<PlayerActor> party = new ArrayList<PlayerActor>();
 		ArrayList<PlayerActor> roster = new ArrayList<PlayerActor>();
-		CreateInventory inventory = inventoryTransfer.constructInventory(loader);
+		Inventory inventory = inventoryTransfer.constructInventory(loader);
 
 		for (PlayerActorMemento actor : partyTransfer) {
 			party.add(actor.constructPlayerActor(loader));

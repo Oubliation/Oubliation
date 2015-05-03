@@ -2,15 +2,15 @@ package edu.ycp.cs320spring2015.oubliation.shared;
 
 import java.util.ArrayList;
 
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.InventoryMemento;
 
-public class CreateInventory {
+public class Inventory {
 	private ArrayList<Item> itemInv;
 	private ArrayList<Headwear> headwearInv;
 	private ArrayList<Suit> suitInv;
@@ -18,7 +18,7 @@ public class CreateInventory {
 	private ArrayList<Utility> utilityInv;
 	private ArrayList<Weapon> weaponInv;
 	
-	public CreateInventory() {
+	public Inventory() {
 		this.itemInv = new ArrayList<Item>();;
 		this.headwearInv = new ArrayList<Headwear>();
 		this.suitInv = new ArrayList<Suit>();
@@ -27,11 +27,10 @@ public class CreateInventory {
 		this.weaponInv = new ArrayList<Weapon>();
 	}
 	
-	public CreateInventory(ArrayList<Item> itemInv,
+	public Inventory(ArrayList<Item> itemInv,
 			ArrayList<Headwear> headwearInv, ArrayList<Suit> suitInv,
 			ArrayList<Shield> shieldInv, ArrayList<Utility> utilityInv,
 			ArrayList<Weapon> weaponInv) {
-		super();
 		this.itemInv = itemInv;
 		this.headwearInv = headwearInv;
 		this.suitInv = suitInv;
@@ -39,6 +38,52 @@ public class CreateInventory {
 		this.utilityInv = utilityInv;
 		this.weaponInv = weaponInv;
 	}
+
+
+	public Item[] getItemInv() {
+		return itemInv.toArray(new Item[itemInv.size()]);
+	}
+	public Headwear[] getHeadwearInv() {
+		return headwearInv.toArray(new Headwear[headwearInv.size()]);
+	}
+	public Suit[] getSuitInv() {
+		return suitInv.toArray(new Suit[suitInv.size()]);
+	}
+	public Shield[] getShieldInv() {
+		return shieldInv.toArray(new Shield[shieldInv.size()]);
+	}
+	public Utility[] getUtilityInv() {
+		return utilityInv.toArray(new Utility[utilityInv.size()]);
+	}
+	public Weapon[] getWeaponInv() {
+		return weaponInv.toArray(new Weapon[weaponInv.size()]);
+	}
+	
+	public void createInventory(Inventory inv) {
+		for (Item item : inv.getItemInv()) {
+			createItem(item);
+		}
+		for (Headwear headwear : inv.getHeadwearInv()) {
+			createHeadwear(headwear);
+		}
+		for (Suit suit : inv.getSuitInv()) {
+			createSuit(suit);
+		}
+		for (Shield shield : inv.getShieldInv()) {
+			createShield(shield);
+		}
+		for (Utility utility : inv.getUtilityInv()) {
+			createUtility(utility);
+		}
+		for (Weapon weapon : inv.getWeaponInv()) {
+			createWeapon(weapon);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param item to add to the inventory
+	 */
 	public void createItem(Item item){
 		itemInv.add(item);
 	}

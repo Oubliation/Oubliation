@@ -1,11 +1,12 @@
-package edu.ycp.cs320spring2015.oubliation.shared.effect;
+package edu.ycp.cs320spring2015.oubliation.shared.items;
 
 import java.util.TreeSet;
 
-import edu.ycp.cs320spring2015.oubliation.shared.CreateInventory;
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 
 /**
  * 
@@ -16,34 +17,33 @@ public class Utility extends Equipment {
 	private static final long serialVersionUID = -4845314151894554625L;
 	public Utility() {}
 	
-	private Effect effect;
+	private Behavior behavior;
 	
 	public Utility(NameTag nameTag, int price,
-			TreeSet<String> equippableBy, Effect effect) {
+			TreeSet<String> equippableBy, Behavior behavior) {
 		super(nameTag, price, equippableBy);
-		this.effect = effect;
+		this.behavior = behavior;
 	}
 
 	/**
 	 * @param controller used to effect state
 	 */
-	public void apply(BattleController controller) { //TODO: consider exactly how effect works
-		
+	public void select(BattleController controller) {
+		behavior.select(controller);
 	}
 	
 	@Override
-	public void addTo(CreateInventory inventory) {
+	public void addTo(Inventory inventory) {
 		inventory.createUtility(this);
 	}
 	@Override
-	public void removeFrom(CreateInventory inventory) {
+	public void removeFrom(Inventory inventory) {
 		inventory.destroyUtility(this);
 	}
 
 	@Override
 	public void equipTo(CanEquip loadout) {
 		loadout.equip(this);
-		
 	}
 
 	@Override

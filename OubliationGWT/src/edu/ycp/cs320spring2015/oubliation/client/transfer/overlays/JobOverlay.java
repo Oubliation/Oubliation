@@ -20,7 +20,7 @@ public class JobOverlay extends EntityOverlay {
 		}
 	}
 	
-	static public Map<String, Job> remapHeadwear(Map<String, JobOverlay> overlayMap) {
+	static public Map<String, Job> remapJobs(Map<String, JobOverlay> overlayMap) {
 		EntityExtractor<Job, JobOverlay> extractor = new EntityExtractor<Job, JobOverlay>() {
 			public Job getEntity(JobOverlay overlay) {
 				return overlay.getJob();

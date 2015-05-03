@@ -20,7 +20,7 @@ public class BackgroundOverlay extends EntityOverlay {
 		}
 	}
 	
-	static public Map<String, Background> remapBackground(Map<String, BackgroundOverlay> overlayMap) {
+	static public Map<String, Background> remapBackgrounds(Map<String, BackgroundOverlay> overlayMap) {
 		EntityExtractor<Background, BackgroundOverlay> extractor = new EntityExtractor<Background, BackgroundOverlay>() {
 			public Background getEntity(BackgroundOverlay overlay) {
 				return overlay.getBackground();

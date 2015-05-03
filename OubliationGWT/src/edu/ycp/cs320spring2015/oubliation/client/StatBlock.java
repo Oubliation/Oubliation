@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
 import edu.ycp.cs320spring2015.oubliation.shared.Entity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 /**
  * 
  * Displays stat block for a single character.

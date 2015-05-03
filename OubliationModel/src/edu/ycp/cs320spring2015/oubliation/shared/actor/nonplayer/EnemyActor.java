@@ -1,18 +1,18 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.EnumMap;
 
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
-import edu.ycp.cs320spring2015.oubliation.shared.effect.Item;
-import edu.ycp.cs320spring2015.oubliation.shared.transfer.StatusMemento;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 
 public class EnemyActor extends NonPlayerActor {
 	private static final long serialVersionUID = 1948800440853986420L;
 	
-	final private transient EnemySpoils enemySpoils;
+	private EnemySpoils enemySpoils;
 	
 	/**
 	 * 
@@ -23,9 +23,10 @@ public class EnemyActor extends NonPlayerActor {
 	 * @param stats {@link NonPlayerStats}
 	 * @param enemySpoils {@link EnemySpoils}
 	 */
-	public EnemyActor(NameTag nameTag, StatusMemento status, Loadout loadout,
-			NonPlayerIdentity identity, NonPlayerStats stats, EnemySpoils enemySpoils) {
-		super(nameTag, status, loadout, identity, stats);
+	public EnemyActor(NameTag nameTag, Status status, Loadout loadout,
+			EnumMap<Element, Double> elementalMods, NonPlayerIdentity identity,
+			NonPlayerStats stats, EnemySpoils enemySpoils) {
+		super(nameTag, status, loadout, elementalMods, identity, stats);
 		this.enemySpoils = enemySpoils;
 	}
 	/**
@@ -45,13 +46,12 @@ public class EnemyActor extends NonPlayerActor {
 	/**
 	 * @return All the times that are to be given to the party.
 	 */
-	public Item[] getItemsGiven() {
-		Item[] itemArray = enemySpoils.getItemsGiven();
-		Item[] utilityArray = getLoadout().getEquippedUtilities();
-
-	    List<Item> allItemsGiven = new ArrayList<Item>(itemArray.length + utilityArray.length);
-	    Collections.addAll(allItemsGiven, itemArray);
-	    Collections.addAll(allItemsGiven, utilityArray);
-	    return allItemsGiven.toArray(new Item[allItemsGiven.size()]);
+	public Inventory getItemsGiven() {
+		Inventory inventory = enemySpoils.getItemsGiven();
+		Utility[] utilityArray = getLoadout().getEquippedUtilities();
+		for (Utility utility : utilityArray) {
+			inventory.createUtility(utility);
+		}
+	    return inventory;
 	}
 }
