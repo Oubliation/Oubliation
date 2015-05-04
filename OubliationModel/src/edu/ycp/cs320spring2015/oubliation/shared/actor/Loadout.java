@@ -161,6 +161,23 @@ final public class Loadout implements CanEquip, Serializable {
 	}
 
 	public void addTransferData(PlayerActorMemento transfer) {
-		transfer.setLoadout(headwear.getName(), suit.getName(), shield.getName(), hand.getName());
+		String headwearName = null;
+		String suitName = null;
+		String shieldName = null;
+		String handName = null;
+		if (headwear != null) {
+			headwearName = headwear.getName();
+		}
+		if (suit != null) {
+			suitName = suit.getName();
+		}
+		if (shield != null) {
+			shieldName = shield.getName();
+		}
+		if (hand != null) {
+			handName = hand.getName();
+		}
+		
+		transfer.setLoadout(headwearName, suitName, shieldName, handName);
 	}
 }

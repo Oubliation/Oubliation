@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.ycp.cs320spring2015.oubliation.client.BaseScreen;
 import edu.ycp.cs320spring2015.oubliation.client.Login;
 import edu.ycp.cs320spring2015.oubliation.client.Oubliation;
 import edu.ycp.cs320spring2015.oubliation.client.ViewDungeon;
@@ -23,7 +24,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.Profile;
  * Displays controls for navigating the town
  *
  */
-public class ViewTown extends Composite {
+public class ViewTown extends Composite implements BaseScreen {
 
 	private static ViewTownUiBinder uiBinder = GWT
 			.create(ViewTownUiBinder.class);
@@ -44,6 +45,7 @@ public class ViewTown extends Composite {
 	private Widget location;
 
 	public ViewTown(Profile profile) {
+		super();
 		initWidget(uiBinder.createAndBindUi(this));
 		this.profile = profile;
 		enterOutskirts();
@@ -51,8 +53,7 @@ public class ViewTown extends Composite {
 	
 	@UiHandler("stats")
 	void onClickViewStats(ClickEvent e) {
-		this.setVisible(false);
-		RootPanel.get("gwtapp").add(new ViewStats(profile.getParty(), this));
+		overlayScreen(new ViewStats(profile.getParty(), this));
 	}
 	
 	@UiHandler("guild")
@@ -63,6 +64,18 @@ public class ViewTown extends Composite {
 	@UiHandler("barracks")
 	void onClickBarracks(ClickEvent e) {
 		enterLocation(new TownBarracks(this));
+	}
+	
+	public void overlayScreen(Widget screen) {
+		this.setVisible(false);
+		RootPanel.get("gwtapp").add(screen);
+		saveGame();
+	}
+	
+	public void removeOverlay(Widget screen) {
+		screen.removeFromParent();
+		this.setVisible(true);
+		saveGame();
 	}
 
 	public void enterLocation(Widget destination) {
@@ -114,7 +127,9 @@ public class ViewTown extends Composite {
 	
 	@UiHandler("quit")
 	void onClickQuit(ClickEvent e){
+		GWT.log("saving game...");
 		saveGame();
+		GWT.log("game saved.");
 		this.removeFromParent();
 		RootPanel.get("gwtapp").add(new Login());
 	}

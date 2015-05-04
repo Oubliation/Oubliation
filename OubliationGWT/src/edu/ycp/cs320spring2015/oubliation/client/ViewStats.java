@@ -26,9 +26,9 @@ public class ViewStats extends Composite {
 	
 	@UiField FlowPanel statContainer;
 	
-	final Widget previousScreen; //contains previously displayed screen
+	final BaseScreen previousScreen; //contains previously displayed screen
 	
-	public ViewStats(PlayerActor[] party, Widget currentScreen) {
+	public ViewStats(PlayerActor[] party, BaseScreen currentScreen) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.previousScreen = currentScreen;
 		
@@ -44,8 +44,7 @@ public class ViewStats extends Composite {
 	 */
 	@UiHandler("backLink")
 	void onClick(ClickEvent event) {
-		this.removeFromParent();
-		previousScreen.setVisible(true);
+		previousScreen.removeOverlay(this);
 	}
 
 }

@@ -74,7 +74,7 @@ public class TownGuild extends Composite{
 	
 	@UiHandler("recruit")
 	void onClick(ClickEvent e) {
-		view.enterLocation(new TownRecruit(view));
+		view.overlayScreen(new TownRecruit(view));
 	}
 	
 //	@UiField

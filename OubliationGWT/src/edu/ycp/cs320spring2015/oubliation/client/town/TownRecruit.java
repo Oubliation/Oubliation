@@ -16,7 +16,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Hyperlink;
+import com.google.gwt.user.client.ui.InlineHyperlink;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -158,24 +158,6 @@ public class TownRecruit extends Composite {
 				scores.add(new InlineLabel(score.name()+": "));
 				Button minus = new Button("-");
 				Button plus = new Button("+");
-				/*minus.addHandler(new ClickHandler() {
-					public void onClick(ClickEvent e) {
-						if (pointsRemaining < maxPoints) {
-							pointsRemaining += 1;
-							chosenScores.put(score, chosenScores.get(score)-1);
-							update();
-						}
-					}
-				}, ClickEvent.getType());
-				plus.addHandler(new ClickHandler() {
-					public void onClick(ClickEvent e) {
-						if (pointsRemaining > 0) {
-							pointsRemaining -= 1;
-							chosenScores.put(score, chosenScores.get(score)+1);
-							update();
-						}
-					}
-				}, ClickEvent.getType());*/
 				minus.addClickHandler(new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -205,37 +187,48 @@ public class TownRecruit extends Composite {
 			points.setText(String.valueOf(pointsRemaining));
 			jobs.clear();
 			for (final PlayerJob job : jobMap.values()) {
-				for (BruceScore score : BruceScore.values()) {
-					if (chosenBackground.isCompatibleJob(job) && job.meetsRequirement(score,
-							chosenSpecies.getBaseScore(score)+chosenScores.get(score))) {
-						Hyperlink jobLink = new Hyperlink();
-						jobLink.setText(job.getName());
+				if (chosenBackground.isCompatibleJob(job) && meetsRequirements(job)) {
+					InlineHyperlink jobLink = new InlineHyperlink();
+					jobLink.setText(job.getName());
 
-						jobLink.addHandler(new ClickHandler() {
-							public void onClick(ClickEvent e) {
-								NameTag nameTag = new NameTag(name.getText(), "Player controlled actor");
-								Loadout loadout = new Loadout(null, null, null, null, new ArrayList<Utility>());
-								PlayerIdentity identity = new PlayerIdentity(chosenBackground, chosenSpecies, job, 1, 0);
-								int[] witchMp = {0, 0, 0, 0, 0, 0};
-								int[] priestMp = {0, 0, 0, 0, 0, 0};
-								PlayerStats stats = new PlayerStats(new ArrayList<Utility>(), chosenScores, witchMp, priestMp);
-								view.getProfile().createActor(new PlayerActor(nameTag, identity.getMaxHealth(), new Healthy(), loadout, identity, stats));
-								
-								view.enterLocation(new TownGuild(view));
-							}
-						}, ClickEvent.getType());
+					jobLink.addHandler(new ClickHandler() {
+						public void onClick(ClickEvent e) {
+							NameTag nameTag = new NameTag(name.getText(), "Player controlled actor");
+							Loadout loadout = new Loadout(null, null, null, null, new ArrayList<Utility>());
+							PlayerIdentity identity = new PlayerIdentity(chosenBackground, chosenSpecies, job, 1, 0);
+							int[] witchMp = {0, 0, 0, 0, 0, 0};
+							int[] priestMp = {0, 0, 0, 0, 0, 0};
+							PlayerStats stats = new PlayerStats(new ArrayList<Utility>(), chosenScores, witchMp, priestMp);
+							view.getProfile().createActor(new PlayerActor(nameTag, identity.getMaxHealth(), new Healthy(), loadout, identity, stats));
+							
+							back();
+						}
+					}, ClickEvent.getType());
 						jobs.add(jobLink);
-					} else {
-						jobs.add( new Label(job.getName()) );
-					}
+				} else {
+					jobs.add(new InlineLabel(job.getName()));
 				}
 			}
 		}
 		
 	}
+	
+	private boolean meetsRequirements(PlayerJob job) {
+		for (BruceScore score : BruceScore.values()) {
+			if (!job.meetsRequirement(score, chosenSpecies.getBaseScore(score)+chosenScores.get(score))) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@UiHandler("back")
 	void onClickBack(ClickEvent e) {
+		back();
+	}
+	
+	public void back() {
+		view.removeOverlay(this);
 		view.enterLocation(new TownGuild(view));
 	}
 }
