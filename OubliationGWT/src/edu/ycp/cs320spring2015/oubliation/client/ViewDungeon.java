@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -21,15 +22,17 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.FloorOverlay;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Dungeon;
+import edu.ycp.cs320spring2015.oubliation.shared.location.Exitable;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Floor;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Ordinal;
+import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
 
 /**
  * 
  * Provides first person view of dungeon and controls for navigating it.  
  *
  */
-public class ViewDungeon extends Composite {
+public class ViewDungeon extends Composite implements Exitable{
 
 	private static ViewDungeonUiBinder uiBinder = GWT
 			.create(ViewDungeonUiBinder.class);
@@ -55,7 +58,7 @@ public class ViewDungeon extends Composite {
 		AsyncCallback<EntityResourceMap<FloorOverlay>> floorCallback = new AsyncCallback<EntityResourceMap<FloorOverlay>>() {
 			public void onSuccess(EntityResourceMap<FloorOverlay> data) {
 				Map<String, Floor> floors = FloorOverlay.remapFloors(data);
-				ViewDungeon.this.dungeon = new Dungeon(0, floors);
+				ViewDungeon.this.dungeon = new Dungeon(0, floors, ViewDungeon.this);
 
 				renderDungeon();
 			}
@@ -80,8 +83,7 @@ public class ViewDungeon extends Composite {
 	 */
 	@UiHandler("Forward")
 	void onClickForward(ClickEvent e) {
-		if(dungeon.getRelTile(1, 0).isToOutskirts()){enterOutskirts();}
-		else if(!dungeon.getRelTile(1, 0).isSolid()){dungeon.move(Ordinal.forward, profile);}		
+		if(!dungeon.getRelTile(1, 0).isSolid()){move(Ordinal.forward);}		
 		renderDungeon();
 	}
 	
@@ -93,8 +95,7 @@ public class ViewDungeon extends Composite {
 	 */
 	@UiHandler("Backward")
 	void onClickBackward(ClickEvent e) {
-		if(dungeon.getRelTile(-1, 0).isToOutskirts()){enterOutskirts();}
-		if(!dungeon.getRelTile(-1, 0).isSolid()){dungeon.move(Ordinal.backward, profile);}
+		if(!dungeon.getRelTile(-1, 0).isSolid()){move(Ordinal.backward);}
 		renderDungeon();
 	}
 	
@@ -104,7 +105,7 @@ public class ViewDungeon extends Composite {
 	 */
 	@UiHandler("Left")
 	void onClickLeft(ClickEvent e) {
-		dungeon.move(Ordinal.left, profile);
+		move(Ordinal.left);
 		renderDungeon();
 	}
 	
@@ -114,19 +115,25 @@ public class ViewDungeon extends Composite {
 	 */
 	@UiHandler("Right")
 	void onClickRight(ClickEvent e) {
-		dungeon.move(Ordinal.right, profile);
+		move(Ordinal.right);
 		renderDungeon();
 	}	
 	
-	private void enterOutskirts() {
-		this.removeFromParent();
-		RootPanel.get("gwtapp").add(new ViewTown(profile));
+	private void move(Ordinal direction) {
+		final Tile.Reaction onEnterDelay = dungeon.move(direction, profile);
+		Timer delay = new Timer() {
+			public void run() {
+				onEnterDelay.react();
+			}
+		};
+		delay.schedule(500);
 	}
 	
 	/**
 	 * renders current dungeon view to context
 	 */
 	private void renderDungeon() {
+		
 		dungeonName.setText("You are on dungeon level " + dungeon.getLevel() +": "+ dungeon.getTitle() + "!"); // level you are on
 		cardinalDirection.setText("You are facing " + dungeon.getFacing() + "."); // compass facing
 		context.rect(0, 0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
@@ -134,13 +141,21 @@ public class ViewDungeon extends Composite {
 		for(int i = 0; i < dungeon.getMap().getMapWidth(); i++){
 			for(int j = 0; j < dungeon.getMap().getMapHeight(); j++){				
 				if(i == dungeon.getPlayerX() && j == dungeon.getPlayerY()){context.setFillStyle("#FFFC00");} // player position
-				else if(dungeon.getMap().getTile(i,j).isToOutskirts()){context.setFillStyle("#00FF00");}  // back to town; doesn't work now, renders as no wall
-				else if(dungeon.getMap().getTile(i,j).isSolid()){context.setFillStyle("#FF0000");} // wall
-				else if(!dungeon.getMap().getTile(i,j).isSolid()){context.setFillStyle("#0026FF");} // no wall
+				else {
+					context.setFillStyle( dungeon.getMap().getTile(i, j).getHtmlColor() );
+				}
 				context.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
 				
 			}
 		}		
+	}
+
+
+
+	@Override
+	public void exit() {
+		this.removeFromParent();
+		RootPanel.get("gwtapp").add(new ViewTown(profile));
 	}
 
 	

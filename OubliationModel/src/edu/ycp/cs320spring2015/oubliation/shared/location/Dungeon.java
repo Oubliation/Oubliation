@@ -1,8 +1,14 @@
 package edu.ycp.cs320spring2015.oubliation.shared.location;
 
 import java.util.Map;
+import java.util.PriorityQueue;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
+import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleAction;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.HazardAi;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 public class Dungeon {
 	
@@ -11,16 +17,18 @@ public class Dungeon {
 	private Cardinal facing;
 	private Map<String, Floor> dungeon;
 	private Floor map;
+	private Exitable toTown;
 	
-	public Dungeon(int level, Map<String, Floor> dungeon) {
+	public Dungeon(int level, Map<String, Floor> dungeon, Exitable toTown) {
 		this.facing = Cardinal.west;
 		this.playerX = 1;
 		this.playerY = 2;
 		this.dungeon = dungeon;
+		this.toTown = toTown;
 		setLevel(level);
 	}
 	
-	public void move(Ordinal direction, Profile profile) {
+	public Tile.Reaction move(Ordinal direction, final Profile profile) {
 		switch(direction) {
 		case left: 
 			facing = facing.rotateLeft();
@@ -37,6 +45,12 @@ public class Dungeon {
 			playerY -= facing.getY();
 			break;
 		}
+		final Tile tile = map.getTile(playerX, playerY);
+		final PartyController controller = getPartyController(tile, profile.getParty());
+		tile.onEnterInstant(controller);
+		return tile.getOnEnterDelay(controller);
+		
+		
 	}
 	
 	public Cardinal getFacing(){
@@ -73,6 +87,61 @@ public class Dungeon {
 	}
 	public int getPlayerY(){
 		return this.playerY;
+	}
+	
+	public Map<String, Tile.Reaction> getControls(Actor[] party) {
+		int tileX = playerX + facing.getX();
+		int tileY = playerY + facing.getY();
+		Tile tile = map.getTile(tileX, tileY);
+		return tile.getControls(getPartyController(tile, party));
+	}
+	
+	private PartyController getPartyController(final Tile tile, final Actor[] party) {
+		final PriorityQueue<BattleAction> actionQueue = new PriorityQueue<BattleAction>();
+		return new PartyController() {
+
+			@Override
+			public void selectSelf(Behavior behavior) {
+				throw new IllegalStateException();
+			}
+
+			@Override
+			public void selectAlliedUnits(Behavior behavior) {
+				new HazardAi(tile, party, actionQueue).selectAlliedUnits(behavior);;
+				actionQueue.poll().apply();
+				
+			}
+
+			@Override
+			public void selectAlliedRows(Behavior behavior) {
+				new HazardAi(tile, party, actionQueue).selectAlliedRows(behavior);;
+				actionQueue.poll().apply();
+			}
+
+			@Override
+			public void selectAlliedColumns(Behavior behavior) {
+				new HazardAi(tile, party, actionQueue).selectAlliedColumns(behavior);;
+				actionQueue.poll().apply();
+			}
+
+			@Override
+			public void selectAlliedGroup(Behavior behavior) {
+				new HazardAi(tile, party, actionQueue).selectAlliedGroup(behavior);;
+				actionQueue.poll().apply();
+			}
+
+			@Override
+			public void moveParty(int forwardDist, int sideDist) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void toTown() {
+				toTown.exit();
+			}
+			
+		};
 	}
 	
 }

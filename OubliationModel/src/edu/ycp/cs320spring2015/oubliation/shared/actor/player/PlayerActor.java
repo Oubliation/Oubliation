@@ -200,7 +200,7 @@ final public class PlayerActor extends Actor implements Serializable {
 	public int getEvasion() {
 		return getScore(BruceScore.quickly);
 	}
-	public void selectAnyBattleBehavior(BattleController controller) {
+	public void selectAnyBehavior(BattleController controller) {
 		getHand().select(controller);
 	}
 	

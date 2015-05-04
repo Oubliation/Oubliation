@@ -34,10 +34,6 @@ public class Floor extends EntityClass {
 		return this.map[x][y];
 	}
 	
-	public void createTile(int x, int y) {
-		this.map[x][y] = new Tile();
-	}
-	
 	public void setTile(int x, Tile[] tile) {
 		this.map[x] = tile;
 	}

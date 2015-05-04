@@ -78,7 +78,7 @@ public abstract class NonPlayerActor extends Actor {
 		return stats.getEvasion();
 	}
 	
-	public void selectAnyBattleBehavior(BattleController controller) {
+	public void selectAnyBehavior(BattleController controller) {
 		stats.selectBattleBehavior(controller);
 	}
 	

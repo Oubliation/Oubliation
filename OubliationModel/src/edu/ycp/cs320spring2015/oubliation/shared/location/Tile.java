@@ -1,10 +1,16 @@
 package edu.ycp.cs320spring2015.oubliation.shared.location;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import edu.ycp.cs320spring2015.oubliation.shared.targets.HasBehavior;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
+
 //import java.util.HashMap;
 //import java.util.Map;
 
 //TODO: Change back to abstract
-public class Tile {
+public abstract class Tile implements HasBehavior<PartyController> {
 	private boolean isSolid = false;
 	private boolean isStairsUp = false;
 	private boolean isStairsDown = false;
@@ -19,20 +25,46 @@ public class Tile {
 	private boolean isFight = false;
 	private boolean leverIsOn = false;
 	
+	String htmlColor;
+	
+	public Tile(Boolean isSolid, String htmlColor) {
+		this.isSolid = isSolid;
+		this.htmlColor = htmlColor;
+	}
+	
 	public void getNormalTexture() {}
 	public void getFrontTexture() {}
 	public void interact(DungeonController controller){}
 	
-//	public interface TileReaction {
-//		public void react();
-//		
-//	}
-//	
-//	public Map<String, TileReaction> getControls() {
-//		Map<String, TileReaction> reactionMap = new HashMap<String, TileReaction>();
-//		reactionMap.put("enter", new TileReaction() {
-//			public void react(PartyController controller) {
-//				controller.move(2, 0);
+	public interface Reaction {
+		public void react();
+		
+	}
+	
+	public void onEnterInstant(PartyController controller) {
+		
+	}
+	public Reaction getOnEnterDelay(PartyController controller) {
+		return new Reaction() {
+			public void react() {
+				
+			}
+		};
+	}
+	public Map<String, Reaction> getControls(final PartyController controller) {
+		return new HashMap<String, Reaction>();
+	}
+
+	@Override
+	public void selectAnyBehavior(PartyController controller) {
+		
+	}
+	
+//	public Map<String, Reaction> getControls(final PartyController controller) {
+//		Map<String, Reaction> reactionMap = new HashMap<String, Reaction>();
+//		reactionMap.put("enter", new Reaction() {
+//			public void react() {
+//				controller.moveParty(2, 0);
 //			}
 //		});
 //		
@@ -66,6 +98,10 @@ public class Tile {
 	public void setIsTrap(boolean trap){this.isTrap = trap;}
 	public void setIsFight(boolean fight){this.isFight = fight;}
 	public void setLeverIsOn(boolean onOff){this.leverIsOn = onOff;}
+	
+	public String getHtmlColor() {
+		return htmlColor;
+	}
 
 }
 

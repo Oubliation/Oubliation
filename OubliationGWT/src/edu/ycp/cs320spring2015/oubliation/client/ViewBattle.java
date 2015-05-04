@@ -23,6 +23,8 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleAi;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleAction;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 
 //TODO: AI, deserialization, status cleanup, startturn (etc), enemy deserialization
@@ -84,7 +86,7 @@ public class ViewBattle extends Composite implements BattleController {
 		} else {
 			playerIndex = null;
 			for (EnemyActor actor : enemies) {
-				new ArtificialIntelligence(actor, enemies, party, actionQueue, this);
+				new BattleAi(actor, enemies, party, actionQueue);
 			}
 			next();
 		}
@@ -333,7 +335,12 @@ public class ViewBattle extends Composite implements BattleController {
 		selectBack();
 	}
 	
-	public void moveParty(int x, int y) {
+	public void moveParty(int forwardDist, int sideDist) {
+		throw new IllegalStateException();
+	}
+
+	@Override
+	public void toTown() {
 		throw new IllegalStateException();
 	}
 }

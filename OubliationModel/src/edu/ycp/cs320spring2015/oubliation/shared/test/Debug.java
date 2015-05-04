@@ -21,8 +21,6 @@ import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
-import edu.ycp.cs320spring2015.oubliation.shared.location.Floor;
-import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
@@ -204,21 +202,21 @@ public class Debug {
 		return makeProfile(username).getTransferData();
 	}
 	
-	public static Floor makeMap(){		
-		Floor map = new Floor(new NameTag("floor one", "first floor"), new Tile[20][20]);
-		for(int i = 0; i < map.getMapWidth(); i++){
-			map.setTile(i, new Tile[20]);
-			for(int j = 0; j < map.getMapHeight(); j++){
-				map.createTile(i, j);
-				if(j == 0){map.getTile(i, j).setIsSolid(true);}
-				else if(i == 0){map.getTile(i, j).setIsSolid(true);}
-				else if(i == 1 && j == 1){map.getTile(i, j).setIsToOutskirts(true);}
-				else if(i == 18 && j == 18){map.getTile(i, j).setIsStairsUp(true);}
-				else if(i == 19){map.getTile(i, j).setIsSolid(true);}
-				else if(j == 19){map.getTile(i, j).setIsSolid(true);}
-				else if(i == 5 && j == 5){map.getTile(i, j).setIsSolid(true);}
-			}
-		}
-		return map;
-	}
+//	public static Floor makeMap(){		
+//		Floor map = new Floor(new NameTag("floor one", "first floor"), new Tile[20][20]);
+//		for(int i = 0; i < map.getMapWidth(); i++){
+//			map.setTile(i, new Tile[20]);
+//			for(int j = 0; j < map.getMapHeight(); j++){
+//				map.createTile(i, j);
+//				if(j == 0){map.getTile(i, j).setIsSolid(true);}
+//				else if(i == 0){map.getTile(i, j).setIsSolid(true);}
+//				else if(i == 1 && j == 1){map.getTile(i, j).setIsToOutskirts(true);}
+//				else if(i == 18 && j == 18){map.getTile(i, j).setIsStairsUp(true);}
+//				else if(i == 19){map.getTile(i, j).setIsSolid(true);}
+//				else if(j == 19){map.getTile(i, j).setIsSolid(true);}
+//				else if(i == 5 && j == 5){map.getTile(i, j).setIsSolid(true);}
+//			}
+//		}
+//		return map;
+//	}
 }
