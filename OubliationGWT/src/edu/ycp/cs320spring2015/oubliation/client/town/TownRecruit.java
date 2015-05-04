@@ -158,7 +158,7 @@ public class TownRecruit extends Composite {
 				scores.add(new InlineLabel(score.name()+": "));
 				Button minus = new Button("-");
 				Button plus = new Button("+");
-				minus.addHandler(new ClickHandler() {
+				/*minus.addHandler(new ClickHandler() {
 					public void onClick(ClickEvent e) {
 						if (pointsRemaining < maxPoints) {
 							pointsRemaining += 1;
@@ -175,7 +175,27 @@ public class TownRecruit extends Composite {
 							update();
 						}
 					}
-				}, ClickEvent.getType());
+				}, ClickEvent.getType());*/
+				minus.addClickHandler(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						if (pointsRemaining < maxPoints) {
+							pointsRemaining += 1;
+							chosenScores.put(score, chosenScores.get(score)-1);
+							update();
+						}
+					}
+				});
+				plus.addClickHandler(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						if (pointsRemaining > 0) {
+							pointsRemaining -= 1;
+							chosenScores.put(score, chosenScores.get(score)+1);
+							update();
+						}
+					}
+				});
 				
 				scores.add(minus);
 				scores.add(new InlineLabel(String.valueOf(chosenSpecies.getBaseScore(score)+chosenScores.get(score))));

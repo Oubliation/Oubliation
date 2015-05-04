@@ -79,7 +79,7 @@ public class DataKeeperImpl extends RemoteServiceServlet implements DataKeeper {
 
 	private Connection connect() throws SQLException {
 		String homeDir = System.getProperty("user.home");
-		Connection conn = DriverManager.getConnection("jdbc:derby:" + homeDir + "\\oubliation.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:" + homeDir + "/oubliation.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.

@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Sun May 03 23:24:48 EDT 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014d-1cf4-6326-00000ad75660 
-on database directory C:\Users\Kevin\oubliation.db with class loader WebAppClassLoader=1130894323@436813f3 
-Loaded from file:/C:/Users/Kevin/My%20Documents/workspace/Oubliation/OubliationGWT/src/edu/ycp/cs320spring2015/oubliation/server/derby.jar
+Mon May 04 11:37:51 EDT 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014d-1f93-8480-000007609ef0 
+on database directory /home/kgrasso3/oubliation.db with class loader WebAppClassLoader=1501852719@5984742f 
+Loaded from file:/home/kgrasso3/git/Oubliation/OubliationGWT/src/edu/ycp/cs320spring2015/oubliation/server/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_40-b26
-user.dir=C:\Users\Kevin\My Documents\workspace\Oubliation\OubliationGWT\war
-os.name=Windows 7
+java.runtime.version=1.8.0_11-b12
+user.dir=/home/kgrasso3/git/Oubliation/OubliationGWT/war
+os.name=Linux
 os.arch=amd64
-os.version=6.1
+os.version=3.13.0-24-generic
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
