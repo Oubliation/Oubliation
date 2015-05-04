@@ -95,15 +95,4 @@ public class HazardAi implements PartyController {
 
 	}
 
-	@Override
-	public void moveParty(int forwardDist, int sideDist) {
-		throw new IllegalStateException();
-	}
-
-	@Override
-	public void toTown() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

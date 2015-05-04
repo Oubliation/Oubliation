@@ -8,7 +8,6 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleAction;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.HazardAi;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 public class Dungeon {
 	
@@ -29,38 +28,45 @@ public class Dungeon {
 	}
 	
 	public Tile.Reaction move(Ordinal direction, final Profile profile) {
+		int destX, destY;
 		switch(direction) {
 		case left: 
 			facing = facing.rotateLeft();
-			break;
+			return null;
 		case right: 
 			facing = facing.rotateRight();
-			break;
+			return null;
 		case forward: 
-			playerX += facing.getX();
-			playerY += facing.getY();
-			break;
+			destX = playerX + facing.getX();
+			destY = playerY + facing.getY();
+			return moveTo(destX, destY, profile);
 		case backward:
-			playerX -= facing.getX();
-			playerY -= facing.getY();
-			break;
+			destX = playerX - facing.getX();
+			destY = playerY - facing.getY();
+			return moveTo(destX, destY, profile);
+		default:
+			throw new IllegalStateException();
 		}
+	}
+	
+	public Tile.Reaction moveTo(int destX, int destY, final Profile profile) {
+		playerX = destX;
+		playerY = destY;
+		
 		final Tile tile = map.getTile(playerX, playerY);
-		final PartyController controller = getPartyController(tile, profile.getParty());
+		final DungeonController controller = getDungeonController(tile, profile);
 		tile.onEnterInstant(controller);
 		return tile.getOnEnterDelay(controller);
-		
-		
 	}
 	
 	public Cardinal getFacing(){
 		return this.facing;
 	}
 	
-	public Tile getRelTile(int parallelCoord, int perpendicularCoord){
-		int x = playerX + facing.getX() * parallelCoord + facing.getY() * perpendicularCoord;
-		int y = playerY + facing.getY() * parallelCoord + facing.getX() * perpendicularCoord;
-		Tile relTile = this.map.getTile(x, y);
+	public Tile getRelTile(int forwardDist, int sideDist){
+		int tileX = playerX + facing.getX() * forwardDist + facing.rotateRight().getX() * sideDist;
+		int tileY = playerY + facing.getY() * forwardDist + facing.rotateRight().getY() * sideDist;
+		Tile relTile = this.map.getTile(tileX, tileY);
 		return relTile;
 	}
 	
@@ -89,16 +95,17 @@ public class Dungeon {
 		return this.playerY;
 	}
 	
-	public Map<String, Tile.Reaction> getControls(Actor[] party) {
+	public Map<String, Tile.Reaction> getControls(Profile profile) {
 		int tileX = playerX + facing.getX();
 		int tileY = playerY + facing.getY();
 		Tile tile = map.getTile(tileX, tileY);
-		return tile.getControls(getPartyController(tile, party));
+		return tile.getControls(getDungeonController(tile, profile));
 	}
 	
-	private PartyController getPartyController(final Tile tile, final Actor[] party) {
+	private DungeonController getDungeonController(final Tile tile, final Profile profile) {
+		final Actor[] party = profile.getParty();
 		final PriorityQueue<BattleAction> actionQueue = new PriorityQueue<BattleAction>();
-		return new PartyController() {
+		return new DungeonController() {
 
 			@Override
 			public void selectSelf(Behavior behavior) {
@@ -132,15 +139,26 @@ public class Dungeon {
 
 			@Override
 			public void moveParty(int forwardDist, int sideDist) {
-				// TODO Auto-generated method stub
+				int destX = playerX + facing.getX() * forwardDist + facing.rotateRight().getX() * sideDist;
+				int destY = playerY + facing.getY() * forwardDist + facing.rotateRight().getY() * sideDist;
 				
+				moveTo(destX, destY, profile);
+			}
+
+			@Override
+			public void teleportParty(int destX, int destY) {
+				moveTo(destX, destY, profile);
+			}
+			
+			@Override
+			public void setFacing(Cardinal facing) {
+				Dungeon.this.facing = facing;
 			}
 
 			@Override
 			public void toTown() {
 				toTown.exit();
 			}
-			
 		};
 	}
 	

@@ -8,6 +8,4 @@ public interface PartyController {
 	public void selectAlliedRows(Behavior behavior);
 	public void selectAlliedColumns(Behavior behavior);
 	public void selectAlliedGroup(Behavior behavior);
-	public void moveParty(int forwardDist, int sideDist);
-	public void toTown();
 }

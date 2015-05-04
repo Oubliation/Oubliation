@@ -1,8 +1,8 @@
 package edu.ycp.cs320spring2015.oubliation.shared.location;
 
-public class EmptyTile extends Tile {
+public class EmptySpace extends Tile {
 
-	public EmptyTile() {
+	public EmptySpace() {
 		super(false, "#0026FF");
 	}
 

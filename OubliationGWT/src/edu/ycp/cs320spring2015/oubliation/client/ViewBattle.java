@@ -334,13 +334,4 @@ public class ViewBattle extends Composite implements BattleController {
 		selectGivenGroup(source, targets, behavior);
 		selectBack();
 	}
-	
-	public void moveParty(int forwardDist, int sideDist) {
-		throw new IllegalStateException();
-	}
-
-	@Override
-	public void toTown() {
-		throw new IllegalStateException();
-	}
 }

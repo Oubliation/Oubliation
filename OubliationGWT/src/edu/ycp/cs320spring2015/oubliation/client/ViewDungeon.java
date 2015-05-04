@@ -6,6 +6,7 @@ import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -13,6 +14,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -45,6 +47,7 @@ public class ViewDungeon extends Composite implements Exitable{
 	@UiField Label dungeonName;
 	@UiField Label cardinalDirection;
 	@UiField FlowPanel canvasPanel;
+	@UiField FlowPanel controls;
 	
 	private Canvas canvas; //canvas HTML object
 	private Context2d context; //Canvas 2d drawing context
@@ -121,12 +124,14 @@ public class ViewDungeon extends Composite implements Exitable{
 	
 	private void move(Ordinal direction) {
 		final Tile.Reaction onEnterDelay = dungeon.move(direction, profile);
-		Timer delay = new Timer() {
-			public void run() {
-				onEnterDelay.react();
-			}
-		};
-		delay.schedule(500);
+		if (onEnterDelay != null) {
+			Timer delay = new Timer() {
+				public void run() {
+					onEnterDelay.react();
+				}
+			};
+			delay.schedule(500);
+		}
 	}
 	
 	/**
@@ -147,7 +152,20 @@ public class ViewDungeon extends Composite implements Exitable{
 				context.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
 				
 			}
-		}		
+		}
+		controls.clear();
+		final Map<String, Tile.Reaction> controlMap = dungeon.getControls(profile);
+		for (final String action : controlMap.keySet()) {
+			Hyperlink control = new Hyperlink();
+			control.setText(action);
+			control.addHandler(new ClickHandler() {
+				public void onClick(com.google.gwt.event.dom.client.ClickEvent e) {
+					controlMap.get(action).react();
+					renderDungeon();
+				}
+			}, ClickEvent.getType());
+			controls.add(control);
+		}
 	}
 
 

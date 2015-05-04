@@ -1,7 +1,5 @@
 package edu.ycp.cs320spring2015.oubliation.shared.location;
 
-import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
-
 public class ToOutskirts extends Tile {
 
 	public ToOutskirts() {
@@ -10,7 +8,7 @@ public class ToOutskirts extends Tile {
 	}
 	
 	@Override
-	public void onEnterInstant(PartyController controller) {
+	public void onEnterInstant(DungeonController controller) {
 		controller.toTown();
 	}
 }

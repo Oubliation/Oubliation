@@ -8,7 +8,7 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Door;
-import edu.ycp.cs320spring2015.oubliation.shared.location.EmptyTile;
+import edu.ycp.cs320spring2015.oubliation.shared.location.EmptySpace;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Floor;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
 import edu.ycp.cs320spring2015.oubliation.shared.location.ToOutskirts;
@@ -70,10 +70,10 @@ public class FloorOverlay extends EntityOverlay {
 				case '&' :
 				case '7' :
 				case 'L' :
-					tileTiles[row][col] = new EmptyTile();
+					tileTiles[row][col] = new EmptySpace();
 					break;
 				case ' ' :
-					tileTiles[row][col] = new EmptyTile();
+					tileTiles[row][col] = new EmptySpace();
 					break;
 				default:
 					throw new IllegalStateException();

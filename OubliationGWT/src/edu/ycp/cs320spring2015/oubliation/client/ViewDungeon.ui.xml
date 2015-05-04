@@ -26,6 +26,7 @@
 				<g:Button  ui:field="Backward">Backward</g:Button>
 				<g:Button  ui:field="Left">Left</g:Button>
 				<g:Button  ui:field="Right">Right</g:Button>
+				<g:FlowPanel ui:field="controls" />
 			</g:FlowPanel>
    		</g:west>
   	 	<g:center>

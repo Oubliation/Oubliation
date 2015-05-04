@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
@@ -154,7 +155,7 @@ public class TownRecruit extends Composite {
 			
 			scores.clear();
 			for (final BruceScore score : BruceScore.values()) {
-				scores.add(new Label(score.name()+": "));
+				scores.add(new InlineLabel(score.name()+": "));
 				Button minus = new Button("-");
 				Button plus = new Button("+");
 				minus.addHandler(new ClickHandler() {
@@ -177,7 +178,7 @@ public class TownRecruit extends Composite {
 				}, ClickEvent.getType());
 				
 				scores.add(minus);
-				scores.add(new Label(String.valueOf(chosenSpecies.getBaseScore(score)+chosenScores.get(score))));
+				scores.add(new InlineLabel(String.valueOf(chosenSpecies.getBaseScore(score)+chosenScores.get(score))));
 				scores.add(plus);
 			}
 			

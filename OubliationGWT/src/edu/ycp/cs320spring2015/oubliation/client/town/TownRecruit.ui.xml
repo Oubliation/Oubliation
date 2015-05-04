@@ -15,8 +15,8 @@
 		<g:FlowPanel ui:field="gender" />
 		<g:FlowPanel ui:field="backgrounds" />
 		<g:FlowPanel ui:field="species" />
+		<g:Label>Points Remaining: </g:Label><g:Label ui:field="points" />
 		<g:FlowPanel ui:field="scores">
-			<g:Label>Points Remaining: </g:Label><g:Label ui:field="points" />
 		</g:FlowPanel>
 		<g:FlowPanel ui:field="jobs" />
 		<g:FlowPanel>
