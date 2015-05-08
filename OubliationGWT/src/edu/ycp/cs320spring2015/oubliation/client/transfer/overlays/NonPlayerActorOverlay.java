@@ -1,6 +1,5 @@
 package edu.ycp.cs320spring2015.oubliation.client.transfer.overlays;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -14,16 +13,7 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.JsElementMap;
 import edu.ycp.cs320spring2015.oubliation.shared.InventoryMapTuple;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.NonPlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.NonPlayerStats;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
-import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Background;
-import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
-import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Species;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 
 public class NonPlayerActorOverlay extends ActorOverlay {
@@ -105,7 +95,7 @@ public class NonPlayerActorOverlay extends ActorOverlay {
 		return new NonPlayerStats(getMaxHp(), getHitCount(), getInitiativeMin(), getInitiativeRange(), getAttackMod(), getAccuracyMod(), getArmorRank(), getEvasion(), getBehaviors());
 	}
 	
-//	final public NonPlayerActor getNonPlayerActor(InventoryMapTuple invMaps, IdentityMapTuple identityMaps) {
+//	final public NonPlayerActor getNonPlayerActor(InventoryMapTuple invMaps) {
 //		return new NonPlayerActor(getNameTag(), new Healthy(), getLoadout(invMaps), getElementMap(getElementalMods()), getStats());
 //	}
 }

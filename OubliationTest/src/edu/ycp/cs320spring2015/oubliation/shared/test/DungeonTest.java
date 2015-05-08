@@ -51,7 +51,7 @@ public class DungeonTest  {
 		assertTrue(dungeon.getFacing() == Cardinal.south);
 		dungeon.move(Ordinal.right, profile);
 		assertTrue(dungeon.getFacing() == Cardinal.west);
-		dungeon.move(Ordinal.right, profile);		
+		dungeon.move(Ordinal.right, profile);
 		assertTrue(dungeon.getFacing() == Cardinal.north);
 		dungeon.move(Ordinal.right, profile);
 		assertTrue(dungeon.getFacing() == Cardinal.east);
