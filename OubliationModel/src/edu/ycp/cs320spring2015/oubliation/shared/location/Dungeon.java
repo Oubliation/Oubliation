@@ -1,12 +1,14 @@
 package edu.ycp.cs320spring2015.oubliation.shared.location;
 
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.PriorityQueue;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.EnemyActor;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleAction;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.ActorAction;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.HazardAi;
 
 public class Dungeon {
@@ -15,15 +17,17 @@ public class Dungeon {
 	private int playerY;
 	private Cardinal facing;
 	private Map<String, Floor> dungeon;
+	private Map<String, EnemyActor> enemyMap;
 	private Floor map;
-	private Exitable toTown;
+	private StateController stateController;
 	
-	public Dungeon(int level, Map<String, Floor> dungeon, Exitable toTown) {
+	public Dungeon(int level, Map<String, Floor> dungeon, Map<String, EnemyActor> enemyMap, StateController stateController) {
 		this.facing = Cardinal.west;
 		this.playerX = 1;
 		this.playerY = 2;
 		this.dungeon = dungeon;
-		this.toTown = toTown;
+		this.enemyMap = enemyMap;
+		this.stateController = stateController;
 		setLevel(level);
 	}
 	
@@ -104,8 +108,9 @@ public class Dungeon {
 	
 	private DungeonController getDungeonController(final Tile tile, final Profile profile) {
 		final Actor[] party = profile.getParty();
-		final PriorityQueue<BattleAction> actionQueue = new PriorityQueue<BattleAction>();
+		final PriorityQueue<ActorAction> actionQueue = new PriorityQueue<ActorAction>();
 		return new DungeonController() {
+			private static final long serialVersionUID = -6748656140030697039L;
 
 			@Override
 			public void selectSelf(Behavior behavior) {
@@ -154,10 +159,55 @@ public class Dungeon {
 			public void setFacing(Cardinal facing) {
 				Dungeon.this.facing = facing;
 			}
+			
+			@Override
+			public void battle(String[] enemies) {
+				LinkedList<EnemyActor> enemyList = new LinkedList<EnemyActor>();
+				for (String enemy : enemies) {
+					enemyList.add(enemyMap.get(enemy));
+				}
+				stateController.battle(enemyList.toArray(new EnemyActor[enemyList.size()]));
+			}
 
 			@Override
 			public void toTown() {
-				toTown.exit();
+				stateController.exit();
+			}
+
+			@Override
+			public void selectAnyOpposingUnits(Behavior behavior) {
+				throw new IllegalStateException();
+				
+			}
+
+			@Override
+			public void selectFrontOpposingUnits(Behavior behavior) {
+				throw new IllegalStateException();
+				
+			}
+
+			@Override
+			public void selectAnyOpposingRows(Behavior behavior) {
+				throw new IllegalStateException();
+				
+			}
+
+			@Override
+			public void selectFrontOpposingRow(Behavior behavior) {
+				throw new IllegalStateException();
+				
+			}
+
+			@Override
+			public void selectAnyOpposingColumns(Behavior behavior) {
+				throw new IllegalStateException();
+				
+			}
+
+			@Override
+			public void selectOpposingGroup(Behavior behavior) {
+				throw new IllegalStateException();
+				
 			}
 		};
 	}

@@ -6,8 +6,6 @@ import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Effect;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.NoEffect;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.SelectAlliedColumns;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.SelectAlliedGroup;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.SelectAlliedRows;
@@ -32,23 +30,23 @@ public class JsBehaviorData extends JavaScriptObject {
 		throw new IllegalStateException();
 	}
 
-	final protected TargetAdaptor<PartyController> getPartyTarget(String name) {
+	final protected TargetAdaptor getPartyTarget(String name) {
 		switch (name) {
-			case "SelectAlliedUnits": return new SelectAlliedUnits<PartyController>();
-			case "SelectAlliedRows": return new SelectAlliedRows<PartyController>();
-			case "SelectAlliedColumns": return new SelectAlliedColumns<PartyController>();
-			case "SelectAlliedGroup": return new SelectAlliedGroup<PartyController>();
-			case "SelectSelf": return new SelectSelf<PartyController>();
+			case "SelectAlliedUnits": return new SelectAlliedUnits();
+			case "SelectAlliedRows": return new SelectAlliedRows();
+			case "SelectAlliedColumns": return new SelectAlliedColumns();
+			case "SelectAlliedGroup": return new SelectAlliedGroup();
+			case "SelectSelf": return new SelectSelf();
 		}
 		throw new IllegalStateException();
 	}
-	final protected TargetAdaptor<BattleController> getBattleTarget(String name) {
+	final protected TargetAdaptor getBattleTarget(String name) {
 		switch (name) {
-			case "SelectAlliedUnits": return new SelectAlliedUnits<BattleController>();
-			case "SelectAlliedRows": return new SelectAlliedRows<BattleController>();
-			case "SelectAlliedColumns": return new SelectAlliedColumns<BattleController>();
-			case "SelectAlliedGroup": return new SelectAlliedGroup<BattleController>();
-			case "SelectSelf": return new SelectSelf<BattleController>();
+			case "SelectAlliedUnits": return new SelectAlliedUnits();
+			case "SelectAlliedRows": return new SelectAlliedRows();
+			case "SelectAlliedColumns": return new SelectAlliedColumns();
+			case "SelectAlliedGroup": return new SelectAlliedGroup();
+			case "SelectSelf": return new SelectSelf();
 			case "SelectAnyOpposingUnits": return new SelectAnyOpposingUnits();
 			case "SelectAnyOpposingRows": return new SelectAnyOpposingRows();
 			case "SelectAnyOpposingColumns": return new SelectAnyOpposingColumns();
@@ -115,7 +113,7 @@ public class JsBehaviorData extends JavaScriptObject {
 		return this.secondaryDescriptor;
 	}-*/;
 	
-	final public Behavior getBattleBehavior() {
+	final public Behavior getBehavior() {
 		return new Behavior(getPrimaryEffect(), getBattleTarget(getTargetName()), getHealthDeltaMin(), getHealthDeltaRange(),
 				getAccuracy(), getElement(), getSecondaryEffect(), getPotency(),
 				getActionDescriptor(), getPrimaryDescriptor(), getSecondaryDescriptor());

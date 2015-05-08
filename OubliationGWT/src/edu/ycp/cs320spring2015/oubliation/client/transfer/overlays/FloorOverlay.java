@@ -10,6 +10,7 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Door;
 import edu.ycp.cs320spring2015.oubliation.shared.location.EmptySpace;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Floor;
+import edu.ycp.cs320spring2015.oubliation.shared.location.HurtSpace;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
 import edu.ycp.cs320spring2015.oubliation.shared.location.ToOutskirts;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Wall;
@@ -55,6 +56,8 @@ public class FloorOverlay extends EntityOverlay {
 					tileTiles[row][col] = new Door();
 					break;
 				case 't' :
+					tileTiles[row][col] = new HurtSpace();
+					break;
 				case 'l' :	
 				case 'A' :
 				case 'D' :

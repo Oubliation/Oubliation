@@ -6,7 +6,7 @@ import java.util.Map;
 public class Door extends Tile {
 
 	public Door() {
-		super(true, "#000000");
+		super("Door", true, "#000000");
 	}
 	
 	public Map<String, Reaction> getControls(final DungeonController controller) {

@@ -20,12 +20,11 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import edu.ycp.cs320spring2015.oubliation.client.town.ViewTown;
-import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
-import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.FloorOverlay;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.DungeonResourceLoader;
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.EnemyActor;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Dungeon;
-import edu.ycp.cs320spring2015.oubliation.shared.location.Exitable;
-import edu.ycp.cs320spring2015.oubliation.shared.location.Floor;
+import edu.ycp.cs320spring2015.oubliation.shared.location.StateController;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Ordinal;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
 
@@ -34,7 +33,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.location.Tile;
  * Provides first person view of dungeon and controls for navigating it.  
  *
  */
-public class ViewDungeon extends Composite implements Exitable{
+public class ViewDungeon extends Composite implements StateController, BaseScreen{
 
 	private static ViewDungeonUiBinder uiBinder = GWT
 			.create(ViewDungeonUiBinder.class);
@@ -57,33 +56,16 @@ public class ViewDungeon extends Composite implements Exitable{
 		
 	public ViewDungeon(Profile profile) {
 		initWidget(uiBinder.createAndBindUi(this));
-		
-		AsyncCallback<EntityResourceMap<FloorOverlay>> floorCallback = new AsyncCallback<EntityResourceMap<FloorOverlay>>() {
-			public void onSuccess(EntityResourceMap<FloorOverlay> data) {
-				Map<String, Floor> floors = FloorOverlay.remapFloors(data);
-				ViewDungeon.this.dungeon = new Dungeon(0, floors, ViewDungeon.this);
+		new DungeonResourceLoader(new AsyncCallback<DungeonResourceLoader>() {
+			public void onSuccess(DungeonResourceLoader data) {
+				ViewDungeon.this.dungeon = new Dungeon(0, data.getFloorMap(), data.getEnemyMap(), ViewDungeon.this);
 
 				renderDungeon();
 			}
-			
 			public void onFailure(Throwable caught) {
 				mapError.setText(caught.getMessage());
 			}
-		};		
-		AsyncCallback<EntityResourceMap<FloorOverlay>> enemyCallback = new AsyncCallback<EntityResourceMap<FloorOverlay>>() {
-			public void onSuccess(EntityResourceMap<FloorOverlay> data) {
-				Map<String, Floor> floors = FloorOverlay.remapFloors(data);
-				ViewDungeon.this.dungeon = new Dungeon(0, floors, ViewDungeon.this);
-
-				renderDungeon();
-			}
-			
-			public void onFailure(Throwable caught) {
-				mapError.setText(caught.getMessage());
-			}
-		};		
-		
-		new FloorOverlay.ResourceMap(new String[] {"/data/dungeon.json"}, floorCallback);
+		});
 		
 		this.profile = profile;
 		canvas = Canvas.createIfSupported();
@@ -181,14 +163,27 @@ public class ViewDungeon extends Composite implements Exitable{
 		}
 	}
 
+	@Override
+	public void battle(EnemyActor[] enemies) {
+		overlayScreen(new ViewBattle(profile, enemies));
+	}
+	
+	@Override
+	public void overlayScreen(Widget screen) {
+		this.setVisible(false);
+		RootPanel.get("gwtapp").add(screen);
+	}
 
+	@Override
+	public void removeOverlay(Widget screen) {
+		screen.removeFromParent();
+		this.setVisible(true);
+	}
 
 	@Override
 	public void exit() {
 		this.removeFromParent();
 		RootPanel.get("gwtapp").add(new ViewTown(profile));
 	}
-
-	
 }
 

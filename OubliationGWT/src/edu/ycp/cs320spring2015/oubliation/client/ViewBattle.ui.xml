@@ -7,7 +7,7 @@
 	<g:FlowPanel>
 		<g:Label ui:field="info" />
 		<g:FlowPanel ui:field="enemyStats" />
-		<g:Grid ui:field="playerStats"><g:row><g:column>Name</g:column><g:column>Build</g:column><g:column>Health</g:column></g:row></g:Grid>
+		<g:Grid ui:field="playerStats"><g:row><g:cell>Name</g:cell><g:cell>Build</g:cell><g:cell>Health</g:cell></g:row></g:Grid>
 		<g:FlowPanel>
 			<g:Label ui:field="playerName" />
 			<g:FlowPanel ui:field="actionMenu">

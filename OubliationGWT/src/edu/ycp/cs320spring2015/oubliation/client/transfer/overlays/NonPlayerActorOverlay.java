@@ -70,14 +70,14 @@ public class NonPlayerActorOverlay extends ActorOverlay {
 		return this.evasion;
 	}-*/;
 	final protected native JsBehaviorData[] getBehaviorData() /*-{
-		return this.behavior;
+		return this.behaviors;
 	}-*/;
 	
 	final protected Behavior[] getBehaviors() {
 		JsBehaviorData[] data = getBehaviorData();
 		LinkedList<Behavior> value = new LinkedList<Behavior>();
 		for (JsBehaviorData spec : data) {
-			value.add(spec.getBattleBehavior());
+			value.add(spec.getBehavior());
 		}
 		return value.toArray(new Behavior[value.size()]);
 	}

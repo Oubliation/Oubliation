@@ -23,6 +23,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 public class ProfileLoader implements LoadoutLoader {
 	
+	private AsyncCallback<Void> callback;
 	private ProfileMemento transfer;
 	private Map<String, ItemOverlay> itemMap;
 	private Map<String, HeadwearOverlay> headwearMap;
@@ -31,23 +32,44 @@ public class ProfileLoader implements LoadoutLoader {
 	private Map<String, UtilityOverlay> utilityMap;
 	private Map<String, WeaponOverlay> weaponMap;
 	
-	public ProfileLoader(String usernameInput, final AsyncCallback<Profile> callback) {
+	protected ProfileLoader() {}
+	
+	public ProfileLoader(String usernameInput, final AsyncCallback<Profile> externalCallback) {
+		final AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+			public void onSuccess(Void _) {
+				if (transfer != null) {
+					externalCallback.onSuccess(transfer.constructProfile(ProfileLoader.this));
+				}
+			}
+			
+			public void onFailure(Throwable caught) {
+				externalCallback.onFailure(caught);
+			}
+		};
 		
 		AsyncCallback<ProfileMemento> transferCallback = new AsyncCallback<ProfileMemento>() {
 			public void onSuccess(ProfileMemento transfer) {
 				ProfileLoader.this.transfer = transfer;
-				tryProfileConstruction(callback);
+				tryConstruction();
 			}
 			
 			public void onFailure(Throwable caught) {
 				callback.onFailure(caught);
 			}
 		};
+		Oubliation.getDataKeeper().loadProfile(usernameInput, transferCallback);
+		
+		loadResources(callback);
+	}
+	
+	protected void loadResources(final AsyncCallback<Void> callback) {
+		this.callback = callback;
+		
 		AsyncCallback<EntityResourceMap<ItemOverlay>>
 			itemMapCallback = new AsyncCallback<EntityResourceMap<ItemOverlay>>() {
 				public void onSuccess(EntityResourceMap<ItemOverlay> entityMap) {
 					ProfileLoader.this.itemMap = entityMap;
-					tryProfileConstruction(callback);
+					tryConstruction();
 				}
 				
 				public void onFailure(Throwable caught) {
@@ -58,7 +80,7 @@ public class ProfileLoader implements LoadoutLoader {
 			headwearMapCallback = new AsyncCallback<EntityResourceMap<HeadwearOverlay>>() {
 				public void onSuccess(EntityResourceMap<HeadwearOverlay> entityMap) {
 					ProfileLoader.this.headwearMap = entityMap;
-					tryProfileConstruction(callback);
+					tryConstruction();
 				}
 				
 				public void onFailure(Throwable caught) {
@@ -69,7 +91,7 @@ public class ProfileLoader implements LoadoutLoader {
 			suitMapCallback = new AsyncCallback<EntityResourceMap<SuitOverlay>>() {
 				public void onSuccess(EntityResourceMap<SuitOverlay> entityMap) {
 					ProfileLoader.this.suitMap = entityMap;
-					tryProfileConstruction(callback);
+					tryConstruction();
 				}
 				
 				public void onFailure(Throwable caught) {
@@ -80,7 +102,7 @@ public class ProfileLoader implements LoadoutLoader {
 			shieldMapCallback = new AsyncCallback<EntityResourceMap<ShieldOverlay>>() {
 				public void onSuccess(EntityResourceMap<ShieldOverlay> entityMap) {
 					ProfileLoader.this.shieldMap = entityMap;
-					tryProfileConstruction(callback);
+					tryConstruction();
 				}
 				
 				public void onFailure(Throwable caught) {
@@ -91,7 +113,7 @@ public class ProfileLoader implements LoadoutLoader {
 			utilityMapCallback = new AsyncCallback<EntityResourceMap<UtilityOverlay>>() {
 				public void onSuccess(EntityResourceMap<UtilityOverlay> entityMap) {
 					ProfileLoader.this.utilityMap = entityMap;
-					tryProfileConstruction(callback);
+					tryConstruction();
 				}
 				
 				public void onFailure(Throwable caught) {
@@ -102,7 +124,7 @@ public class ProfileLoader implements LoadoutLoader {
 		weaponMapCallback = new AsyncCallback<EntityResourceMap<WeaponOverlay>>() {
 			public void onSuccess(EntityResourceMap<WeaponOverlay> entityMap) {
 				ProfileLoader.this.weaponMap = entityMap;
-				tryProfileConstruction(callback);
+				tryConstruction();
 			}
 			
 			public void onFailure(Throwable caught) {
@@ -110,7 +132,6 @@ public class ProfileLoader implements LoadoutLoader {
 			}
 	};
 	
-		Oubliation.getDataKeeper().loadProfile(usernameInput, transferCallback);
 		new ItemOverlay.ResourceMap(new String[] {"/data/items.json"}, itemMapCallback);
 		new HeadwearOverlay.ResourceMap(new String[] {"/data/headwear.json"}, headwearMapCallback);
 		new SuitOverlay.ResourceMap(new String[] {"/data/suits.json"}, suitMapCallback);
@@ -119,9 +140,9 @@ public class ProfileLoader implements LoadoutLoader {
 		new WeaponOverlay.ResourceMap(new String[] {"/data/weapons.json"}, weaponMapCallback);
 	}
 	
-	private void tryProfileConstruction(AsyncCallback<Profile> callback) {
-		if (transfer != null && headwearMap != null && suitMap != null && utilityMap != null && weaponMap != null) { //reflectionMaps means utilityMap & weaponMap are loaded
-			callback.onSuccess(transfer.constructProfile(this));
+	protected void tryConstruction() {
+		if (headwearMap != null && suitMap != null && utilityMap != null && weaponMap != null) { //reflectionMaps means utilityMap & weaponMap are loaded
+			callback.onSuccess(null);
 		}
 	}
 	

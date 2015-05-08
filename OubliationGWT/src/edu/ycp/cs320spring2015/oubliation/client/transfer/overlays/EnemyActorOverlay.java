@@ -60,32 +60,32 @@ public class EnemyActorOverlay extends NonPlayerActorOverlay {
 		ArrayList<Utility> utilityInv = new ArrayList<Utility>();
 		ArrayList<Weapon> weaponInv = new ArrayList<Weapon>();
 		
-		if (invMaps.getItemMap() != null) {
+		if (data.getItems() != null) {
 			for (String name : data.getItems()) {
 				itemInv.add(invMaps.getItemMap().get(name));
 			}
 		}
-		if (invMaps.getHeadwearMap() != null) {
+		if (data.getHeadwear() != null) {
 			for (String name : data.getHeadwear()) {
 				headwearInv.add(invMaps.getHeadwearMap().get(name));
 			}
 		} 
-		if (invMaps.getSuitMap() != null) {
+		if (data.getSuits() != null) {
 			for (String name : data.getSuits()) {
 				suitInv.add(invMaps.getSuitMap().get(name));
 			}
 		}
-		if (invMaps.getShieldMap() != null) {
+		if (data.getShields() != null) {
 			for (String name : data.getShields()) {
 				shieldInv.add(invMaps.getShieldMap().get(name));
 			}
 		}
-		if (invMaps.getUtilityMap() != null) {
+		if (data.getUtilities() != null) {
 			for (String name : data.getUtilities()) {
 				utilityInv.add(invMaps.getUtilityMap().get(name));
 			}
 		}
-		if (invMaps.getWeaponMap() != null) {
+		if (data.getWeapons() != null) {
 			for (String name : data.getWeapons()) {
 				weaponInv.add(invMaps.getWeaponMap().get(name));
 			}

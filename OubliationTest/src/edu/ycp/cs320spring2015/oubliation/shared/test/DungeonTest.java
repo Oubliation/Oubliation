@@ -31,7 +31,7 @@ public class DungeonTest  {
 		HashMap<String, Floor> floors = new HashMap<String, Floor>();
 		floors.put("0", map);
 		floors.put("1", map1);
-		dungeon = new Dungeon(0, floors, null);
+		dungeon = new Dungeon(0, floors, null, null);
 	}	
 	
 	@Test

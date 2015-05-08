@@ -24,13 +24,14 @@ import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleAi;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleAction;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.ActorAction;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 //TODO: AI, deserialization, status cleanup, startturn (etc), enemy deserialization
 
-public class ViewBattle extends Composite implements BattleController {
-
+public class ViewBattle extends Composite implements PartyController {
+	private static final long serialVersionUID = 6360195270267057410L;
+	
 	private static ViewBattleUiBinder uiBinder = GWT
 			.create(ViewBattleUiBinder.class);
 
@@ -55,8 +56,8 @@ public class ViewBattle extends Composite implements BattleController {
 	Profile profile;
 	PlayerActor[] party;
 	EnemyActor[] enemies;
-	PriorityQueue<BattleAction> actionQueue = new PriorityQueue<BattleAction>(new Comparator<BattleAction>() {
-		public int compare(BattleAction a, BattleAction b) {
+	PriorityQueue<ActorAction> actionQueue = new PriorityQueue<ActorAction>(11, new Comparator<ActorAction>() {
+		public int compare(ActorAction a, ActorAction b) {
 			return a.getPriority()-b.getPriority();
 		}
 	});
@@ -73,7 +74,7 @@ public class ViewBattle extends Composite implements BattleController {
 	
 	private void next() {
 		if (playerIndex == null) {
-			BattleAction action = actionQueue.poll();
+			ActorAction action = actionQueue.poll();
 			if (action != null) {
 				updateAction(action);
 			} else {
@@ -144,7 +145,7 @@ public class ViewBattle extends Composite implements BattleController {
 		//spells
 	}
 	
-	private void updateAction(BattleAction action) {
+	private void updateAction(ActorAction action) {
 		String[] descriptions = action.apply();
 		updateGeneral();
 		for (String description : descriptions) {
@@ -169,7 +170,7 @@ public class ViewBattle extends Composite implements BattleController {
 			targetOption.setText("> "+target.getName());
 			targetOption.addHandler(new ClickHandler() {
 				public void onClick(ClickEvent e) {
-					ViewBattle.this.actionQueue.add(new BattleAction(source, new Actor[] {target}, behavior));
+					ViewBattle.this.actionQueue.add(new ActorAction(source, new Actor[] {target}, behavior));
 					next();
 				}
 			}, ClickEvent.getType());
@@ -187,7 +188,7 @@ public class ViewBattle extends Composite implements BattleController {
 		targetOption.setText(targetString);
 		targetOption.addHandler(new ClickHandler() {
 			public void onClick(ClickEvent e) {
-				ViewBattle.this.actionQueue.add(new BattleAction(source, targets, behavior));
+				ViewBattle.this.actionQueue.add(new ActorAction(source, targets, behavior));
 				next();
 			}
 		}, ClickEvent.getType());
@@ -211,7 +212,7 @@ public class ViewBattle extends Composite implements BattleController {
 			targetOption.setText(targetString);
 			targetOption.addHandler(new ClickHandler() {
 				public void onClick(ClickEvent e) {
-					ViewBattle.this.actionQueue.add(new BattleAction(source, targetRow, behavior));
+					ViewBattle.this.actionQueue.add(new ActorAction(source, targetRow, behavior));
 					next();
 				}
 			}, ClickEvent.getType());
@@ -239,7 +240,7 @@ public class ViewBattle extends Composite implements BattleController {
 			targetOption.setText(targetString);
 			targetOption.addHandler(new ClickHandler() {
 				public void onClick(ClickEvent e) {
-					ViewBattle.this.actionQueue.add(new BattleAction(source, targetCol, behavior));
+					ViewBattle.this.actionQueue.add(new ActorAction(source, targetCol, behavior));
 					next();
 				}
 			}, ClickEvent.getType());
