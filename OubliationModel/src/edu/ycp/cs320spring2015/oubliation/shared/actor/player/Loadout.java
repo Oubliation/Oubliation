@@ -1,4 +1,4 @@
-package edu.ycp.cs320spring2015.oubliation.shared.actor;
+package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
 import java.io.Serializable;
 import java.util.ArrayList;

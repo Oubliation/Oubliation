@@ -1,8 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
 
-import edu.ycp.cs320spring2015.oubliation.shared.actor.CanEquip;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;

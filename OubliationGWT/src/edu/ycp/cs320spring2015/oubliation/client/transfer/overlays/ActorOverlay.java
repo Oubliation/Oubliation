@@ -12,7 +12,7 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.JsBruceMap;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.JsElementMap;
 import edu.ycp.cs320spring2015.oubliation.shared.InventoryMapTuple;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
@@ -92,7 +92,7 @@ public class ActorOverlay extends EntityOverlay {
 	}
 	
 	static public native JsElementMap<Double> getElementalMods() /*-{
-		return this.bruceGainRate;
+		return this.elementalMods;
 	}-*/;
 	
 //	final public Actor getActor(LoadoutMapTuple loadoutMaps) {

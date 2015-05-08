@@ -45,6 +45,10 @@ public final class Profile implements Serializable {
 		this.dungeonFlags = dungeonFlags;
 	}
 	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
 	/**
 	 * @param actor PlayerActor to add to roster
 	 */
@@ -204,9 +208,9 @@ public final class Profile implements Serializable {
 	 */
 	public void toggleFlag(String flag) {
 		if (isFlagActive(flag)) {
-			setFlag(flag);
-		} else {
 			clearFlag(flag);
+		} else {
+			setFlag(flag);
 		}
 	}
 	/**

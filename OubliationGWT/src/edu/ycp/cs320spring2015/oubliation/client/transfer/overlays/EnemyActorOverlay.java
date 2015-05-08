@@ -9,7 +9,6 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.JsInventoryData;
-import edu.ycp.cs320spring2015.oubliation.shared.IdentityMapTuple;
 import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.InventoryMapTuple;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.EnemyActor;
@@ -33,10 +32,10 @@ public class EnemyActorOverlay extends NonPlayerActorOverlay {
 		}
 	}
 	
-	static public Map<String, EnemyActor> remapEnemyActors(Map<String, EnemyActorOverlay> overlayMap, final InventoryMapTuple invMaps, final IdentityMapTuple identityMaps) {
+	static public Map<String, EnemyActor> remapEnemyActors(Map<String, EnemyActorOverlay> overlayMap, final InventoryMapTuple invMaps) {
 		EntityExtractor<EnemyActor, EnemyActorOverlay> extractor = new EntityExtractor<EnemyActor, EnemyActorOverlay>() {
 			public EnemyActor getEntity(EnemyActorOverlay overlay) {
-				return overlay.getEnemyActor(invMaps, identityMaps);
+				return overlay.getEnemyActor(invMaps);
 			}
 		};
 		return EntityOverlay.remapEntity(overlayMap, extractor);
@@ -99,7 +98,7 @@ public class EnemyActorOverlay extends NonPlayerActorOverlay {
 		return new EnemySpoils(getExpGiven(), getMoneyGiven(), getItemsGiven(invMaps));
 	}
 	
-	final public EnemyActor getEnemyActor(InventoryMapTuple invMaps, IdentityMapTuple identityMaps) {
-		return new EnemyActor(getNameTag(), new Healthy(), getLoadout(invMaps), getElementMap(getElementalMods()), getIdentity(identityMaps), getStats(), getEnemySpoils(invMaps));
+	final public EnemyActor getEnemyActor(InventoryMapTuple invMaps) {
+		return new EnemyActor(getNameTag(), new Healthy(), getElementMap(getElementalMods()), getStats(), getEnemySpoils(invMaps));
 	}
 }

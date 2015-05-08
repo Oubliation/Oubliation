@@ -106,7 +106,7 @@ public class ViewBattle extends Composite implements BattleController {
 			PlayerActor actor = party[count];
 			playerStats.setWidget(0, count, new Label(actor.getName()));
 			String buildText;
-			if (actor.getStatus().getClass().equals(Healthy.class)) {
+			if (actor.getStatusClass().equals(Healthy.class)) {
 				buildText = actor.getDescription();
 			} else {
 				buildText = actor.getStatusName();

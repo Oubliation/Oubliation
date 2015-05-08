@@ -42,7 +42,7 @@ public class TownBarracks extends Composite {
 	 * @param profile
 	 */
 	public void townHealParty(Profile profile){
-		profile.healParty(Integer.MAX_VALUE);
+		profile.healParty(9999);
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class TownBarracks extends Composite {
 		for (PlayerActor actor : profile.getParty()){
 			if(actor.isLevelUpReady()){actor.updateLevel();}
 		}
-		profile.healParty(Integer.MAX_VALUE);
+		profile.healParty(9999);
 	}
 	
 	/**

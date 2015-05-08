@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;

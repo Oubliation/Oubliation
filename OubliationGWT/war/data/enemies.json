@@ -1,1 +1,32 @@
-[]
+[{
+	"name": "Goblinoid",
+	"description": "The opposite of ghosts",
+	
+	"elementalMods": {
+		"physical": 1.0,
+		"thunder": 0.8,
+		"ice": 1.0,
+		"magic": 2.0
+	},
+	"maxHp": 10,
+	"hitCount": 1,
+	"initiativeMin": 2,
+	"initiativeRange": 4,
+	"attackMod": 0,
+	"accuracyMod": 0,
+	"armorRank": 0,
+	"evasion": 2,
+	"behaviors": [{
+		"actionDescriptor": "opened its jaws!",
+		"primaryDescriptor": "got bit",
+		"primaryEffect": "NoEffect",
+		"target": "SelectAnyOpposingUnits",
+		"healthDeltaMin": -2,
+		"healthDeltaRange": -2,
+		"accuracy": 5,
+		"element": "physical",
+		"potency": 0,
+		"secondaryDescriptor": "",
+		"secondaryEffect": "NoEffect"
+	}]
+}]

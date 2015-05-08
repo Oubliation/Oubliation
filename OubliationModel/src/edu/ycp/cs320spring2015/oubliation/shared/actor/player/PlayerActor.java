@@ -8,10 +8,13 @@ import java.util.Random;
 import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Equipment;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
@@ -25,6 +28,7 @@ final public class PlayerActor extends Actor implements Serializable {
 	private static final long serialVersionUID = -6349964020742433276L;
 	public PlayerActor () {}
 	
+	private Loadout loadout;
 	private PlayerIdentity identity;
 	private PlayerStats stats;
 	
@@ -49,7 +53,8 @@ final public class PlayerActor extends Actor implements Serializable {
 	 */
 	public PlayerActor(NameTag nameTag, int health, Status status,
 			Loadout loadout, PlayerIdentity identity, PlayerStats stats) {
-		super(nameTag, health, status, loadout, makeElementalMods());
+		super(nameTag, health, status, makeElementalMods());
+		this.loadout = loadout;
 		this.identity = identity;
 		this.stats = stats;
 	}
@@ -117,6 +122,53 @@ final public class PlayerActor extends Actor implements Serializable {
 	public int getPriestMp(int level) {
 		return stats.getPriestMp(level);
 	}
+	
+
+	/**
+	 * @return the equipped items 
+	 */
+	public Loadout getLoadout() {
+		return loadout;
+	}
+	/**
+	 * @return the equipped headwear
+	 */
+	public Headwear getHeadwear() {
+		return loadout.getHeadwear();
+	}
+	/**
+	 * @return the equipped suit 
+	 */
+	public Suit getSuit() {
+		return loadout.getSuit();
+	}
+	/**
+	 * @return the equipped shield 
+	 */
+	public Shield getShield() {
+		return loadout.getShield();
+	}
+	/**
+	 * @return the equipped item in the hand slot
+	 */
+	public Weapon getHand() {
+		return loadout.getHand();
+	}
+	/**
+	 * @return the equipped utility belt
+	 */
+	public Utility[] getEquippedUtilities() {
+		return loadout.getEquippedUtilities();
+	}
+
+	
+	/**
+	 * @return the total of Armor Rank across equipped armor 
+	 */
+	public int getArmorRank() {
+		return loadout.getArmorRank();
+	}
+	
 
 	/**
 	 * @param equipment to equip outside battle

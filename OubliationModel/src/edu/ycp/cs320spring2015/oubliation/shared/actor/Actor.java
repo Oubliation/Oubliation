@@ -6,14 +6,11 @@ import java.util.EnumMap;
 
 import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.ActionModifier;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Corpse;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.HasBehavior;
@@ -21,13 +18,12 @@ import edu.ycp.cs320spring2015.oubliation.shared.targets.HasBehavior;
 /**
  * Living/dead/undead entities within the game world
  */
-public abstract class Actor extends EntityClass implements HasIdentity, HasBehavior<BattleController>, Serializable {
+public abstract class Actor extends EntityClass implements HasBehavior<BattleController>, Serializable {
 	private static final long serialVersionUID = -1804243837789490964L;
 	public Actor() {}
 
 	private int health;
 	private Status status;
-	private Loadout loadout; // contains all equipment
 	private EnumMap<Element, Double> elementalMods;
 	
 	/**
@@ -43,11 +39,10 @@ public abstract class Actor extends EntityClass implements HasIdentity, HasBehav
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public Actor(NameTag nameTag, int health, Status status, Loadout loadout, EnumMap<Element, Double> elementalMods) {
+	public Actor(NameTag nameTag, int health, Status status, EnumMap<Element, Double> elementalMods) {
 		super(nameTag);
 		this.health = health;
 		this.status = status.refresh();
-		this.loadout = loadout;
 		this.elementalMods = elementalMods;
 	}
 	
@@ -68,13 +63,6 @@ public abstract class Actor extends EntityClass implements HasIdentity, HasBehav
 	public abstract int getInitiative();
 	
 	/**
-	 * @return the total of Armor Rank across equipped armor 
-	 */
-	public int getArmorRank() {
-		return loadout.getArmorRank();
-	}
-	
-	/**
 	 * @return remaining health points 
 	 */
 	public int getHealth() {
@@ -83,6 +71,10 @@ public abstract class Actor extends EntityClass implements HasIdentity, HasBehav
 	
 	public Status getStatus() {
 		return status;
+	}
+	
+	public Class<? extends Status> getStatusClass() {
+		return status.getClass();
 	}
 	
 	public String getStatusName() {
@@ -96,45 +88,9 @@ public abstract class Actor extends EntityClass implements HasIdentity, HasBehav
 		return status.getTargetModifier(this);
 	}
 	
-	/**
-	 * @return the equipped items 
-	 */
-	protected Loadout getLoadout() {
-		return loadout;
-	}
-	/**
-	 * @return the equipped headwear
-	 */
-	public Headwear getHeadwear() {
-		return loadout.getHeadwear();
-	}
-	/**
-	 * @return the equipped suit 
-	 */
-	public Suit getSuit() {
-		return loadout.getSuit();
-	}
-	/**
-	 * @return the equipped shield 
-	 */
-	public Shield getShield() {
-		return loadout.getShield();
-	}
-	/**
-	 * @return the equipped item in the hand slot
-	 */
-	public Weapon getHand() {
-		return loadout.getHand();
-	}
-	/**
-	 * @return the equipped utility belt
-	 */
-	public Utility[] getEquippedUtilities() {
-		return loadout.getEquippedUtilities();
-	}
-	
 	public abstract int getAttackMod();
 	public abstract int getAccuracyMod();
+	public abstract int getArmorRank();
 	protected abstract int getEvasion();
 	public abstract void selectAnyBehavior(BattleController controller);
 	
@@ -173,7 +129,14 @@ public abstract class Actor extends EntityClass implements HasIdentity, HasBehav
 	 * status to be afflicted with; not implemented yet
 	 */
 	public void setStatus(Status status) {
+		assert(getStatusClass() != Corpse.class);
 		this.status = status;
+	}
+	
+	public void revive(int healing) {
+		assert(getStatusClass() == Corpse.class);
+		receiveHealing(healing);
+		this.status = new Healthy();
 	}
 	
 }

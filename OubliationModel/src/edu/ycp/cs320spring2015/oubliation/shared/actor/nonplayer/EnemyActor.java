@@ -4,9 +4,8 @@ import java.util.EnumMap;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
-import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
 
 public class EnemyActor extends NonPlayerActor {
@@ -23,10 +22,10 @@ public class EnemyActor extends NonPlayerActor {
 	 * @param stats {@link NonPlayerStats}
 	 * @param enemySpoils {@link EnemySpoils}
 	 */
-	public EnemyActor(NameTag nameTag, Status status, Loadout loadout,
-			EnumMap<Element, Double> elementalMods, NonPlayerIdentity identity,
+	public EnemyActor(NameTag nameTag, Status status,
+			EnumMap<Element, Double> elementalMods,
 			NonPlayerStats stats, EnemySpoils enemySpoils) {
-		super(nameTag, status, loadout, elementalMods, identity, stats);
+		super(nameTag, status, elementalMods, stats);
 		this.enemySpoils = enemySpoils;
 	}
 	/**
@@ -47,11 +46,6 @@ public class EnemyActor extends NonPlayerActor {
 	 * @return All the times that are to be given to the party.
 	 */
 	public Inventory getItemsGiven() {
-		Inventory inventory = enemySpoils.getItemsGiven();
-		Utility[] utilityArray = getLoadout().getEquippedUtilities();
-		for (Utility utility : utilityArray) {
-			inventory.createUtility(utility);
-		}
-	    return inventory;
+		return enemySpoils.getItemsGiven();
 	}
 }

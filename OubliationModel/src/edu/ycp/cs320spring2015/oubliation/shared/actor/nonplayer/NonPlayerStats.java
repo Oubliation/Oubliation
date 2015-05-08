@@ -16,6 +16,7 @@ public class NonPlayerStats {
 	private int initiativeRange;
 	private int attackMod;
 	private int accuracyMod;
+	private int armorRank;
 	private int evasion;
 	private Behavior[] behaviors;
 	
@@ -30,7 +31,7 @@ public class NonPlayerStats {
 	 * @param evasion ability to evade incoming attack
 	 */
 	public NonPlayerStats(int maxHp, int hitCount, int initiativeMin,
-			int initiativeRange, int attackMod, int accuracyMod, int evasion,
+			int initiativeRange, int attackMod, int accuracyMod, int armorRank, int evasion,
 			Behavior[] behaviors) {
 		this.maxHp = maxHp;
 		this.hitCount = hitCount;
@@ -38,6 +39,7 @@ public class NonPlayerStats {
 		this.initiativeRange = initiativeRange;
 		this.attackMod = attackMod;
 		this.accuracyMod = accuracyMod;
+		this.armorRank = armorRank;
 		this.evasion = evasion;
 		this.behaviors = behaviors;
 	}
@@ -64,6 +66,9 @@ public class NonPlayerStats {
 	}
 	public int getAccuracyMod() {
 		return accuracyMod;
+	}
+	public int getArmorRank() {
+		return armorRank;
 	}
 	public int getEvasion() {
 		return evasion;

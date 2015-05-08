@@ -11,12 +11,10 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.JsBehaviorData;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.JsElementMap;
-import edu.ycp.cs320spring2015.oubliation.shared.IdentityMapTuple;
 import edu.ycp.cs320spring2015.oubliation.shared.InventoryMapTuple;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.NonPlayerActor;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.NonPlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.NonPlayerStats;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Background;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.Job;
@@ -47,32 +45,6 @@ public class NonPlayerActorOverlay extends ActorOverlay {
 //		};
 //		return EntityOverlay.remapEntity(overlayMap, extractor);
 //	}
-	
-	final protected native String getBackgroundName() /*-{
-		return this.background;
-	}-*/;
-	final protected Background getBackground(Map<String, Background> backgroundMap) {
-		return backgroundMap.get(getBackgroundName());
-	}
-	
-	final protected native String getSpeciesName() /*-{
-		return this.species;
-	}-*/;
-	final protected Species getSpecies(Map<String, Species> speciesMap) {
-		return speciesMap.get(getSpeciesName());
-	}
-	
-	final protected native String getJobName() /*-{
-		return this.job;
-	}-*/;
-	final protected Job getJob(Map<String, Job> jobMap) {
-		return jobMap.get(getJobName());
-	}
-	
-	final protected NonPlayerIdentity getIdentity(IdentityMapTuple identityMaps) {
-		return new NonPlayerIdentity(getBackground(identityMaps.getBackgroundMap()), getSpecies(identityMaps.getSpeciesMap()), getJob(identityMaps.getJobMap()));
-	}
-	
 	final protected native int getMaxHp() /*-{
 		return this.maxHp;
 	}-*/;
@@ -91,6 +63,9 @@ public class NonPlayerActorOverlay extends ActorOverlay {
 	final protected native int getAccuracyMod() /*-{
 		return this.accuracyMod;
 	}-*/;
+	final protected native int getArmorRank() /*-{
+	return this.armorRank;
+}-*/;
 	final protected native int getEvasion() /*-{
 		return this.evasion;
 	}-*/;
@@ -127,10 +102,10 @@ public class NonPlayerActorOverlay extends ActorOverlay {
 	}
 	
 	final protected NonPlayerStats getStats() {
-		return new NonPlayerStats(getMaxHp(), getHitCount(), getInitiativeMin(), getInitiativeRange(), getAttackMod(), getAccuracyMod(), getEvasion(), getBehaviors());
+		return new NonPlayerStats(getMaxHp(), getHitCount(), getInitiativeMin(), getInitiativeRange(), getAttackMod(), getAccuracyMod(), getArmorRank(), getEvasion(), getBehaviors());
 	}
 	
 //	final public NonPlayerActor getNonPlayerActor(InventoryMapTuple invMaps, IdentityMapTuple identityMaps) {
-//		return new NonPlayerActor(getNameTag(), new Healthy(), getLoadout(invMaps), getElementMap(getElementalMods()), getIdentity(identityMaps), getStats());
+//		return new NonPlayerActor(getNameTag(), new Healthy(), getLoadout(invMaps), getElementMap(getElementalMods()), getStats());
 //	}
 }

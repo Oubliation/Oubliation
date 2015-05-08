@@ -2,7 +2,6 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor.player;
 
 import java.io.Serializable;
 
-import edu.ycp.cs320spring2015.oubliation.shared.actor.HasIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
@@ -12,7 +11,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies
  * An player actor's identifying characteristics; implements serializable
  *
  */
-public class PlayerIdentity implements HasIdentity, Serializable {
+public class PlayerIdentity implements Serializable {
 	private static final long serialVersionUID = 8270320869115654218L;
 	public PlayerIdentity() {}
 	

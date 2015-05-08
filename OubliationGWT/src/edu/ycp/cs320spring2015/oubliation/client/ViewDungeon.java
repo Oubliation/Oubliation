@@ -70,6 +70,19 @@ public class ViewDungeon extends Composite implements Exitable{
 				mapError.setText(caught.getMessage());
 			}
 		};		
+		AsyncCallback<EntityResourceMap<FloorOverlay>> enemyCallback = new AsyncCallback<EntityResourceMap<FloorOverlay>>() {
+			public void onSuccess(EntityResourceMap<FloorOverlay> data) {
+				Map<String, Floor> floors = FloorOverlay.remapFloors(data);
+				ViewDungeon.this.dungeon = new Dungeon(0, floors, ViewDungeon.this);
+
+				renderDungeon();
+			}
+			
+			public void onFailure(Throwable caught) {
+				mapError.setText(caught.getMessage());
+			}
+		};		
+		
 		new FloorOverlay.ResourceMap(new String[] {"/data/dungeon.json"}, floorCallback);
 		
 		this.profile = profile;

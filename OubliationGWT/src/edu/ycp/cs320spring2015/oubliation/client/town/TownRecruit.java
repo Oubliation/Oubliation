@@ -28,8 +28,8 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.PlayerBackgro
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.PlayerJobOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.overlays.PlayerSpeciesOverlay;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;

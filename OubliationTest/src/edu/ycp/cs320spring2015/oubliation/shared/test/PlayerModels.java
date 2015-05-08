@@ -4,19 +4,26 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
-import edu.ycp.cs320spring2015.oubliation.shared.actor.Loadout;
+import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.BruceScore;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.player.Loadout;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerIdentity;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.PlayerStats;
+import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerBackground;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerJob;
 import edu.ycp.cs320spring2015.oubliation.shared.category.identity.PlayerSpecies;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
+import edu.ycp.cs320spring2015.oubliation.shared.items.Item;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Shield;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Corpse;
+import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
+import edu.ycp.cs320spring2015.oubliation.shared.transfer.ProfileMemento;
 
 public class PlayerModels {
 	@Test
@@ -175,9 +182,21 @@ public class PlayerModels {
 	
 	@Test
 	public void playerActor() {
-		PlayerActor actor = Debug.makePlayerActor();
+		anyPlayerActor(Debug.makePlayerActor());
+	}
+	
+	public void anyPlayerActor(PlayerActor actor) {
+		assertTrue(actor.getName() == "Nevik");
+		assertTrue(actor.getDescription() == "A character controlled by the Player");
 		
-		assertTrue(actor.getMaxHealth() == 40);
+		assertTrue(actor.getJobName() == "Witch");
+		assertTrue(actor.getBackgroundName() == "Scholar");
+		assertTrue(actor.getSpeciesName() == "Fairy");
+		assertTrue(actor.getJobDescription() == "");
+		assertTrue(actor.getBackgroundDescription() == "");
+		assertTrue(actor.getSpeciesDescription() == "Tiny people with wings");
+		
+		assertTrue(actor.getMaxHealth() == 42);
 		
 		assertTrue(actor.getHitCount() == 1);
 		
@@ -231,28 +250,221 @@ public class PlayerModels {
 		Suit suit = actor.getSuit();
 		Shield shield = actor.getShield();
 		Weapon weapon = actor.getHand();
-
-		assertTrue(actor.getArmorRank() == 6);
 		
-		actor.fieldUnequip(headwear);
-		actor.fieldUnequip(suit);
+		Inventory inventory = new Inventory();
+		
+		assertTrue(actor.getArmorRank() == 6);
+		actor.fieldUnequip(headwear, inventory);
+		assertTrue(actor.getArmorRank() == 5);
+		actor.fieldUnequip(suit, inventory);
 		assertTrue(actor.getArmorRank() == 2);
-		
-		actor.fieldUnequip(shield);
-		actor.fieldUnequip(weapon);
+		actor.fieldUnequip(shield, inventory);
 		assertTrue(actor.getArmorRank() == 0);
-		
-		
-		actor.fieldEquip(headwear);
-		actor.fieldEquip(suit);
+
+		actor.fieldEquip(headwear, inventory);
+		assertTrue(actor.getArmorRank() == 1);
+		actor.fieldEquip(suit, inventory);
 		assertTrue(actor.getArmorRank() == 4);
-		
-		actor.fieldEquip(shield);
-		actor.fieldEquip(weapon);
+		actor.fieldEquip(shield, inventory);
 		assertTrue(actor.getArmorRank() == 6);
+
+		actor.fieldUnequip(weapon, inventory);
+		assertTrue(actor.getHand() == null);
+		actor.fieldEquip(weapon, inventory);
+		assertTrue(actor.getHand() == weapon);
 		
-		//assertTrue(actor.getEquippedUtilities().equals(new Utility[0]));
+		actor.receiveDamage(9999, Element.physical);
+		assertTrue(actor.getHealth() == 0);
+		assertTrue(actor.getStatusClass() == Corpse.class);
+		assertTrue(actor.getStatusName() == "Corpse");
+		
+		actor.receiveDamage(9999, Element.physical);
+		actor.revive(9999);
+		assertTrue(actor.getStatusClass() == Healthy.class);
+		assertTrue(actor.getHealth() == 42);
+		
+		actor.receiveDamage(20, Element.physical);
+		assertTrue(actor.getHealth() != 42);
+		
+		actor.setStatus(new Healthy());
+		assertTrue(actor.getStatusClass() == Healthy.class);
+		
+		int initiative = actor.getInitiative();
+		int quickly = actor.getScore(BruceScore.quickly);
+		assertTrue(initiative >= quickly && initiative <= quickly + actor.getScore(BruceScore.luckily));
+		assertTrue(actor.getAttackMod() == actor.getScore(BruceScore.mightily)/3);
+		assertTrue(actor.getAccuracyMod() == actor.getScore(BruceScore.luckily)/3);
+		assertTrue(actor.getEvasion() == actor.getScore(BruceScore.quickly));
+		
+		
+//		PriorityQueue<BattleAction> actionQueue = new PriorityQueue<BattleAction>();
+//		weapon.select(new BattleAi(actor, new Actor[] {actor}, new Actor[] {actor}, actionQueue));
+//		actionQueue.poll().apply();
 	}
-	
+
+	@Test
+	public void profile() {
+		Profile profile = Debug.makeProfile();
+		
+		assertTrue(profile.getUsername() == "username");
+		assertTrue(profile.checkMoney(200));
+		profile.decMoney(100);
+		assertTrue(profile.checkMoney(100));
+		profile.decMoney(200);
+		assertTrue(profile.getMoney() == 0);
+		profile.incMoney(500);
+		assertTrue(profile.checkMoney(300));
+		assertTrue(profile.getMoney() == 500);
+		
+		assertTrue(profile.hasMaxParty());
+		PlayerActor[] party = profile.getParty();
+		PlayerActor[] roster = profile.getRoster();
+		assertTrue(party.length == 6);
+		assertTrue(roster.length == 10);
+		
+		PlayerActor actor = party[0];
+		
+		profile.removeActor(actor);
+		assertFalse(profile.hasMaxParty());
+		
+		party = profile.getParty();
+		assertTrue(party.length == 5);
+		roster = profile.getRoster();
+		assertTrue(roster[roster.length-1] == actor);
+		assertTrue(roster.length == 11);
+		
+		actor = Debug.makePlayerActor();
+		profile.createActor(actor);
+		roster = profile.getRoster();
+		assertTrue(roster.length == 12);
+		assertTrue(roster[roster.length-1] == actor);
+		
+		profile.addActor(actor);
+		assertTrue(profile.hasMaxParty());
+		assertTrue(profile.getRoster().length == 11);
+		party = profile.getParty();
+		assertTrue(party[party.length-1] == actor);
+		assertTrue(party.length == 6);
+		
+		for (PlayerActor test : profile.getParty()) {
+			anyPlayerActor(test);
+		}
+		for (PlayerActor test : profile.getRoster()) {
+			anyPlayerActor(test);
+		}
+		
+		profile.healParty(999999);
+		assertTrue(actor.getHealth() == actor.getMaxHealth());
+		int experience = actor.getExperience();
+		profile.increasePartyXP(200);
+		assertTrue(actor.getExperience() == experience + 200);
+		
+		actor = profile.getRoster()[0];
+		profile.destroyActor(actor);
+		roster = profile.getRoster();
+		assertTrue(actor != roster[0]);
+		assertTrue(roster.length == 10);
+		
+		assertFalse(profile.isFlagActive("foo"));
+		profile.setFlag("foo");
+		assertTrue(profile.isFlagActive("foo"));
+		profile.setFlag("foo");
+		assertTrue(profile.isFlagActive("foo"));
+		profile.toggleFlag("foo");
+		assertFalse(profile.isFlagActive("foo"));
+		profile.toggleFlag("foo");
+		assertTrue(profile.isFlagActive("foo"));
+		profile.clearFlag("foo");
+		assertFalse(profile.isFlagActive("foo"));
+		profile.clearFlag("foo");
+		assertFalse(profile.isFlagActive("foo"));
+		
+		Inventory inventory = profile.getInventory();
+
+		inventory.createInventory(inventory);
+		Item[] itemInv = inventory.getItemInv();
+		Headwear[] headwearInv = inventory.getHeadwearInv();
+		Suit[] suitInv = inventory.getSuitInv();
+		Shield[] shieldInv = inventory.getShieldInv();
+		Weapon[] weaponInv = inventory.getWeaponInv();
+		
+		assertTrue(itemInv.length == 0);
+		assertTrue(headwearInv.length == 0);
+		assertTrue(suitInv.length == 0);
+		assertTrue(shieldInv.length == 0);
+		assertTrue(weaponInv.length == 0);
+		
+		Item item = Debug.makeItem();
+		inventory.createItem(item);
+		actor.getHeadwear().addTo(inventory);
+		actor.getSuit().addTo(inventory);
+		actor.getShield().addTo(inventory);
+		actor.getHand().addTo(inventory);
+		
+		inventory.createInventory(inventory);
+		itemInv = inventory.getItemInv();
+		headwearInv = inventory.getHeadwearInv();
+		suitInv = inventory.getSuitInv();
+		shieldInv = inventory.getShieldInv();
+		weaponInv = inventory.getWeaponInv();
+
+		assertTrue(itemInv.length == 2);
+		assertTrue(headwearInv.length == 2);
+		assertTrue(suitInv.length == 2);
+		assertTrue(shieldInv.length == 2);
+		assertTrue(weaponInv.length == 2);
+		
+		for (Item inv : itemInv) {
+			assertTrue(inv == item);
+		}
+		for (Headwear inv : headwearInv) {
+			assertTrue(inv == actor.getHeadwear());
+		}
+		for (Suit inv : suitInv) {
+			assertTrue(inv == actor.getSuit());
+		}
+		for (Shield inv : shieldInv) {
+			assertTrue(inv == actor.getShield());
+		}
+		for (Weapon inv : weaponInv) {
+			assertTrue(inv == actor.getHand());
+		}
+		
+		inventory.destroyItem(item);
+		actor.getHeadwear().removeFrom(inventory);
+		actor.getSuit().removeFrom(inventory);
+		actor.getShield().removeFrom(inventory);
+		actor.getHand().removeFrom(inventory);
+		
+		itemInv = inventory.getItemInv();
+		headwearInv = inventory.getHeadwearInv();
+		suitInv = inventory.getSuitInv();
+		shieldInv = inventory.getShieldInv();
+		weaponInv = inventory.getWeaponInv();
+
+		assertTrue(itemInv.length == 1);
+		assertTrue(headwearInv.length == 1);
+		assertTrue(suitInv.length == 1);
+		assertTrue(shieldInv.length == 1);
+		assertTrue(weaponInv.length == 1);
+
+		for (Item inv : itemInv) {
+			assertTrue(inv == item);
+		}
+		for (Headwear inv : headwearInv) {
+			assertTrue(inv == actor.getHeadwear());
+		}
+		for (Suit inv : suitInv) {
+			assertTrue(inv == actor.getSuit());
+		}
+		for (Shield inv : shieldInv) {
+			assertTrue(inv == actor.getShield());
+		}
+		for (Weapon inv : weaponInv) {
+			assertTrue(inv == actor.getHand());
+		}
+		
+		profile.getTransferData();
+	}
 	//TODO: profile test
 }
