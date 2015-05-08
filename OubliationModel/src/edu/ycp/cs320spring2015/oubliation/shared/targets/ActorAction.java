@@ -5,13 +5,13 @@ import java.util.LinkedList;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 
-public class BattleAction {
-	private Actor source;
+public class ActorAction {
+	private ActionTarget source;
 	private Actor[] targets;
 	private Behavior behavior;
 	private int priority;
 	
-	public BattleAction(Actor source, Actor[] targets, Behavior behavior) {
+	public ActorAction(ActionTarget source, Actor[] targets, Behavior behavior) {
 		this.source = source;
 		this.targets = targets;
 		this.behavior = behavior;

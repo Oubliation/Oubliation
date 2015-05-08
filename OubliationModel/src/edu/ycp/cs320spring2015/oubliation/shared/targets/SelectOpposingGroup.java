@@ -2,12 +2,12 @@ package edu.ycp.cs320spring2015.oubliation.shared.targets;
 
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 
-public class SelectOpposingGroup implements TargetAdaptor<BattleController> {
+public class SelectOpposingGroup implements TargetAdaptor {
 	private static final long serialVersionUID = 7877565233298707664L;
 	public SelectOpposingGroup() {}
 
 	@Override
-	public void apply(BattleController controller, Behavior behavior) {
+	public void apply(PartyController controller, Behavior behavior) {
 		controller.selectOpposingGroup(behavior);
 	}
 

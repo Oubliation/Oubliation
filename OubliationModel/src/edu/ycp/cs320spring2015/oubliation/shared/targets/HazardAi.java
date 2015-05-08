@@ -8,37 +8,37 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 
 public class HazardAi implements PartyController {
+	private static final long serialVersionUID = -5996294505700075201L;
 	
-	private HasBehavior<PartyController> behaviorSource;
+	private ActionTarget actionSource;
 	private Actor actorSource;
 	private Actor[] allies;
-	private PriorityQueue<BattleAction> actionQueue;
+	private PriorityQueue<ActorAction> actionQueue;
+
 	
-	public HazardAi(Actor actorSource, Actor[] allies, PriorityQueue<BattleAction> actionQueue) {
-		this.behaviorSource = null;
-		this.actorSource = actorSource;
+	public HazardAi(Actor actionSource, Actor[] allies, PriorityQueue<ActorAction> actionQueue) {
+		this.actionSource = actionSource;
+		this.actorSource = actionSource;
 		this.allies = allies;
 		this.actionQueue = actionQueue;
 	}
-	
-	public HazardAi(HasBehavior<PartyController> behaviorSource, Actor[] allies, PriorityQueue<BattleAction> actionQueue) {
-		this.behaviorSource = behaviorSource;
-		this.actorSource = null;
+	public HazardAi(ActionTarget actionSource, Actor[] allies, PriorityQueue<ActorAction> actionQueue) {
+		this.actionSource = actionSource;
 		this.allies = allies;
 		this.actionQueue = actionQueue;
 	}
 	
 	public void select() {
-		behaviorSource.selectAnyBehavior(this);
+		actionSource.selectAnyBehavior(this);
 	}
 	
-	protected Actor getActorSource() {
-		return actorSource;
+	protected ActionTarget getActorSource() {
+		return actionSource;
 	}
 	protected Actor[] getAllies() {
 		return allies;
 	}
-	protected PriorityQueue<BattleAction> getActionQueue() {
+	protected PriorityQueue<ActorAction> getActionQueue() {
 		return actionQueue;
 	}
 	
@@ -67,32 +67,68 @@ public class HazardAi implements PartyController {
 
 	@Override
 	public void selectSelf(Behavior behavior) {
-		actionQueue.add(new BattleAction(actorSource, new Actor[] {actorSource}, behavior));
+		actionQueue.add(new ActorAction(actionSource, new Actor[] { actorSource }, behavior));
 	}
 
 	@Override
 	public void selectAlliedUnits(Behavior behavior) {
-		actionQueue.add(new BattleAction(actorSource, new Actor[] {allies[(new Random()).nextInt(allies.length)]}, behavior));
+		actionQueue.add(new ActorAction(actionSource, new Actor[] {allies[(new Random()).nextInt(allies.length)]}, behavior));
 	}
 
 	@Override
 	public void selectAlliedRows(Behavior behavior) {
 		Actor[][] targetRows = splitRows(allies);
-		actionQueue.add(new BattleAction(actorSource, targetRows[(new Random()).nextInt(targetRows.length)], behavior));
+		actionQueue.add(new ActorAction(actionSource, targetRows[(new Random()).nextInt(targetRows.length)], behavior));
 
 	}
 
 	@Override
 	public void selectAlliedColumns(Behavior behavior) {
 		Actor[][] targetCols = splitColumns(allies);
-		actionQueue.add(new BattleAction(actorSource, targetCols[(new Random()).nextInt(targetCols.length)], behavior));
+		actionQueue.add(new ActorAction(actionSource, targetCols[(new Random()).nextInt(targetCols.length)], behavior));
 
 	}
 
 	@Override
 	public void selectAlliedGroup(Behavior behavior) {
-		actionQueue.add(new BattleAction(actorSource, allies, behavior));
+		actionQueue.add(new ActorAction(actionSource, allies, behavior));
 
+	}
+
+	@Override
+	public void selectAnyOpposingUnits(Behavior behavior) {
+		throw new IllegalStateException();
+		
+	}
+
+	@Override
+	public void selectFrontOpposingUnits(Behavior behavior) {
+		throw new IllegalStateException();
+		
+	}
+
+	@Override
+	public void selectAnyOpposingRows(Behavior behavior) {
+		throw new IllegalStateException();
+		
+	}
+
+	@Override
+	public void selectFrontOpposingRow(Behavior behavior) {
+		throw new IllegalStateException();
+		
+	}
+
+	@Override
+	public void selectAnyOpposingColumns(Behavior behavior) {
+		throw new IllegalStateException();
+		
+	}
+
+	@Override
+	public void selectOpposingGroup(Behavior behavior) {
+		throw new IllegalStateException();
+		
 	}
 
 }

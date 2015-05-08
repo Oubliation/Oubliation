@@ -16,7 +16,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.items.Suit;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.PlayerActorMemento;
 
 /**
@@ -252,8 +252,10 @@ final public class PlayerActor extends Actor implements Serializable {
 	public int getEvasion() {
 		return getScore(BruceScore.quickly);
 	}
-	public void selectAnyBehavior(BattleController controller) {
+	@Override
+	public void selectAnyBehavior(PartyController controller) {
 		getHand().select(controller);
+		
 	}
 	
 	public void incExperience(int amount) {

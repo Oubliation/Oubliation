@@ -28,5 +28,11 @@
 		"potency": 0,
 		"secondaryDescriptor": "",
 		"secondaryEffect": "NoEffect"
-	}]
+	}],
+	
+	"expGiven": 100,
+	"moneyGiven": 100,
+	"itemsGiven": {
+	
+	}
 }]

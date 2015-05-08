@@ -6,7 +6,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 /**
  * 
  * For actors not controlled by player; extends Actor
@@ -56,9 +56,10 @@ public abstract class NonPlayerActor extends Actor {
 	public int getEvasion() {
 		return stats.getEvasion();
 	}
-	
-	public void selectAnyBehavior(BattleController controller) {
+	@Override
+	public void selectAnyBehavior(PartyController controller) {
 		stats.selectBattleBehavior(controller);
+		
 	}
 	
 	

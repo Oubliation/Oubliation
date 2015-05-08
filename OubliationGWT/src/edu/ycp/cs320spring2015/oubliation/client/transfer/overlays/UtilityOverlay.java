@@ -36,7 +36,7 @@ public class UtilityOverlay extends EquipmentOverlay {
 	}-*/;
 	
 	final protected Behavior getBehavior() {
-		return getBehaviorData().getBattleBehavior();
+		return getBehaviorData().getBehavior();
 	}
 
 	final public String[] getEffectNames() {

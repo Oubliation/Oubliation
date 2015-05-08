@@ -6,7 +6,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.Inventory;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.player.CanEquip;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 /**
  * 
@@ -28,7 +28,7 @@ public class Utility extends Equipment {
 	/**
 	 * @param controller used to effect state
 	 */
-	public void select(BattleController controller) {
+	public void select(PartyController controller) {
 		behavior.select(controller);
 	}
 	

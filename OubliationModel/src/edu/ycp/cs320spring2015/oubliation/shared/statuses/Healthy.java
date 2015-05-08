@@ -3,7 +3,8 @@ package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.ActionTarget;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 public class Healthy extends Status {
 	private static final long serialVersionUID = -245305006902248841L;
@@ -13,7 +14,7 @@ public class Healthy extends Status {
 	}
 	
 	@Override
-	public BattleController onTurnStart(BattleController controller) {
+	public PartyController onTurnStart(PartyController controller) {
 		return controller;
 	}
 	
@@ -29,7 +30,7 @@ public class Healthy extends Status {
 	}
 	
 	@Override
-	public ActionModifier getActionModifier(final Actor source, final Actor target) {
+	public ActionModifier getActionModifier(final ActionTarget source, final Actor target) {
 		final ActionModifier targetModifier = target.getTargetModifier();
 		return new HealthyModifier() {
 			@Override
@@ -45,11 +46,11 @@ public class Healthy extends Status {
 				return targetModifier.onReceiveHealing(amount);
 			}
 			@Override
-			public Actor getSource() {
+			public ActionTarget getSource() {
 				return source;
 			}
 			@Override
-			public Actor getTarget() {
+			public ActionTarget getTarget() {
 				return target;
 			}
 			@Override
@@ -60,7 +61,7 @@ public class Healthy extends Status {
 	}
 
 	@Override
-	public ActionModifier getTargetModifier(final Actor target) {
+	public ActionModifier getTargetModifier(final ActionTarget target) {
 		return new HealthyModifier() {
 			@Override
 			public boolean onHitTest(int accuracy) {
@@ -75,11 +76,11 @@ public class Healthy extends Status {
 				return target.receiveHealing(amount);
 			}
 			@Override
-			public Actor getSource() {
+			public ActionTarget getSource() {
 				return null;
 			}
 			@Override
-			public Actor getTarget() {
+			public ActionTarget getTarget() {
 				return target;
 			}
 			@Override

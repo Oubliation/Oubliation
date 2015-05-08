@@ -3,7 +3,7 @@ package edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer;
 import java.util.Random;
 
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 /**
  * Miscellaneous statistics of Non-Player Actors
@@ -73,7 +73,7 @@ public class NonPlayerStats {
 	public int getEvasion() {
 		return evasion;
 	}
-	public void selectBattleBehavior(BattleController controller) {
+	public void selectBattleBehavior(PartyController controller) {
 		behaviors[(new Random()).nextInt(behaviors.length)].select(controller);;
 	}
 }

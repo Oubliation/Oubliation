@@ -3,7 +3,8 @@ package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 import edu.ycp.cs320spring2015.oubliation.shared.EntityClass;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.BattleController;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.ActionTarget;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 public abstract class Status extends EntityClass {
 	private static final long serialVersionUID = -1230357693092494778L;
@@ -13,8 +14,8 @@ public abstract class Status extends EntityClass {
 		super(nameTag);
 	}
 	
-	public abstract BattleController onTurnStart(BattleController controller);
-	public abstract ActionModifier getActionModifier(final Actor source, Actor target);
-	public abstract ActionModifier getTargetModifier(final Actor target);
+	public abstract PartyController onTurnStart(PartyController controller);
+	public abstract ActionModifier getActionModifier(final ActionTarget source, Actor target);
+	public abstract ActionModifier getTargetModifier(final ActionTarget target);
 	public abstract Status refresh();
 }

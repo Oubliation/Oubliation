@@ -91,7 +91,7 @@ public class ActorOverlay extends EntityOverlay {
 				getShield(loadoutMaps.getShieldMap()), getWeapon(loadoutMaps.getWeaponMap()), getUtilities(loadoutMaps.getUtilityMap()));
 	}
 	
-	static public native JsElementMap<Double> getElementalMods() /*-{
+	final protected native JsElementMap<Double> getElementalMods() /*-{
 		return this.elementalMods;
 	}-*/;
 	
