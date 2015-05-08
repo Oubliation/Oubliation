@@ -6,9 +6,6 @@ import java.util.Map;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.HasBehavior;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
-//import java.util.HashMap;
-//import java.util.Map;
-
 //TODO: Change back to abstract
 public abstract class Tile implements HasBehavior<PartyController> {
 	private boolean isSolid;
