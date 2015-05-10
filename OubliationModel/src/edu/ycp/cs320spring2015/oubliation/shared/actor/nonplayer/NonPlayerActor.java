@@ -56,10 +56,10 @@ public abstract class NonPlayerActor extends Actor {
 	public int getEvasion() {
 		return stats.getEvasion();
 	}
+	
 	@Override
 	public void selectAnyBehavior(PartyController controller) {
 		stats.selectBattleBehavior(controller);
-		
 	}
 	
 	

@@ -10,30 +10,23 @@ import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 public class HazardAi implements PartyController {
 	private static final long serialVersionUID = -5996294505700075201L;
 	
-	private ActionTarget actionSource;
 	private Actor actorSource;
 	private Actor[] allies;
 	private PriorityQueue<ActorAction> actionQueue;
 
 	
-	public HazardAi(Actor actionSource, Actor[] allies, PriorityQueue<ActorAction> actionQueue) {
-		this.actionSource = actionSource;
-		this.actorSource = actionSource;
-		this.allies = allies;
-		this.actionQueue = actionQueue;
-	}
-	public HazardAi(ActionTarget actionSource, Actor[] allies, PriorityQueue<ActorAction> actionQueue) {
-		this.actionSource = actionSource;
+	public HazardAi(Actor actorSource, Actor[] allies, PriorityQueue<ActorAction> actionQueue) {
+		this.actorSource = actorSource;
 		this.allies = allies;
 		this.actionQueue = actionQueue;
 	}
 	
 	public void select() {
-		actionSource.selectAnyBehavior(this);
+		actorSource.selectAnyBehavior(this);
 	}
 	
-	protected ActionTarget getActorSource() {
-		return actionSource;
+	protected Actor getActorSource() {
+		return actorSource;
 	}
 	protected Actor[] getAllies() {
 		return allies;
@@ -67,31 +60,31 @@ public class HazardAi implements PartyController {
 
 	@Override
 	public void selectSelf(Behavior behavior) {
-		actionQueue.add(new ActorAction(actionSource, new Actor[] { actorSource }, behavior));
+		actionQueue.add(new ActorAction(actorSource, new Actor[] { actorSource }, behavior));
 	}
 
 	@Override
 	public void selectAlliedUnits(Behavior behavior) {
-		actionQueue.add(new ActorAction(actionSource, new Actor[] {allies[(new Random()).nextInt(allies.length)]}, behavior));
+		actionQueue.add(new ActorAction(actorSource, new Actor[] {allies[(new Random()).nextInt(allies.length)]}, behavior));
 	}
 
 	@Override
 	public void selectAlliedRows(Behavior behavior) {
 		Actor[][] targetRows = splitRows(allies);
-		actionQueue.add(new ActorAction(actionSource, targetRows[(new Random()).nextInt(targetRows.length)], behavior));
+		actionQueue.add(new ActorAction(actorSource, targetRows[(new Random()).nextInt(targetRows.length)], behavior));
 
 	}
 
 	@Override
 	public void selectAlliedColumns(Behavior behavior) {
 		Actor[][] targetCols = splitColumns(allies);
-		actionQueue.add(new ActorAction(actionSource, targetCols[(new Random()).nextInt(targetCols.length)], behavior));
+		actionQueue.add(new ActorAction(actorSource, targetCols[(new Random()).nextInt(targetCols.length)], behavior));
 
 	}
 
 	@Override
 	public void selectAlliedGroup(Behavior behavior) {
-		actionQueue.add(new ActorAction(actionSource, allies, behavior));
+		actionQueue.add(new ActorAction(actorSource, allies, behavior));
 
 	}
 

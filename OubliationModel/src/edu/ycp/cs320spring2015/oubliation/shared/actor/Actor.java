@@ -12,12 +12,13 @@ import edu.ycp.cs320spring2015.oubliation.shared.statuses.ActionModifier;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Corpse;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Status;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.ActionTarget;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.HasBehavior;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 /**
  * Living/dead/undead entities within the game world
  */
-public abstract class Actor extends EntityClass implements ActionTarget, Serializable {
+public abstract class Actor extends EntityClass implements Serializable, HasBehavior {
 	private static final long serialVersionUID = -1804243837789490964L;
 	public Actor() {}
 
@@ -91,6 +92,7 @@ public abstract class Actor extends EntityClass implements ActionTarget, Seriali
 	public abstract int getAccuracyMod();
 	public abstract int getArmorRank();
 	protected abstract int getEvasion();
+	public abstract void selectAnyBehavior(PartyController controller);
 	
 	
 	/**

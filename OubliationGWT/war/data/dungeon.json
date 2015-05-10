@@ -21,6 +21,9 @@
 				"W        W+WW WWWW+W",
 				"W        W  W W    W",
 				"W        +  + +    W",
-				"WWWWWWWWWWWWWWWWWWWW"]
+				"WWWWWWWWWWWWWWWWWWWW"],
+		"parameters": {
+			"6,4": null
+		}
 	}
 ]

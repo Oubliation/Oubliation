@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
+import edu.ycp.cs320spring2015.oubliation.client.transfer.JsParameterData;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Door;
 import edu.ycp.cs320spring2015.oubliation.shared.location.EmptySpace;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Floor;
@@ -34,6 +35,10 @@ public class FloorOverlay extends EntityOverlay {
 		};
 		return EntityOverlay.remapEntity(overlayMap, extractor);
 	}
+	
+	private final native JsParameterData getParameters(int x, int y) /*-{
+		return this.parameters[x+","+y];
+	}-*/;
 	
 	private final native String[] getRows() /*-{
 		return this.data;

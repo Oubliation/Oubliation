@@ -3,7 +3,6 @@ package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.ActionTarget;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 public class Healthy extends Status {
@@ -30,7 +29,7 @@ public class Healthy extends Status {
 	}
 	
 	@Override
-	public ActionModifier getActionModifier(final ActionTarget source, final Actor target) {
+	public ActionModifier getActionModifier(final Actor source, final Actor target) {
 		final ActionModifier targetModifier = target.getTargetModifier();
 		return new HealthyModifier() {
 			@Override
@@ -46,11 +45,11 @@ public class Healthy extends Status {
 				return targetModifier.onReceiveHealing(amount);
 			}
 			@Override
-			public ActionTarget getSource() {
+			public Actor getSource() {
 				return source;
 			}
 			@Override
-			public ActionTarget getTarget() {
+			public Actor getTarget() {
 				return target;
 			}
 			@Override
@@ -61,7 +60,7 @@ public class Healthy extends Status {
 	}
 
 	@Override
-	public ActionModifier getTargetModifier(final ActionTarget target) {
+	public ActionModifier getTargetModifier(final Actor target) {
 		return new HealthyModifier() {
 			@Override
 			public boolean onHitTest(int accuracy) {
@@ -76,11 +75,11 @@ public class Healthy extends Status {
 				return target.receiveHealing(amount);
 			}
 			@Override
-			public ActionTarget getSource() {
+			public Actor getSource() {
 				return null;
 			}
 			@Override
-			public ActionTarget getTarget() {
+			public Actor getTarget() {
 				return target;
 			}
 			@Override

@@ -6,6 +6,7 @@ import java.util.PriorityQueue;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
+import edu.ycp.cs320spring2015.oubliation.shared.actor.NoActor;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.EnemyActor;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.ActorAction;
@@ -119,26 +120,26 @@ public class Dungeon {
 
 			@Override
 			public void selectAlliedUnits(Behavior behavior) {
-				new HazardAi(tile, party, actionQueue).selectAlliedUnits(behavior);;
+				new HazardAi(new NoActor(tile), party, actionQueue).selectAlliedUnits(behavior);;
 				actionQueue.poll().apply();
 				
 			}
 
 			@Override
 			public void selectAlliedRows(Behavior behavior) {
-				new HazardAi(tile, party, actionQueue).selectAlliedRows(behavior);;
+				new HazardAi(new NoActor(tile), party, actionQueue).selectAlliedRows(behavior);;
 				actionQueue.poll().apply();
 			}
 
 			@Override
 			public void selectAlliedColumns(Behavior behavior) {
-				new HazardAi(tile, party, actionQueue).selectAlliedColumns(behavior);;
+				new HazardAi(new NoActor(tile), party, actionQueue).selectAlliedColumns(behavior);;
 				actionQueue.poll().apply();
 			}
 
 			@Override
 			public void selectAlliedGroup(Behavior behavior) {
-				new HazardAi(tile, party, actionQueue).selectAlliedGroup(behavior);;
+				new HazardAi(new NoActor(tile), party, actionQueue).selectAlliedGroup(behavior);;
 				actionQueue.poll().apply();
 			}
 

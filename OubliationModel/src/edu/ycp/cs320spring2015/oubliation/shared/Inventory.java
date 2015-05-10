@@ -1,5 +1,6 @@
 package edu.ycp.cs320spring2015.oubliation.shared;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.ycp.cs320spring2015.oubliation.shared.items.Headwear;
@@ -10,7 +11,9 @@ import edu.ycp.cs320spring2015.oubliation.shared.items.Utility;
 import edu.ycp.cs320spring2015.oubliation.shared.items.Weapon;
 import edu.ycp.cs320spring2015.oubliation.shared.transfer.InventoryMemento;
 
-public class Inventory {
+public class Inventory implements Serializable {
+	private static final long serialVersionUID = -2979993316015326655L;
+	
 	private ArrayList<Item> itemInv;
 	private ArrayList<Headwear> headwearInv;
 	private ArrayList<Suit> suitInv;

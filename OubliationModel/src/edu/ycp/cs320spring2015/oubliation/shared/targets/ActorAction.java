@@ -6,12 +6,12 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 
 public class ActorAction {
-	private ActionTarget source;
+	private Actor source;
 	private Actor[] targets;
 	private Behavior behavior;
 	private int priority;
 	
-	public ActorAction(ActionTarget source, Actor[] targets, Behavior behavior) {
+	public ActorAction(Actor source, Actor[] targets, Behavior behavior) {
 		this.source = source;
 		this.targets = targets;
 		this.behavior = behavior;

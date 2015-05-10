@@ -3,21 +3,15 @@ package edu.ycp.cs320spring2015.oubliation.shared.location;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
-import edu.ycp.cs320spring2015.oubliation.shared.statuses.ActionModifier;
-import edu.ycp.cs320spring2015.oubliation.shared.statuses.Healthy;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.HasBehavior;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.ActionTarget;
 
 //TODO: Change back to abstract
-public abstract class Tile implements ActionTarget {
-	private String name;
+public abstract class Tile implements HasBehavior {
 	private boolean isSolid;
 	String htmlColor;
 	
 	public Tile(String name, Boolean isSolid, String htmlColor) {
-		this.name = name;
 		this.isSolid = isSolid;
 		this.htmlColor = htmlColor;
 	}
@@ -56,41 +50,6 @@ public abstract class Tile implements ActionTarget {
 	public void selectAnyBehavior(PartyController controller) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public int getInitiative() {
-		return 0;
-	}
-
-	@Override
-	public ActionModifier getTargetModifier() {
-		return new Healthy().getTargetModifier(this);
-	}
-
-	@Override
-	public ActionModifier getActionModifier(Actor target) {
-		return new Healthy().getActionModifier(this, target);
-	}
-
-	@Override
-	public boolean hitTest(int accuracy) {
-		return false;
-	}
-
-	@Override
-	public int receiveDamage(int damage, Element element) {
-		return 0;
-	}
-
-	@Override
-	public int receiveHealing(int amount) {
-		return 0;
 	}
 
 }

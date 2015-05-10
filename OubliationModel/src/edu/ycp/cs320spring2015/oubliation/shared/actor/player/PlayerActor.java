@@ -32,7 +32,7 @@ final public class PlayerActor extends Actor implements Serializable {
 	private PlayerIdentity identity;
 	private PlayerStats stats;
 	
-	private LinkedList<Equipment> battleEquipQueue;
+	private LinkedList<Equipment> battleEquipQueue = new LinkedList<Equipment>();
 		
 	public static EnumMap<Element, Double> makeElementalMods() {
 		EnumMap<Element, Double> elementalMods = new EnumMap<Element, Double>(Element.class);

@@ -2,7 +2,6 @@ package edu.ycp.cs320spring2015.oubliation.shared.statuses;
 
 import edu.ycp.cs320spring2015.oubliation.shared.NameTag;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.ActionTarget;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 
 public class Corpse extends Status {
@@ -16,10 +15,10 @@ public class Corpse extends Status {
 		return null;
 	}
 	
-	public ActionModifier getActionModifier(final ActionTarget source, Actor target) {
+	public ActionModifier getActionModifier(final Actor source, Actor target) {
 		return null;
 	}
-	public ActionModifier getTargetModifier(final ActionTarget target) {
+	public ActionModifier getTargetModifier(final Actor target) {
 		return null;
 	}
 	

@@ -3,10 +3,10 @@ package edu.ycp.cs320spring2015.oubliation.shared.behavior;
 import java.io.Serializable;
 import java.util.Random;
 
+import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
 import edu.ycp.cs320spring2015.oubliation.shared.category.Element;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.ActionModifier;
 import edu.ycp.cs320spring2015.oubliation.shared.statuses.Corpse;
-import edu.ycp.cs320spring2015.oubliation.shared.targets.ActionTarget;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.PartyController;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.TargetAdaptor;
 
@@ -54,7 +54,13 @@ public class Behavior implements Serializable {
 		StringBuilder description = new StringBuilder(targetMod.getTarget().getName());
 		if (targetMod.onHitTest(accuracy)) {
 			
-			int healthDelta = healthDeltaMin+(new Random()).nextInt(healthDeltaRange);
+			int healthDelta;
+			if (healthDeltaRange > 0) {
+				healthDelta = healthDeltaMin+(new Random()).nextInt(healthDeltaRange);
+			} else {
+				healthDelta = healthDeltaMin;
+			}
+			
 			boolean critical; 
 			if (Math.random() < 0.16) {
 				description.append(" is brutally ");
@@ -74,9 +80,9 @@ public class Behavior implements Serializable {
 			if (healthDeltaMin != 0 || healthDeltaRange != 0) {
 				description.append(" for ");
 				if (healthDeltaMin < 0 || healthDeltaMin == 0 && healthDeltaRange < 0) {
-					description.append(sourceMod.onReceiveDamage(-healthDelta, element));
+					description.append(targetMod.onReceiveDamage(-healthDelta, element));
 				} else if (healthDeltaMin > 0 || healthDeltaMin == 0 && healthDeltaRange > 0) {
-					description.append(sourceMod.onReceiveHealing(healthDelta));
+					description.append(targetMod.onReceiveHealing(healthDelta));
 				}
 				description.append(" health");
 				if (critical) {
@@ -103,7 +109,7 @@ public class Behavior implements Serializable {
 		return description.toString();
 	}
 	
-	public String getActionDescriptor(ActionTarget source) {
+	public String getActionDescriptor(Actor source) {
 		return source.getName() +" "+ actionDescriptor;
 	}
 }
