@@ -1,7 +1,5 @@
 package edu.ycp.cs320spring2015.oubliation.shared.targets;
 
-import java.util.Arrays;
-import java.util.PriorityQueue;
 import java.util.Random;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
@@ -15,74 +13,20 @@ public class BattleAi extends HazardAi {
 	Actor[] opponents;
 	
 	public BattleAi(Actor source, Actor[] allies,
-			Actor[] opponents, PriorityQueue<ActorAction> actionQueue) {
-		super(source, allies, actionQueue);
+			Actor[] opponents, ActionReciever reciever) {
+		super(source, allies, reciever);
 		this.opponents = opponents;
-	}
-	
-	private Actor[][] splitRows(Actor[] targets) {
-		int numRows = (targets.length + 2) / 3;
-		Actor[][] targetRows = new Actor[numRows][];
-		targetRows[0] = Arrays.copyOfRange(targets, 0, targets.length);
-		if (numRows == 2) {
-			 targetRows[1] = Arrays.copyOfRange(targets, 3, targets.length);
-		}
-		return targetRows;
-	}
-	private Actor[][] splitColumns(Actor[] targets) {
-		int numCols = Math.min(targets.length, 3);
-		Actor[][] targetCols = new Actor[numCols][];
-		for (int count=0; count<numCols; count+=1) {
-			if (targets.length < count+4) {
-				targetCols[count] = new Actor[] { targets[count] };
-			} else {
-				targetCols[count] = new Actor[] { targets[count], targets[count+3] };
-			}
-		}
-		return targetCols;
 	}
 	
 	@Override
 	public void select() {
-		getActorSource().selectAnyBehavior((PartyController) this);
+		getActorSource().selectAnyBehavior(this);
 	}
 
 	@Override
-	public void selectAnyOpposingUnits(Behavior behavior) {
-		getActionQueue().add(new ActorAction(getActorSource(), new Actor[] {opponents[(new Random()).nextInt(opponents.length)]}, behavior));
-
-	}
-
-	@Override
-	public void selectFrontOpposingUnits(Behavior behavior) {
-		getActionQueue().add(new ActorAction(getActorSource(), new Actor[] {opponents[(new Random()).nextInt(Math.min(opponents.length, 3))]}, behavior));
-
-	}
-
-	@Override
-	public void selectAnyOpposingRows(Behavior behavior) {
-		Actor[][] targetRows = splitRows(opponents);
-		getActionQueue().add(new ActorAction(getActorSource(), targetRows[(new Random()).nextInt(targetRows.length)], behavior));
-
-	}
-
-	@Override
-	public void selectFrontOpposingRow(Behavior behavior) {
-		getActionQueue().add(new ActorAction(getActorSource(), Arrays.copyOfRange(opponents, 0, Math.min(opponents.length, 3)), behavior));
-
-	}
-
-	@Override
-	public void selectAnyOpposingColumns(Behavior behavior) {
-		Actor[][] targetCols = splitColumns(opponents);
-		getActionQueue().add(new ActorAction(getActorSource(), targetCols[(new Random()).nextInt(targetCols.length)], behavior));
-
-	}
-
-	@Override
-	public void selectOpposingGroup(Behavior behavior) {
-		getActionQueue().add(new ActorAction(getActorSource(), opponents, behavior));
-
+	public void selectOpposition(Behavior behavior, TargetFilter filter) {
+		Actor[][] targets = filter.filter(getActorSource(), opponents);
+		getReciever().apply( new ActorAction(getActorSource(), targets[(new Random()).nextInt(targets.length)], behavior));
 	}
 
 }

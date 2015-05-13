@@ -13,6 +13,6 @@
 			class. See the GWT docs on UI Binder for more details. -->
 		<g:Button styleName="{style.important}" ui:field="buttonHeal">Heal</g:Button>
 		<g:Button styleName="{style.important}" ui:field="buttonRest">Rest</g:Button>
-		<g:FlowPanel ui:field="barracks"></g:FlowPanel>
+		<g:FlowPanel ui:field="party"></g:FlowPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -5,6 +5,7 @@ package edu.ycp.cs320spring2015.oubliation.client.town;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -26,7 +27,7 @@ public class TownBarracks extends Composite {
 	interface TownBarracksUiBinder extends UiBinder<Widget, TownBarracks> {
 	}
 	
-	@UiField FlowPanel barracks;
+	@UiField FlowPanel party;
 	@UiField Button buttonHeal;
 	@UiField Button buttonRest;
 	
@@ -35,6 +36,17 @@ public class TownBarracks extends Composite {
 	public TownBarracks(ViewTown view) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.profile = view.getProfile();
+		for (final PlayerActor actor : profile.getParty()) {
+			Button button = new Button(actor.getName());
+			button.addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					removeStatus(actor);
+				}
+			});
+			
+			party.add(button);
+		}
 	}
 	
 	/**

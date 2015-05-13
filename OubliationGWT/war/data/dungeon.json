@@ -13,7 +13,7 @@
 				"W                  W",
 				"W        HH        W",
 				"W        HH        W",
-				"W        WW7WWW    W",
+				"W       FWW7WWW    W",
 				"W        W  + W    W",
 				"W        W  W W    W",
 				"W        W+WWTWWWW+W",
@@ -23,7 +23,7 @@
 				"W        +  + +    W",
 				"WWWWWWWWWWWWWWWWWWWW"],
 		"parameters": {
-			"6,4": null
+			"11,8": { "encounter": ["Goblinoid", "Goblinoid", "Goblinoid" ] }
 		}
 	}
 ]

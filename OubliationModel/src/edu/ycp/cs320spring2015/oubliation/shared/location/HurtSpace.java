@@ -12,7 +12,7 @@ public class HurtSpace extends Tile {
 	
 	@Override
 	public void onEnterInstant(final DungeonController controller) {
-		controller.selectAlliedGroup(new Behavior(
+		new SelectAlliedGroup().apply(controller, new Behavior(
 				new NoEffect(), new SelectAlliedGroup(), -10, 0, Integer.MAX_VALUE, Element.physical, new NoEffect(), 0, "", "", "")
 		);
 	}

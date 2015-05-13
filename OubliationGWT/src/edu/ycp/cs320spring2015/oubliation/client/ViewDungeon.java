@@ -53,6 +53,7 @@ public class ViewDungeon extends Composite implements StateController, BaseScree
 	private Profile profile;
 	private Dungeon dungeon; //dungeon model
 	private final double tileSize = 7.5;
+	private boolean inputLocked = false;
 		
 	public ViewDungeon(Profile profile) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -81,7 +82,7 @@ public class ViewDungeon extends Composite implements StateController, BaseScree
 	 */
 	@UiHandler("Forward")
 	void onClickForward(ClickEvent e) {
-		if(!dungeon.getRelTile(1, 0).isSolid()){move(Ordinal.forward);}		
+		if(!inputLocked && !dungeon.getRelTile(1, 0).isSolid()){move(Ordinal.forward);}		
 		renderDungeon();
 	}
 	
@@ -93,7 +94,7 @@ public class ViewDungeon extends Composite implements StateController, BaseScree
 	 */
 	@UiHandler("Backward")
 	void onClickBackward(ClickEvent e) {
-		if(!dungeon.getRelTile(-1, 0).isSolid()){move(Ordinal.backward);}
+		if(!inputLocked && !dungeon.getRelTile(-1, 0).isSolid()){move(Ordinal.backward);}
 		renderDungeon();
 	}
 	
@@ -119,14 +120,26 @@ public class ViewDungeon extends Composite implements StateController, BaseScree
 	
 	private void move(Ordinal direction) {
 		final Tile.Reaction onEnterDelay = dungeon.move(direction, profile);
+		final int delayTime = 200;
+		inputLocked = true;
+		
+		Timer delay;
 		if (onEnterDelay != null) {
-			Timer delay = new Timer() {
+			delay = new Timer() {
 				public void run() {
+					inputLocked = false;
 					onEnterDelay.react();
 				}
 			};
-			delay.schedule(500);
+			delay.schedule(delayTime);
+		} else {
+			delay = new Timer() {
+				public void run() {
+					inputLocked = false;
+				}
+			};
 		}
+		delay.schedule(delayTime);
 	}
 	
 	/**

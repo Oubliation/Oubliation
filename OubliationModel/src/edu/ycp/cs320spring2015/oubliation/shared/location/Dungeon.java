@@ -2,7 +2,6 @@ package edu.ycp.cs320spring2015.oubliation.shared.location;
 
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.PriorityQueue;
 
 import edu.ycp.cs320spring2015.oubliation.shared.Profile;
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
@@ -11,6 +10,7 @@ import edu.ycp.cs320spring2015.oubliation.shared.actor.nonplayer.EnemyActor;
 import edu.ycp.cs320spring2015.oubliation.shared.behavior.Behavior;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.ActorAction;
 import edu.ycp.cs320spring2015.oubliation.shared.targets.HazardAi;
+import edu.ycp.cs320spring2015.oubliation.shared.targets.TargetFilter;
 
 public class Dungeon {
 	
@@ -109,38 +109,20 @@ public class Dungeon {
 	
 	private DungeonController getDungeonController(final Tile tile, final Profile profile) {
 		final Actor[] party = profile.getParty();
-		final PriorityQueue<ActorAction> actionQueue = new PriorityQueue<ActorAction>();
+		final HazardAi.ActionReciever reciever = new HazardAi.ActionReciever() {
+
+			@Override
+			public void apply(ActorAction action) {
+				action.apply();
+			}
+		};
 		return new DungeonController() {
 			private static final long serialVersionUID = -6748656140030697039L;
 
 			@Override
-			public void selectSelf(Behavior behavior) {
-				throw new IllegalStateException();
-			}
-
-			@Override
-			public void selectAlliedUnits(Behavior behavior) {
-				new HazardAi(new NoActor(tile), party, actionQueue).selectAlliedUnits(behavior);;
-				actionQueue.poll().apply();
+			public void selectAllies(Behavior behavior, TargetFilter filter) {
+				new HazardAi(new NoActor(tile), party, reciever).selectAllies(behavior, filter);
 				
-			}
-
-			@Override
-			public void selectAlliedRows(Behavior behavior) {
-				new HazardAi(new NoActor(tile), party, actionQueue).selectAlliedRows(behavior);;
-				actionQueue.poll().apply();
-			}
-
-			@Override
-			public void selectAlliedColumns(Behavior behavior) {
-				new HazardAi(new NoActor(tile), party, actionQueue).selectAlliedColumns(behavior);;
-				actionQueue.poll().apply();
-			}
-
-			@Override
-			public void selectAlliedGroup(Behavior behavior) {
-				new HazardAi(new NoActor(tile), party, actionQueue).selectAlliedGroup(behavior);;
-				actionQueue.poll().apply();
 			}
 
 			@Override
@@ -176,39 +158,44 @@ public class Dungeon {
 			}
 
 			@Override
-			public void selectAnyOpposingUnits(Behavior behavior) {
+			public void selectOpposition(Behavior behavior, TargetFilter filter) {
 				throw new IllegalStateException();
 				
 			}
 
 			@Override
-			public void selectFrontOpposingUnits(Behavior behavior) {
-				throw new IllegalStateException();
-				
+			public int getX() {
+				return playerY;
 			}
 
 			@Override
-			public void selectAnyOpposingRows(Behavior behavior) {
-				throw new IllegalStateException();
-				
+			public int getY() {
+				return playerX;
 			}
 
 			@Override
-			public void selectFrontOpposingRow(Behavior behavior) {
-				throw new IllegalStateException();
-				
+			public Cardinal getFacing() {
+				return facing;
 			}
 
 			@Override
-			public void selectAnyOpposingColumns(Behavior behavior) {
-				throw new IllegalStateException();
-				
+			public boolean isFlagActive(String flag) {
+				return profile.isFlagActive(flag);
 			}
 
 			@Override
-			public void selectOpposingGroup(Behavior behavior) {
-				throw new IllegalStateException();
-				
+			public void setFlag(String flag) {
+				profile.setFlag(flag);
+			}
+
+			@Override
+			public void clearFlag(String flag) {
+				profile.clearFlag(flag);
+			}
+
+			@Override
+			public void toggleFlag(String flag) {
+				profile.toggleFlag(flag);
 			}
 		};
 	}

@@ -5,10 +5,9 @@
 	
 	</ui:style>
 	<g:FlowPanel>
-		<g:Label ui:field="info" />
 		<g:FlowPanel ui:field="enemyStats" />
 		<g:Grid ui:field="playerStats"><g:row><g:cell>Name</g:cell><g:cell>Build</g:cell><g:cell>Health</g:cell></g:row></g:Grid>
-		<g:FlowPanel>
+		<g:FlowPanel ui:field="info">
 			<g:Label ui:field="playerName" />
 			<g:FlowPanel ui:field="actionMenu">
 				<g:Hyperlink ui:field="hide"></g:Hyperlink>

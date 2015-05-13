@@ -8,6 +8,7 @@ import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityExtractor;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityOverlay;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.EntityResourceMap;
 import edu.ycp.cs320spring2015.oubliation.client.transfer.JsParameterData;
+import edu.ycp.cs320spring2015.oubliation.shared.location.BattleSpace;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Door;
 import edu.ycp.cs320spring2015.oubliation.shared.location.EmptySpace;
 import edu.ycp.cs320spring2015.oubliation.shared.location.Floor;
@@ -63,13 +64,15 @@ public class FloorOverlay extends EntityOverlay {
 				case 't' :
 					tileTiles[row][col] = new HurtSpace();
 					break;
+				case 'F' :
+					tileTiles[row][col] = new BattleSpace(getParameters(row, col).getStringArray("encounter"));
+					break;
 				case 'l' :	
 				case 'A' :
 				case 'D' :
 				case 'T' :
 				case '~' :
 				case 'f' :
-				case 'F' :
 				case '#' :
 				case '%' :
 				case '9' :

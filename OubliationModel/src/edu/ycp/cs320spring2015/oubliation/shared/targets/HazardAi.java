@@ -1,7 +1,5 @@
 package edu.ycp.cs320spring2015.oubliation.shared.targets;
 
-import java.util.Arrays;
-import java.util.PriorityQueue;
 import java.util.Random;
 
 import edu.ycp.cs320spring2015.oubliation.shared.actor.Actor;
@@ -12,13 +10,16 @@ public class HazardAi implements PartyController {
 	
 	private Actor actorSource;
 	private Actor[] allies;
-	private PriorityQueue<ActorAction> actionQueue;
-
+	private ActionReciever reciever;
 	
-	public HazardAi(Actor actorSource, Actor[] allies, PriorityQueue<ActorAction> actionQueue) {
+	public interface ActionReciever {
+		public void apply(ActorAction action);
+	}
+	
+	public HazardAi(Actor actorSource, Actor[] allies, ActionReciever reciever) {
 		this.actorSource = actorSource;
 		this.allies = allies;
-		this.actionQueue = actionQueue;
+		this.reciever = reciever;
 	}
 	
 	public void select() {
@@ -31,97 +32,20 @@ public class HazardAi implements PartyController {
 	protected Actor[] getAllies() {
 		return allies;
 	}
-	protected PriorityQueue<ActorAction> getActionQueue() {
-		return actionQueue;
-	}
-	
-	private Actor[][] splitRows(Actor[] targets) {
-		int numRows = (targets.length + 2) / 3;
-		Actor[][] targetRows = new Actor[numRows][];
-		targetRows[0] = Arrays.copyOfRange(targets, 0, targets.length);
-		if (numRows == 2) {
-			 targetRows[1] = Arrays.copyOfRange(targets, 3, targets.length);
-		}
-		return targetRows;
-	}
-	private Actor[][] splitColumns(Actor[] targets) {
-		int numCols = Math.min(targets.length, 3);
-		Actor[][] targetCols = new Actor[numCols][];
-		for (int count=0; count<numCols; count+=1) {
-			if (targets.length < count+4) {
-				targetCols[count] = new Actor[] { targets[count] };
-			} else {
-				targetCols[count] = new Actor[] { targets[count], targets[count+3] };
-			}
-		}
-		return targetCols;
-	}
-
-
-	@Override
-	public void selectSelf(Behavior behavior) {
-		actionQueue.add(new ActorAction(actorSource, new Actor[] { actorSource }, behavior));
+	protected ActionReciever getReciever() {
+		return reciever;
 	}
 
 	@Override
-	public void selectAlliedUnits(Behavior behavior) {
-		actionQueue.add(new ActorAction(actorSource, new Actor[] {allies[(new Random()).nextInt(allies.length)]}, behavior));
-	}
-
-	@Override
-	public void selectAlliedRows(Behavior behavior) {
-		Actor[][] targetRows = splitRows(allies);
-		actionQueue.add(new ActorAction(actorSource, targetRows[(new Random()).nextInt(targetRows.length)], behavior));
+	public void selectAllies(Behavior behavior, TargetFilter filter) {
+		Actor[][] targets = filter.filter(actorSource, allies);
+		reciever.apply(new ActorAction(actorSource, targets[(new Random()).nextInt(targets.length)], behavior));
 
 	}
 
 	@Override
-	public void selectAlliedColumns(Behavior behavior) {
-		Actor[][] targetCols = splitColumns(allies);
-		actionQueue.add(new ActorAction(actorSource, targetCols[(new Random()).nextInt(targetCols.length)], behavior));
-
-	}
-
-	@Override
-	public void selectAlliedGroup(Behavior behavior) {
-		actionQueue.add(new ActorAction(actorSource, allies, behavior));
-
-	}
-
-	@Override
-	public void selectAnyOpposingUnits(Behavior behavior) {
+	public void selectOpposition(Behavior behavior, TargetFilter filter) {
 		throw new IllegalStateException();
-		
-	}
-
-	@Override
-	public void selectFrontOpposingUnits(Behavior behavior) {
-		throw new IllegalStateException();
-		
-	}
-
-	@Override
-	public void selectAnyOpposingRows(Behavior behavior) {
-		throw new IllegalStateException();
-		
-	}
-
-	@Override
-	public void selectFrontOpposingRow(Behavior behavior) {
-		throw new IllegalStateException();
-		
-	}
-
-	@Override
-	public void selectAnyOpposingColumns(Behavior behavior) {
-		throw new IllegalStateException();
-		
-	}
-
-	@Override
-	public void selectOpposingGroup(Behavior behavior) {
-		throw new IllegalStateException();
-		
 	}
 
 }
